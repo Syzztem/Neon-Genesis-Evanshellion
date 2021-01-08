@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/07 16:30:10 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/08 14:11:31 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*spaces(char **line)
 		len++;
 		(*line)++;
 	}
-	return(ft_strndup(*line - len, len));
+	return (ft_strndup(*line - len, len));
 }
 
 char	*squotes(char **line)
@@ -36,7 +36,7 @@ char	*dquotes(char **line)
 	return (NULL);
 }
 
-char	*seps(char	**line)
+char	*seps(char **line)
 {
 	size_t	i;
 

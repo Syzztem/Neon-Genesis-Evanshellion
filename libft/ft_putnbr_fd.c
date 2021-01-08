@@ -6,12 +6,13 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 08:05:17 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/07 12:55:16 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:44:11 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
+
 size_t	ft_putnbr_fd(int nb, int fd)
 {
 	unsigned int	a;

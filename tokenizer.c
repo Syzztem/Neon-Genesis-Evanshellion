@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/07 17:29:55 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/08 14:08:24 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_token
 	char	*tk;
 
 	head = NULL;
-	while(*line)
+	while (*line)
 	{
 		while (ft_isspace(*line))
 			line++;
