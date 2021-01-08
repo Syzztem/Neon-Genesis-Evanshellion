@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lothieve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 12:48:25 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/10 15:33:10 by lothieve         ###   ########.fr       */
+/*   Created: 2019/07/31 18:39:52 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/06 18:04:28 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	t_list *head;
+	size_t i;
 
-	head = NULL;
-	if (!(head = malloc(sizeof(t_list))))
-		return (NULL);
-	*head = (t_list) { .next = NULL, .content = content };
-	return (head);
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

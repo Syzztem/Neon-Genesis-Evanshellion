@@ -3,49 +3,54 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/06 15:35:45 by lothieve          #+#    #+#              #
-#    Updated: 2019/11/09 18:46:07 by lothieve         ###   ########.fr        #
+#    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
+#    Updated: 2021/01/06 15:27:36 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
+.SUFFIXES:
 
-BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstnew.c ft_lstsize.c
+NAME	=	minishell
+CC		= 	clang
+CFLAGS	= 	-Wall -Wextra -Werror -g3 $(INCLUDES)
 
-INCLUDES = includes
+LIBFT_PATH = ./Libft
+OBJ_PATH =	./obj/
+LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
+LIBFT_INC = -I $(LIBFT_PATH)
+LIBFT_LIB = -L$(LIBFT_PATH) -lft
+FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
+INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
-OBJS = ${SRCS:.c=.o}
-
-OBJB = ${BONUS:.c=.o}
-
-NAME = libft.a
-
-CFLAGS = -Wall -Wextra -Werror
-
-CC = clang
-
-RM = rm -rf
-
-all:		${NAME}
-
-.c.o:
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCLUDES}
-
-bonus:		${OBJS} ${OBJB}
-			ar rcs ${NAME} ${OBJS} ${OBJSB}
-
-$(NAME):	${OBJS}
-			ar rcs ${NAME} ${OBJS}
+SRCS_PATH = src
+SRC_LIST =	main.c
+SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
+OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
 
-clean:		
-			${RM} ${OBJS} ${OBJB}
+all :		libft
+			@mkdir -p ./obj
+			@$(MAKE) $(NAME)
 
-fclean:		clean
-			${RM} ${NAME} 
+$(NAME):	$(OBJS)
+			$(CC) $(OBJS) $(LIBS) $(LIBFT_LIB)  $(FT_PRINTF_LIB) -o $(NAME)
 
-re:			fclean all
+libft:
+			$(LIBFT_MAKE)
 
-.PHONY:		all clean fclean re
+$(OBJ_PATH)%.o:		$(SRCS_PATH)/%.c
+			$(CC) $(CFLAGS) -c $< -o $@
+
+clean :
+	rm -f $(OBJS)
+
+fclean : clean
+	$(LIBFT_MAKE) fclean
+	rm -f $(NAME)
+	rm -rf $(OBJ_PATH)
+
+re : 		fclean all	
+
+.PHONY:		all clean fclean re libft

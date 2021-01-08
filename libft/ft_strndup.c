@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 08:05:21 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/07 08:09:33 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/06 17:56:47 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/06 18:01:47 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+char
+	*ft_strndup(const char *str, size_t n)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	char *out;
+
+	out = malloc(sizeof(char) * n);
+	return (ft_strncpy(out, str, n));
 }

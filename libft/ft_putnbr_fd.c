@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 12:57:55 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/08 13:10:18 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/07 08:05:17 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/07 12:55:16 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
-
-void	ft_lstadd_back(t_list **alst, t_list *new)
+size_t	ft_putnbr_fd(int nb, int fd)
 {
-	t_list *elem;
+	unsigned int	a;
+	unsigned long	i;
+	size_t			out;
 
-	if (!*alst)
+	out = 0;
+	if (nb == 0)
+		out += ft_putchar_fd('0', fd);
+	i = 1;
+	a = nb > 0 ? nb : -nb;
+	if (nb < 0)
+		out += ft_putchar_fd('-', fd);
+	while (i <= a)
+		i *= 10;
+	i /= 10;
+	while (i >= 1)
 	{
-		*alst = ft_lstnew(new);
-		return ;
+		out += ft_putchar_fd(a / i + '0', fd);
+		a %= i;
+		i /= 10;
 	}
-	elem = *alst;
-	while (elem->next)
-		elem = elem->next;
-	elem->next = ft_lstnew(new);
+	return (out);
 }

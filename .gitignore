@@ -1,5 +1,7 @@
-srcs
-srcs/*
-includes
-includes/*
-.*
+*.o
+**/*.o
+**/*.a
+tests/*
+minishell
+a.out
+run_all_tests.sh

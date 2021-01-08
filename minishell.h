@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/10 15:30:43 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/10 18:50:38 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/07 16:37:44 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include <stdlib.h>
+# include <stdio.h>
+# include "libft/libft.h"
 
-t_list
-	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
-{
-	t_list	*head;
-	t_list	*current;
+static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
-	current = head;
-	while (lst)
-	{
-		if (!(current = ft_lstnew(f(lst))))
-		{
-			ft_lstclear(head, del);
-			return (NULL);
-		}
-		current = current->next;
-		lst = lst->next;
-	}
-	return (head);
-}
+char			**tokenize(char *line);
+
+#endif

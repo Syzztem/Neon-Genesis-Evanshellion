@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 08:04:06 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/07 08:09:18 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/06 18:03:15 by lothieve          #+#    #+#             */
+/*   Updated: 2019/11/06 18:04:14 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_islower(int c)
 {
-	write(fd, &c, 1);
+	return (c <= 'z' && c >= 'a' ? 1 : 0);
 }

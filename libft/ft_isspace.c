@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/03 08:01:42 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/08 09:53:09 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/06 18:00:26 by lothieve          #+#    #+#             */
+/*   Updated: 2019/11/08 09:55:19 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int
-	ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	if (c == '\t'
 			|| c == '\n'
@@ -23,35 +22,4 @@ static int
 			|| c == ' ')
 		return (1);
 	return (0);
-}
-
-static void
-	addto(unsigned int *out, char c)
-{
-	*out *= 10;
-	*out += c - '0';
-}
-
-int
-	ft_atoi(const char *str)
-{
-	int				sign;
-	unsigned int	out;
-
-	sign = 1;
-	out = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		addto(&out, *str);
-		str++;
-	}
-	return (out * sign);
 }

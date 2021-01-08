@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 13:20:46 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/10 15:37:52 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/07 08:04:23 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/07 12:30:01 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-void	ft_lstclear(t_list *lst, void (*free_fct)(void *))
+size_t	ft_putendl_fd(char *s, int fd)
 {
-	t_list	*elem;
-
-	elem = lst;
-	while (elem)
-	{
-		free_fct(lst->content);
-		elem = lst->next;
-		free(lst);
-		lst = elem;
-	}
+	return (ft_putstr_fd(s, fd) + ft_putchar_fd('\n', fd));
 }
