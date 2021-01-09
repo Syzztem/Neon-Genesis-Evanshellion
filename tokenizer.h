@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/08 14:15:24 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/09 17:13:56 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_token
 
 typedef	char	*(*t_method)(char **line);
 
+t_token			*expand_wildcard(char *expr);
 char			*spaces(char **line);
 char			*squotes(char **line);
 char			*dquotes(char **line);
