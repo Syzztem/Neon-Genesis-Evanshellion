@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:34:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/09 17:13:55 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:41:11 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,73 @@ static char
 	return (0);
 }
 
-static t_token
-	*get_all_matches(char *expr, char foldersonly)
+/*
+static char
+	all_match(char *expr, char *entry, size_t ent_len)
+{
+	size_t i;
+	size_t ex_len;
+
+	ex_len = ft_strlen(entry);
+	ft_memreplace(expr, '/', '\0', len);
+	ft_memreplace(entry, '/', '\0', len);
+	i = 0;
+	while (i < len)
+	{
+		if (!matches(expr, entry))
+			return (0);
+		i += ft_strlen
+	}
+}
+*/
+
+static char
+	*cat_path(char *path, char *entry, size_t path_len)
+{
+	path[path_len] = '/';
+	return (ft_strcpy(path + path_len + 1, entry));
+}
+
+static int
+	get_all_matches(char *expr, char *path, t_token **list)
 {
 	DIR			*dir;
 	t_dirent	*entry;
+	size_t		path_len;
 		
 
-	(void)expr;
-	dir = opendir(".");
+	dir = opendir(path);
+	path_len = ft_strlen(path);
 	while (1)
 	{
 		entry = readdir(dir);
 		if (!entry)
-			break;
-		if (matches(expr, entry->d_name) && (!foldersonly || entry->d_type == DT_DIR))
-			puts(entry->d_name);
+			break ;
+		if (*entry->d_name == '.')
+			continue ;
+		cat_path(path, entry->d_name, path_len);
+		if (entry->d_type == DT_DIR)
+			get_all_matches(expr, path, list);
+		if (matches(expr, path + 2))
+			ft_lstadd_back((t_list **)list, ft_strdup(path + 2));
+		path[path_len] = '\0';
 	}
 	closedir(dir);
-	return (NULL);
+	if (*list)
+		return (1);
+	return (0);
 }
 
 t_token
 	*expand_wildcard(char *expr)
 {
-	return (get_all_matches(expr, 0));
+	char	path[256];
+	t_token	*output;
+
+	output = NULL;
+	path[0] = '.';
+	path[1] = '\0';
+	if (get_all_matches(expr, path, &output))
+		return (output);
+	return (NULL);
 }

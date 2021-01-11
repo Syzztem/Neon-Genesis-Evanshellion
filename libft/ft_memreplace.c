@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_memreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 12:57:55 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 12:28:48 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/11 13:31:23 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/11 14:41:43 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-void	ft_lstadd_back(t_list **alst, void *new)
+void	*ft_memreplace(void *source, char a, char b, size_t size)
 {
-	t_list *elem;
+	char	*str;
+	size_t	i;
 
-	if (!*alst)
-	{
-		*alst = ft_lstnew(new);
-		return ;
-	}
-	elem = *alst;
-	while (elem->next)
-		elem = elem->next;
-	puts(new);
-	elem->next = ft_lstnew(new);
+	str = source;
+	i = -1;
+	while (++i < size)
+		if (str[i] == a)
+			str[i] = b;
+	return (source);
 }

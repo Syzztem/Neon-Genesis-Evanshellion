@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/07 15:36:40 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/11 13:34:53 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *b, int c, size_t len);
+void			*ft_memreplace(void *source, char a, char b, size_t size);
 void			*ft_calloc(size_t count, size_t size);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
 char			*ft_itoa(int nbr);
@@ -52,6 +53,8 @@ char			*ft_strnstr(const char *h, const char *n, size_t l);
 char			*ft_strdup(const char *src);
 char			*ft_strndup(const char *src, size_t n);
 char			*ft_strncpy(char *dst, const char *src, size_t n);
+char			*ft_strcat(char *dst, const char *src);
+char			*ft_strcpy(char *dest, const char *src);
 size_t			ft_putchar_fd(char c, int fd);
 size_t			ft_putendl_fd(char *s, int fd);
 size_t			ft_putnbr_fd(int nb, int fd);

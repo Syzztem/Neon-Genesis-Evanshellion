@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 12:57:55 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 12:28:48 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/11 12:06:59 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/11 12:11:54 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-void	ft_lstadd_back(t_list **alst, void *new)
+char	*ft_strcat(char *dst, const char *src)
 {
-	t_list *elem;
-
-	if (!*alst)
-	{
-		*alst = ft_lstnew(new);
-		return ;
-	}
-	elem = *alst;
-	while (elem->next)
-		elem = elem->next;
-	puts(new);
-	elem->next = ft_lstnew(new);
+	return (ft_strcpy(dst + ft_strlen(dst), src));
 }
