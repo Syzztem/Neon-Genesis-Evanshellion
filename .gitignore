@@ -1,8 +1,6 @@
 *.o
 **/*.o
 **/*.a
-tests/*
+obj/*
 minishell
 a.out
-run_all_tests.sh
-obj/*
