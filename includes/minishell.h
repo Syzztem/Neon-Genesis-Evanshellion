@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/10 14:41:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/11 14:54:44 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 # include <stdlib.h>
 # include <stdio.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
