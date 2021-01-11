@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 12:57:55 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 17:56:17 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/11 17:21:57 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/11 17:57:54 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 #include <stdio.h>
 
-void	ft_lstadd_back(t_list **alst, void *new)
+int	ft_free_tab(char **tab)
 {
-	t_list *elem;
-
-	if (!*alst)
+	int i;
+	
+	i = 0;
+	while (tab[i])
 	{
-		*alst = ft_lstnew(new);
-		return ;
+		free(tab[i]);
+		i++;
 	}
-	elem = *alst;
-	while (elem->next)
-		elem = elem->next;
-	elem->next = ft_lstnew(new);
+	free(tab);
+	return (0);
 }

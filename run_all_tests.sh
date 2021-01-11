@@ -4,7 +4,7 @@ test_dir="tests"
 test_files=("test_tokenizer.sh" "test_wildcard.sh")
 libft_path="libft"
 libft_files=`echo $libft_path/*.c $libft_path/*.h`
-minishell_files=`echo src/*.c src/*.h`
+minishell_files=`echo src/*.c includes/*.h`
 
 while getopts n:f: flag
 do

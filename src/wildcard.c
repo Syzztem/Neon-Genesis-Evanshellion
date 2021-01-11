@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:34:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 14:43:00 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/11 17:55:37 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,23 @@ static char
 	return (0);
 }
 
-/*
 static char
-	all_match(char *expr, char *entry, size_t ent_len)
+	all_matches(char **expr, char *entry)
 {
-	size_t i;
-	size_t ex_len;
+	char	**ent_split;
+	size_t	i;
 
-	ex_len = ft_strlen(entry);
-	ft_memreplace(expr, '/', '\0', len);
-	ft_memreplace(entry, '/', '\0', len);
-	i = 0;
-	while (i < len)
+	ent_split = ft_split(entry, '/');
+	i = -1;
+	while (expr[++i] && ent_split[i])
 	{
-		if (!matches(expr, entry))
-			return (0);
-		i += ft_strlen
+		if (!matches(expr[i], ent_split[i]))
+			break ;
 	}
+	if (expr[i] == ent_split[i])
+		return (ft_free_tab(ent_split) + 1);
+	return (ft_free_tab(ent_split));
 }
-*/
 
 static char
 	*cat_path(char *path, char *entry, size_t path_len)
@@ -57,7 +55,7 @@ static char
 }
 
 static int
-	get_all_matches(char *expr, char *path, t_token **list)
+	get_all_matches(char **expr, char *path, t_token **list)
 {
 	DIR			*dir;
 	t_dirent	*entry;
@@ -76,7 +74,7 @@ static int
 		cat_path(path, entry->d_name, path_len);
 		if (entry->d_type == DT_DIR)
 			get_all_matches(expr, path, list);
-		if (matches(expr, path + 2))
+		if (all_matches(expr, path + 2))
 			ft_lstadd_back((t_list **)list, ft_strdup(path + 2));
 		path[path_len] = '\0';
 	}
@@ -89,13 +87,20 @@ static int
 t_token
 	*expand_wildcard(char *expr)
 {
+	char	**exp_split;
 	char	path[256];
 	t_token	*output;
 
 	output = NULL;
 	path[0] = '.';
 	path[1] = '\0';
-	if (get_all_matches(expr, path, &output))
+	exp_split = ft_split(expr, '/');
+	if (get_all_matches(exp_split, path, &output))
+	{
+		ft_free_tab(exp_split);
 		return (output);
+	}
+	ft_putstr_fd("minishell: no matches found : ", 2);
+	ft_putendl_fd(expr, 2);
 	return (NULL);
 }
