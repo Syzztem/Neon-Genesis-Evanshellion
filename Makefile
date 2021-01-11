@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/01/06 15:27:36 by user42           ###   ########.fr        #
+#    Updated: 2021/01/11 13:20:55 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME	=	minishell
 CC		= 	clang
 CFLAGS	= 	-Wall -Wextra -Werror -g3 $(INCLUDES)
 
-LIBFT_PATH = ./Libft
+LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
 LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
 LIBFT_INC = -I $(LIBFT_PATH)
@@ -25,7 +25,10 @@ FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
 SRCS_PATH = src
-SRC_LIST =	main.c
+SRC_LIST =	main.c \
+			tokenizer.c \
+			wildcard.c \
+			methods.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
