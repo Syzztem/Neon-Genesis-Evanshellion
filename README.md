@@ -1,12 +1,12 @@
 # Neon-Genesis-Evanshellion
 A cruel anshell thesis
 
-##Test framework
+## Test framework
 
 `run_all_tests.sh`
 runs all the tests and checks the norme
 
-###options
+### Options
 
 `-n [none/full]` none will not check the norme, full will display all informations about errors
 
