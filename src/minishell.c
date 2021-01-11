@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_indexof.c                                       :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 14:54:16 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 15:24:46 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/11 15:38:59 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_indexof(const char *str, char c)
+int
+	prompt_shell(char **line)
 {
-	size_t i;
+	ft_putstr_fd("EVA-04$ ", 0);
+	return (get_next_line(0, line));
+	return 0;
+}
 
-	i = 0;
-	while (str[i])
+int main()
+{
+	char	*line;
+
+	while(prompt_shell(&line))
 	{
-		if (str[i] == c)
-			return (i);
-		i++;
+		puts("Get in the fucking robot");
+		free(line);
 	}
-	return (-1);
 }

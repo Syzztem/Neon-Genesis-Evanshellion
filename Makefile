@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/01/11 13:20:55 by user42           ###   ########.fr        #
+#    Updated: 2021/01/11 15:25:35 by lothieve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
 SRCS_PATH = src
-SRC_LIST =	main.c \
+SRC_LIST =	minishell.c \
 			tokenizer.c \
 			wildcard.c \
 			methods.c
@@ -34,11 +34,11 @@ OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
 
 all :		libft
-			@mkdir -p ./obj
-			@$(MAKE) $(NAME)
+			mkdir -p ./obj
+			$(MAKE) $(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) $(OBJS) $(LIBS) $(LIBFT_LIB)  $(FT_PRINTF_LIB) -o $(NAME)
+			$(CC) $(OBJS) $(LIBS) $(LIBFT_LIB) -o $(NAME)
 
 libft:
 			$(LIBFT_MAKE)

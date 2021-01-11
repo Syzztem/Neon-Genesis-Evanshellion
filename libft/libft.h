@@ -6,13 +6,14 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 13:34:53 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/11 15:24:59 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>
+#include "get_next_line.h"
 
 typedef struct	s_list
 {
@@ -28,7 +29,7 @@ int				ft_isspace(int c);
 int				ft_isprint(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-int				ft_indexof(char *str, char c);
+int				ft_indexof(const char *str, char c);
 int				ft_atoi(const char *str);
 int				ft_strbegin(const char *str, const char *begin);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
