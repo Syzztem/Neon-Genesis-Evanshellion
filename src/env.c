@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 15:59:24 by user42           ###   ########.fr       */
+/*   Created: 2021/01/11 16:56:50 by user42            #+#    #+#             */
+/*   Updated: 2021/01/12 16:01:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft.h"
+#include "builtin.h"
 
-typedef		struct s_shell
+int		builtin_env(t_shell *shell)
 {
-	char	**env;
-}					t_shell;
+	int i;
 
-static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
-
-char			**tokenize(char *line);
-
-#endif
+	i = 0;
+	while (shell->env[i])
+	{
+		ft_putstr_fd(shell->env[i++], 1);
+		ft_putstr_fd("\n", 1);
+	}
+	return (0);
+}
