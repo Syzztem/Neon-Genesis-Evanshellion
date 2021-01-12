@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 15:38:59 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/12 16:09:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtin.h"
 
 int
 	prompt_shell(char **line)
@@ -20,10 +21,15 @@ int
 	return 0;
 }
 
-int main()
+int main(int ac, char **av, char **env)
 {
 	char	*line;
+	t_shell	shell;
 
+	if (ac != 1)
+		return (1);
+	(void)av;
+	shell.env = env;
 	while(prompt_shell(&line))
 	{
 		puts("Get in the fucking robot");

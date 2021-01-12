@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/01/12 13:08:18 by lothieve         ###   ########.fr        #
+#    Updated: 2021/01/12 18:01:41 by lothieve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ SRCS_PATH = src
 SRC_LIST =	minishell.c \
 			tokenizer.c \
 			wildcard.c \
-			methods.c
+			methods.c \
+			env.c \
+			pwd.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
