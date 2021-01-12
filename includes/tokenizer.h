@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/10 14:41:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/12 11:23:08 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ typedef struct	s_token
 	char			*token;
 }				t_token;
 
-typedef	char	*(*t_method)(char **line);
+typedef	void	(*t_method)(char **line, t_token **list);
 
 t_token			*expand_wildcard(char *expr);
-char			*spaces(char **line);
-char			*squotes(char **line);
-char			*dquotes(char **line);
-char			*seps(char	**line);
+void			spaces(char **line, t_token **list);
+void			squotes(char **line, t_token **list);
+void			dquotes(char **line, t_token **list);
+void			seps(char **line, t_token **list);
 
 #endif

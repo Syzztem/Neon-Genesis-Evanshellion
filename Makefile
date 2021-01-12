@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/01/11 15:25:35 by lothieve         ###   ########.fr        #
+#    Updated: 2021/01/12 13:08:18 by lothieve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
 
 all :		libft
-			mkdir -p ./obj
+			@mkdir -p ./obj
 			$(MAKE) $(NAME)
 
 $(NAME):	$(OBJS)

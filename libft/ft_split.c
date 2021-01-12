@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 17:52:50 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/10 15:20:34 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/12 17:59:50 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ char
 			i++;
 		}
 	}
-	if (!(out[i] = malloc(sizeof(char))))
-		return (NULL);
 	out[i] = NULL;
 	return (out);
 }

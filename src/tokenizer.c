@@ -6,14 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/10 14:40:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/12 11:25:30 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
 static t_method
-	next_token(char *line)
+	push_next_token(char *line)
 {
 	if (*line == '\'')
 		return (squotes);
@@ -28,15 +28,13 @@ static t_token
 	*make_token_list(char *line)
 {
 	t_token	*head;
-	char	*tk;
 
 	head = NULL;
 	while (*line)
 	{
 		while (ft_isspace(*line))
 			line++;
-		tk = next_token(line)(&line);
-		ft_lstadd_back((t_list**)&head, tk);
+		push_next_token(line)(&line, &head);
 	}
 	return (head);
 }

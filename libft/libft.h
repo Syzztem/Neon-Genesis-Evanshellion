@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 17:24:33 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/12 13:40:55 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ size_t			ft_strlen(const char *str);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 t_list			*ft_lstnew(void *content);
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*del)(void *));
+void			ft_lstmerge(t_list **first, t_list *second);
 void			ft_lstadd_back(t_list **alst, void *new);
 void			ft_lstadd_front(t_list **begin_list, t_list *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void*));

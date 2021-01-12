@@ -6,15 +6,16 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/10 14:40:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/12 11:44:56 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-char	*spaces(char **line)
+void	spaces(char **line, t_token **list)
 {
 	size_t	len;
+	char	*token;
 
 	len = 0;
 	while (**line && !ft_isspace(**line) && ft_indexof(SEPS, **line) == -1)
@@ -27,25 +28,26 @@ char	*spaces(char **line)
 			len += 2;
 		}
 	}
-	return (ft_strndup(*line - len, len));
+	token = ft_strndup(*line - len, len);
+	if (ft_indexof(token, '*') < 0)
+		return (ft_lstadd_back((t_list **)list, token));
+	ft_lstmerge((t_list **)list, (t_list *)expand_wildcard(token));
+	free(token);
 }
 
-char	*squotes(char **line)
+void	squotes(char **line, t_token **list)
 {
-	char	*token;
 	size_t	len;
 
 	len = 0;
 	while (*(++*line) && **line != '\'')
 		++len;
-	token = ft_strndup(*line - len, len);
+	ft_lstadd_back((t_list **)list, ft_strndup(*line - len, len));
 	++(*line);
-	return (token);
 }
 
-char	*dquotes(char **line)
+void	dquotes(char **line, t_token **list)
 {
-	char	*token;
 	size_t	len;
 
 	len = 0;
@@ -58,12 +60,11 @@ char	*dquotes(char **line)
 		}
 		++len;
 	}
-	token = ft_strndup(*line - len, len);
+	ft_lstadd_back((t_list **)list, ft_strndup(*line - len, len));
 	++(*line);
-	return (token);
 }
 
-char	*seps(char **line)
+void	seps(char **line, t_token **list)
 {
 	size_t	i;
 
@@ -73,9 +74,9 @@ char	*seps(char **line)
 		if (ft_strbegin(*line, g_seps[i]))
 		{
 			*line += ft_strlen(g_seps[i]);
-			return (ft_strdup(g_seps[i]));
+			ft_lstadd_back((t_list **)list, ft_strdup(g_seps[i]));
+			return ;
 		}
 		i++;
 	}
-	return (NULL);
 }

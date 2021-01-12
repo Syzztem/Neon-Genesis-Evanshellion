@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:34:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 17:55:37 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/12 17:45:43 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,10 @@ static int
 		entry = readdir(dir);
 		if (!entry)
 			break ;
-		if (*entry->d_name == '.')
-			continue ;
 		cat_path(path, entry->d_name, path_len);
-		if (entry->d_type == DT_DIR)
+		if (*entry->d_name != '.' && entry->d_type == DT_DIR)
 			get_all_matches(expr, path, list);
-		if (all_matches(expr, path + 2))
+		if (*entry->d_name != '.' && all_matches(expr, path + 2))
 			ft_lstadd_back((t_list **)list, ft_strdup(path + 2));
 		path[path_len] = '\0';
 	}
@@ -100,6 +98,7 @@ t_token
 		ft_free_tab(exp_split);
 		return (output);
 	}
+	ft_free_tab(exp_split);
 	ft_putstr_fd("minishell: no matches found : ", 2);
 	ft_putendl_fd(expr, 2);
 	return (NULL);

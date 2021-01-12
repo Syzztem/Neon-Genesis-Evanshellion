@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_tokenizer.c                                   :+:      :+:    :+:   */
+/*   ft_lstmerge.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 14:54:14 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 14:08:06 by lothieve         ###   ########.fr       */
+/*   Created: 2021/01/12 13:37:48 by lothieve          #+#    #+#             */
+/*   Updated: 2021/01/12 13:38:55 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "libft.h"
 
-void print_tab(char **tab)
+void	ft_lstmerge(t_list **begin_list1, t_list *begin_list2)
 {
-	int i = 0;
-	while (tab[i])
+	t_list *elem;
+
+	if (!*begin_list1)
 	{
-		puts(tab[i]);
-		free(tab[i]);
-		i++;
+		*begin_list1 = begin_list2;
+		return ;
 	}
-	free(tab);
-}
-
-void test(char *str)
-{
-	print_tab(tokenize(str));
-}
-
-int main(int ac, char **av)
-{
-	(void) ac;
-	test(av[1]);
-	system("leaks a.out");
+	elem = *begin_list1;
+	while (elem->next)
+		elem = elem->next;
+	elem->next = begin_list2;
 }

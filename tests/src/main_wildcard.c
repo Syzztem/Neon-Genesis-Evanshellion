@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:58:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/11 14:57:33 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/12 17:42:14 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void print_list(t_token *list)
 	{
 		print_list(list->next);
 		puts(list->token);
+		free(list->token);
+		free(list);
 	}
 }
 
@@ -34,4 +36,5 @@ int main(int ac, char **av)
 	chdir("testfolder");
 	list = expand_wildcard(av[1]);
 	print_list(list);
+	system("leaks a.out");
 }
