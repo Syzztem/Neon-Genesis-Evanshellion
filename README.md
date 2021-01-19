@@ -13,4 +13,4 @@ runs all the tests and checks the norme
 `-f <file>` runs the specified test file
 
 compile termcaps getter
-`clang -g get_term_line.c termcaps.c cursor.c termcaps_utils.c ../tests/src/main_termcaps.c -L../libft -lft -I../includes -I../libft -lncursesclang -g get_term_line.c termcaps.c cursor.c termcaps_utils.c ../tests/src/main_termcaps.c -L../libft -lft -I../includes -I../libft -lncurses`
+`clang -g get_term_line.c termcaps.c cursor.c termcaps_utils.c history.c ../tests/src/main_termcaps.c -L../libft -lft -I../includes -I../libft -lncursesclang -g get_term_line.c termcaps.c cursor.c termcaps_utils.c ../tests/src/main_termcaps.c -L../libft -lft -I../includes -I../libft -lncurses`
