@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 11:43:06 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/19 15:41:18 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,4 @@ void	move_right(t_line *line)
 	line->r_cur_pos++;
 	line->cursor_pos.x++;
 }
+

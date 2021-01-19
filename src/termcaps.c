@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 13:06:25 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:07:33 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,7 @@ void	delete_char(t_line *line)
 	cap("dc");
 }
 
+void	do_nothing(t_line *line)
+{
+	(void)line;
+}

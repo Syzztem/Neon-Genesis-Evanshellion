@@ -6,19 +6,19 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 13:17:57 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:08:17 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
 static const t_cap
-	g_caps[CAP_COUNT] = {move_left, move_right};
+	g_caps[CAP_COUNT] = {move_left, move_right, retreive_hist};
 
 static const char
-	*g_capstr[CAP_COUNT] = {"kl", "kr"};
+	*g_capstr[CAP_COUNT] = {"kl", "kr", "ku"};
 
-static void
+void
 	get_key(char *key)
 {
 	int	rd;
@@ -38,10 +38,10 @@ static t_cap
 	while (++i < CAP_COUNT)
 		if (!ft_strncmp(key + 1, tgetstr((char *)g_capstr[i], NULL) + 1, ESC_LEN))
 			return (g_caps[i]);
-	return (NULL);
+	return (do_nothing);
 }
 
-static void
+void
 	exec_key(t_line *line, char *key)
 {
 	if (*key >= 32 && *key < 127)
@@ -52,7 +52,7 @@ static void
 		return (exec_cap(key)(line));
 }
 
-void
+static void
 	init_line(t_line *line)
 {
 	char	cursor_pos[16];
@@ -72,7 +72,7 @@ void
 	while (ft_isdigit(cursor_pos[i]))
 		i++;
 	line->cursor_pos.x = ft_atoi(cursor_pos + i + 1);
-	line->start_row = line->cursor_pos.x;
+	line->start_row = line->cursor_pos.x - 1;
 }
 
 int
@@ -91,6 +91,7 @@ int
 		{
 			ft_putchar('\n');
 			*buffer = line.line;
+			add_to_hist(*buffer);
 			return (1);
 		}
 		exec_key(&line, key);

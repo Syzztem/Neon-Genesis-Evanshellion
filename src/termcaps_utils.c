@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:29:58 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 13:12:51 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:51:48 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ void	realloc_line(t_line *line)
 	free(line->line);
 	line->line = cpy;
 	line->max_len += BUFF_SIZE;
+}
+
+void	move_cursor(int x, int y)
+{
+	tputs(tgoto(tgetstr("cm", NULL), x, y), 1, ft_putchar);
 }

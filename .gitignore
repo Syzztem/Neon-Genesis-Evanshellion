@@ -3,4 +3,7 @@
 **/*.a
 obj/*
 minishell
-a.out
+a.out*
+**/a.out*
+**/.*.swp
+.*.swp
