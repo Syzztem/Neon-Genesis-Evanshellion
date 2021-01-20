@@ -8,3 +8,4 @@ a.out*
 **/.*.swp
 .*.swp
 src/.minishell*
+**/.*.swo
