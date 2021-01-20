@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:29:58 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 16:51:48 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:42:31 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ void	cap(char *tc)
 
 
 	tstr = tgetstr(tc, NULL);
-	if (!tstr) puts("no hay");
 	tputs(tstr, 1, ft_putchar);
 }
 
 void	realloc_line(t_line *line)
 {
-	ft_putstr_fd("realloc", 1);
 	char *cpy;
 
 	cpy = malloc(line->max_len + BUFF_SIZE);
@@ -42,4 +40,11 @@ void	realloc_line(t_line *line)
 void	move_cursor(int x, int y)
 {
 	tputs(tgoto(tgetstr("cm", NULL), x, y), 1, ft_putchar);
+}
+
+int		key_is(char *key, char *cap)
+{
+	if (ft_strncmp(key, tgetstr(cap, NULL), ESC_LEN))
+		return(0);
+	return (1);
 }

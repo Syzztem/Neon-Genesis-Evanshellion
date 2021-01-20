@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 17:00:29 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:45:20 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define ESC_CHAR '\x1b'
 # define BUFF_SIZE 255
 # define CURSOR_QUERY "\x1b[6n"
-# define CAP_COUNT 3
+# define CAP_COUNT 5
 # define ESC_LEN 3
 # define DEFAULT_HIST_FILE ".minishell_history"
 # define HIST_ENV "MINISHELL_HIST"
@@ -55,6 +55,8 @@ typedef void	(*t_cap)(t_line *line);
 
 void			insert_char(t_line *line, char c);
 void			delete_char(t_line *line);
+void			go_home(t_line *line);
+void			go_end(t_line *line);
 void			cap(char *tc);
 void			realloc_line(t_line *line);
 void			move_left(t_line *line);
@@ -63,6 +65,11 @@ void			retreive_hist(t_line *line);
 void			do_nothing(t_line *line);
 void			add_to_hist(char *cmd);
 void			get_key(char *key);
+void			exec_key(t_line *line, char *key);
+void			clear_unused_lines(t_line *hist, char *to_keep, size_t size);
+t_line			*create_line(t_line *buf, t_line *origin);
+void			set_line(t_line	*line);
+int				key_is(char *key, char *cap);
 int				ft_putchar(int c);
 int				get_term_line(char **buffer);
 void			move_cursor(int x, int y);

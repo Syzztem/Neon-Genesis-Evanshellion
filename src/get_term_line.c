@@ -6,17 +6,17 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 16:08:17 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:18:39 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
 static const t_cap
-	g_caps[CAP_COUNT] = {move_left, move_right, retreive_hist};
+	g_caps[CAP_COUNT] = {move_left, move_right, go_home, go_end, retreive_hist};
 
 static const char
-	*g_capstr[CAP_COUNT] = {"kl", "kr", "ku"};
+	*g_capstr[CAP_COUNT] = {"kl", "kr", "kN", "kP", "ku"};
 
 void
 	get_key(char *key)
@@ -69,6 +69,8 @@ static void
 	cursor_pos[rd] = '\0';
 	i = 2;
 	line->cursor_pos.y = ft_atoi(cursor_pos + i);
+	if (line->cursor_pos.y != tgetnum("li"))
+			line->cursor_pos.y--;
 	while (ft_isdigit(cursor_pos[i]))
 		i++;
 	line->cursor_pos.x = ft_atoi(cursor_pos + i + 1);
@@ -79,22 +81,24 @@ int
 	get_term_line(char **buffer)
 {
 	char	key[5];
-	t_line	line;
+	t_line	*line;
 	
-	init_line(&line);
+	line = malloc(sizeof(t_line));
+	init_line(line);
 //	printf("line struct:\n\t.line = %p\n\t.r_cur_pos = %zu\n\t.len = %zu\n\t.start_row = %zu\n\t.max_len = %zu\n\t.cursor_pos = %zu, %zu\n",
 //			line.line, line.r_cur_pos, line.len, line.start_row, line.max_len, line.cursor_pos.x, line.cursor_pos.y);
 	while (1)
 	{
 		get_key(key);
-		if (*key == '\n' && line.r_cur_pos == line.len)
+		if (*key == '\n' && line->r_cur_pos == line->len)
 		{
 			ft_putchar('\n');
-			*buffer = line.line;
+			*buffer = line->line;
 			add_to_hist(*buffer);
+			free(line);
 			return (1);
 		}
-		exec_key(&line, key);
+		exec_key(line, key);
 	}
 	return (0);
 }

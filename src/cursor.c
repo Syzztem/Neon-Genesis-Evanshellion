@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 15:41:18 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:43:23 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,16 @@ void	move_right(t_line *line)
 	line->cursor_pos.x++;
 }
 
+void	go_home(t_line *line)
+{
+	move_cursor(line->start_row, line->cursor_pos.y);
+	line->r_cur_pos = 0;
+	line->cursor_pos.x = line->start_row;
+}
+
+void	go_end(t_line *line)
+{
+	move_cursor(line->start_row + line->len, line->cursor_pos.y);
+	line->r_cur_pos = line->len;
+	line->cursor_pos.x = line->start_row + line->len;
+}

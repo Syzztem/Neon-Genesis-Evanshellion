@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 17:08:54 by lnoirot           #+#    #+#             */
-/*   Updated: 2021/01/11 15:40:37 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:10:44 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ int				get_next_line(int fd, char **line)
 	static char				buff[BUFFER_SIZE];
 	int						ret;
 
-	if (BUFFER_SIZE == 0)
-		return (-1);
 	ret = 0;
-	*line = ft_strdup_line("", BUFFER_SIZE - 1);
-	if (i == BUFFER_SIZE)
+	if (i == BUFFER_SIZE || !line)
 	{
 		ft_bzero(buff, BUFFER_SIZE);
 		i = 0;
 	}
+	if (!line)
+		return (0);
+	*line = ft_strdup_line("", BUFFER_SIZE - 1);
 	if (i < BUFFER_SIZE && buff[i])
 		return (ret = fill_the_line(buff, &i, fd, line));
 	if (read(fd, buff, BUFFER_SIZE) < 0)
