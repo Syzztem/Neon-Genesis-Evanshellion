@@ -12,7 +12,7 @@
 
 #include "termcaps.h"
 
-void	set_line(t_line	*line)
+void	set_line(t_line *line)
 {
 	go_home(line);
 	cap("ce");

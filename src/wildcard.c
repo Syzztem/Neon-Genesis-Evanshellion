@@ -13,7 +13,8 @@
 #include "tokenizer.h"
 #include <sys/types.h>
 #include <dirent.h>
-typedef struct dirent t_dirent;
+
+typedef struct dirent	t_dirent;
 
 static char
 	matches(char *expr, char *entry)
@@ -60,7 +61,6 @@ static int
 	DIR			*dir;
 	t_dirent	*entry;
 	size_t		path_len;
-		
 
 	dir = opendir(path);
 	path_len = ft_strlen(path);

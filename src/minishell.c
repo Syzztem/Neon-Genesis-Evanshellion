@@ -13,15 +13,16 @@
 #include "minishell.h"
 #include "builtin.h"
 
-int
+static int
 	prompt_shell(char **line)
 {
 	ft_putstr_fd("EVA-04$ ", 0);
 	return (get_next_line(0, line));
-	return 0;
+	return (0);
 }
 
-int main(int ac, char **av, char **env)
+int
+	main(int ac, char **av, char **env)
 {
 	char	*line;
 	t_shell	shell;
@@ -30,7 +31,7 @@ int main(int ac, char **av, char **env)
 		return (1);
 	(void)av;
 	shell.env = env;
-	while(prompt_shell(&line))
+	while (prompt_shell(&line))
 	{
 		puts("Get in the fucking robot");
 		free(line);

@@ -21,7 +21,6 @@ void	cap(char *tc)
 {
 	char *tstr;
 
-
 	tstr = tgetstr(tc, NULL);
 	tputs(tstr, 1, ft_putchar);
 }
@@ -45,6 +44,6 @@ void	move_cursor(int x, int y)
 int		key_is(char *key, char *cap)
 {
 	if (ft_strncmp(key, tgetstr(cap, NULL), ESC_LEN))
-		return(0);
+		return (0);
 	return (1);
 }

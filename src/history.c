@@ -49,13 +49,13 @@ static t_line
 	return (out);
 }
 
-
 static t_line
-	*next_line(t_line *origin, t_line *hist_lines, size_t *line_count, int hist_fd)
+	*next_line(t_line *origin, t_line *hist_lines,
+			size_t *line_count, int hist_fd)
 {
 	hist_lines += *line_count;
 	if (!get_next_line(hist_fd, &hist_lines->line))
-		return(NULL);
+		return (NULL);
 	create_line(hist_lines, origin);
 	(*line_count)++;
 	return (hist_lines);
@@ -74,7 +74,7 @@ void
 	line_count = 1;
 	*hist_lines = *line;
 	hist_size = LINE_ALLOC_SIZE;
-	while(1)
+	while (1)
 	{
 		if (line_count == hist_size)
 			hist_lines = realloc_lines(hist_lines, &hist_size);
@@ -84,7 +84,7 @@ void
 		set_line(current_line);
 		get_key(next_key);
 		if (!(key_is(next_key, "ku") || key_is(next_key, "kd")))
-				break;
+			break ;
 	}
 	clear_unused_lines(hist_lines, current_line->line, line_count);
 	ft_memcpy(line, current_line, sizeof(t_line));
@@ -95,14 +95,6 @@ void
 void
 	retreive_hist(t_line *line)
 {
-/*	
-	t_line test;
-
-	test.line = ft_strdup("yoloswag");
-	create_line(&test, line);
-	set_line(&test);
-	ft_memcpy(line, &test, sizeof(t_line));
-*/
 	char	*hist_file_path;
 	int		fd;
 

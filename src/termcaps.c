@@ -16,7 +16,7 @@ void	insert_char(t_line *line, char c)
 {
 	if (line->len >= line->max_len - 1)
 		realloc_line(line);
-	ft_memmove(line->line + line->r_cur_pos + 1,line->line + line->r_cur_pos,
+	ft_memmove(line->line + line->r_cur_pos + 1, line->line + line->r_cur_pos,
 			(line->max_len - line->r_cur_pos) - 1);
 	line->line[line->r_cur_pos] = c;
 	line->r_cur_pos++;
