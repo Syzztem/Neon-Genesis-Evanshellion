@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/20 15:59:12 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/21 14:44:05 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int
 	while (1)
 	{
 		get_key(key);
-		if (*key == '\n' && line->r_cur_pos == line->len)
+		if (*key == '\n')
 		{
 			ft_putchar('\n');
 			*buffer = line->line;
