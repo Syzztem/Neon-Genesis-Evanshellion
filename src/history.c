@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 11:54:45 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:23:09 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-void
-	add_to_hist(char *cmd)
-{
-	int		fd;
-	char	*path;
-
-	path = ft_getenv(HIST_ENV);
-	if (!path)
-		path = DEFAULT_HIST_FILE;
-	fd = open(path, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR);
-	ft_putendl_fd(cmd, fd);
-	close(fd);
-}
 
 static t_line
 	*realloc_lines(t_line *hist_lines, size_t *size, t_line **current_line)

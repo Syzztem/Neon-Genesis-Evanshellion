@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/21 14:08:13 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:13:22 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,17 @@ void	clear_unused_lines(t_line *hist, char *to_keep, size_t size)
 		if (hist[size].line != to_keep)
 			free(hist[size].line);
 	free(hist);
+}
+
+void	add_to_hist(char *cmd)
+{
+	int		fd;
+	char	*path;
+
+	path = ft_getenv(HIST_ENV);
+	if (!path)
+		path = DEFAULT_HIST_FILE;
+	fd = open(path, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR);
+	ft_putendl_fd(cmd, fd);
+	close(fd);
 }

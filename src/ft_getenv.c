@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:23:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 12:22:00 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:12:36 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #define ENV_ALLOC_SIZE 5
 #include <stdlib.h>
 #include <stdio.h>
-
-extern char **environ;
 
 static int
 	env_match(char *name, char *var)
@@ -42,7 +40,8 @@ static char
 int
 	ft_igetenv(char *name)
 {
-	size_t	i;
+	extern char **environ;
+	size_t		i;
 
 	i = 0;
 	while (environ[i])
@@ -54,10 +53,11 @@ int
 	return (-1);
 }
 
-char 
+char
 	*ft_getenv(char *name)
 {
-	int	ret;
+	extern char **environ;
+	int			ret;
 
 	ret = ft_igetenv(name);
 	if (ret == -1)
@@ -65,4 +65,3 @@ char
 	else
 		return (env_val(environ[ret]));
 }
-

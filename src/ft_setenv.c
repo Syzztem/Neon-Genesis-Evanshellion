@@ -6,19 +6,18 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 16:18:16 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:10:49 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define ENV_ALLOC_SIZE 5
 
-extern char **environ;
-
 static size_t
-	env_size()
+	env_size(void)
 {
-	size_t i;
+	extern char	**environ;
+	size_t		i;
 
 	i = 0;
 	while (environ[i])
@@ -26,11 +25,11 @@ static size_t
 	return (i);
 }
 
-
 static size_t
 	realloc_env(size_t size)
 {
-	char	**sw;
+	extern char	**environ;
+	char		**sw;
 
 	size += ENV_ALLOC_SIZE;
 	sw = ft_calloc(sizeof(char *), size + 1);
@@ -43,6 +42,7 @@ static size_t
 char
 	*ft_setenv(char *name, char *value)
 {
+	extern char		**environ;
 	int				env_index;
 	static size_t	max_size = 0;
 
@@ -56,20 +56,22 @@ char
 	if (max_size >= env_size())
 		max_size = realloc_env(max_size);
 	puts("");
-	environ[env_index] = malloc(sizeof(char) * (ft_strlen(name) + ft_strlen(value) + 2));
+	environ[env_index] = malloc(sizeof(char) * (ft_strlen(name)
+		+ ft_strlen(value) + 2));
 	ft_strcpy(environ[env_index], name);
 	ft_strcat(environ[env_index], "=");
 	ft_strcat(environ[env_index], value);
 	environ[env_index + 1] = NULL;
-	return(environ[env_index]);
+	return (environ[env_index]);
 }
 
 void
-	copy_env()
+	copy_env(void)
 {
-	char	**sw;
-	size_t	size;
-	int		i;
+	extern char	**environ;
+	char		**sw;
+	size_t		size;
+	int			i;
 
 	size = env_size();
 	sw = ft_calloc(sizeof(char *), size + 1);
