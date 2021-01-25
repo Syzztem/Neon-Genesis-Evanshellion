@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/21 14:14:37 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/25 11:54:45 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-//remove when getenv done
-
-void
-	db_print_line(t_line *line)
-{
-	printf("\nline\n\t.line = %s\n\t.r_cur_pos = %zu\n\t.len = %zu\n\t.start_row = %zu\n\t.max_len = %zu\n\t.cursor_pos = %zu, %zu\n",
-			line->line, line->r_cur_pos, line->len, line->start_row, line->max_len, line->cursor_pos.x, line->cursor_pos.y);
-}
-
-static char
-	*ft_getenv(char *name)
-{
-	(void)name;
-	return (NULL);
-}
 
 void
 	add_to_hist(char *cmd)

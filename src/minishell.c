@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 16:09:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/21 15:20:58 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ static int
 }
 
 int
-	main(int ac, char **av, char **env)
+	main(int ac, char **av)
 {
 	char	*line;
 	t_shell	shell;
 
 	if (ac != 1)
 		return (1);
-	(void)av;
-	shell.env = env;
 	while (prompt_shell(&line))
 	{
 		puts("Get in the fucking robot");
