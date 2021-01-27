@@ -18,7 +18,7 @@ echo
 clang -Wall -Werror -Wextra $source_folder/tokenizer.c $source_folder/methods.c src/main_tokenizer.c $source_folder/wildcard.c -I$include_folder -I$libft_path -L$libft_path -lft
 for elem in $tests; do
 	echo testing $elem ':'
-	echo
 	./a.out $elem
+
 done
 rm a.out
