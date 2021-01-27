@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "builtin.h"
 
 static int
 	prompt_shell(char **line)
@@ -22,13 +21,11 @@ static int
 }
 
 int
-	main(int ac, char **av)
+	main(void)
 {
 	char	*line;
-	t_shell	shell;
+	//t_shell	shell;
 
-	if (ac != 1)
-		return (1);
 	while (prompt_shell(&line))
 	{
 		puts("Get in the fucking robot");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 12:13:25 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:21:27 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum			e_genv
 
 char			**tokenize(char *line);
 int				ft_igetenv(char *name);
-char 			*ft_getenv(char *name);
+char			*ft_getenv(char *name);
 char			*ft_setenv(char *name, char *value);
 
 #endif
