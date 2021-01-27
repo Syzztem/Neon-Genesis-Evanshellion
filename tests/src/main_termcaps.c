@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 17:08:44 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/19 13:04:47 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/27 11:08:46 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ int main()
 	ft_putstr_fd("s e x y p r o m p t >> ", 0);
 	get_term_line(&line);
 	puts(line);
+	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
 }

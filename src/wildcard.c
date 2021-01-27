@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:34:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 17:45:43 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:32:56 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char
 {
 	if (*expr == '*' && *entry)
 		return (matches(expr + 1, entry) || matches(expr, entry + 1));
+	if (*expr == '\\' && *(expr + 1) == '*' && *entry == '*')
+		return (matches(expr + 2, entry + 1));
 	if (*expr == '*')
 		return (matches(expr + 1, entry));
 	if (*expr && *expr == *entry)

@@ -1,6 +1,6 @@
 #!/bin/zsh
 libft_path="../libft"
-tests=("*" "a*" "*b" "a*e" "a*c*e" "*e" "*ab" "xx/*" "*/*" "xx/t*t" "*x/test/*l")
+tests=("*" "a*" "*b" "a*e" "a*c*e" "*e" "*ab" "xx/*" "*/*" "xx/t*t" "*x/test/*l" "t*t\*" "t*t\*lol")
 include_folder="../includes"
 
 set -e
