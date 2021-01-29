@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/27 16:31:15 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:46:22 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_token
 	head = NULL;
 	while (*line)
 	{
+		printf("CHAR: %c\n", *line);
 		while (ft_isspace(*line))
 			line++;
 		push_next_token(line)(&line, &head);

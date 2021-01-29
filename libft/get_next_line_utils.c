@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:37:22 by smaccary          #+#    #+#             */
-/*   Updated: 2019/12/08 19:34:45 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:32:58 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ size_t	gnl_ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	}
 	return (srclen);
 }
+	#include <stdio.h>
+
 
 char	*gnl_ft_strndup(const char *s1, long long n)
 {

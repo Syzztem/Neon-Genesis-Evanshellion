@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/29 14:06:08 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/01/29 14:17:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ int	print_tokenized(char *line)
 	return (EXIT_SUCCESS);
 }
 
-
-
-
 int		main(void)
 {
 	char	*line;
@@ -52,7 +49,6 @@ int		main(void)
 	}
 	return (EXIT_SUCCESS);
 }
-
 
 /*
 int		main(void)
