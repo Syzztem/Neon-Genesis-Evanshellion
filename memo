@@ -1,0 +1,48 @@
+/*
+** MEMO:
+** Entrer "abc abc abc" via le terminal cause le bug suivant:
+** Le premier token vaudra "abc abc abc" au lieu de juste "abc"
+** Les deux autres tokens auront la bonne valeur
+** Ceci arrive dans tout les cas où le terminal est lu
+** Même si la ligne lue n'est pas utilisée et remplacée par littérlement "abc abc abc" en dur, le bug se produira
+** Cependant, si la ligne est codée en dur mais que stdin n'est pas lue, le bug disparaît
+** Si on ne rentre rien dans stdin et que la ligne est codée en dur, le bug ne se prodit pas.
+** Mais, si on rentre abc abc abc, une entrée qui ne sera pas utilisée, le bug se produit.
+** En gros, sur deux strings identiques, si on écrit quelque chose dans le terminal et qu'on le lit, le comportement change,
+** même dans le cas où on n'utilise pas l'entrée.
+**
+** En compilant et linkant avec -fsanitize=address, on a un crash à l'appel de printf avec le report suivant:
+**
+=================================================================
+==96718==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000113 at pc 0x0001015006de bp 0x7ffeef1a44c0 sp 0x7ffeef1a3c38
+READ of size 4 at 0x602000000113 thread T0
+    #0 0x1015006dd in printf_common(void*, char const*, __va_list_tag*) (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x266dd)
+    #1 0x1015015d2 in wrap_printf (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x275d2)
+    #2 0x100a60460 in print_tokenized minishell.c:33
+    #3 0x100a605f4 in main minishell.c:71
+    #4 0x7fff5eb7b3d4 in start (libdyld.dylib:x86_64+0x163d4)
+
+0x602000000113 is located 0 bytes to the right of 3-byte region [0x602000000110,0x602000000113)
+allocated by thread T0 here:
+    #0 0x1015389f3 in wrap_malloc (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x5e9f3)
+    #1 0x100a6379f in ft_strndup (minishell:x86_64+0x10000879f)
+    #2 0x100a5fa97 in spaces methods.c:31
+    #3 0x100a6158d in make_token_list tokenizer.c:37
+    #4 0x100a61284 in tokenize tokenizer.c:76
+    #5 0x100a60344 in print_tokenized minishell.c:28
+    #6 0x100a605f4 in main minishell.c:71
+    #7 0x7fff5eb7b3d4 in start (libdyld.dylib:x86_64+0x163d4)
+
+** Donc on à priori un buffer overflow sur les tokens
+** Hypothèse: le \0 est absent des token, printf va donc continuer de lire jusqu'à en trouver un, ce qui va causer un comportement indéfini
+** Cette hypothèse semble correct vu que asan ne report rien en l'absence d'appel à printf
+** L'origine du bug ne peut se trouver donc que dans les fonctions du tokenizer qui sont report par asan:
+** - ft_strndup
+** - spaces
+** - make_token_lists
+** - etc ...
+**
+** asan nous indique que l'overflow se produit à droite d'un malloc de 3 byte, on en déduit donc que le \0 n'est pas alloué.
+** Quand on se penche sur le code de ft_strncpy, appelé par ft_strndup, on se rend compte que effectivement,
+** la string n'est pas NULL-terminated quand strlen(src) > n 
+*/
