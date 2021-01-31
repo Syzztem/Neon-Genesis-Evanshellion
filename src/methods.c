@@ -6,14 +6,14 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 11:49:01 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:26:35 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static
-	size_t	sub_env(char *token, char **line)
+static size_t
+	sub_env(char *token, char **line)
 {
 	char	*var;
 
@@ -25,7 +25,8 @@ static
 	return (ft_strlen(var));
 }
 
-size_t	spaces(char *token, char **line)
+size_t
+	spaces(char *token, char **line)
 {
 	char	*tkref;
 
@@ -45,7 +46,8 @@ size_t	spaces(char *token, char **line)
 	return (tkref - token);
 }
 
-size_t	squotes(char *token, char **line)
+size_t
+	squotes(char *token, char **line)
 {
 	char *tkref;
 	char *ref;
@@ -63,7 +65,8 @@ size_t	squotes(char *token, char **line)
 	return (tkref - token);
 }
 
-size_t	dquotes(char *token, char **line)
+size_t
+	dquotes(char *token, char **line)
 {
 	char *tkref;
 	char *ref;
@@ -75,7 +78,7 @@ size_t	dquotes(char *token, char **line)
 	{
 		if (*ref == '*')
 			*tkref++ = '\\';
-		else if (*ref == '$' && *(ref - 1) != '\\' )
+		else if (*ref == '$' && *(ref - 1) != '\\')
 			tkref += sub_env(tkref, &ref);
 		*tkref++ = *ref++;
 	}
@@ -83,7 +86,8 @@ size_t	dquotes(char *token, char **line)
 	return (tkref - token);
 }
 
-size_t	seps(char *token, char **line)
+size_t
+	seps(char *token, char **line)
 {
 	size_t	i;
 

@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 16:23:09 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:36:21 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,12 @@ static t_line
 }
 
 static void
-	loop_hist(t_line *line, int hist_fd)
+	loop_hist(t_line *line, int hist_fd, t_line *hist_lines, size_t line_count)
 {
-	t_line	*hist_lines;
-	size_t	line_count;
 	size_t	hist_size;
 	char	next_key[5];
 	t_line	*current_line;
 
-	hist_lines = ft_calloc(sizeof(t_line), LINE_ALLOC_SIZE);
-	line_count = 1;
-	*hist_lines = *line;
 	hist_size = LINE_ALLOC_SIZE;
 	current_line = hist_lines;
 	while (1)
@@ -73,7 +68,8 @@ static void
 		if (key_is(next_key, "kd"))
 			current_line = prev_line(hist_lines, current_line);
 		else
-			current_line = next_line(current_line, hist_lines, &line_count, hist_fd);
+			current_line = next_line(current_line, hist_lines, &line_count,
+				hist_fd);
 		set_line(current_line);
 		get_key(next_key);
 		if (!(key_is(next_key, "ku") || key_is(next_key, "kd")))
@@ -90,11 +86,16 @@ void
 {
 	char	*hist_file_path;
 	int		fd;
+	t_line	*hist_lines;
+	size_t	line_count;
 
+	hist_lines = ft_calloc(sizeof(t_line), LINE_ALLOC_SIZE);
+	line_count = 1;
+	*hist_lines = *line;
 	hist_file_path = ft_getenv(HIST_ENV);
 	if (!hist_file_path)
 		hist_file_path = DEFAULT_HIST_FILE;
 	fd = open(hist_file_path, O_RDONLY);
-	loop_hist(line, fd);
+	loop_hist(line, fd, hist_lines, line_count);
 	close(fd);
 }

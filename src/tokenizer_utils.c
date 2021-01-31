@@ -6,14 +6,17 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 15:22:11 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:27:48 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #define PARSE_ERR_COUNT 2
-static const char *g_parse_errors[PARSE_ERR_COUNT] = {"Missing matching single quote",
-	"Missing matching double quote"};
+
+static const char *g_parse_errors[PARSE_ERR_COUNT] = {
+	"Missing matching single quote",
+	"Missing matching double quote"
+};
 
 int
 	parse_error(int code)
