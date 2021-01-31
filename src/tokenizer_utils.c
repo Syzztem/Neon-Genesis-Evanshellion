@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 14:59:43 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:22:11 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,31 @@ int
 	return (-1);
 }
 
+static int
+	is_wildcard(char *token)
+{
+	if (*token == '*')
+		return (1);
+	while (*token)
+	{
+		if (*token != '\\' && *(token + 1) == '*')
+			return (1);
+		++token;
+	}
+	return (0);
+}
+
+static void
+	epurate_wildcards(char *token)
+{
+	while (*token)
+	{
+		if (*token == '\\' && *(token + 1) == '*')
+			ft_memmove(token, token + 1, ft_strlen(token));
+		++token;
+	}
+}
+
 size_t
 	add_token(char *token, t_token **list, char *line)
 {
@@ -63,6 +88,10 @@ size_t
 			tkref += spaces(tkref, &ref);
 	}
 	*tkref = '\0';
-	ft_lstadd_back((t_list **)list, token);
+	if (is_wildcard(token))
+		ft_lstmerge((t_list **)list, (t_list *)expand_wildcard(token));
+	else
+		ft_lstadd_back((t_list **)list, token);
+	epurate_wildcards(token);
 	return (ref - line);
 }

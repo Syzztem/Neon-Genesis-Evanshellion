@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:54:14 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 14:57:53 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:09:18 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void print_tab(char **tab)
 {
 	if(!tab)
-		return (0);
+		return ;
 	int i = 0;
 	while (tab[i])
 	{
