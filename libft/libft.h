@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/20 13:07:23 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:29:24 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ char			*ft_strncpy(char *dst, const char *src, size_t n);
 char			*ft_strcat(char *dst, const char *src);
 char			*ft_strcpy(char *dest, const char *src);
 size_t			ft_putchar_fd(char c, int fd);
-size_t			ft_putendl_fd(char *s, int fd);
+size_t			ft_putendl_fd(const char *s, int fd);
 size_t			ft_putnbr_fd(int nb, int fd);
-size_t			ft_putstr_fd(char *s, int fd);
+size_t			ft_putstr_fd(const char *s, int fd);
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);

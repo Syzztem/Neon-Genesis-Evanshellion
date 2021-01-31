@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 15:35:45 by lothieve          #+#    #+#              #
-#    Updated: 2021/01/29 15:28:12 by smaccary         ###   ########.fr        #
+#    Updated: 2021/01/31 14:33:41 by lothieve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJB = ${BONUS:.c=.o}
 
 NAME = libft.a
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 CC = clang
 

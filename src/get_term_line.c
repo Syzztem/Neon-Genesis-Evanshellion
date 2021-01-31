@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/21 14:44:05 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 13:42:44 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static const t_cap	g_caps[CAP_COUNT] = {move_left,
 
 static const char	*g_capstr[CAP_COUNT] = {"kl", "kr", "kN", "kP", "ku"};
 
-void
+int
 	get_key(char *key)
 {
 	int	rd;
@@ -26,6 +26,7 @@ void
 	if (*key == ESC_CHAR)
 		rd += read(0, key + 1, 3);
 	key[rd] = '\0';
+	return (rd);
 }
 
 static t_cap
@@ -87,7 +88,8 @@ int
 	init_line(line);
 	while (1)
 	{
-		get_key(key);
+		if (get_key(key) == 0 && line->r_cur_pos == 0)
+			return (0);
 		if (*key == '\n')
 		{
 			ft_putchar('\n');
@@ -98,5 +100,5 @@ int
 		}
 		exec_key(line, key);
 	}
-	return (0);
+	return (1);
 }

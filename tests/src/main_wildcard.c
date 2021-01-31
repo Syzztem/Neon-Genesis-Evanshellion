@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:58:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/27 11:07:44 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:58:16 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,9 @@ int main(int ac, char **av)
 	(void)ac;
 	t_token *list;
 
-
-//	char	buff[255];
-//	puts(getcwd(buff, 255));
-
 	chdir("testfolder");
 	list = expand_wildcard(av[1]);
-	print_list(list);
-	printf(BLUE);
+	if (list)
+		print_list(list);
 	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
-	printf(WHITE);
 }

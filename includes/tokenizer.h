@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 11:18:26 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:28:20 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ size_t			spaces(char *token, char **line);
 size_t			squotes(char *token, char **line);
 size_t			dquotes(char *token, char **line);
 size_t			seps(char *token, char **line);
+int				verify_line(char *line);
+int				parse_error(int code);
 
 #endif
