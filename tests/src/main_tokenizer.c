@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:54:14 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/27 16:44:55 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/01/31 10:29:41 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int main(int ac, char **av)
 {
 	(void) ac;
 	test(av[1]);
-	//system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
+	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
 }

@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:23:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/27 14:59:26 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 11:25:33 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char
 		len++;
 	i = -1;
 	while (environ[++i])
-		if (!ft_strncmp(line, environ[i], len))
+		if (!ft_strncmp(line, environ[i], len) && environ[i][len] == '=')
 			return (env_val(environ[i]));
 	return (NULL);
 }

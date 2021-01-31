@@ -10,7 +10,14 @@ tests=("The quick brown fox jumps over the lazy dog" \
 	"test\\lol zobzob" \
 	"'single quotes'" \
 	"'single q' test pt'dr'" \
-	"ls *")
+	"ls *" \
+	"\"test\""
+	"\$TERM is your terminal emulator" \
+	"\"\$TERM is your terminal emulator\"" \
+	"\"quo\"'ted'\ text" \
+	"'*************'"
+	"\"test\"\$TERM" \
+	"\"test")
 source_folder="../src"
 include_folder="../includes"
 
@@ -22,6 +29,5 @@ clang -Wall -Werror -Wextra $source_folder/tokenizer.c $source_folder/ft_getenv.
 for elem in $tests; do
 	echo testing $elem ':'
 	./a.out $elem
-
 done
 rm a.out

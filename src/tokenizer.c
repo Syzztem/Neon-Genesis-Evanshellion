@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 10:27:30 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 13:10:47 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static size_t
 		else if (*line == '\'')
 			while (*++line != '\'')
 				;
+		else if (*line == '*')
+			len++;
 		line++;
 	}
 	return (len);

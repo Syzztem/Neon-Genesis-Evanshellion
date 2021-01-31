@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/28 15:58:10 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 11:49:25 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 size_t
 	add_token(char *token, t_token **list, char *line)
 {
-	char	*cpy;
-	char	*tkcpy;
+	char	*ref;
+	char	*tkref;
 
-	cpy = line;
-	tkcpy = token;
-	while (*cpy && !ft_isspace(*cpy))
+	ref = line;
+	tkref = token;
+	while (*ref && !ft_isspace(*ref))
 	{
-		if (*cpy == '\'')
-			tkcpy += squotes(tkcpy, &cpy);
-		else if (ft_indexof(SEPS, *cpy) != -1)
-			tkcpy += seps(tkcpy, &cpy);
+		if (*ref == '\'')
+			tkref += squotes(tkref, &ref);
+		else if (*ref == '\"')
+			tkref += dquotes(tkref, &ref);
+		else if (ft_indexof(SEPS, *ref) != -1)
+			tkref += seps(tkref, &ref);
 		else
-			tkcpy += spaces(tkcpy, &cpy);
+			tkref += spaces(tkref, &ref);
 	}
+	*tkref = '\0';
 	ft_lstadd_back((t_list **)list, token);
-	return (cpy - line);
+	return (ref - line);
 }

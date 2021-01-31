@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 10:28:05 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 11:18:26 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_token			*expand_wildcard(char *expr);
 size_t			add_token(char *token, t_token **list, char *line);
 size_t			spaces(char *token, char **line);
 size_t			squotes(char *token, char **line);
-void			dquotes(char **line, t_token **list);
+size_t			dquotes(char *token, char **line);
 size_t			seps(char *token, char **line);
 
 #endif

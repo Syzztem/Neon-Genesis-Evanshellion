@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 10:27:54 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/31 11:49:01 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,68 +20,68 @@ static
 	++(*line);
 	var = ft_lgetenv(*line);
 	ft_strcpy(token, var);
+	while (ft_isalnum(**line) || **line == '_')
+		++(*line);
 	return (ft_strlen(var));
 }
 
 size_t	spaces(char *token, char **line)
 {
-	char	*cpy;
+	char	*tkref;
 
-	cpy = token;
+	tkref = token;
 	while (**line && !ft_isspace(**line) && ft_indexof(SEPS, **line) == -1)
 	{
-		if (**line == '\\' && **line + 1)
+		if (**line == '\\' && *(*line + 1))
 		{
 			++(*line);
-			*cpy++ = *(*line++);
-			puts(*line);
+			*tkref++ = *(*line)++;
 		}
 		else if (**line == '$')
-			cpy += sub_env(cpy, line);
+			tkref += sub_env(tkref, line);
 		else
-			*cpy++ = *(*line)++;
+			*tkref++ = *(*line)++;
 	}
-	puts(token);
-	return (cpy - token);
+	return (tkref - token);
 }
 
 size_t	squotes(char *token, char **line)
 {
-	char *tkcpy;
-	char *cpy;
+	char *tkref;
+	char *ref;
 
-	tkcpy = token;
-	cpy = *line;
-	cpy++;
-	while (*cpy && *cpy != '\'')
+	tkref = token;
+	ref = *line;
+	ref++;
+	while (*ref && *ref != '\'')
 	{
-		if (*cpy == '*')
-			*tkcpy++ = '\\';
-		*tkcpy++ = *cpy++;
+		if (*ref == '*')
+			*tkref++ = '\\';
+		*tkref++ = *ref++;
 	}
-	*line = ++cpy;
-	return (tkcpy - token);
+	*line = ++ref;
+	return (tkref - token);
 }
 
-/*
-size_t	dquotes(char *token, char *line)
+size_t	dquotes(char *token, char **line)
 {
-	size_t	len;
+	char *tkref;
+	char *ref;
 
-	len = 0;
-	while (*(++*line) && **line != '\'')
+	tkref = token;
+	ref = *line;
+	ref++;
+	while (*ref && (*ref != '\"' || *(ref - 1) == '\\'))
 	{
-		if (**line == '\\' && *((*line) + 1))
-		{
-			(*line) += 2;
-			len += 2;
-		}
-		++len;
+		if (*ref == '*')
+			*tkref++ = '\\';
+		else if (*ref == '$' && *(ref - 1) != '\\' )
+			tkref += sub_env(tkref, &ref);
+		*tkref++ = *ref++;
 	}
-	ft_lstadd_back((t_list **)list, ft_strndup(*line - len, len));
-	++(*line);
+	*line = ++ref;
+	return (tkref - token);
 }
-*/
 
 size_t	seps(char *token, char **line)
 {
