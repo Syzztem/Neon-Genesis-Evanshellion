@@ -69,7 +69,7 @@ static void
 	cursor_pos[rd] = '\0';
 	i = 2;
 	line->cursor_pos.y = ft_atoi(cursor_pos + i);
-	if (line->cursor_pos.y != tgetnum("li"))
+	if (line->cursor_pos.y != (size_t)tgetnum("li"))
 		line->cursor_pos.y--;
 	while (ft_isdigit(cursor_pos[i]))
 		i++;

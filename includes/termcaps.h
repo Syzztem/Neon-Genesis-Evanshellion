@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 12:00:10 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:23:17 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <termios.h>
-
 
 typedef struct	s_point
 {

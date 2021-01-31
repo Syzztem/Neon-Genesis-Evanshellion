@@ -1,22 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 15:56:31 by user42            #+#    #+#             */
-/*   Updated: 2021/01/12 16:07:44 by user42           ###   ########.fr       */
+/*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
+/*   Updated: 2021/01/28 14:57:50 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-
-# include "minishell.h"
-# include <unistd.h>
-
-int		builtin_env(t_shell *t_shell);
-int		builtin_pwd();
-
-
+#ifndef PARSER_H
+# define PARSER_H
 #endif

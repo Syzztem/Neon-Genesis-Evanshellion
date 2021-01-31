@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/01/12 18:01:41 by lothieve         ###   ########.fr        #
+#    Updated: 2021/01/29 12:37:58 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,23 +14,19 @@
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -Werror -g3 $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -Werror -g3 -fsanitize=address $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
 LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
 LIBFT_INC = -I $(LIBFT_PATH)
-LIBFT_LIB = -L$(LIBFT_PATH) -lft
+LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses -fsanitize=address
 FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
 SRCS_PATH = src
-SRC_LIST =	minishell.c \
-			tokenizer.c \
-			wildcard.c \
-			methods.c \
-			env.c \
-			pwd.c
+SRC_LIST =	cursor.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c history.c methods.c minishell.c termcaps.c termcaps_utils.c tokenizer.c wildcard.c
+
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 

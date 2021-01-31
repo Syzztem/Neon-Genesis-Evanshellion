@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/21 15:20:58 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/29 14:17:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "builtin.h"
 
 static int
 	prompt_shell(char **line)
@@ -21,17 +20,47 @@ static int
 	return (0);
 }
 
-int
-	main(int ac, char **av)
+int	print_tokenized(char *line)
+{
+	char	**tokens;
+	int		i;
+
+	if (!(tokens = tokenize(line)))
+		return (EXIT_FAILURE);
+	i = 0;
+	while (tokens[i])
+	{
+		printf("\ntokens[%d]: %s | len: %zu\n", i, tokens[i], ft_strlen(tokens[i]));
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
+	return (EXIT_SUCCESS);
+}
+
+int		main(void)
 {
 	char	*line;
-	t_shell	shell;
 
-	if (ac != 1)
-		return (1);
 	while (prompt_shell(&line))
 	{
-		puts("Get in the fucking robot");
+		print_tokenized(line);
 		free(line);
 	}
+	return (EXIT_SUCCESS);
 }
+
+/*
+int		main(void)
+{
+	char	*line;
+
+	while (prompt_shell(&line))
+	{
+		printf("\nLINE: [%s]\n", line);
+		print_tokenized(line);
+		free(line);
+	}
+	return (EXIT_SUCCESS);
+}
+*/

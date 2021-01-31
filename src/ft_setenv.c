@@ -70,7 +70,7 @@ void
 {
 	extern char	**environ;
 	char		**sw;
-	size_t		size;
+	int			size;
 	int			i;
 
 	size = env_size();
