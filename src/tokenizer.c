@@ -6,35 +6,50 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 11:25:30 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:31:52 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static t_method
-	push_next_token(char *line)
+static size_t
+	token_len(char *line)
 {
-	if (*line == '\'')
-		return (squotes);
-	if (*line == '\"')
-		return (dquotes);
-	if (ft_indexof(SEPS, *line) != -1)
-		return (seps);
-	return (spaces);
+	size_t	len;
+
+	len = ft_strlen(line);
+	if (ft_indexof(line, '$') == -1)
+		return (len);
+	while (*line)
+	{
+		if (*line == '$')
+			len += ft_strlen(ft_lgetenv(line + 1));
+		else if (*line == '\"')
+			while (*++line && *(line - 1) != '\\' && *line != '\"')
+				;
+		else if (*line == '\'')
+			while (*++line != '\'')
+				;
+		line++;
+	}
+	return (len);
 }
 
 static t_token
 	*make_token_list(char *line)
 {
 	t_token	*head;
+	size_t	tok_len;
+	char	*token;
 
 	head = NULL;
+	tok_len = token_len(line);
 	while (*line)
 	{
-		while (ft_isspace(*line))
+		while (*line && ft_isspace(*line))
 			line++;
-		push_next_token(line)(&line, &head);
+		token = ft_calloc(sizeof(char), tok_len + 1);
+		line += add_token(token, &head, line);
 	}
 	return (head);
 }

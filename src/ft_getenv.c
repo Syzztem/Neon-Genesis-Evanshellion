@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:23:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 17:12:36 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/27 14:59:26 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,23 @@ static char
 		env++;
 	env++;
 	return (env);
+}
+
+char
+	*ft_lgetenv(char *line)
+{
+	extern char **environ;
+	size_t		len;
+	size_t		i;
+
+	len = 0;
+	while (ft_isalnum(line[len]) || line[len] == '_')
+		len++;
+	i = -1;
+	while (environ[++i])
+		if (!ft_strncmp(line, environ[i], len))
+			return (env_val(environ[i]));
+	return (NULL);
 }
 
 int

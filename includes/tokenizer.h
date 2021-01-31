@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 11:23:08 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:25:53 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TOKENIZER_H
 # include "minishell.h"
 # define SEPS "|;<>\"\'"
+# define TOKEN_SPLITTERS "|;<> \t\n\v\f\r"
 
 typedef struct	s_token
 {
@@ -21,12 +22,13 @@ typedef struct	s_token
 	char			*token;
 }				t_token;
 
-typedef	void	(*t_method)(char **line, t_token **list);
+typedef	size_t	(*t_method)(char *token, char *line);
 
 t_token			*expand_wildcard(char *expr);
-void			spaces(char **line, t_token **list);
-void			squotes(char **line, t_token **list);
+size_t			add_token(char *token, t_token **list, char *line);
+size_t			spaces(char *token, char **line);
+size_t			squotes(char *token, char **line);
 void			dquotes(char **line, t_token **list);
-void			seps(char **line, t_token **list);
+size_t			seps(char *token, char **line);
 
 #endif

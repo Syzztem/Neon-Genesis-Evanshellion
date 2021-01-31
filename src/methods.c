@@ -6,47 +6,65 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/12 11:44:56 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/28 16:45:43 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-void	spaces(char **line, t_token **list)
+static
+	size_t	sub_env(char *token, char **line)
 {
-	size_t	len;
-	char	*token;
+	char	*var;
 
-	len = 0;
+	++(*line);
+	var = ft_lgetenv(*line);
+	ft_strcpy(token, var);
+	return (ft_strlen(var));
+}
+
+size_t	spaces(char *token, char **line)
+{
+	char	*cpy;
+
+	cpy = token;
 	while (**line && !ft_isspace(**line) && ft_indexof(SEPS, **line) == -1)
 	{
-		len++;
-		(*line)++;
-		if (**line == '\\' && *((*line) + 1))
+		if (**line == '\\' && **line + 1)
 		{
-			(*line) += 2;
-			len += 2;
+			++(*line);
+			*cpy++ = *(*line++);
+			puts(*line);
 		}
+		else if (**line == '$')
+			cpy += sub_env(cpy, line);
+		else
+			*cpy++ = *(*line)++;
 	}
-	token = ft_strndup(*line - len, len);
-	if (ft_indexof(token, '*') < 0)
-		return (ft_lstadd_back((t_list **)list, token));
-	ft_lstmerge((t_list **)list, (t_list *)expand_wildcard(token));
-	free(token);
+	puts(token);
+	return (cpy - token);
 }
 
-void	squotes(char **line, t_token **list)
+size_t	squotes(char *token, char **line)
 {
-	size_t	len;
+	char *tkcpy;
+	char *cpy;
 
-	len = 0;
-	while (*(++*line) && **line != '\'')
-		++len;
-	ft_lstadd_back((t_list **)list, ft_strndup(*line - len, len));
-	++(*line);
+	tkcpy = token;
+	cpy = *line;
+	cpy++;
+	while (*cpy && *cpy != '\'')
+	{
+		if (*cpy == '*')
+			*tkcpy++ = '\\';
+		*tkcpy++ = *cpy++;
+	}
+	*line = ++cpy;
+	return (tkcpy - token);
 }
 
-void	dquotes(char **line, t_token **list)
+/*
+size_t	dquotes(char *token, char *line)
 {
 	size_t	len;
 
@@ -63,8 +81,9 @@ void	dquotes(char **line, t_token **list)
 	ft_lstadd_back((t_list **)list, ft_strndup(*line - len, len));
 	++(*line);
 }
+*/
 
-void	seps(char **line, t_token **list)
+size_t	seps(char *token, char **line)
 {
 	size_t	i;
 
@@ -73,10 +92,12 @@ void	seps(char **line, t_token **list)
 	{
 		if (ft_strbegin(*line, g_seps[i]))
 		{
-			*line += ft_strlen(g_seps[i]);
-			ft_lstadd_back((t_list **)list, ft_strdup(g_seps[i]));
-			return ;
+			ft_strcpy(token, g_seps[i]);
+			i = ft_strlen(g_seps[i]);
+			*line += i;
+			return (i);
 		}
 		i++;
 	}
+	return (0);
 }

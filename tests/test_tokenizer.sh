@@ -1,7 +1,10 @@
 #!/bin/zsh
 libft_path="../libft"
 tests=("The quick brown fox jumps over the lazy dog" \
-	"a|b" \
+	"'test' 'xx'" \
+	"te'st'" \
+	"'te*st'" \
+	"te*st" \
 	" cat file | grep test" \
 	"test\ lol zobzob" \
 	"test\\lol zobzob" \
@@ -15,7 +18,7 @@ set -e
 echo testing tokenizer:
 echo
 echo
-clang -Wall -Werror -Wextra $source_folder/tokenizer.c $source_folder/methods.c src/main_tokenizer.c $source_folder/wildcard.c -I$include_folder -I$libft_path -L$libft_path -lft
+clang -Wall -Werror -Wextra $source_folder/tokenizer.c $source_folder/ft_getenv.c $source_folder/get_token.c $source_folder/methods.c src/main_tokenizer.c $source_folder/wildcard.c -I$include_folder -I$libft_path -L$libft_path -lft
 for elem in $tests; do
 	echo testing $elem ':'
 	echo

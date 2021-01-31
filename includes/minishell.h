@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 12:13:25 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:43:40 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,9 @@
 
 static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
-enum			e_genv
-{
-	GE_VAL,
-	GE_FULL
-};
-
 char			**tokenize(char *line);
 int				ft_igetenv(char *name);
+char			*ft_lgetenv(char *line);
 char 			*ft_getenv(char *name);
 char			*ft_setenv(char *name, char *value);
 
