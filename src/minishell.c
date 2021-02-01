@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 14:36:42 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:04:39 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,49 @@ static int
 
 #endif
 
-int	print_tokenized(char *line)
+static int
+	minishell(void)
 {
+	char	*line;
 	char	**tokens;
-	int		i;
-
-	if (!(tokens = tokenize(line)))
-		return (EXIT_FAILURE);
-	i = 0;
-	while (tokens[i])
-	{
-		printf("\ntokens[%d]: %s | len: %zu\n", i, tokens[i], ft_strlen(tokens[i]));
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
-	return (EXIT_SUCCESS);
-}
-
-int		main(void)
-{
-	char	*line;
 
 	while (prompt_shell(&line))
 	{
-		print_tokenized(line);
+		if (!*line)
+			continue ;
+		tokens = tokenize(line);
+		builtin_echo(tokens, NULL);
 		free(line);
 	}
 	return (EXIT_SUCCESS);
 }
 
-/*
+#ifdef BONUS
+
 int		main(void)
 {
-	char	*line;
-
-	while (prompt_shell(&line))
-	{
-		printf("\nLINE: [%s]\n", line);
-		print_tokenized(line);
-		free(line);
-	}
-	return (EXIT_SUCCESS);
+	tgetent(NULL, ft_getenv("TERM"));
+	t_term term;
+	t_term backup;
+	tcgetattr(0, &term);
+	tcgetattr(0, &backup);
+	term.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(0, 0, &term);
+	setbuf(stdout, NULL);
+	cap("ks");
+	minishell();
+	tcsetattr(0, 0, &backup);
+	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
+	builtin_exit(NULL, NULL);
 }
-*/
+
+#else
+
+int main(void)
+{
+	minishell();
+	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
+	builtin_exit(NULL, NULL);
+}
+
+#endif

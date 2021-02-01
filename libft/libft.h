@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 14:29:24 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:08:37 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				ft_strbegin(const char *str, const char *begin);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
-int				ft_free_tab(char **tab);
+int				ft_free_tab(char **table);
 void			*ft_bzero(void *s, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);

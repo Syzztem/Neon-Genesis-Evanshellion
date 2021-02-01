@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 11:22:06 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:07:42 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_line
 	t_point cursor_pos;
 }				t_line;
 
-typedef struct termios	t_term;
 typedef void	(*t_cap)(t_line *line);
 
 void			insert_char(t_line *line, char c);

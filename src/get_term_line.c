@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 11:50:06 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 13:23:37 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int
 	init_line(line);
 	while (1)
 	{
-		if (get_key(key, 0) == 0 && line->len == -1)
+		if (get_key(key, 0) == 0 && line->len == 0)
 		{
 			free(line->line);
 			free(line);

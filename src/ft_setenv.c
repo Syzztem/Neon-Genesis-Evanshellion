@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 17:10:49 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:03:21 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,19 @@ char
 	ft_strcat(environ[env_index], value);
 	environ[env_index + 1] = NULL;
 	return (environ[env_index]);
+}
+
+void
+	ft_unsetenv(char *name)
+{
+	int				env_index;
+	extern char		**environ;
+
+	env_index = ft_igetenv(name);
+	if (env_index == -1)
+		return ;
+	free(environ[env_index]);
+	ft_memmove(environ + env_index, environ + env_index + 1, sizeof(char *) * (env_size() - env_index));
 }
 
 void
