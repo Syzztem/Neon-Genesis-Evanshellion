@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 15:39:53 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 11:22:06 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			move_right(t_line *line);
 void			retreive_hist(t_line *line);
 void			do_nothing(t_line *line);
 void			add_to_hist(char *cmd);
-int				get_key(char *key);
+int				get_key(char *key, char do_buf);
 void			exec_key(t_line *line, char *key);
 void			clear_unused_lines(t_line *hist, char *to_keep, size_t size);
 t_line			*create_line(t_line *buf, t_line *origin);
