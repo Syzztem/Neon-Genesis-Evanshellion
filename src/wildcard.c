@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:34:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 15:22:10 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 11:51:36 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_token
 	output = NULL;
 	path[0] = '.';
 	path[1] = '\0';
-	puts("here");
 	exp_split = ft_split(expr, '/');
 	if (!get_all_matches(exp_split, path, &output))
 		ft_lstadd_back((t_list **)&output, expr);

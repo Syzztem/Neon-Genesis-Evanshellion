@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 14:56:36 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 12:01:41 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ static size_t
 	size_t	len;
 
 	len = ft_strlen(line);
-	if (ft_indexof(line, '$') == -1)
-		return (len);
 	while (*line)
 	{
 		if (*line == '$')
 			len += ft_strlen(ft_lgetenv(line + 1));
 		else if (*line == '\"')
+		{
 			while (*++line && *(line - 1) != '\\' && *line != '\"')
-				;
+				if (*line == '*')
+					len++;
+		}
 		else if (*line == '\'')
 			while (*++line != '\'')
-				;
-		else if (*line == '*')
-			len++;
+				if (*line == '*')
+					len++;
 		line++;
 	}
 	return (len);
