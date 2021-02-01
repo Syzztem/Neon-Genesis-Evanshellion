@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 15:36:21 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 11:16:37 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void
 			current_line = next_line(current_line, hist_lines, &line_count,
 				hist_fd);
 		set_line(current_line);
-		get_key(next_key);
+		get_key(next_key, '\n');
 		if (!(key_is(next_key, "ku") || key_is(next_key, "kd")))
 			break ;
 	}
