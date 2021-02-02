@@ -6,13 +6,14 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 17:07:21 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:07:14 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <limits.h>
 
-# ifdef BONUS
+#ifdef BONUS
 
 static int
 	prompt_shell(char **line)
@@ -37,15 +38,21 @@ static int
 static int
 	minishell(void)
 {
-	char	*line;
-	char	**tokens;
+	char		*line;
+	char		**tokens;
+	extern char	**environ;
+	char		buf[PATH_MAX];
 
 	while (prompt_shell(&line))
 	{
 		if (!*line)
 			continue ;
 		tokens = tokenize(line);
-		builtin_echo(tokens, NULL);
+		if (is_builtin(*tokens) != -1)
+			exec_builtin(tokens, environ);
+		else
+			puts(find_exec(buf, *tokens));
+		free_tab(tokens);
 		free(line);
 	}
 	return (EXIT_SUCCESS);
@@ -53,11 +60,14 @@ static int
 
 #ifdef BONUS
 
-int		main(void)
+int
+	main(void)
 {
-	tgetent(NULL, ft_getenv("TERM"));
 	t_term term;
 	t_term backup;
+
+	copy_env();
+	tgetent(NULL, ft_getenv("TERM"));
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
@@ -66,16 +76,18 @@ int		main(void)
 	cap("ks");
 	minishell();
 	tcsetattr(0, 0, &backup);
-	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
+	system("leaks minishell | awk '/----/{y=2;next}y' | lolcat");
 	builtin_exit(NULL, NULL);
 }
 
 #else
 
-int main(void)
+int
+	main(void)
 {
+	copy_env();
 	minishell();
-	system("leaks a.out | awk '/----/{y=2;next}y' | lolcat");
+	system("leaks minishell | awk '/----/{y=2;next}y' | lolcat");
 	builtin_exit(NULL, NULL);
 }
 

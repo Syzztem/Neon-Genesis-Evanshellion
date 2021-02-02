@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/02/01 15:01:57 by lothieve         ###   ########.fr        #
+#    Updated: 2021/02/02 14:59:59 by lothieve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
 SRCS_PATH = src
-SRC_LIST =	cd.c cursor.c echo.c env.c exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c history.c methods.c minishell.c parsing.c pwd.c termcaps.c termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c wildcard.c
+SRC_LIST =	find_exec.c tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c history.c methods.c minishell.c parsing.c pwd.c termcaps.c termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c wildcard.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 

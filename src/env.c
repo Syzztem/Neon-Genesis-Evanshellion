@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:02:05 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 15:02:55 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:08:05 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	builtin_env(char **av, char **envp)
 {
-	(void) av;
+	(void)av;
 	while (*envp)
 	{
 		ft_putendl_fd(*envp, 1);
