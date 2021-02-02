@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 15:09:27 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/01 17:07:21 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,18 @@ int				get_term_line(char **buffer);
 char			**tokenize(char *line);
 
 int				ft_igetenv(char *name);
-char			*ft_lgetenv(char *line);
 char			*ft_getenv(char *name);
-char			*ft_setenv(char *name, char *value);
+char			*ft_lgetenv(char *line);
 void			ft_unsetenv(char *name);
+char			*ft_setenv(char *name, char *value);
 
+void			builtin_cd(char **av, char **envp);
+void			builtin_env(char **av, char **envp);
+void			builtin_pwd(char **av, char **envp);
 void			builtin_echo(char **av, char **envp);
 void			builtin_exit(char **av, char **envp);
-void			builtin_env(char **av, char **envp);
 void			builtin_unset(char **av, char **envp);
-void			builtin_cd(char **av, char **envp);
-void			builtin_pwd(char **av, char **envp);
+void			builtin_export(char **av, char **envp);
 
 void			cap(char *tc);
 #endif
