@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 15:00:20 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:04:42 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void			builtin_unset(char **av, char **envp);
 void			builtin_export(char **av, char **envp);
 
 char			*find_exec(char *path_buf, char *name);
+void			handle_error(char *command, char *arg);
 
 void			cap(char *tc);
 #endif

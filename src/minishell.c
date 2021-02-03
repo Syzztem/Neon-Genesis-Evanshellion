@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 15:07:14 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:22:45 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int
 	cap("ks");
 	minishell();
 	tcsetattr(0, 0, &backup);
-	system("leaks minishell | awk '/----/{y=2;next}y' | lolcat");
+	system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
 	builtin_exit(NULL, NULL);
 }
 
@@ -87,7 +87,7 @@ int
 {
 	copy_env();
 	minishell();
-	system("leaks minishell | awk '/----/{y=2;next}y' | lolcat");
+	system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
 	builtin_exit(NULL, NULL);
 }
 

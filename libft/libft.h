@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 14:05:38 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/03 10:54:37 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void			*ft_memset(void *b, int c, size_t len);
 void			*ft_memreplace(void *source, char a, char b, size_t size);
 void			*ft_calloc(size_t count, size_t size);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
+void			ft_perror(const char *str);
 char			*ft_itoa(int nbr);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);

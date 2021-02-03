@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/01 14:55:42 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/03 11:15:17 by lothieve         ###   ########.fr       */
+/*   Created: 2021/02/03 10:11:04 by lothieve          #+#    #+#             */
+/*   Updated: 2021/02/03 11:03:44 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <limits.h>
+#include "libft.h"
+#include <errno.h>
+#include <string.h>
 
-void	builtin_pwd(char **av, char **envp)
+void	ft_perror(const char *str)
 {
-	char	dir[PATH_MAX];
-
-	(void)av;
-	(void)envp;
-	if (!getcwd(dir, PATH_MAX))
-		return (handle_error("minishell: pwd:", NULL));
-	ft_putendl_fd(dir, 1);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(strerror(errno), 2);
 }
