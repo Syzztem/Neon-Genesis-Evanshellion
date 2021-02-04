@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:32:55 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 15:09:08 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:23:51 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char
 	char	**pathes;
 	int		i;
 
+	if (ft_indexof(name, '/') != -1)
+		return (name);
 	pathes = split_path();
 	if (!pathes)
 		return (NULL);

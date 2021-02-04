@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 15:08:42 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/04 14:52:06 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char
 		free(environ[env_index]);
 	if (max_size >= env_size())
 		max_size = realloc_env(max_size);
-	puts("");
 	environ[env_index] = malloc(sizeof(char) * (ft_strlen(name)
 		+ ft_strlen(value) + 2));
 	ft_strcpy(environ[env_index], name);

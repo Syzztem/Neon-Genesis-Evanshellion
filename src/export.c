@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:17:00 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 14:22:30 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/04 14:56:19 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,30 @@ static int
 
 	i = 0;
 	while (assign[i] && assign[i] != '=')
+	{
+		if (!ft_isalnum(assign[i]) && assign[i] != '_')
+			return (-1);
 		i++;
+	}
 	if (!assign[i])
-		return (-1);
+		return (i);
 	assign[i] = '\0';
 	return (i + 1);
 }
 
-static void
+static int
 	export_setenv(char *assign)
 {
 	int	split_index;
 
 	split_index = split_env(assign);
 	if (split_index == -1)
-		return ;
+	{
+		handle_error("minishell: export: ", assign, "not a valid identifier");
+		return (1);
+	}
 	ft_setenv(assign, assign + split_index);
+	return (0);
 }
 
 static void
@@ -63,7 +71,7 @@ static void
 	}
 }
 
-void
+int
 	builtin_export(char **av, char **envp)
 {
 	if (av[1])
@@ -75,4 +83,5 @@ void
 		ft_putendl_fd(*envp, 1);
 		envp++;
 	}
+	return (0);
 }

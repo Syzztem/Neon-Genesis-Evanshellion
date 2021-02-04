@@ -6,13 +6,13 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:02:05 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/03 13:26:30 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:29:44 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_env(char **av, char **envp)
+int	builtin_env(char **av, char **envp)
 {
 	(void)av;
 	while (*envp)
@@ -20,4 +20,5 @@ void	builtin_env(char **av, char **envp)
 		ft_putendl_fd(*envp, 1);
 		envp++;
 	}
+	return (0);
 }

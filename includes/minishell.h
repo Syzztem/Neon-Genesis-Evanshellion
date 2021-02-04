@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/03 11:04:42 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/04 15:12:33 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
-typedef void	(*t_builtin)(char **av, char **envp);
+typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
 int				get_term_line(char **buffer);
@@ -47,16 +47,16 @@ void			free_tab(char **table);
 size_t			tab_size(char **table);
 char			**dup_tab(char **table);
 
-void			builtin_cd(char **av, char **envp);
-void			builtin_env(char **av, char **envp);
-void			builtin_pwd(char **av, char **envp);
-void			builtin_echo(char **av, char **envp);
-void			builtin_exit(char **av, char **envp);
-void			builtin_unset(char **av, char **envp);
-void			builtin_export(char **av, char **envp);
+int				builtin_cd(char **av, char **envp);
+int				builtin_env(char **av, char **envp);
+int				builtin_pwd(char **av, char **envp);
+int				builtin_echo(char **av, char **envp);
+int				builtin_exit(char **av, char **envp);
+int				builtin_unset(char **av, char **envp);
+int				builtin_export(char **av, char **envp);
 
 char			*find_exec(char *path_buf, char *name);
-void			handle_error(char *command, char *arg);
+int				handle_error(char *command, char *arg, char *errmsg);
 
 void			cap(char *tc);
 #endif

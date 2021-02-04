@@ -6,13 +6,13 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:24:58 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 15:07:48 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:29:19 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_echo(char **av, char **envp)
+int	builtin_echo(char **av, char **envp)
 {
 	size_t	i;
 	char	flag;
@@ -34,4 +34,5 @@ void	builtin_echo(char **av, char **envp)
 			write(1, "\n", 1);
 		++i;
 	}
+	return (0);
 }
