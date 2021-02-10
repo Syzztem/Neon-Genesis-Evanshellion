@@ -6,16 +6,39 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 13:23:37 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:26:45 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static const t_cap	g_caps[CAP_COUNT] = {move_left,
-	move_right, go_home, go_end, retreive_hist};
+static const t_cap	g_caps[CAP_COUNT] = {
+	move_left,
+	move_right,
+	prev_word,
+	next_word,
+	go_home,
+	go_end,
+	retreive_hist
+};
 
-static const char	*g_capstr[CAP_COUNT] = {"kl", "kr", "kN", "kP", "ku"};
+/**
+ * That makes no sense at all but
+ * #4 is the shift + left key
+ * %i is the shift + right key
+ * Now I can die in peace for finding them
+ * And they both return the same value :)
+**/
+
+static const char	*g_capstr[CAP_COUNT] = {
+	"kl",
+	"kr",
+	"#4",
+	"%i",
+	"kh",
+	"@7",
+	"ku"
+};
 
 int
 	get_key(char *key, char do_buf)
@@ -35,7 +58,7 @@ int
 	if (*key == do_buf)
 		bfrd = *key;
 	if (*key == ESC_CHAR)
-		rd += read(0, key + 1, 3);
+		rd += read(0, key + 1, 6);
 	key[rd] = '\0';
 	return (rd);
 }
@@ -47,9 +70,13 @@ static t_cap
 
 	i = -1;
 	while (++i < CAP_COUNT)
+	{
 		if (!ft_strncmp(key + 1, tgetstr((char *)g_capstr[i], NULL) + 1,
 			ESC_LEN))
+		{
 			return (g_caps[i]);
+		}
+	}
 	return (do_nothing);
 }
 

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/03 11:22:45 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/05 16:12:13 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static int
 	while (prompt_shell(&line))
 	{
 		if (!*line)
+		{
+			free(line);
 			continue ;
+		}
 		tokens = tokenize(line);
 		if (is_builtin(*tokens) != -1)
 			exec_builtin(tokens, environ);

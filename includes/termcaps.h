@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 15:07:42 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:49:52 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define ESC_CHAR '\x1b'
 # define BUFF_SIZE 255
 # define CURSOR_QUERY "\x1b[6n"
-# define CAP_COUNT 5
+# define CAP_COUNT 7
 # define ESC_LEN 3
 # define DEFAULT_HIST_FILE ".minishell_history"
 # define HIST_ENV "MINISHELL_HIST"
@@ -54,6 +54,8 @@ void			insert_char(t_line *line, char c);
 void			delete_char(t_line *line);
 void			go_home(t_line *line);
 void			go_end(t_line *line);
+void			prev_word(t_line *line);
+void			next_word(t_line *line);
 void			cap(char *tc);
 void			realloc_line(t_line *line);
 void			move_left(t_line *line);
