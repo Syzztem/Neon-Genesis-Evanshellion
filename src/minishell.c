@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/05 16:12:13 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:28:57 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static int
 		if (is_builtin(*tokens) != -1)
 			exec_builtin(tokens, environ);
 		else
-			puts(find_exec(buf, *tokens));
+		{
+			exec_from_tokens(tokens);
+		}
+			//puts(find_exec(buf, *tokens));
 		free_tab(tokens);
 		free(line);
 	}
