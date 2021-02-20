@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/02/09 16:51:19 by lothieve         ###   ########.fr        #
+#    Updated: 2021/02/19 15:54:22 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -Werror -DBONUS $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -DBONUS $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
@@ -25,7 +25,7 @@ FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
 SRCS_PATH = src
-SRC_LIST =	word_jump.c errmgr.c find_exec.c tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c history.c methods.c minishell.c parsing.c pwd.c termcaps.c termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c wildcard.c
+SRC_LIST =	parser.c parser_utils.c parsing.c exec.c debug_utils.c word_jump.c errmgr.c find_exec.c tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c history.c methods.c minishell.c parsing.c pwd.c termcaps.c termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c wildcard.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
