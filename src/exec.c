@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/16 22:57:52 by root             ###   ########.fr       */
+/*   Updated: 2021/02/20 11:37:20 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,16 @@ int	pipe_nodes(t_list *commands)
 
 int	exec_command_list(t_list *commands)
 {	
-	ft_lstiter(commands, exec_command);
+	pid_t	last_pid;
+	t_list	*current;
+
+	current = commands;
+	while (current)
+	{
+		last_pid = exec_command(current->content);
+		current = current->next;
+	}
+	
 	return (0);
 }
 
@@ -93,7 +102,9 @@ int	exec_command_line(t_list *commands, char **redirections)
 		exec_command_list(commands);
 		close(fd_output);
 		close(fd_input);
+		exit(0);
 	}
+	waitpid(pid, NULL, 0);
 	return (0);
 }
 
