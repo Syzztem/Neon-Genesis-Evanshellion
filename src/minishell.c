@@ -6,11 +6,12 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/19 16:28:57 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:52:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 #include <limits.h>
 
 #ifdef BONUS
@@ -90,7 +91,7 @@ int
 
 int
 	main(void)
-{
+{	
 	copy_env();
 	minishell();
 	system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/16 22:55:51 by root             ###   ########.fr       */
+/*   Updated: 2021/02/20 09:47:11 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,8 @@ int				redirects_to_fds(char **redirects, int *fd_input, int *fd_output);
 void			print_cmd_lst(t_list *lst);
 void			print_command(t_command *command);
 void			print_argv(char **argv);
+char			*alloc_path_buf(char *cmd);
+char			*do_find_exec(char *cmd);
+void			print_exec_path(char *cmd);
+void			iter_argv(char **argv, void (*func)(char *));
 #endif

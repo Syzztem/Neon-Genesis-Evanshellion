@@ -6,11 +6,12 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/19 15:56:52 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:47:28 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "minishell.h"
 
 t_command
 	*new_command(char *cmd, char **argv, char *sep)
@@ -22,10 +23,74 @@ t_command
 	return (new);
 }
 
+char
+	*alloc_path_buf(char *cmd)
+{
+	char	*path;
+	
+	path = ft_getenv("PATH");
+	if (!path)
+		return (NULL);
+	return (ft_calloc(ft_strlen(path) + ft_strlen(cmd) + 2, 1));
+}
+
+/*
+**	For testing purposes only 
+*/
+
+char
+	*do_find_exec(char *cmd)
+{
+	char	*path_buf;
+
+	path_buf = alloc_path_buf(cmd);
+	if (!path_buf || !find_exec(path_buf, cmd))
+	{
+		free(path_buf);
+		return (ft_strdup(cmd));
+	}
+	return (path_buf);
+
+}
+
+/*
+**	For testing purposes only 
+*/
+
+void
+	print_exec_path(char *cmd)
+{
+	char	*path;
+
+	path = do_find_exec(cmd);
+	printf("%s -> %s\n", cmd, path);
+}
+
+void
+	iter_argv(char **argv, void (*func)(char *))
+{
+	char **current;
+
+	current = argv;
+	while (*current)
+	{
+		func(*current);
+		current++;
+	}
+}
+
 t_command
 	*command_from_argv(char **argv, char *sep)
 {
-	return (new_command(ft_strdup(argv[0]), argv, sep));
+	char	*path_buf;
+
+	path_buf = alloc_path_buf(argv[0]);// I can't exactly know the size of the command's path in advance so i I have to alloc the maximum size possible to avoid buffer overflow :(
+	if (!path_buf || !find_exec(path_buf, argv[0]))
+	{
+		free(path_buf);
+		return (new_command(ft_strdup(argv[0]), argv, sep));
+	}
+	return (new_command(path_buf, argv, sep));
 }
 
 t_command
@@ -99,7 +164,8 @@ int main(void)
 
 
 
-int	is_redirect(char *token)
+int
+	is_redirect(char *token)
 {
 	return ((int)find_token(token, REDIRECTS));
 }
