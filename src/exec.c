@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/20 11:37:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/22 14:27:12 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int
 		pid = execve(command->cmd, command->argv, environ);
 		printf("%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
 	}
+	
 	close(command->fd_input);
 	close(command->fd_output);
 	//fflush(stdout);
@@ -99,9 +100,10 @@ int	exec_command_line(t_list *commands, char **redirections)
 	{	
 		dup2_check(fd_output, 1);
 		dup2_check(fd_input, 0);
-		exec_command_list(commands);
+		pid = exec_command_list(commands);
 		close(fd_output);
 		close(fd_input);
+		waitpid(pid, NULL, 0);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
