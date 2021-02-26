@@ -27,9 +27,18 @@ sig_t blank(int a)
 static int
 	prompt_shell(char **line)
 {
+	int		ret;
+	t_term	term;
+	t_term	backup;
+
 	ft_putstr_fd("EVA-04$ ", 0);
-	return (get_term_line(line));
-	return (0);
+	tcgetattr(0, &term);
+	tcgetattr(0, &backup);
+	term.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(0, 0, &term);
+	ret = get_term_line(line);
+	tcsetattr(0, 0, &backup);
+	return (ret);
 }
 
 #else
@@ -39,7 +48,6 @@ static int
 {
 	ft_putstr_fd("EVA-04$ ", 0);
 	return (get_next_line(0, line));
-	return (0);
 }
 
 #endif
@@ -79,20 +87,11 @@ static int
 int
 	main(void)
 {
-	t_term term;
-	t_term backup;
-
 	copy_env();
 	tgetent(NULL, ft_getenv("TERM"));
-	tcgetattr(0, &term);
-	tcgetattr(0, &backup);
-	term.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr(0, 0, &term);
 	setbuf(stdout, NULL);
 	cap("ks");
 	minishell();
-	tcsetattr(0, 0, &backup);
-	//system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
 	builtin_exit(NULL, NULL);
 }
 
