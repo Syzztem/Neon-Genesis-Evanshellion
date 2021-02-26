@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/20 10:16:08 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:27:37 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,11 +263,4 @@ int
 			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno), input_path_ptr[1]);
 	}
 	return (mode);
-}
-
-sig_t blank(int a)
-{
-	(void)a;
-	write(1, "\n", 1);
-	return (NULL);
 }

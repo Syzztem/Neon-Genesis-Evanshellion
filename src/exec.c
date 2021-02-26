@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/22 14:27:12 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:14:17 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void
 	dup2_check(int fd_src, int fd_dst)
 {
-	if (fd_src != fd_dst)
+	if (fd_src != fd_dst && fd_dst >= 0)
 	{
 		dup2(fd_src, fd_dst);
 		close(fd_src);
