@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/20 09:47:28 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:27:37 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,50 +34,6 @@ char
 	return (ft_calloc(ft_strlen(path) + ft_strlen(cmd) + 2, 1));
 }
 
-/*
-**	For testing purposes only 
-*/
-
-char
-	*do_find_exec(char *cmd)
-{
-	char	*path_buf;
-
-	path_buf = alloc_path_buf(cmd);
-	if (!path_buf || !find_exec(path_buf, cmd))
-	{
-		free(path_buf);
-		return (ft_strdup(cmd));
-	}
-	return (path_buf);
-
-}
-
-/*
-**	For testing purposes only 
-*/
-
-void
-	print_exec_path(char *cmd)
-{
-	char	*path;
-
-	path = do_find_exec(cmd);
-	printf("%s -> %s\n", cmd, path);
-}
-
-void
-	iter_argv(char **argv, void (*func)(char *))
-{
-	char **current;
-
-	current = argv;
-	while (*current)
-	{
-		func(*current);
-		current++;
-	}
-}
 
 t_command
 	*command_from_argv(char **argv, char *sep)
@@ -307,11 +263,4 @@ int
 			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno), input_path_ptr[1]);
 	}
 	return (mode);
-}
-
-sig_t blank(int a)
-{
-	(void)a;
-	write(1, "\n", 1);
-	return (NULL);
 }

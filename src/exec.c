@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/16 22:57:52 by root             ###   ########.fr       */
+/*   Updated: 2021/02/25 10:14:17 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void
 	dup2_check(int fd_src, int fd_dst)
 {
-	if (fd_src != fd_dst)
+	if (fd_src != fd_dst && fd_dst >= 0)
 	{
 		dup2(fd_src, fd_dst);
 		close(fd_src);
@@ -36,6 +36,7 @@ int
 		pid = execve(command->cmd, command->argv, environ);
 		printf("%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
 	}
+	
 	close(command->fd_input);
 	close(command->fd_output);
 	//fflush(stdout);
@@ -70,7 +71,16 @@ int	pipe_nodes(t_list *commands)
 
 int	exec_command_list(t_list *commands)
 {	
-	ft_lstiter(commands, exec_command);
+	pid_t	last_pid;
+	t_list	*current;
+
+	current = commands;
+	while (current)
+	{
+		last_pid = exec_command(current->content);
+		current = current->next;
+	}
+	
 	return (0);
 }
 
@@ -90,10 +100,13 @@ int	exec_command_line(t_list *commands, char **redirections)
 	{	
 		dup2_check(fd_output, 1);
 		dup2_check(fd_input, 0);
-		exec_command_list(commands);
+		pid = exec_command_list(commands);
 		close(fd_output);
 		close(fd_input);
+		waitpid(pid, NULL, 0);
+		exit(0);
 	}
+	waitpid(pid, NULL, 0);
 	return (0);
 }
 

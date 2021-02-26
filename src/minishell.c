@@ -6,13 +6,21 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/25 10:42:47 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/02/26 10:11:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
 #include <limits.h>
+
+
+sig_t blank(int a)
+{
+	(void)a;
+//	write(1, "\n", 1);
+	return (NULL);
+}
 
 #ifdef BONUS
 
@@ -52,6 +60,7 @@ static int
 	extern char	**environ;
 	char		buf[PATH_MAX];
 
+	signal(SIGINT, blank);
 	while (prompt_shell(&line))
 	{
 		if (!*line)
@@ -83,7 +92,6 @@ int
 	setbuf(stdout, NULL);
 	cap("ks");
 	minishell();
-	system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
 	builtin_exit(NULL, NULL);
 }
 
