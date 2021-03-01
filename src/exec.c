@@ -6,11 +6,12 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/25 10:14:17 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/01 16:34:48 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "exec.h"
 
 static void
 	dup2_check(int fd_src, int fd_dst)
@@ -31,19 +32,19 @@ int
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2_check(command->fd_input, 0);
-		dup2_check(command->fd_output, 1);
-		pid = execve(command->cmd, command->argv, environ);
+		dup2(command->fd_input, 0);
+		dup2(command->fd_output, 1);
+		if (is_builtin(command->argv[0]) != -1)
+			exec_builtin(command->argv, environ);
+		else
+			pid = execve(command->cmd, command->argv, environ);
 		printf("%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
 	}
-	
-	close(command->fd_input);
-	close(command->fd_output);
-	//fflush(stdout);
 	return (pid);
 }
 
-int	link_commands(t_command *src, t_command *dst)
+int
+	link_commands(t_command *src, t_command *dst)
 {
 	int	pipes[2];
 	int	ret;
@@ -54,7 +55,8 @@ int	link_commands(t_command *src, t_command *dst)
 	return (ret);
 }
 
-int	pipe_nodes(t_list *commands)
+int
+	pipe_nodes(t_list *commands)
 {
 	t_list	*current;
 	int		ret;
@@ -69,22 +71,35 @@ int	pipe_nodes(t_list *commands)
 	return (ret);
 }
 
-int	exec_command_list(t_list *commands)
+pid_t
+	exec_command_list(t_list *commands)
 {	
-	pid_t	last_pid;
-	t_list	*current;
+	pid_t		last_pid;
+	t_list		*current;
+	t_command	*cmd;
 
 	current = commands;
 	while (current)
 	{
-		last_pid = exec_command(current->content);
+		cmd = current->content;
+		last_pid = exec_command(cmd);
+		close(cmd->fd_input);
+		close(cmd->fd_output);
 		current = current->next;
 	}
 	
-	return (0);
+	return (last_pid);
 }
 
-int	exec_command_line(t_list *commands, char **redirections)
+void
+	close_checked(int fd)
+{
+	if (fd != 0 && fd != 1)
+		close (fd);
+}
+
+int
+	exec_command_line(t_list *commands, char **redirections)
 {
 	pid_t	pid;
 	int		fd_input;
@@ -103,7 +118,9 @@ int	exec_command_line(t_list *commands, char **redirections)
 		pid = exec_command_list(commands);
 		close(fd_output);
 		close(fd_input);
+		printf("HERE!\n");
 		waitpid(pid, NULL, 0);
+		printf("THERE\n");
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -117,12 +134,13 @@ int
 	char	**pure_tokens;
 	char	**redirections;
 
+	print_argv(tokens);
 	pure_tokens = get_pure_tokens(tokens);
 	lst = parse_list(pure_tokens);
-//	print_cmd_lst(lst);
+	print_cmd_lst(lst);
 
 	redirections = extract_redirects(tokens);
-//	print_argv(redirections);
+	print_argv(redirections);
 	exec_command_line(lst, redirections);
 	return (0);
 }

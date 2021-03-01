@@ -6,15 +6,14 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/02/25 10:28:59 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/01 16:14:31 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.SUFFIXES:
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -DBONUS $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -g3 -DBONUS $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
@@ -29,6 +28,7 @@ SRC_LIST =	parser.c parser_utils.c parsing.c exec.c debug_utils.c word_jump.c er
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
+CPOOP = 
 
 all :		libft
 			@mkdir -p ./obj
@@ -50,7 +50,17 @@ fclean : clean
 	$(LIBFT_MAKE) fclean
 	rm -f $(NAME)
 	rm -rf $(OBJ_PATH)
+	
+re : 		fclean all
 
-re : 		fclean all	
+debug_flags : 
+	$(eval CFLAGS += -D DEBUG=1  -fsanitize=address)
+	$(eval LIBFT_LIB += -fsanitize=address)
+	@mkdir -p ./obj
 
-.PHONY:		all clean fclean re libft
+
+debug : fclean
+	$(MAKE) -C  ./libft debug re
+	$(MAKE) debug_flags $(NAME)
+
+.PHONY:		all clean fclean re libft debug debug_flags

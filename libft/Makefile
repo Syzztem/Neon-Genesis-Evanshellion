@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 15:35:45 by lothieve          #+#    #+#              #
-#    Updated: 2021/02/03 10:54:50 by lothieve         ###   ########.fr        #
+#    Updated: 2021/03/01 15:40:47 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,5 +48,8 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+debug: 
+	$(eval CFLAGS += -g3 -D DEBUG=1  -fsanitize=address)
+
+.PHONY:		all clean fclean re debug
 

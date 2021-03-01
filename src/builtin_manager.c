@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:42:39 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 14:04:22 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:24:37 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define BUILTIN_COUNT 7
 
-static const t_builtin g_builtins[BUILTIN_COUNT] = {
+static const t_builtin g_builtins[BUILTIN_COUNT + 1] = {
 	builtin_echo,
 	builtin_exit,
 	builtin_cd,
 	builtin_env,
 	builtin_pwd,
 	builtin_unset,
-	builtin_export
+	builtin_export,
+	NULL
 };
 
-static const char *g_builtin_list[BUILTIN_COUNT] = {
+static const char *g_builtin_list[BUILTIN_COUNT + 1] = {
 	"echo",
 	"exit",
 	"cd",
 	"env",
 	"pwd",
 	"unset",
-	"export"
+	"export",
+	NULL
 };
 
 int
@@ -53,5 +55,5 @@ void
 	i = is_builtin(*av);
 	if (i == -1)
 		return ;
-	g_builtins[i](av, envp);
+	exit(g_builtins[i](av, envp));
 }

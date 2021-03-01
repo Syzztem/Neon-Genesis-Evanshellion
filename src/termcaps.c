@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/20 13:41:20 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/01 16:40:50 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	delete_char(t_line *line)
 	if (line->r_cur_pos == 0)
 		return ;
 	ft_memmove(line->line + line->r_cur_pos - 1, line->line + line->r_cur_pos,
-			(line->max_len - line->r_cur_pos) + 1);
+			(line->max_len - line->r_cur_pos));
 	line->r_cur_pos--;
 	line->len--;
 	line->cursor_pos.x--;

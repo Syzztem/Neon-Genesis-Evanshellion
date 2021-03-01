@@ -6,17 +6,17 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/20 10:16:16 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/02/27 12:01:53 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void
+int
 	print_argv(char **argv)
 {
 	if (!DEBUG)
-		return ;
+		return (0);
 	printf("%p -> ", argv);
 	if (argv && *argv)
 	{
@@ -31,6 +31,7 @@ void
 		printf("%s", "}\n");
 	}	
 	fflush(stdout);
+	return (0);
 }
 
 void

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/26 10:11:33 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/01 12:59:51 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 sig_t blank(int a)
 {
 	(void)a;
-//	write(1, "\n", 1);
+	write(0, "\n" "EVA-04$ " , 9);
 	return (NULL);
 }
 
@@ -68,14 +68,9 @@ static int
 			free(line);
 			continue ;
 		}
+	//	line = ft_strdup("pwd");
 		tokens = tokenize(line);
-		if (is_builtin(*tokens) != -1)
-			exec_builtin(tokens, environ);
-		else
-		{
-			exec_from_tokens(tokens);
-		}
-			//puts(find_exec(buf, *tokens));
+		exec_from_tokens(tokens);
 		free_tab(tokens);
 		free(line);
 	}
