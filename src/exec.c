@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/01 16:34:48 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/02 15:21:58 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ int
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(command->fd_input, 0);
-		dup2(command->fd_output, 1);
+		dup2_check(command->fd_input, 0);
+		dup2_check(command->fd_output, 1);
 		if (is_builtin(command->argv[0]) != -1)
 			exec_builtin(command->argv, environ);
 		else
 			pid = execve(command->cmd, command->argv, environ);
-		printf("%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+		//printf("%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+		write(open("logloglog", O_RDWR | O_TRUNC | O_CREAT), strerror(errno), strlen(strerror(errno)));
+		exit(errno);
 	}
+	print_command(command);
 	return (pid);
 }
 
@@ -85,6 +88,8 @@ pid_t
 		last_pid = exec_command(cmd);
 		close(cmd->fd_input);
 		close(cmd->fd_output);
+		printf("CLOSED B %d %d\n", cmd->fd_input, cmd->fd_output);
+		print_command(cmd);
 		current = current->next;
 	}
 	
@@ -123,6 +128,7 @@ int
 		printf("THERE\n");
 		exit(0);
 	}
+	printf("CLOSED A %d %d\n", fd_input, fd_output);
 	waitpid(pid, NULL, 0);
 	return (0);
 }
@@ -134,13 +140,13 @@ int
 	char	**pure_tokens;
 	char	**redirections;
 
-	print_argv(tokens);
+	//print_argv(tokens);
 	pure_tokens = get_pure_tokens(tokens);
 	lst = parse_list(pure_tokens);
-	print_cmd_lst(lst);
+	//print_cmd_lst(lst);
 
 	redirections = extract_redirects(tokens);
-	print_argv(redirections);
+	//print_argv(redirections);
 	exec_command_line(lst, redirections);
 	return (0);
 }
