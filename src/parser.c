@@ -6,12 +6,13 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/25 10:27:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:36:06 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
+#include <limits.h>
 
 t_command
 	*new_command(char *cmd, char **argv, char *sep)
@@ -26,12 +27,8 @@ t_command
 char
 	*alloc_path_buf(char *cmd)
 {
-	char	*path;
-	
-	path = ft_getenv("PATH");
-	if (!path)
-		return (NULL);
-	return (ft_calloc(ft_strlen(path) + ft_strlen(cmd) + 2, 1));
+	(void)cmd;
+	return (ft_calloc(PATH_MAX + 1, 1));
 }
 
 
@@ -39,13 +36,17 @@ t_command
 	*command_from_argv(char **argv, char *sep)
 {
 	char	*path_buf;
+	char	*found_exec;
 
 	path_buf = alloc_path_buf(argv[0]);// I can't exactly know the size of the command's path in advance so i I have to alloc the maximum size possible to avoid buffer overflow :(
-	if (!path_buf || !find_exec(path_buf, argv[0]))
+	found_exec = find_exec(path_buf, argv[0]);
+	if (!path_buf || !found_exec)
 	{
 		free(path_buf);
 		return (new_command(ft_strdup(argv[0]), argv, sep));
 	}
+	if (found_exec == argv[0])
+		ft_strlcpy(path_buf, argv[0], PATH_MAX);
 	return (new_command(path_buf, argv, sep));
 }
 
