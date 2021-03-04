@@ -6,14 +6,14 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/01 16:14:31 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/04 10:14:57 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -g3 -DBONUS $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -g3 $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
@@ -62,5 +62,6 @@ debug_flags :
 debug : fclean
 	$(MAKE) -C  ./libft debug re
 	$(MAKE) debug_flags $(NAME)
+
 
 .PHONY:		all clean fclean re libft debug debug_flags
