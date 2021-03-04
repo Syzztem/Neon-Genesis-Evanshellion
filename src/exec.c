@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/01 16:34:48 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:22:36 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,19 @@ int
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(command->fd_input, 0);
-		dup2(command->fd_output, 1);
+		dup2_check(command->fd_input, 0);
+		dup2_check(command->fd_output, 1);
 		if (is_builtin(command->argv[0]) != -1)
 			exec_builtin(command->argv, environ);
 		else
+		{
+			dprintf(2, "%s is not a builtin\n", command->cmd);
 			pid = execve(command->cmd, command->argv, environ);
-		printf("%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+		}
+		dprintf(2, "%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+		exit(errno);
 	}
+	print_command(command);
 	return (pid);
 }
 
@@ -107,20 +112,18 @@ int
 
 	fd_input = -2;
 	fd_output = -2;
-	redirects_to_fds(redirections, &fd_input, &fd_output);
-	pipe_nodes(commands);
-	print_cmd_lst(commands);
 	pid = fork();
 	if (pid == 0)
 	{	
+		redirects_to_fds(redirections, &fd_input, &fd_output);
+		pipe_nodes(commands);
+		print_cmd_lst(commands);
 		dup2_check(fd_output, 1);
 		dup2_check(fd_input, 0);
 		pid = exec_command_list(commands);
 		close(fd_output);
 		close(fd_input);
-		printf("HERE!\n");
 		waitpid(pid, NULL, 0);
-		printf("THERE\n");
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -134,13 +137,13 @@ int
 	char	**pure_tokens;
 	char	**redirections;
 
-	print_argv(tokens);
+	//print_argv(tokens);
 	pure_tokens = get_pure_tokens(tokens);
 	lst = parse_list(pure_tokens);
-	print_cmd_lst(lst);
+	//print_cmd_lst(lst);
 
 	redirections = extract_redirects(tokens);
-	print_argv(redirections);
+	//print_argv(redirections);
 	exec_command_line(lst, redirections);
 	return (0);
 }
