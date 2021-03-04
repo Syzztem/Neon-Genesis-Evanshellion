@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/04 10:22:36 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:45:41 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int
 			exec_builtin(command->argv, environ);
 		else
 		{
-			dprintf(2, "%s is not a builtin\n", command->cmd);
+		//	dprintf(2, "%s is not a builtin\n", command->cmd);
 			pid = execve(command->cmd, command->argv, environ);
 		}
 		dprintf(2, "%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
