@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/04 10:45:11 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:37:49 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_command
 	t_command	*new;
 
 	new = malloc(sizeof(t_command));
-	*new = (t_command){cmd, argv, sep, 1, 0};
+	*new = (t_command){cmd, argv, sep, 1, 0, -1};
 	return (new);
 }
 

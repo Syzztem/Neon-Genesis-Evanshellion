@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/27 12:02:10 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:37:59 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_command
 	char	*sep;
 	int		fd_output;
 	int		fd_input;
+	pid_t	pid;
 }				t_command;
 
 size_t			get_argv_len(char **tokens);
