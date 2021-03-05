@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/26 10:35:16 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:53:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char			*ft_setenv(char *name, char *value);
 void			copy_env(void);
 
 int				is_builtin(char *command);
-void			exec_builtin(char **av, char **envp);
+int 			exec_builtin(char **av, char **envp);
 
 void			free_tab(char **table);
 size_t			tab_size(char **table);

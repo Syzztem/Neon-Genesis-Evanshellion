@@ -6,20 +6,20 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/04 10:14:57 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/05 14:41:33 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -g3 $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -g3 -fsanitize=address $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
 LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
 LIBFT_INC = -I $(LIBFT_PATH)
-LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses
+LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses -fsanitize=address
 FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/01 12:59:51 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:23:00 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int
 		}
 	//	line = ft_strdup("pwd");
 		tokens = tokenize(line);
+	//	print_argv(tokens);
+	//	printf("\n");
 		exec_from_tokens(tokens);
 		free_tab(tokens);
 		free(line);
@@ -97,7 +99,7 @@ int
 {	
 	copy_env();
 	minishell();
-	system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
+	//system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
 	builtin_exit(NULL, NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/04 17:08:50 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:09:59 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,23 @@ int
 }
 
 int
+	is_single_builtin(t_list	*lst)
+{
+	t_command	*cmd;
+	
+	if (!lst || lst->next)
+		return (0);
+	cmd = lst->content;
+	return (cmd && cmd->argv && is_builtin(cmd->argv[0]));
+}
+
+int
 	exec_from_tokens(char **tokens)
 {
-	t_list	*lst;
-	char	**pure_tokens;
-	char	**redirections;
+	t_list			*lst;
+	char			**pure_tokens;
+	char			**redirections;
+	extern	char	**environ;
 
 	//print_argv(tokens);
 	pure_tokens = get_pure_tokens(tokens);
@@ -144,6 +156,9 @@ int
 
 	redirections = extract_redirects(tokens);
 	//print_argv(redirections);
-	exec_command_line(lst, redirections);
+	if (is_single_builtin(lst))
+		exec_builtin(((t_command *)lst->content)->argv, environ);
+	else
+		exec_command_line(lst, redirections);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:42:39 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/01 14:24:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:53:27 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int
 	return (-1);
 }
 
-void
+int
 	exec_builtin(char **av, char **envp)
 {
 	int i;
 
 	i = is_builtin(*av);
 	if (i == -1)
-		return ;
-	exit(g_builtins[i](av, envp));
+		return (-1);
+	return (g_builtins[i](av, envp));
 }

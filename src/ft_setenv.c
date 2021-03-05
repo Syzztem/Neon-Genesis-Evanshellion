@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/04 14:52:06 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:48:03 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ static size_t
 }
 
 static size_t
-	realloc_env(size_t size)
+	realloc_env()
 {
 	extern char	**environ;
 	char		**sw;
+	size_t		size;
 
-	size += ENV_ALLOC_SIZE;
+	size = env_size() + ENV_ALLOC_SIZE;
 	sw = ft_calloc(sizeof(char *), size + 1);
-	ft_memmove(sw, environ, sizeof(char *) * size);
+	ft_memmove(sw, environ, sizeof(char *) * (size - ENV_ALLOC_SIZE));
 	free(environ);
 	environ = sw;
 	return (size);
@@ -54,7 +55,7 @@ char
 	else
 		free(environ[env_index]);
 	if (max_size >= env_size())
-		max_size = realloc_env(max_size);
+		max_size = realloc_env();
 	environ[env_index] = malloc(sizeof(char) * (ft_strlen(name)
 		+ ft_strlen(value) + 2));
 	ft_strcpy(environ[env_index], name);
