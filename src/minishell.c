@@ -6,14 +6,13 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/05 14:23:00 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/06 15:07:24 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
 #include <limits.h>
-
 
 sig_t blank(int a)
 {

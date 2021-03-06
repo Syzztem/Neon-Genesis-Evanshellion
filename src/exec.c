@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/05 15:41:18 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/06 16:05:24 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,23 @@ static void
 	}
 }
 
-int
+void
 	exec_command(t_command *command)
 {
 	extern char **environ;
-	pid_t	    pid;
-	
-	pid = fork();
-	if (pid == 0)
+
+	dup2_check(command->fd_input, 0);
+	dup2_check(command->fd_output, 1);
+	if (is_builtin(command->argv[0]) != -1)
+		exec_builtin(command->argv, environ);
+	else
 	{
-		dup2_check(command->fd_input, 0);
-		dup2_check(command->fd_output, 1);
-		if (is_builtin(command->argv[0]) != -1)
-			exec_builtin(command->argv, environ);
-		else
-		{
-		//	dprintf(2, "%s is not a builtin\n", command->cmd);
-			pid = execve(command->cmd, command->argv, environ);
-		}
-		dprintf(2, "%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
-		exit(errno);
+	//	dprintf(2, "%s is not a builtin\n", command->cmd);
+		execve(command->cmd, command->argv, environ);
 	}
+	dprintf(2, "%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+	exit(errno);
 	print_command(command);
-	return (pid);
 }
 
 int
@@ -76,10 +70,29 @@ int
 	return (ret);
 }
 
-pid_t
+void
+	close_cmd(t_command *cmd)
+{
+	close(cmd->fd_input);
+	close(cmd->fd_output);
+}
+
+void close_all_cmds(t_list *commands, t_command *avoid)
+{
+	t_list	*current;
+
+	current = commands;
+	while (current)
+	{
+		if (avoid != current->content)
+			close_cmd(current->content);
+		current = current->next;
+	}
+}
+
+int
 	exec_command_list(t_list *commands)
 {	
-	pid_t		last_pid;
 	t_list		*current;
 	t_command	*cmd;
 
@@ -87,13 +100,16 @@ pid_t
 	while (current)
 	{
 		cmd = current->content;
-		last_pid = exec_command(cmd);
-		cmd->pid = last_pid;
-		close(cmd->fd_input);
-		close(cmd->fd_output);
+		cmd->pid = fork();
+		if (cmd->pid == 0)
+		{
+			close_all_cmds(commands, cmd);
+			exec_command(cmd);
+		}
 		current = current->next;
 	}
-	return (last_pid);
+	close_all_cmds(commands, NULL);
+	return (0);
 }
 
 void
@@ -103,17 +119,31 @@ void
 		close (fd);
 }
 
+void
+	wait_command(t_command *cmd)
+{
+	waitpid(cmd->pid, NULL, 0);
+}
 
+void
+	wait_commands(t_list *lst)
+{
+	ft_lstiter(lst, wait_command);
+}
 
 int
 	exec_command_line(t_list *commands, char **redirections)
 {
 	pid_t	pid;
+	int		status;
 
 	pipe_nodes(commands);
 	pid = exec_command_list(commands);
 	print_cmd_lst(commands);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	wait_commands(commands);
+	if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
 	return (0);
 }
 
@@ -156,7 +186,8 @@ int
 		exec_builtin(((t_command *)lst->content)->argv, environ);
 	else
 		exec_command_line(lst, redirections);
-	dup2(tmp_stdout, 1);
-	dup2(tmp_stdin, 0);
+	dup2_check(tmp_stdout, 1);
+	dup2_check(tmp_stdin, 0);
+	printf("$? = %d\n", g_exit_status);
 	return (0);
 }
