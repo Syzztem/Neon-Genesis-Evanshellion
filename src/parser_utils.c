@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/19 15:55:58 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:56:29 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,20 @@ size_t
 char
 	**dup_n_tab(char **table, size_t n)
 {
-	char	**dup;
-	int		size;
-	int		i;
+	char		**dup;
+	size_t		size;
+	size_t		i;
 
 	size = tab_size(table);
 	if (n < size)
 		size = n;
 	dup = ft_calloc(sizeof(char *), size + 1);
-	i = -1;
-	while (++i < size)
+	i = 0;
+	while (i < size)
+	{
 		dup[i] = ft_strdup(table[i]);
+		i++;
+	}
 	return (dup);
 }
 

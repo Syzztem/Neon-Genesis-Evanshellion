@@ -6,11 +6,12 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/04 17:10:28 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:07:42 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "minishell.h"
 
 int
 	print_argv(char **argv)
@@ -46,7 +47,8 @@ void
 		printf("  - %-10s", "argv:");
 		print_argv(command->argv);
 		printf("  - %-10s%d\n  - %-10s%d\n", "input:", command->fd_input, "output:", command->fd_output);
-		printf("  - %-10s\"%s\"\n\n", "sep:", command->sep);
+		printf("  - %-10s\"%s\"\n", "sep:", command->sep);
+		printf("  - %-10s\"%d\"\n\n", "pid:", command->pid);
 	}
 	fflush(stdout);
 }

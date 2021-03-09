@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/04 10:45:11 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:55:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_command
 	t_command	*new;
 
 	new = malloc(sizeof(t_command));
-	*new = (t_command){cmd, argv, sep, 1, 0};
+	*new = (t_command){cmd, argv, sep, 1, 0, -1};
 	return (new);
 }
 
@@ -241,22 +241,21 @@ int
 	char	**output_path_ptr;
 	int		mode;
 	int		open_mode;
-	
 
 	output_path_ptr = tab_find_last_token(OUTPUT_REDIRECTS, redirects);
 	mode = 0;
 	open_mode = O_WRONLY | O_CREAT;
-	if (output_path_ptr && *output_path_ptr && *(output_path_ptr + 1) && !is_sep(*(output_path_ptr + 1)))
+	if (output_path_ptr && *output_path_ptr && output_path_ptr[1] && !is_sep(output_path_ptr[1]))
 	{
 		mode |= (int)ft_strlen(*output_path_ptr);
 		if (mode == 1)
 			open_mode |= O_TRUNC;
 		else if (mode == 2)
 			open_mode |= O_APPEND;
-		*fd_output = open(*(output_path_ptr + 1), open_mode, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		*fd_output = open(output_path_ptr[1], open_mode, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	input_path_ptr = tab_find_last_token(INPUT_REDIRECTS, redirects);
-	if (input_path_ptr && *input_path_ptr && *(input_path_ptr + 1) && !is_sep(*(input_path_ptr + 1)))
+	if (input_path_ptr && *input_path_ptr && input_path_ptr[1] && !is_sep(input_path_ptr[1]))
 	{
 		mode |= INPUT_REDIRECT_MASK;
 		*fd_input = open(input_path_ptr[1], O_RDONLY);

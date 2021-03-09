@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/05 13:53:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/06 15:51:06 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <termios.h>
 # include "libft.h"
 
-static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
+static const char	*g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
