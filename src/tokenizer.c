@@ -6,22 +6,11 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/04 17:21:54 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:27:23 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-static size_t
-	env_len(char *var)
-{
-	char	*env;
-	
-	env = ft_lgetenv(var + 1);
-	if (!env)
-		return (0);
-	return (ft_strlen(env));
-}
 
 static size_t
 	token_len(char *line)
@@ -31,9 +20,7 @@ static size_t
 	len = ft_strlen(line);
 	while (*line)
 	{
-		if (*line == '$')
-			len += env_len(line);
-		else if (*line == '\"')
+		if (*line == '\"')
 		{
 			while (*++line && *(line - 1) != '\\' && *line != '\"')
 				if (*line == '*')
@@ -103,10 +90,12 @@ char
 	t_token	*tokens;
 	char	**out;
 
+	line = parse_variables(line);
 	tokens = make_token_list(line);
 	if (!tokens)
 		return (NULL);
 	out = to_tab(tokens);
+	free(line);
 	free_list(tokens);
 	return (out);
 }

@@ -6,27 +6,11 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/04 17:26:29 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:37:20 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-static size_t
-	sub_env(char *token, char **line)
-{
-	char	*var;
-
-	++(*line);
-	var = ft_lgetenv(*line);
-	if (var)
-		ft_strcpy(token, var);
-	while (ft_isalnum(**line) || **line == '_')
-		++(*line);
-	if (!var)
-		return (0);
-	return (ft_strlen(var));
-}
 
 size_t
 	spaces(char *token, char **line)
@@ -41,8 +25,6 @@ size_t
 			++(*line);
 			*tkref++ = *(*line)++;
 		}
-		else if (**line == '$')
-			tkref += sub_env(tkref, line);
 		else
 			*tkref++ = *(*line)++;
 	}
@@ -81,8 +63,6 @@ size_t
 	{
 		if (*ref == '*')
 			*tkref++ = '\\';
-		else if (*ref == '$' && *(ref - 1) != '\\')
-			tkref += sub_env(tkref, &ref);
 		*tkref++ = *ref++;
 	}
 	*line = ++ref;

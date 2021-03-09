@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 15:39:57 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:22:12 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_token
 typedef	size_t	(*t_method)(char *token, char *line);
 
 t_token			*expand_wildcard(char *expr);
+char			*parse_variables(char *line);
 size_t			add_token(char *token, t_token **list, char *line);
 size_t			spaces(char *token, char **line);
 size_t			squotes(char *token, char **line);
