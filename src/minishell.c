@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/06 15:07:24 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:08:12 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ static int
 	char		*line;
 	char		**tokens;
 	extern char	**environ;
-	char		buf[PATH_MAX];
 
-	signal(SIGINT, blank);
+	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
 	{
 		if (!*line)
@@ -67,10 +66,7 @@ static int
 			free(line);
 			continue ;
 		}
-	//	line = ft_strdup("pwd");
 		tokens = tokenize(line);
-	//	print_argv(tokens);
-	//	printf("\n");
 		exec_from_tokens(tokens);
 		free_tab(tokens);
 		free(line);

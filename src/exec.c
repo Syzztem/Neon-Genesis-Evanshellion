@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/06 16:05:24 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:08:31 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ void
 void
 	wait_commands(t_list *lst)
 {
-	ft_lstiter(lst, wait_command);
+	ft_lstiter(lst, (void *)wait_command);
 }
 
 int
-	exec_command_line(t_list *commands, char **redirections)
+	exec_command_line(t_list *commands)
 {
 	pid_t	pid;
 	int		status;
@@ -148,7 +148,7 @@ int
 }
 
 int
-	is_single_builtin(t_list	*lst)
+	is_single_builtin(t_list *lst)
 {
 	t_command	*cmd;
 	
@@ -170,24 +170,20 @@ int
 	int				tmp_stdin;
 	int				tmp_stdout;
 
-	//print_argv(tokens);
 	pure_tokens = get_pure_tokens(tokens);
 	lst = parse_list(pure_tokens);
-	//print_cmd_lst(lst);
-
 	redirections = extract_redirects(tokens);
 	redirects_to_fds(redirections, &fd_input, &fd_output);
 	tmp_stdin = dup(0);
 	tmp_stdout = dup(1);
 	dup2(fd_input, 0);
 	dup2(fd_output, 1);
-	//print_argv(redirections);
 	if (is_single_builtin(lst))
 		exec_builtin(((t_command *)lst->content)->argv, environ);
 	else
-		exec_command_line(lst, redirections);
+		exec_command_line(lst);
 	dup2_check(tmp_stdout, 1);
 	dup2_check(tmp_stdin, 0);
-	printf("$? = %d\n", g_exit_status);
+//	printf("$? = %d\n", g_exit_status);
 	return (0);
 }
