@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/09 14:08:31 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:30:25 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,32 +158,40 @@ int
 	return (cmd && cmd->argv && is_builtin(cmd->argv[0]) != -1);
 }
 
+void
+	do_redirector(t_redirector *rdr, char **tokens)
+{
+	rdr->rtokens = extract_redirects(tokens);
+	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
+	rdr->stdin_dup = dup(0);
+	rdr->stdout_dup = dup(1);
+	dup2(rdr->in_fd, 0);
+	dup2(rdr->out_fd, 1);
+}
+
+void
+	restore_streams(t_redirector *rdr)
+{
+	dup2_check(rdr->stdout_dup, 1);
+	dup2_check(rdr->stdin_dup, 0);
+}
+
 int
 	exec_from_tokens(char **tokens)
 {
 	t_list			*lst;
 	char			**pure_tokens;
-	char			**redirections;
+	t_redirector	redirector;
 	extern	char	**environ;
-	int				fd_input;
-	int				fd_output;
-	int				tmp_stdin;
-	int				tmp_stdout;
 
+	do_redirector(&redirector, tokens);
 	pure_tokens = get_pure_tokens(tokens);
 	lst = parse_list(pure_tokens);
-	redirections = extract_redirects(tokens);
-	redirects_to_fds(redirections, &fd_input, &fd_output);
-	tmp_stdin = dup(0);
-	tmp_stdout = dup(1);
-	dup2(fd_input, 0);
-	dup2(fd_output, 1);
 	if (is_single_builtin(lst))
 		exec_builtin(((t_command *)lst->content)->argv, environ);
 	else
 		exec_command_line(lst);
-	dup2_check(tmp_stdout, 1);
-	dup2_check(tmp_stdin, 0);
+	restore_streams(&redirector);
 //	printf("$? = %d\n", g_exit_status);
 	return (0);
 }
