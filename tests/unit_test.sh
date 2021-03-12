@@ -1,5 +1,11 @@
 #!/bin/bash
 
+abspath() {
+  # $1 : relative filename
+  if [ -d "${1%/*}" ]; then
+    echo "$(cd ${1%/*}; pwd)/${1##*/}"
+  fi
+}
 cmp_shell()
 {
 	FUNC_RET=0;
@@ -17,6 +23,7 @@ cmp_shell()
 
 	if [ "$MY_RET" != "$TST_RET" ];then
 		echo "[ERROR]: Return values differs.";
+		printf "CMD: %s\n" "$@"
 		printf "\t%s\n" "$MY_RET <- $MY_SHELL $@";
 		printf "\t%s\n" "$TST_RET <- $TST_SHELL $@";
 		FUNC_RET=1;
@@ -24,6 +31,7 @@ cmp_shell()
 
 	if ! diff "$MY_OUTFILE" "$TST_OUTFILE" > /dev/null;then				   			
 		echo "[ERROR]: Output differs.";
+		printf "CMD: %s\n" "$@"
 		printf "%s                                                          | %s\n" "($MY_SHELL)" "($TST_SHELL)"
 		FUNC_RET=1;
 		diff -y "$MY_OUTFILE" "$TST_OUTFILE" $DIFF_COLOR
@@ -113,7 +121,7 @@ unit_no_arg()
 	cmp_shell '/bin/echo'
 	cmp_shell 'uname'
 	cmp_shell 'arch'
-	cmp_shell './executables/no_arg.sh'
+	cmp_shell "$EXE_FOLDER/no_arg.sh"
 
 }
 
@@ -136,7 +144,7 @@ unit_parsing()
 	cmp_shell '/bin/echo 0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5;/bin/echo 6;/bin/echo 7;/bin/echo 8;/bin/echo 9;/bin/echo 10;/bin/echo 11;/bin/echo 12;/bin/echo 13;/bin/echo 14;/bin/echo 15;/bin/echo 16;/bin/echo 17;/bin/echo 18;/bin/echo 19;/bin/echo 20'
 }
 
-unit_pipes()
+unit_pipes_env()
 {
 	cmp_shell 'printf "caca\nprout" | grep prout'
 	cmp_shell 'printf "caca\nprout" | grep caca'
@@ -145,6 +153,17 @@ unit_pipes()
 	cmp_shell 'printf "bonjour\nsalut" | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut '
 	cmp_shell 'export H=hello;/bin/echo hello | grep hello | grep $H '
 	cmp_shell 'export H=hello;/bin/echo hello | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H'
+	cmp_shell '/bin/echo \| | grep \|'
+	cmp_shell '/bin/echo \|\|\|\|\| | grep \|'
+}
+
+unit_pipes()
+{
+	cmp_shell 'printf "caca\nprout" | grep prout'
+	cmp_shell 'printf "caca\nprout" | grep caca'
+	cmp_shell 'printf "bonjour\nsalut\nbonuit" | grep bon'
+	cmp_shell 'printf "bonjour\nsalut\nbonuit" | grep bon | grep nuit'
+	cmp_shell 'printf "bonjour\nsalut" | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut '
 	cmp_shell '/bin/echo \| | grep \|'
 	cmp_shell '/bin/echo \|\|\|\|\| | grep \|'
 }
@@ -277,38 +296,17 @@ unit_redirect_append()
 	rm -rf $TST_DIR
 }
 
-unit_all()
-{
-	unit_multiline
-	unit_no_arg
-	unit_arg
-	unit_parsing
-	unit_pipes
-	unit_echo
-	unit_pwd
-	unit_exit
-	unit_env_vars
-	unit_env
-	unit_builtins_no_arg
-	unit_quotes
-	unit_argv_zero
-	unit_semicolons
-	unit_return
-	unit_redirect_replace
-	unit_redirect_append
-}
-
 main()
 {
-	MY_SHELL='../../minishell'
+	MY_SHELL=$(abspath ../minishell)
 	TST_SHELL='bash --posix'
 	SHELL_TEST_NAME='myshell'
 	INTERACTIVE="off"
 	VERBOSE="off";
-	TEST_FOLDER="./testfolder"
+	ALL_ARGS="$@"
 
 	cd "$TEST_FOLDER"
-	for arg in $@;
+	for arg in "$@";
 	do
 		if [ "$arg" = '-i' ];then
 			INTERACTIVE="on";
@@ -316,20 +314,23 @@ main()
 		if [ "$arg" = '-v' ];then
 			VERBOSE="on";
 		fi
+		if [ "$arg" = 'unit_all' ];then
+			ALL_ARGS="unit_multiline unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_argv_zero unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
+		fi
 	done
 
 	if [ "$INTERACTIVE" = "on" ];then
 		interactive;
 	else
-		for test in "$@";do
+		for test in $ALL_ARGS;do
 			if ! [ "$test" = "-v" ];then
 				OUTPUT="$($test)";
 				if [ $? == 0 ] && [ -z "$(echo "$OUTPUT" | grep [ERROR])" ];then
-					printf '%-15s [OK]\n' "$test:";
+					printf '%-15s [OK]\n' "$test:" | tee -a trace
 				else
-					printf '%-15s [KO]\n' "$test:"
+					printf '%-15s [KO]\n' "$test:" | tee -a trace
 				fi
-				printf "%s" "$OUTPUT"
+				printf "%s" "$OUTPUT" > trace
 			fi
 		done
 	fi

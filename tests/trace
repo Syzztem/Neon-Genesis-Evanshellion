@@ -1,0 +1,325 @@
+[ERROR]: Output differs.
+CMD: /bin/echo hello world >> 1; ls ; cat 1
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+cat: 1: No such file or directory			      |	1
+							      >	1;
+							      >	hello world
+[ERROR]: Output differs.
+CMD: printf a >> 2; ls ; cat 2
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+printf: missing format character			      |	1
+cat: 2: No such file or directory			      |	1;
+							      >	2
+							      >	2;
+							      >	a[ERROR]: Return values differs.
+CMD: printf b > 3; ls >> 3 ; cat 3
+	134 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf b > 3; ls >> 3 ; cat 3
+	0 <- bash --posix printf b > 3; ls >> 3 ; cat 3
+[ERROR]: Output differs.
+CMD: printf b > 3; ls >> 3 ; cat 3
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+============================================================= |	b1
+==54961==ERROR: AddressSanitizer: heap-buffer-overflow on add |	1;
+READ of size 8 at 0x604000000500 thread T0		      |	2
+    #0 0x10845a3fc in tab_size tab_utils.c:21		      |	2;
+    #1 0x108457478 in dup_n_tab parser_utils.c:110	      |	3
+    #2 0x108455c96 in get_next_command parser.c:69	      <
+    #3 0x108455e7d in parse_list parser.c:83		      <
+    #4 0x108458bec in exec_from_tokens exec.c:189	      <
+    #5 0x1084602ca in minishell minishell.c:78		      <
+    #6 0x1084600a1 in main minishell.c:107		      <
+    #7 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+0x604000000500 is located 0 bytes to the right of 48-byte reg <
+allocated by thread T0 here:				      <
+    #0 0x1084e19f3 in wrap_malloc (libclang_rt.asan_osx_dynam <
+    #1 0x108465c0f in ft_calloc ft_calloc.c:21		      <
+    #2 0x1084565f6 in get_pure_tokens parser.c:218	      <
+    #3 0x108458bdf in exec_from_tokens exec.c:188	      <
+    #4 0x1084602ca in minishell minishell.c:78		      <
+    #5 0x1084600a1 in main minishell.c:107		      <
+    #6 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+SUMMARY: AddressSanitizer: heap-buffer-overflow tab_utils.c:2 <
+Shadow bytes around the buggy address:			      <
+  0x1c0800000050: fa fa 00 00 00 00 00 fa fa fa 00 00 00 00 0 <
+  0x1c0800000060: fa fa 00 00 00 00 00 fa fa fa 00 00 00 00 0 <
+  0x1c0800000070: fa fa 00 00 00 00 00 05 fa fa 00 00 00 00 0 <
+  0x1c0800000080: fa fa 00 00 00 00 07 fa fa fa 00 00 00 00 0 <
+  0x1c0800000090: fa fa 00 00 00 00 00 fa fa fa 00 00 00 00 0 <
+=>0x1c08000000a0:[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c08000000b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c08000000c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c08000000d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c08000000e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c08000000f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+Shadow byte legend (one shadow byte represents 8 application  <
+  Addressable:           00				      <
+  Partially addressable: 01 02 03 04 05 06 07 		      <
+  Heap left redzone:       fa				      <
+  Freed heap region:       fd				      <
+  Stack left redzone:      f1				      <
+  Stack mid redzone:       f2				      <
+  Stack right redzone:     f3				      <
+  Stack after return:      f5				      <
+  Stack use after scope:   f8				      <
+  Global redzone:          f9				      <
+  Global init order:       f6				      <
+  Poisoned by user:        f7				      <
+  Container overflow:      fc				      <
+  Array cookie:            ac				      <
+  Intra object redzone:    bb				      <
+  ASan internal:           fe				      <
+  Left alloca redzone:     ca				      <
+  Right alloca redzone:    cb				      <
+  Shadow gap:              cc				      <
+==54961==ABORTING					      <
+[ERROR]: Return values differs.
+CMD: printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+	134 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+	0 <- bash --posix printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+[ERROR]: Output differs.
+CMD: printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+============================================================= |	c1
+==54973==ERROR: AddressSanitizer: heap-buffer-overflow on add |	1;
+READ of size 8 at 0x608000000080 thread T0		      |	2
+    #0 0x10fa813fc in tab_size tab_utils.c:21		      |	2;
+    #1 0x10fa7e478 in dup_n_tab parser_utils.c:110	      |	3
+    #2 0x10fa7cc96 in get_next_command parser.c:69	      |	4
+    #3 0x10fa7ce7d in parse_list parser.c:83		      |	eee;
+    #4 0x10fa7fbec in exec_from_tokens exec.c:189	      <
+    #5 0x10fa872ca in minishell minishell.c:78		      <
+    #6 0x10fa870a1 in main minishell.c:107		      <
+    #7 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+0x608000000080 is located 0 bytes to the right of 96-byte reg <
+allocated by thread T0 here:				      <
+    #0 0x10fb059f3 in wrap_malloc (libclang_rt.asan_osx_dynam <
+    #1 0x10fa8cc0f in ft_calloc ft_calloc.c:21		      <
+    #2 0x10fa7d5f6 in get_pure_tokens parser.c:218	      <
+    #3 0x10fa7fbdf in exec_from_tokens exec.c:188	      <
+    #4 0x10fa872ca in minishell minishell.c:78		      <
+    #5 0x10fa870a1 in main minishell.c:107		      <
+    #6 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+SUMMARY: AddressSanitizer: heap-buffer-overflow tab_utils.c:2 <
+Shadow bytes around the buggy address:			      <
+  0x1c0fffffffc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0ffffffff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c1000000000: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 0 <
+=>0x1c1000000010:[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000060: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+Shadow byte legend (one shadow byte represents 8 application  <
+  Addressable:           00				      <
+  Partially addressable: 01 02 03 04 05 06 07 		      <
+  Heap left redzone:       fa				      <
+  Freed heap region:       fd				      <
+  Stack left redzone:      f1				      <
+  Stack mid redzone:       f2				      <
+  Stack right redzone:     f3				      <
+  Stack after return:      f5				      <
+  Stack use after scope:   f8				      <
+  Global redzone:          f9				      <
+  Global init order:       f6				      <
+  Poisoned by user:        f7				      <
+  Container overflow:      fc				      <
+  Array cookie:            ac				      <
+  Intra object redzone:    bb				      <
+  ASan internal:           fe				      <
+  Left alloca redzone:     ca				      <
+  Right alloca redzone:    cb				      <
+  Shadow gap:              cc				      <
+==54973==ABORTING					      <
+[ERROR]: Return values differs.
+CMD: printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+	134 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+	0 <- bash --posix printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+[ERROR]: Output differs.
+CMD: printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+============================================================= |	;
+==54988==ERROR: AddressSanitizer: heap-buffer-overflow on add <
+READ of size 8 at 0x608000000080 thread T0		      <
+    #0 0x10dc9b3fc in tab_size tab_utils.c:21		      <
+    #1 0x10dc98478 in dup_n_tab parser_utils.c:110	      <
+    #2 0x10dc96c96 in get_next_command parser.c:69	      <
+    #3 0x10dc96e7d in parse_list parser.c:83		      <
+    #4 0x10dc99bec in exec_from_tokens exec.c:189	      <
+    #5 0x10dca12ca in minishell minishell.c:78		      <
+    #6 0x10dca10a1 in main minishell.c:107		      <
+    #7 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+0x608000000080 is located 0 bytes to the right of 96-byte reg <
+allocated by thread T0 here:				      <
+    #0 0x10dd1f9f3 in wrap_malloc (libclang_rt.asan_osx_dynam <
+    #1 0x10dca6c0f in ft_calloc ft_calloc.c:21		      <
+    #2 0x10dc975f6 in get_pure_tokens parser.c:218	      <
+    #3 0x10dc99bdf in exec_from_tokens exec.c:188	      <
+    #4 0x10dca12ca in minishell minishell.c:78		      <
+    #5 0x10dca10a1 in main minishell.c:107		      <
+    #6 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+SUMMARY: AddressSanitizer: heap-buffer-overflow tab_utils.c:2 <
+Shadow bytes around the buggy address:			      <
+  0x1c0fffffffc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0ffffffff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c1000000000: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 0 <
+=>0x1c1000000010:[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000060: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+Shadow byte legend (one shadow byte represents 8 application  <
+  Addressable:           00				      <
+  Partially addressable: 01 02 03 04 05 06 07 		      <
+  Heap left redzone:       fa				      <
+  Freed heap region:       fd				      <
+  Stack left redzone:      f1				      <
+  Stack mid redzone:       f2				      <
+  Stack right redzone:     f3				      <
+  Stack after return:      f5				      <
+  Stack use after scope:   f8				      <
+  Global redzone:          f9				      <
+  Global init order:       f6				      <
+  Poisoned by user:        f7				      <
+  Container overflow:      fc				      <
+  Array cookie:            ac				      <
+  Intra object redzone:    bb				      <
+  ASan internal:           fe				      <
+  Left alloca redzone:     ca				      <
+  Right alloca redzone:    cb				      <
+  Shadow gap:              cc				      <
+==54988==ABORTING					      <
+[ERROR]: Return values differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file
+	134 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file
+	0 <- bash --posix rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file
+[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+============================================================= |	hello
+==55003==ERROR: AddressSanitizer: heap-buffer-overflow on add |	world
+READ of size 8 at 0x6070000001c0 thread T0		      |	good
+    #0 0x10c9173fc in tab_size tab_utils.c:21		      |	morning
+    #1 0x10c914478 in dup_n_tab parser_utils.c:110	      |	worldhello
+    #2 0x10c912c96 in get_next_command parser.c:69	      |	world
+    #3 0x10c912e7d in parse_list parser.c:83		      |	good
+    #4 0x10c915bec in exec_from_tokens exec.c:189	      |	morning
+    #5 0x10c91d2ca in minishell minishell.c:78		      /	world
+    #6 0x10c91d0a1 in main minishell.c:107		      <
+    #7 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+0x6070000001c0 is located 0 bytes to the right of 80-byte reg <
+allocated by thread T0 here:				      <
+    #0 0x10c9a19f3 in wrap_malloc (libclang_rt.asan_osx_dynam <
+    #1 0x10c922c0f in ft_calloc ft_calloc.c:21		      <
+    #2 0x10c9135f6 in get_pure_tokens parser.c:218	      <
+    #3 0x10c915bdf in exec_from_tokens exec.c:188	      <
+    #4 0x10c91d2ca in minishell minishell.c:78		      <
+    #5 0x10c91d0a1 in main minishell.c:107		      <
+    #6 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+SUMMARY: AddressSanitizer: heap-buffer-overflow tab_utils.c:2 <
+Shadow bytes around the buggy address:			      <
+  0x1c0dffffffe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0dfffffff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0e00000000: fa fa fa fa 00 00 00 00 00 00 00 00 03 fa f <
+  0x1c0e00000010: fa fa 00 00 00 00 00 00 00 00 00 04 fa fa f <
+  0x1c0e00000020: 00 00 00 00 00 00 00 00 02 fa fa fa fa fa 0 <
+=>0x1c0e00000030: 00 00 00 00 00 00 00 00[fa]fa fa fa fa fa f <
+  0x1c0e00000040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c0e00000050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c0e00000060: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c0e00000070: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c0e00000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+Shadow byte legend (one shadow byte represents 8 application  <
+  Addressable:           00				      <
+  Partially addressable: 01 02 03 04 05 06 07 		      <
+  Heap left redzone:       fa				      <
+  Freed heap region:       fd				      <
+  Stack left redzone:      f1				      <
+  Stack mid redzone:       f2				      <
+  Stack right redzone:     f3				      <
+  Stack after return:      f5				      <
+  Stack use after scope:   f8				      <
+  Global redzone:          f9				      <
+  Global init order:       f6				      <
+  Poisoned by user:        f7				      <
+  Container overflow:      fc				      <
+  Array cookie:            ac				      <
+  Intra object redzone:    bb				      <
+  ASan internal:           fe				      <
+  Left alloca redzone:     ca				      <
+  Right alloca redzone:    cb				      <
+  Shadow gap:              cc				      <
+==55003==ABORTING					      <
+[ERROR]: Return values differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file
+	134 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file
+	0 <- bash --posix rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file
+[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+============================================================= |	hello
+==55026==ERROR: AddressSanitizer: heap-buffer-overflow on add |	world
+WRITE of size 8 at 0x608000000078 thread T0		      |	good
+    #0 0x1087cb6f6 in get_pure_tokens parser.c:223	      |	morning
+    #1 0x1087cdbdf in exec_from_tokens exec.c:188	      |	worldhello
+    #2 0x1087d52ca in minishell minishell.c:78		      |	world
+    #3 0x1087d50a1 in main minishell.c:107		      |	good
+    #4 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) |	morning
+							      /	world
+0x608000000078 is located 0 bytes to the right of 88-byte reg <
+allocated by thread T0 here:				      <
+    #0 0x1088539f3 in wrap_malloc (libclang_rt.asan_osx_dynam <
+    #1 0x1087dac0f in ft_calloc ft_calloc.c:21		      <
+    #2 0x1087cb5f6 in get_pure_tokens parser.c:218	      <
+    #3 0x1087cdbdf in exec_from_tokens exec.c:188	      <
+    #4 0x1087d52ca in minishell minishell.c:78		      <
+    #5 0x1087d50a1 in main minishell.c:107		      <
+    #6 0x7fff5c7c23d4 in start (libdyld.dylib:x86_64+0x163d4) <
+							      <
+SUMMARY: AddressSanitizer: heap-buffer-overflow parser.c:223  <
+Shadow bytes around the buggy address:			      <
+  0x1c0fffffffb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0fffffffe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c0ffffffff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0 <
+=>0x1c1000000000: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 0 <
+  0x1c1000000010: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+  0x1c1000000050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa f <
+Shadow byte legend (one shadow byte represents 8 application  <
+  Addressable:           00				      <
+  Partially addressable: 01 02 03 04 05 06 07 		      <
+  Heap left redzone:       fa				      <
+  Freed heap region:       fd				      <
+  Stack left redzone:      f1				      <
+  Stack mid redzone:       f2				      <
+  Stack right redzone:     f3				      <
+  Stack after return:      f5				      <
+  Stack use after scope:   f8				      <
+  Global redzone:          f9				      <
+  Global init order:       f6				      <
+  Poisoned by user:        f7				      <
+  Container overflow:      fc				      <
+  Array cookie:            ac				      <
+  Intra object redzone:    bb				      <
+  ASan internal:           fe				      <
+  Left alloca redzone:     ca				      <
+  Right alloca redzone:    cb				      <
+  Shadow gap:              cc				      <
+==55026==ABORTING					      <
