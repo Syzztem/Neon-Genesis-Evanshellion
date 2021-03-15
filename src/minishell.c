@@ -6,13 +6,20 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/09 14:08:12 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/12 16:09:20 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
 #include <limits.h>
+
+int ft_isatty(int fd)
+{
+	struct termios	term;
+	
+  	return (tcgetattr (fd, &term) == 0);
+}
 
 sig_t blank(int a)
 {
@@ -57,6 +64,7 @@ static int
 	char		*line;
 	char		**tokens;
 	extern char	**environ;
+	char		*ret;
 
 	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
@@ -69,8 +77,11 @@ static int
 		tokens = tokenize(line);
 		exec_from_tokens(tokens);
 		free_tab(tokens);
+		ret = strchr(line, 4);
 		free(line);
 	}
+	if (!ret)
+		exit(0);
 	return (EXIT_SUCCESS);
 }
 

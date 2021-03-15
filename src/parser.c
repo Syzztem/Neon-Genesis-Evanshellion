@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/06 13:55:38 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:46:27 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,30 @@ char
 	return (pure_tokens);
 }
 
+int
+	check_path_ptr(char **path_ptr)
+{
+	return (path_ptr && *path_ptr && path_ptr[1] && !is_sep(path_ptr[1]));
+}
+
+
+int
+	open_output(char **output_path_ptr)
+{
+	int	open_mode;
+	int	redir_type;
+	int open_flags;
+
+	redir_type = 0;
+	open_flags = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+	open_mode = O_WRONLY | O_CREAT;
+	redir_type |= (int)ft_strlen(*output_path_ptr);
+	if (redir_type == 1)
+		open_mode |= O_TRUNC;
+	else if (redir_type == 2)
+		open_mode |= O_APPEND;
+	return (open(output_path_ptr[1], open_mode, open_flags));
+}
 
 /*
 ** Parse redirects tokens, opens files and assign them accordingly to fd_input/output ( input : "<", output: ">") 
@@ -239,28 +263,18 @@ int
 {
 	char	**input_path_ptr;
 	char	**output_path_ptr;
-	int		mode;
 	int		open_mode;
 
 	output_path_ptr = tab_find_last_token(OUTPUT_REDIRECTS, redirects);
-	mode = 0;
 	open_mode = O_WRONLY | O_CREAT;
-	if (output_path_ptr && *output_path_ptr && output_path_ptr[1] && !is_sep(output_path_ptr[1]))
-	{
-		mode |= (int)ft_strlen(*output_path_ptr);
-		if (mode == 1)
-			open_mode |= O_TRUNC;
-		else if (mode == 2)
-			open_mode |= O_APPEND;
-		*fd_output = open(output_path_ptr[1], open_mode, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	}
+	if (check_path_ptr(output_path_ptr))
+		*fd_output = open_output(output_path_ptr);
 	input_path_ptr = tab_find_last_token(INPUT_REDIRECTS, redirects);
-	if (input_path_ptr && *input_path_ptr && input_path_ptr[1] && !is_sep(input_path_ptr[1]))
+	if (check_path_ptr(input_path_ptr))
 	{
-		mode |= INPUT_REDIRECT_MASK;
 		*fd_input = open(input_path_ptr[1], O_RDONLY);
 		if (*fd_input < 0)
 			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno), input_path_ptr[1]);
 	}
-	return (mode);
+	return (0);
 }
