@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/05 15:37:59 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/15 16:27:43 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@
 #  define DEBUG 0
 # endif
 
+typedef t_list * t_pipeline;
+typedef t_list * t_cmd_lst;
+
+typedef struct	s_exec_node
+{
+	t_pipeline 		pipeline;
+	char			*sep;
+}				t_exec_node;
+
 typedef struct	s_command
 {
 	char	*cmd;
@@ -53,6 +62,15 @@ typedef struct	s_command
 	int		fd_input;
 	pid_t	pid;
 }				t_command;
+
+typedef struct  s_redirector
+{	
+    char			**rtokens;
+	int				in_fd;
+	int				out_fd;
+	int				stdin_dup;
+	int				stdout_dup;
+}               t_redirector;
 
 size_t			get_argv_len(char **tokens);
 size_t			tab_size(char **table);
