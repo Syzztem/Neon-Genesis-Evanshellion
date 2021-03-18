@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/15 16:35:52 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/15 23:36:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void
 void
 	exec_command(t_command *command)
 {
-	extern char **environ;
+	extern char		**environ;
+	t_redirector	redirector;
 
 	dup2_check(command->fd_input, 0);
 	dup2_check(command->fd_output, 1);
@@ -132,14 +133,14 @@ void
 }
 
 int
-	exec_command_line(t_list *commands)
+	exec_pipeline(t_list *commands)
 {
 	pid_t	pid;
 	int		status;
 
 	pipe_nodes(commands);
 	pid = exec_command_list(commands);
-	print_cmd_lst(commands);
+	print_pipeline(commands);
 	waitpid(pid, &status, 0);
 	wait_commands(commands);
 	if (WIFEXITED(status))
@@ -148,7 +149,7 @@ int
 }
 
 int
-	is_single_builtin(t_list *lst)
+	is_single_builtin(t_pipeline lst)
 {
 	t_command	*cmd;
 	
@@ -177,21 +178,23 @@ void
 }
 
 int
-	exec_from_tokens(char **tokens)
+	exec_abstract_pipeline(char **tokens)
 {
-	t_list			*lst;
+	t_pipeline		pipeline;
 	char			**pure_tokens;
 	t_redirector	redirector;
 	extern	char	**environ;
 
-	do_redirector(&redirector, tokens);
-	pure_tokens = get_pure_tokens(tokens);
-	lst = parse_list(pure_tokens);
-	if (is_single_builtin(lst))
-		exec_builtin(((t_command *)lst->content)->argv, environ);
+	//do_redirector(&redirector, tokens);
+	//pure_tokens = get_pure_tokens(tokens);
+	pipeline = parse_pipeline(tokens);
+	print_pipeline(pipeline);
+	return (0);
+	if (is_single_builtin(pipeline))
+		exec_builtin(((t_command *)pipeline->content)->argv, environ);
 	else
-		exec_command_line(lst);
-	restore_streams(&redirector);
+		exec_pipeline(pipeline);
+	//restore_streams(&redirector);
 //	printf("$? = %d\n", g_exit_status);
 	return (0);
 }

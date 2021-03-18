@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/15 16:27:43 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/15 23:26:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define PIPE "|"
 # define SEMICOLON ";"
 
-# define SEPARATORS (char *[]){REDIR_REPLACE, REDIR_APPEND, REDIR_INPUT, PIPE, SEMICOLON, NULL}
+# define SEPARATORS (char *[]){PIPE, SEMICOLON, NULL}
 # define REDIRECTS (char *[]){REDIR_REPLACE, REDIR_APPEND, REDIR_INPUT, NULL}
 # define OUTPUT_REDIRECTS (char *[]){REDIR_REPLACE, REDIR_APPEND, NULL}
 # define INPUT_REDIRECTS (char *[]){REDIR_INPUT, NULL}
@@ -45,13 +45,13 @@
 # endif
 
 typedef t_list * t_pipeline;
-typedef t_list * t_cmd_lst;
+typedef t_list * t_ast;
 
-typedef struct	s_exec_node
+typedef struct	s_ast_node
 {
-	t_pipeline 		pipeline;
-	char			*sep;
-}				t_exec_node;
+	char	*abstract_pipeline;
+	char	*sep;
+}				t_ast_node;
 
 typedef struct	s_command
 {
@@ -84,12 +84,12 @@ int				is_sep(char *token);
 char			**find_sep(char **tokens);
 char			**dup_n_tab(char **table, size_t n);
 
-t_list			*parse_list(char **tokens);
+t_pipeline		parse_pipeline(char **tokens);
 char			**extract_redirects(char **tokens);
 
 int				redirects_to_fds(char **redirects, int *fd_input, int *fd_output);
 	
-void			print_cmd_lst(t_list *lst);
+void			print_pipeline(t_pipeline lst);
 void			print_command(t_command *command);
 int				print_argv(char **argv);
 char			*alloc_path_buf(char *cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/12 16:09:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/15 22:10:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int
 			continue ;
 		}
 		tokens = tokenize(line);
-		exec_from_tokens(tokens);
+		exec_abstract_pipeline(tokens);
 		free_tab(tokens);
 		ret = strchr(line, 4);
 		free(line);
