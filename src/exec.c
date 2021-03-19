@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/15 23:36:19 by root             ###   ########.fr       */
+/*   Updated: 2021/03/19 14:41:20 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "exec.h"
+
+void
+	close_checked(int fd)
+{
+	if (fd != 0 && fd != 1)
+		close (fd);
+}
 
 static void
 	dup2_check(int fd_src, int fd_dst)
@@ -24,21 +31,40 @@ static void
 }
 
 void
+	do_redirector(t_redirector *rdr, char **redirections)
+{
+	rdr->rtokens = redirections;
+	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
+	rdr->stdin_dup = dup(0);
+	rdr->stdout_dup = dup(1);
+	dup2(rdr->in_fd, 0);
+	dup2(rdr->out_fd, 1);
+}
+
+void
+	redirect_command(t_command *cmd)
+{
+	t_redirector	rdr;
+
+	do_redirector(&rdr, cmd->redirections);
+}
+
+void
 	exec_command(t_command *command)
 {
 	extern char		**environ;
-	t_redirector	redirector;
 
 	dup2_check(command->fd_input, 0);
 	dup2_check(command->fd_output, 1);
+	//redirect_command(command);
 	if (is_builtin(command->argv[0]) != -1)
-		exec_builtin(command->argv, environ);
+		exit(exec_builtin(command->argv, environ));
 	else
 	{
 	//	dprintf(2, "%s is not a builtin\n", command->cmd);
 		execve(command->cmd, command->argv, environ);
 	}
-	dprintf(2, "%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+	dprintf(2, "%s:%s:%d : %s : %s\n", SHELL_NAME, __FILE__, __LINE__ , strerror(errno), command->cmd);
 	exit(errno);
 	print_command(command);
 }
@@ -74,8 +100,15 @@ int
 void
 	close_cmd(t_command *cmd)
 {
-	close(cmd->fd_input);
-	close(cmd->fd_output);
+	if (DEBUG)
+	{
+		puts("CLOSING:");
+		print_command(cmd);
+	}
+	close_checked(cmd->fd_input);
+	close_checked(cmd->fd_output);
+	if (DEBUG)
+		puts("CLOSED");
 }
 
 void close_all_cmds(t_list *commands, t_command *avoid)
@@ -111,13 +144,6 @@ int
 	}
 	close_all_cmds(commands, NULL);
 	return (0);
-}
-
-void
-	close_checked(int fd)
-{
-	if (fd != 0 && fd != 1)
-		close (fd);
 }
 
 void
@@ -160,17 +186,6 @@ int
 }
 
 void
-	do_redirector(t_redirector *rdr, char **tokens)
-{
-	rdr->rtokens = extract_redirects(tokens);
-	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
-	rdr->stdin_dup = dup(0);
-	rdr->stdout_dup = dup(1);
-	dup2(rdr->in_fd, 0);
-	dup2(rdr->out_fd, 1);
-}
-
-void
 	restore_streams(t_redirector *rdr)
 {
 	dup2_check(rdr->stdout_dup, 1);
@@ -181,20 +196,19 @@ int
 	exec_abstract_pipeline(char **tokens)
 {
 	t_pipeline		pipeline;
-	char			**pure_tokens;
-	t_redirector	redirector;
 	extern	char	**environ;
+	t_redirector	rdr;
 
-	//do_redirector(&redirector, tokens);
-	//pure_tokens = get_pure_tokens(tokens);
 	pipeline = parse_pipeline(tokens);
 	print_pipeline(pipeline);
-	return (0);
 	if (is_single_builtin(pipeline))
+	{
+		do_redirector(&rdr, ((t_command *)pipeline->content)->redirections);
 		exec_builtin(((t_command *)pipeline->content)->argv, environ);
+		restore_streams(&rdr);
+	}
 	else
 		exec_pipeline(pipeline);
-	//restore_streams(&redirector);
 //	printf("$? = %d\n", g_exit_status);
 	return (0);
 }

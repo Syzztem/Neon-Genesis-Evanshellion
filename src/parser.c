@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/15 21:30:12 by root             ###   ########.fr       */
+/*   Updated: 2021/03/19 14:03:01 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ t_command
 	t_command	*new;
 
 	new = malloc(sizeof(t_command));
-	*new = (t_command){cmd, argv, sep, 1, 0, -1};
+	*new = (t_command){
+	.cmd = cmd,
+	.argv = argv,
+	.sep = sep,
+	.fd_output = 1,
+	.fd_input =  0,
+	.pid =  -1};
 	return (new);
 }
 
@@ -31,23 +37,42 @@ char
 	return (ft_calloc(PATH_MAX + 1, 1));
 }
 
+t_command
+	*init_command_from_tokens(char **argv, char *sep)
+{
+	t_command	*cmd;
+
+	cmd = malloc(sizeof(t_command));
+	cmd->sep = sep;
+	cmd->tokens = dup_tab(argv);
+	cmd->redirections = extract_redirects(argv);
+	cmd->argv = get_pure_tokens(argv);
+	cmd->fd_input = 0;
+	cmd->fd_output = 1;
+	cmd->pid = -1;
+	return (cmd);
+}
 
 t_command
 	*command_from_argv(char **argv, char *sep)
 {
-	char	*path_buf;
-	char	*found_exec;
-
+	char		*path_buf;
+	char		*found_exec;
+	t_command	*cmd;
+	
+	cmd = init_command_from_tokens(argv, sep);
 	path_buf = alloc_path_buf(argv[0]);// I can't exactly know the size of the command's path in advance so i I have to alloc the maximum size possible to avoid buffer overflow :(
 	found_exec = find_exec(path_buf, argv[0]);
 	if (!path_buf || !found_exec)
 	{
 		free(path_buf);
-		return (new_command(ft_strdup(argv[0]), argv, sep));
+		cmd->cmd = ft_strdup(cmd->argv[0]);
+		return (cmd);
 	}
 	if (found_exec == argv[0])
 		ft_strlcpy(path_buf, argv[0], PATH_MAX);
-	return (new_command(path_buf, argv, sep));
+	cmd->cmd = path_buf;
+	return(cmd);
 }
 
 t_command

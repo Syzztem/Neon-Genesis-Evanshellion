@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/15 22:10:43 by root             ###   ########.fr       */
+/*   Updated: 2021/03/19 15:20:49 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_isatty(int fd)
 {
 	struct termios	term;
 	
-  	return (tcgetattr (fd, &term) == 0);
+  	return (tcgetattr(fd, &term) == 0);
 }
 
 sig_t blank(int a)
@@ -64,7 +64,6 @@ static int
 	char		*line;
 	char		**tokens;
 	extern char	**environ;
-	char		*ret;
 
 	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
@@ -77,11 +76,8 @@ static int
 		tokens = tokenize(line);
 		exec_abstract_pipeline(tokens);
 		free_tab(tokens);
-		ret = strchr(line, 4);
 		free(line);
 	}
-	if (!ret)
-		exit(0);
 	return (EXIT_SUCCESS);
 }
 

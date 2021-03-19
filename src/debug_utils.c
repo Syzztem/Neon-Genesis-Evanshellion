@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/15 21:45:39 by root             ###   ########.fr       */
+/*   Updated: 2021/03/19 14:05:42 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ int
 {
 	if (!DEBUG)
 		return (0);
-	printf("%p -> ", argv);
-	if (argv && *argv)
+	//printf("%p -> ", argv);
+	if (argv)
 	{
 		printf("%s", "{");
 		while (*argv)
 		{
 			printf("\"%s\"", *argv);
+			printf("%s", ", ");
 			argv++;
-			if (*argv)
-				printf("%s", ", ");
 		}
-		printf("%s", "}\n");
-	}	
+		printf("%s", "NULL};\n");
+	}
+	else
+		printf("%s\n", "(null)");
 	fflush(stdout);
 	return (0);
 }
@@ -43,12 +44,16 @@ void
 	printf("%p:\n", command);
 	if (command)
 	{
-		printf("  - %-10s\"%s\"\n", "cmd:", command->cmd);
-		printf("  - %-10s", "argv:");
+		printf("  - %-15s\"%s\"\n", "cmd:", command->cmd);
+		printf("  - %-15s", "argv:");
 		print_argv(command->argv);
-		printf("  - %-10s%d\n  - %-10s%d\n", "input:", command->fd_input, "output:", command->fd_output);
-		printf("  - %-10s\"%s\"\n", "sep:", command->sep);
-		printf("  - %-10s\"%d\"\n\n", "pid:", command->pid);
+		printf("  - %-15s", "tokens:");
+		print_argv(command->tokens);
+		printf("  - %-15s", "redirections:");
+		print_argv(command->redirections);
+		printf("  - %-15s\"%s\"\n", "sep:", command->sep);
+		printf("  - %-15s%d\n  - %-15s%d\n", "input:", command->fd_input, "output:", command->fd_output);
+		printf("  - %-15s%d\n\n", "pid:", command->pid);
 	}
 	fflush(stdout);
 }

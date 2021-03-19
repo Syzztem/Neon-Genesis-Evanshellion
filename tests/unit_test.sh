@@ -304,8 +304,12 @@ main()
 	INTERACTIVE="off"
 	VERBOSE="off";
 	ALL_ARGS="$@"
+	TEST_FOLDER=`abspath ./testfolder`
+	EXE_FOLDER=`abspath ./executables`
+	TRACE_FILE=`abspath ./trace`
 
 	cd "$TEST_FOLDER"
+	echo > $TRACE_FILE
 	for arg in "$@";
 	do
 		if [ "$arg" = '-i' ];then
@@ -326,11 +330,15 @@ main()
 			if ! [ "$test" = "-v" ];then
 				OUTPUT="$($test)";
 				if [ $? == 0 ] && [ -z "$(echo "$OUTPUT" | grep [ERROR])" ];then
-					printf '%-15s [OK]\n' "$test:" | tee -a trace
+					printf '%-15s [OK]\n' "$test:" | tee -a $TRACE_FILE
 				else
-					printf '%-15s [KO]\n' "$test:" | tee -a trace
+					printf '%-15s [KO]\n' "$test:" | tee -a $TRACE_FILE
 				fi
-				printf "%s" "$OUTPUT" > trace
+				if [ "$VERBOSE" = "on" ];then
+					printf "$test:\n%s\n" "$OUTPUT" | tee -a $TRACE_FILE
+				else
+					printf "$test:\n%s\n" "$OUTPUT" >> $TRACE_FILE
+				fi
 			fi
 		done
 	fi

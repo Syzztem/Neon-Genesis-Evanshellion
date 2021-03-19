@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/15 22:12:58 by root             ###   ########.fr       */
+/*   Updated: 2021/03/19 15:44:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-/*
-size_t
-	tab_size(char **table)
-{
-	char **current;
-
-	current = table;
-	while (*current)
-		current++;
-	return (current - table);		
-}
-*/
 
 char
 	**find_token(char *token, char **tokens_table)
@@ -32,7 +19,7 @@ char
 
 	i = -1;
 	if (!token)
-		return (tokens_table + get_argv_len(tokens_table));
+		return (tokens_table + tab_size(tokens_table));
 	while (tokens_table[++i])
 	{
 		if (ft_strcmp(tokens_table[i], token) == 0)
@@ -50,7 +37,7 @@ char
 	i = -1;
 	last = NULL;
 	if (!token)
-		return (tokens_table + get_argv_len(tokens_table));
+		return (tokens_table + tab_size(tokens_table));
 	while (tokens_table[++i])
 	{
 		if (ft_strcmp(tokens_table[i], token) == 0)
@@ -94,10 +81,21 @@ char
 	return (current);
 }
 
+char
+	**find_pipe(char **tokens)
+{
+	char **current;
+	
+	current = tokens;
+	while (*current && ft_strcmp(PIPE, *current))
+		current++;
+	return (current);
+}
+
 size_t
 	get_argv_len(char **tokens)
 {
-	return (find_sep(tokens) - tokens);
+	return (find_pipe(tokens) - tokens);
 }
 
 char
