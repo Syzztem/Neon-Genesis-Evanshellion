@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/19 14:41:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:49:54 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,16 +159,16 @@ void
 }
 
 int
-	exec_pipeline(t_list *commands)
+	exec_pipeline(t_pipeline pipeline)
 {
 	pid_t	pid;
 	int		status;
 
-	pipe_nodes(commands);
-	pid = exec_command_list(commands);
-	print_pipeline(commands);
+	pipe_nodes(pipeline);
+	pid = exec_command_list(pipeline);
+	print_pipeline(pipeline);
 	waitpid(pid, &status, 0);
-	wait_commands(commands);
+	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
 	return (0);
@@ -211,4 +211,11 @@ int
 		exec_pipeline(pipeline);
 //	printf("$? = %d\n", g_exit_status);
 	return (0);
+}
+
+
+int
+	exec_command_line(char **tokens)
+{
+	
 }

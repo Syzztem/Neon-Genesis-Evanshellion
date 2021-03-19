@@ -1,0 +1,15 @@
+int
+	exec_pipeline(t_pipeline pipeline)
+{
+	pid_t	pid;
+	int		status;
+
+	pipe_nodes(pipeline);
+	pid = exec_command_list(pipeline);
+	print_pipeline(pipeline);
+	waitpid(pid, &status, 0);
+	wait_pipeline(pipeline);
+	if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
+	return (0);
+}
