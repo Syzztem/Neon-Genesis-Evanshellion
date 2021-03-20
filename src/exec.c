@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/19 15:49:54 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:18:28 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,16 @@ int
 void
 	close_cmd(t_command *cmd)
 {
+	/*
 	if (DEBUG)
 	{
 		puts("CLOSING:");
 		print_command(cmd);
-	}
+	}*/
 	close_checked(cmd->fd_input);
 	close_checked(cmd->fd_output);
-	if (DEBUG)
-		puts("CLOSED");
+	/*if (DEBUG)
+		puts("CLOSED");*/
 }
 
 void close_all_cmds(t_list *commands, t_command *avoid)
@@ -153,9 +154,9 @@ void
 }
 
 void
-	wait_commands(t_list *lst)
+	wait_pipeline(t_pipeline pipeline)
 {
-	ft_lstiter(lst, (void *)wait_command);
+	ft_lstiter(pipeline, (void *)wait_command);
 }
 
 int
@@ -213,9 +214,44 @@ int
 	return (0);
 }
 
+int
+	check_pipeline_run(char *condition, int last_return)
+{
+	if (condition == NULL)
+		return (1);
+	if (!strcmp(condition, AND) && last_return == 0)
+		return (1);
+	if (!strcmp(condition, OR) && last_return != 0)
+		return (1);
+	return (0);
+}
+
+int
+	exec_from_ast(t_ast ast)
+{
+	t_list		*current;
+	t_ast_node	*node;
+	int			ret;
+
+	current = ast;
+	ret = 0;
+	while (current)
+	{
+		node = current->content;
+		if (check_pipeline_run(node->sep, ret))
+			exec_abstract_pipeline(node->abstract_pipeline);
+		current = current->next;
+	}
+	return (0);
+}
 
 int
 	exec_command_line(char **tokens)
 {
-	
+	t_ast	ast;
+
+	ast = parse_ast(tokens);
+	exec_from_ast(ast);
+	//free_ast(ast);
+	return (0);
 }

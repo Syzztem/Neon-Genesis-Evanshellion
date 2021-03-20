@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/19 14:05:42 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 12:54:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ int
 {
 	if (!DEBUG)
 		return (0);
-	//printf("%p -> ", argv);
+	printf("%p -> ", argv);
 	if (argv)
 	{
 		printf("%s", "{");
-		while (*argv)
+		while (0[argv])
 		{
 			printf("\"%s\"", *argv);
 			printf("%s", ", ");
+			fflush(stdout);
 			argv++;
 		}
 		printf("%s", "NULL};\n");

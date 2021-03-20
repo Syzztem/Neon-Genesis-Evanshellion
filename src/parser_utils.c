@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/19 15:44:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:23:13 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,43 @@ int
 	return ((int)find_token(token, SEPARATORS));
 }
 
+/*
 char
-	**find_sep(char **tokens)
+	**find_pipeline_sep(char **tokens)
 {
 	char **current;
 	
 	current = tokens;
-	while (!is_sep(*current))
+	while (!find_token(*current, PIPELINE_SEPARATORS))
+		current++;
+	return (current);
+}
+*/
+
+char
+	**find_token_in_tokens(char **tokens, char **to_find)
+{
+	char **current;
+	
+	current = tokens;
+	while (!find_token(*current, to_find))
+		current++;
+	return (current);	
+}
+
+char
+	**find_sep(char **tokens)
+{
+	return (find_token_in_tokens(tokens, SEPARATORS));
+}
+
+char
+	**safe_find_token(char **tokens, char *find)
+{
+	char **current;
+	
+	current = tokens;
+	while (*current && ft_strcmp(find, *current))
 		current++;
 	return (current);
 }
@@ -84,16 +114,17 @@ char
 char
 	**find_pipe(char **tokens)
 {
-	char **current;
-	
-	current = tokens;
-	while (*current && ft_strcmp(PIPE, *current))
-		current++;
-	return (current);
+	return (safe_find_token(tokens, PIPE));
 }
 
 size_t
-	get_argv_len(char **tokens)
+	get_pipeline_len(char **tokens)
+{
+	return (find_sep(tokens) - tokens);
+}
+
+size_t
+	get_command_len(char **tokens)
 {
 	return (find_pipe(tokens) - tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/19 14:03:01 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:20:16 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ char
 }
 
 t_command
-	*init_command_from_tokens(char **argv, char *sep)
+	*init_command_from_tokens(char **tokens, char *sep)
 {
 	t_command	*cmd;
 
 	cmd = malloc(sizeof(t_command));
 	cmd->sep = sep;
-	cmd->tokens = dup_tab(argv);
-	cmd->redirections = extract_redirects(argv);
-	cmd->argv = get_pure_tokens(argv);
+	cmd->tokens = dup_tab(tokens);
+	cmd->redirections = extract_redirects(tokens);
+	cmd->argv = get_pure_tokens(tokens);
 	cmd->fd_input = 0;
 	cmd->fd_output = 1;
 	cmd->pid = -1;
@@ -54,23 +54,23 @@ t_command
 }
 
 t_command
-	*command_from_argv(char **argv, char *sep)
+	*command_from_tokens(char **tokens, char *sep)
 {
 	char		*path_buf;
 	char		*found_exec;
 	t_command	*cmd;
 	
-	cmd = init_command_from_tokens(argv, sep);
-	path_buf = alloc_path_buf(argv[0]);// I can't exactly know the size of the command's path in advance so i I have to alloc the maximum size possible to avoid buffer overflow :(
-	found_exec = find_exec(path_buf, argv[0]);
+	cmd = init_command_from_tokens(tokens, sep);
+	path_buf = alloc_path_buf(tokens[0]);// I can't exactly know the size of the command's path in advance so i I have to alloc the maximum size possible to avoid buffer overflow :(
+	found_exec = find_exec(path_buf, tokens[0]);
 	if (!path_buf || !found_exec)
 	{
 		free(path_buf);
-		cmd->cmd = ft_strdup(cmd->argv[0]);
+		cmd->cmd = ft_strdup(cmd->tokens[0]);
 		return (cmd);
 	}
-	if (found_exec == argv[0])
-		ft_strlcpy(path_buf, argv[0], PATH_MAX);
+	if (found_exec == tokens[0])
+		ft_strlcpy(path_buf, tokens[0], PATH_MAX);
 	cmd->cmd = path_buf;
 	return(cmd);
 }
@@ -90,16 +90,65 @@ t_command
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	end = get_argv_len(current);
-	command = command_from_argv(dup_n_tab(current, end), *find_sep(current));
+	end = get_pipeline_len(current);
+	//printf("len %d\n", end);
+	command = command_from_tokens(dup_n_tab(current, end), *find_sep(current));
 	current += end;
 	if (*current)
 		current++;
 	return (command);
 }
 
-t_list
-	*parse_pipeline(char **tokens)
+
+t_ast_node
+	*node_from_line(char **abstract_pipeline, char *sep)
+{
+	t_ast_node	*node;
+
+	node = malloc(sizeof(t_ast_node));
+	node->abstract_pipeline = abstract_pipeline;
+	node->sep = sep;
+	return (node);
+}
+
+
+t_ast_node
+	*get_next_ast_node(char **tokens)
+{
+	static char	**current = NULL;
+	static char **tokens_start = NULL;
+	int			end;
+	t_ast_node	*node;
+
+	if (tokens != tokens_start)
+	{
+		tokens_start = tokens;
+		current = tokens;
+	}
+	if (current == NULL || *current == NULL)
+		return (NULL);
+	end = get_pipeline_len(current);
+	node = node_from_line(dup_n_tab(current, end), *find_sep(current));
+	current += end;
+	if (*current)
+		current++;
+	return (node);
+}
+
+t_ast
+	parse_ast(char **tokens)
+{
+	t_ast_node	*node;
+	t_list		*lst;
+	
+	lst = NULL;
+	while ((node = get_next_ast_node(tokens)))
+		ft_lstadd_back(&lst, node);
+	return (lst);
+}
+
+t_pipeline
+	parse_pipeline(char **tokens)
 {
 	t_command	*command;
 	t_list		*lst;
