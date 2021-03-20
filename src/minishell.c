@@ -6,13 +6,15 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/20 20:02:28 by root             ###   ########.fr       */
+/*   Updated: 2021/03/20 21:04:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
 #include <limits.h>
+
+int g_exit_status = 0;
 
 int ft_isatty(int fd)
 {
@@ -79,7 +81,7 @@ static int
 		free_tab(tokens);
 		free(line);
 	}
-	return (EXIT_SUCCESS);
+	return (g_exit_status);
 }
 
 #ifdef BONUS
@@ -103,7 +105,8 @@ int
 	copy_env();
 	minishell();
 	//system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
-	builtin_exit(NULL, NULL);
+	print_exit();
+	return (g_exit_status);
 }
 
 #endif

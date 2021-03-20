@@ -1,66 +1,37 @@
 
-unit_parsing:   [KO]
-unit_parsing:
+unit_redirect_replace: [KO]
+unit_redirect_replace:
 [ERROR]: Output differs.
-CMD: export A=p;export B=w;$A$B"d"
-(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+CMD: /bin/echo hello world > 1; ls ; cat 1
+(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello world ls						      |	1
+cat: 1: No such file or directory			      |	hello world
 [ERROR]: Output differs.
-CMD: /bin/echo a;/bin/echo b;/bin/echo c;/bin/echo d;/bin/echo e;/bin/echo f;/bin/echo g;/bin/echo h;/bin/echo i;/bin/echo j;/bin/echo k;/bin/echo l;/bin/echo m;/bin/echo n;/bin/echo o;/bin/echo p;/bin/echo q;/bin/echo r;/bin/echo s;/bin/echo t;/bin/echo u;/bin/echo v;/bin/echo w;/bin/echo x;/bin/echo y;/bin/echo z;/bin/echo A;/bin/echo B;/bin/echo C;/bin/echo D;/bin/echo E;/bin/echo F
-(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-a;/bin/echo b;/bin/echo c;/bin/echo d;/bin/echo e;/bin/echo f |	a
-							      >	b
-							      >	c
-							      >	d
-							      >	e
-							      >	f
-							      >	g
-							      >	h
-							      >	i
-							      >	j
-							      >	k
-							      >	l
-							      >	m
-							      >	n
-							      >	o
-							      >	p
-							      >	q
-							      >	r
-							      >	s
-							      >	t
-							      >	u
-							      >	v
-							      >	w
-							      >	x
-							      >	y
-							      >	z
-							      >	A
-							      >	B
-							      >	C
-							      >	D
-							      >	E
-							      >	F
-[ERROR]: Output differs.
-CMD: /bin/echo 0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5;/bin/echo 6;/bin/echo 7;/bin/echo 8;/bin/echo 9;/bin/echo 10;/bin/echo 11;/bin/echo 12;/bin/echo 13;/bin/echo 14;/bin/echo 15;/bin/echo 16;/bin/echo 17;/bin/echo 18;/bin/echo 19;/bin/echo 20
-(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5 |	0
-							      >	1
-							      >	2
-							      >	3
-							      >	4
-							      >	5
-							      >	6
-							      >	7
-							      >	8
-							      >	9
-							      >	10
-							      >	11
-							      >	12
-							      >	13
-							      >	14
-							      >	15
-							      >	16
-							      >	17
-							      >	18
-							      >	19
-							      >	20
+CMD: printf h> 2; ls ; cat 2
+(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+h>printf: warning: ignoring excess arguments, starting with ‘ |	1
+cat: 2: No such file or directory			      |	2
+[32m							      >	h[0m[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file > test_output   ; cat test_file
+(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello								hello
+world								world
+good								good
+morning								morning
+[32m							      >	worldhello
+[0m[32m							      >	world
+[0m[32m							      >	good
+[0m[32m							      >	morning
+[0mworld								world[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file > test_output; grep world < test_file > test_output  ; cat test_file
+(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+[31mminishell:src/exec.c:67 : Bad address : /usr/bin/rm	      <
+[0mhello								hello
+[32m							      >	world
+[0m[32m							      >	good
+[0m[32m							      >	morning
+[0m[32m							      >	worldhello
+[0mworld								world
+good								good
+morning								morning
+world								world

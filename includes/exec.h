@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 18:48:09 by root             ###   ########.fr       */
+/*   Updated: 2021/03/20 21:04:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "parser.h"
 
 # include <sys/wait.h>
-
-static int	g_exit_status = 0;
 
 void	exec_command(t_command *command);
 int		exec_list(t_list *commands, char **redirections);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/05 14:48:03 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 21:26:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char
 	ft_strcpy(environ[env_index], name);
 	ft_strcat(environ[env_index], "=");
 	ft_strcat(environ[env_index], value);
-	environ[env_index + 1] = NULL;
+	//environ[env_index + 1] = NULL; ?? It just erases the rest of environ
 	return (environ[env_index]);
 }
 

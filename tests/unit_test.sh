@@ -296,6 +296,20 @@ unit_redirect_append()
 	rm -rf $TST_DIR
 }
 
+unit_priorities()
+{
+	cmp_shell 'true && echo hello'
+	cmp_shell 'true && echo hello ; echo world'
+	cmp_shell 'echo hello ; echo world'
+	cmp_shell 'true || echo hello'
+	cmp_shell 'false || echo hello'
+	cmp_shell 'false && echo hello'
+	cmp_shell 'true && echo hello ; false || echo hello'
+	cmp_shell 'true && echo hello ; true || echo hello'
+	cmp_shell 'echo hello && echo world'
+	cmp_shell 'echo hello || echo world'
+}
+
 main()
 {
 	MY_SHELL=$(abspath ../minishell)
@@ -344,4 +358,5 @@ main()
 	fi
 }
 
+make -C ../ --silent
 main $@

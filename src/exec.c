@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 20:02:49 by root             ###   ########.fr       */
+/*   Updated: 2021/03/20 21:03:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ int
 	else
 		exec_pipeline(pipeline);
 //	printf("$? = %d\n", g_exit_status);
-	return (0);
+	return (g_exit_status);
 }
 
 int
@@ -246,7 +246,7 @@ int
 		sep = node->sep;
 		current = current->next;
 	}
-	return (0);
+	return (g_exit_status);
 }
 
 int
@@ -257,9 +257,9 @@ int
 	/*printf("tokenized line: ");
 	print_argv(tokens);*/
 	ast = parse_ast(tokens);
-	print_ast(ast);
-	return (0);
+	//print_ast(ast);
+	//return (0);
 	exec_from_ast(ast);
 	//free_ast(ast);
-	return (0);
+	return (g_exit_status);
 }
