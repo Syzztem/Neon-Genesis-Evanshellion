@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 19:37:27 by root             ###   ########.fr       */
+/*   Updated: 2021/03/20 20:02:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,8 +254,8 @@ int
 {
 	t_ast	ast;
 
-	printf("tokenized line: ");
-	print_argv(tokens);
+	/*printf("tokenized line: ");
+	print_argv(tokens);*/
 	ast = parse_ast(tokens);
 	print_ast(ast);
 	return (0);

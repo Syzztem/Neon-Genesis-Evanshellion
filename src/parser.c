@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 19:43:35 by root             ###   ########.fr       */
+/*   Updated: 2021/03/20 20:04:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ t_ast
 	lst = NULL;
 	while ((node = get_next_ast_node(tokens)))
 		ft_lstadd_back(&lst, node);
+	get_next_ast_node(NULL);
 	return (lst);
 }
 
@@ -156,6 +157,7 @@ t_pipeline
 	lst = NULL;
 	while ((command = get_next_command(tokens)))
 		ft_lstadd_back(&lst, command);
+	get_next_command(NULL);
 	return (lst);
 }
 
