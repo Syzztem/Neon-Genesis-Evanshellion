@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 12:54:21 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:35:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 int
 	print_argv(char **argv)
 {
-	if (!DEBUG)
-		return (0);
 	printf("%p -> ", argv);
 	if (argv)
 	{
@@ -110,4 +108,25 @@ void
 		func(*current);
 		current++;
 	}
+}
+
+void
+	print_ast_node(t_ast_node *node)
+{
+	if (!DEBUG && !DEBUG_AST)
+		return ;
+	printf("  node: %p\n", node);
+	printf("    - %-15s", "pipeline:");
+	print_argv(node->abstract_pipeline);
+	printf("    - %-15s\"%s\"\n", "sep:", node->sep);
+}
+
+void
+	print_ast(t_ast	ast)
+{
+	if (!DEBUG && !DEBUG_AST)
+		return ;
+	printf("ast: %p\n", ast);
+	ft_lstiter(ast, print_ast_node);
+	puts("");
 }

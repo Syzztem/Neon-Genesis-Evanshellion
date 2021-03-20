@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 18:23:13 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:08:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,13 @@ char
 size_t
 	get_pipeline_len(char **tokens)
 {
-	return (find_sep(tokens) - tokens);
+	return (find_token_in_tokens(tokens, PIPELINE_SEPARATORS) - tokens);
 }
 
 size_t
 	get_command_len(char **tokens)
 {
-	return (find_pipe(tokens) - tokens);
+	return (find_sep(tokens) - tokens);
 }
 
 char

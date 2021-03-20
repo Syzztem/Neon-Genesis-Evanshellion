@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 18:20:16 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:43:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ t_command
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	end = get_pipeline_len(current);
-	//printf("len %d\n", end);
+	end = get_command_len(current);
+//	printf("len %d\n", end);
 	command = command_from_tokens(dup_n_tab(current, end), *find_sep(current));
 	current += end;
 	if (*current)
@@ -128,7 +128,7 @@ t_ast_node
 	if (current == NULL || *current == NULL)
 		return (NULL);
 	end = get_pipeline_len(current);
-	node = node_from_line(dup_n_tab(current, end), *find_sep(current));
+	node = node_from_line(dup_n_tab(current, end), *find_token_in_tokens(current, PIPELINE_SEPARATORS));
 	current += end;
 	if (*current)
 		current++;

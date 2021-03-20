@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 17:59:05 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:32:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
+
+# define DEBUG_AST 1
 
 typedef t_list * t_pipeline;
 typedef t_list * t_ast;
@@ -92,6 +94,8 @@ char			**find_sep(char **tokens);
 char			**find_pipe(char **tokens);
 char			**dup_n_tab(char **table, size_t n);
 
+char			**find_token_in_tokens(char **tokens, char **to_find);
+
 t_pipeline		parse_pipeline(char **tokens);
 t_ast			parse_ast(char **tokens);
 char			**extract_redirects(char **tokens);
@@ -101,6 +105,8 @@ int				redirects_to_fds(char **redirects, int *fd_input, int *fd_output);
 void			print_pipeline(t_pipeline lst);
 void			print_command(t_command *command);
 int				print_argv(char **argv);
+void			print_ast(t_ast	ast);
+
 char			*alloc_path_buf(char *cmd);
 char			*do_find_exec(char *cmd);
 void			print_exec_path(char *cmd);

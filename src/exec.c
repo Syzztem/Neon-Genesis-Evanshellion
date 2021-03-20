@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 18:18:28 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:37:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void
 	}
 	dprintf(2, "%s:%s:%d : %s : %s\n", SHELL_NAME, __FILE__, __LINE__ , strerror(errno), command->cmd);
 	exit(errno);
-	print_command(command);
+	//print_command(command);
 }
 
 int
@@ -201,7 +201,7 @@ int
 	t_redirector	rdr;
 
 	pipeline = parse_pipeline(tokens);
-	print_pipeline(pipeline);
+//	print_pipeline(pipeline);
 	if (is_single_builtin(pipeline))
 	{
 		do_redirector(&rdr, ((t_command *)pipeline->content)->redirections);
@@ -217,7 +217,7 @@ int
 int
 	check_pipeline_run(char *condition, int last_return)
 {
-	if (condition == NULL)
+	if (condition == NULL || !strcmp(condition, ";"))
 		return (1);
 	if (!strcmp(condition, AND) && last_return == 0)
 		return (1);
@@ -231,15 +231,19 @@ int
 {
 	t_list		*current;
 	t_ast_node	*node;
+	char		*sep;
 	int			ret;
 
 	current = ast;
 	ret = 0;
+	sep = NULL;
 	while (current)
 	{
 		node = current->content;
-		if (check_pipeline_run(node->sep, ret))
+		if (check_pipeline_run(sep, ret))
 			exec_abstract_pipeline(node->abstract_pipeline);
+		ret = g_exit_status;
+		sep = node->sep;
 		current = current->next;
 	}
 	return (0);
@@ -250,7 +254,11 @@ int
 {
 	t_ast	ast;
 
+	printf("tokenized line: ");
+	print_argv(tokens);
 	ast = parse_ast(tokens);
+	print_ast(ast);
+	return (0);
 	exec_from_ast(ast);
 	//free_ast(ast);
 	return (0);
