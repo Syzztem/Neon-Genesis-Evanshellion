@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/21 14:04:54 by smaccary         ###   ########.fr       */
+/*   Created: 2021/03/21 14:03:28 by smaccary          #+#    #+#             */
+/*   Updated: 2021/03/21 14:04:03 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef GLOBAL_H
+# define GLOBAL_H
 
-# include "parser.h"
-# include "global.h"
-# include <sys/wait.h>
-
-void	exec_command(t_command *command);
-int		exec_list(t_list *commands, char **redirections);
-int		exec_abstract_pipeline(char **tokens);
-int     exec_command_line(char **tokens);
-int		exec_builtin(char **av, char **envp);
-int		is_builtin(char *command);
-
+static int g_exit_status = 0;
 
 #endif

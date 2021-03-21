@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 19:32:21 by root             ###   ########.fr       */
+/*   Updated: 2021/03/21 14:05:04 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <errno.h>
 # include "libft.h"
+# include "global.h"
 
 # define SHELL_NAME "minishell"
 # define CMD_NOT_FOUND_MSG "command not found"
@@ -50,6 +51,7 @@
 # endif
 
 # define DEBUG_AST 1
+
 
 typedef t_list * t_pipeline;
 typedef t_list * t_ast;

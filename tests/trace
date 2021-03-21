@@ -1,37 +1,678 @@
 
+unit_multiline: [KO]
+unit_multiline:
+[ERROR]: Return values differs.
+CMD: 
+/bin/echo "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell 
+/bin/echo "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
+	0 <- bash --posix 
+/bin/echo "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
+[ERROR]: Output differs.
+CMD: 
+/bin/echo "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+Parsing Error : Missing matching double quote		      |	1
+							      >	2
+							      >	3
+							      >	4
+							      >	5
+							      >	6
+							      >	7
+							      >	8
+							      >	9
+							      >	10
+[ERROR]: Return values differs.
+CMD: 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10'
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10'
+	0 <- bash --posix 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10'
+[ERROR]: Output differs.
+CMD: 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10'
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	1
+							      >	2
+							      >	3
+							      >	4
+							      >	5
+							      >	6
+							      >	7
+							      >	8
+							      >	9
+							      >	10
+[ERROR]: Return values differs.
+CMD: 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10' | grep 3
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10' | grep 3
+	0 <- bash --posix 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10' | grep 3
+[ERROR]: Output differs.
+CMD: 
+/bin/echo '1
+2
+3
+4
+5
+6
+7
+8
+9
+10' | grep 3
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	3
+[ERROR]: Return values differs.
+CMD: 
+/bin/echo '1
+2
+bonjour
+4
+5
+6
+bonuit
+8
+9
+10' | grep bon
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell 
+/bin/echo '1
+2
+bonjour
+4
+5
+6
+bonuit
+8
+9
+10' | grep bon
+	0 <- bash --posix 
+/bin/echo '1
+2
+bonjour
+4
+5
+6
+bonuit
+8
+9
+10' | grep bon
+[ERROR]: Output differs.
+CMD: 
+/bin/echo '1
+2
+bonjour
+4
+5
+6
+bonuit
+8
+9
+10' | grep bon
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	bonjour
+							      >	bonuit
+unit_no_arg:    [KO]
+unit_no_arg:
+[ERROR]: Output differs.
+CMD: pwd
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+unit_arg:       [OK]
+unit_arg:
+
+unit_parsing:   [KO]
+unit_parsing:
+[ERROR]: Output differs.
+CMD: export A=p;export B=w;$A$B"d"
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+[ERROR]: Output differs.
+CMD: /bin/echo a;/bin/echo b;/bin/echo c;/bin/echo d;/bin/echo e;/bin/echo f;/bin/echo g;/bin/echo h;/bin/echo i;/bin/echo j;/bin/echo k;/bin/echo l;/bin/echo m;/bin/echo n;/bin/echo o;/bin/echo p;/bin/echo q;/bin/echo r;/bin/echo s;/bin/echo t;/bin/echo u;/bin/echo v;/bin/echo w;/bin/echo x;/bin/echo y;/bin/echo z;/bin/echo A;/bin/echo B;/bin/echo C;/bin/echo D;/bin/echo E;/bin/echo F
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+a;/bin/echo b;/bin/echo c;/bin/echo d;/bin/echo e;/bin/echo f |	a
+							      >	b
+							      >	c
+							      >	d
+							      >	e
+							      >	f
+							      >	g
+							      >	h
+							      >	i
+							      >	j
+							      >	k
+							      >	l
+							      >	m
+							      >	n
+							      >	o
+							      >	p
+							      >	q
+							      >	r
+							      >	s
+							      >	t
+							      >	u
+							      >	v
+							      >	w
+							      >	x
+							      >	y
+							      >	z
+							      >	A
+							      >	B
+							      >	C
+							      >	D
+							      >	E
+							      >	F
+[ERROR]: Output differs.
+CMD: /bin/echo 0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5;/bin/echo 6;/bin/echo 7;/bin/echo 8;/bin/echo 9;/bin/echo 10;/bin/echo 11;/bin/echo 12;/bin/echo 13;/bin/echo 14;/bin/echo 15;/bin/echo 16;/bin/echo 17;/bin/echo 18;/bin/echo 19;/bin/echo 20
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5 |	0
+							      >	1
+							      >	2
+							      >	3
+							      >	4
+							      >	5
+							      >	6
+							      >	7
+							      >	8
+							      >	9
+							      >	10
+							      >	11
+							      >	12
+							      >	13
+							      >	14
+							      >	15
+							      >	16
+							      >	17
+							      >	18
+							      >	19
+							      >	20
+unit_pipes_env: [KO]
+unit_pipes_env:
+[ERROR]: Output differs.
+CMD: printf "bonjour\nsalut" | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut 
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+grep: : No such file or directory			      |	salut
+[ERROR]: Output differs.
+CMD: export H=hello;/bin/echo hello | grep hello | grep $H 
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	hello
+[ERROR]: Return values differs.
+CMD: export H=hello;/bin/echo hello | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H
+	2 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell export H=hello;/bin/echo hello | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H
+	0 <- bash --posix export H=hello;/bin/echo hello | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H
+[ERROR]: Output differs.
+CMD: export H=hello;/bin/echo hello | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H | grep hello | grep $H
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] |	hello
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] <
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+[ERROR]: Return values differs.
+CMD: /bin/echo \| | grep \|
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo \| | grep \|
+	0 <- bash --posix /bin/echo \| | grep \|
+[ERROR]: Output differs.
+CMD: /bin/echo \| | grep \|
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	|
+[ERROR]: Output differs.
+CMD: /bin/echo \|\|\|\|\| | grep \|
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] |	|||||
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+unit_pipes:     [KO]
+unit_pipes:
+[ERROR]: Output differs.
+CMD: printf "bonjour\nsalut" | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut 
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+grep: : No such file or directory			      |	salut
+[ERROR]: Return values differs.
+CMD: /bin/echo \| | grep \|
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo \| | grep \|
+	0 <- bash --posix /bin/echo \| | grep \|
+[ERROR]: Output differs.
+CMD: /bin/echo \| | grep \|
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	|
+[ERROR]: Output differs.
+CMD: /bin/echo \|\|\|\|\| | grep \|
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+usage: grep [-abcDEFGHhIiJLlmnOoqRSsUVvwxZ] [-A num] [-B num] |	|||||
+	[-e pattern] [-f file] [--binary-files=value] [--colo <
+	[--context[=num]] [--directories=action] [--label] [- <
+	[--null] [pattern] [file ...]			      <
+unit_echo:      [KO]
+unit_echo:
+[ERROR]: Output differs.
+CMD: echo
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >
+[ERROR]: Output differs.
+CMD: echo hello
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	hello
+[ERROR]: Output differs.
+CMD: echo
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >
+[ERROR]: Output differs.
+CMD: echo -n hello
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	hello[ERROR]: Output differs.
+CMD: echo -n hello world
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	hello world[ERROR]: Output differs.
+CMD: echo -n n -n
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	n -n[ERROR]: Output differs.
+CMD: echo -n -m
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	-m[ERROR]: Output differs.
+CMD: echo -nv
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	-nv
+[ERROR]: Output differs.
+CMD: echo --help
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	--help
+[ERROR]: Output differs.
+CMD: echo "hello world"
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	hello world
+[ERROR]: Output differs.
+CMD: echo "hello    " "       world" hi hey
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	hello            world hi hey
+unit_pwd:       [KO]
+unit_pwd:
+[ERROR]: Output differs.
+CMD: pwd
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+[ERROR]: Output differs.
+CMD: pwd ..
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+[ERROR]: Return values differs.
+CMD: mkdir /tmp/my_dir;cd /tmp/my_dir ;mkdir 1;mkdir 1/2; mkdir 1/2/3;cd 1/2/3;pwd; rm -rf ../../../1;pwd;echo $?
+	1 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell mkdir /tmp/my_dir;cd /tmp/my_dir ;mkdir 1;mkdir 1/2; mkdir 1/2/3;cd 1/2/3;pwd; rm -rf ../../../1;pwd;echo $?
+	0 <- bash --posix mkdir /tmp/my_dir;cd /tmp/my_dir ;mkdir 1;mkdir 1/2; mkdir 1/2/3;cd 1/2/3;pwd; rm -rf ../../../1;pwd;echo $?
+[ERROR]: Output differs.
+CMD: mkdir /tmp/my_dir;cd /tmp/my_dir ;mkdir 1;mkdir 1/2; mkdir 1/2/3;cd 1/2/3;pwd; rm -rf ../../../1;pwd;echo $?
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+mkdir: ;mkdir: File exists				      |	mkdir: /tmp/my_dir: File exists
+mkdir: 1;mkdir: File exists				      |	/tmp/my_dir/1/2/3
+mkdir: 1: No such file or directory			      |	pwd: error retrieving current directory: getcwd: cannot acces
+mkdir: mkdir: File exists				      |	1
+mkdir: 1/2: No such file or directory			      <
+mkdir: 1/2: No such file or directory			      <
+mkdir: rm: File exists					      <
+mkdir: -rf: File exists					      <
+mkdir: ../../../1;pwd;echo: File exists			      <
+mkdir: ?: File exists					      <
+unit_exit:      [KO]
+unit_exit:
+[ERROR]: Return values differs.
+CMD: exit
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell exit
+	0 <- bash --posix exit
+[ERROR]: Return values differs.
+CMD: exit 53
+	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell exit 53
+	53 <- bash --posix exit 53
+[ERROR]: Return values differs.
+CMD: /bin/echo "exit 53;" | $0 ;/bin/echo $?
+	2 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo "exit 53;" | $0 ;/bin/echo $?
+	0 <- bash --posix /bin/echo "exit 53;" | $0 ;/bin/echo $?
+[ERROR]: Output differs.
+CMD: /bin/echo "exit 53;" | $0 ;/bin/echo $?
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+minishell:src/exec.c:67 : No such file or directory : ;/bin/e |	myshell: line 1: myshell: command not found
+							      >	127
+unit_env_vars:  [KO]
+unit_env_vars:
+[ERROR]: Output differs.
+CMD: echo $PATH
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/goinfre/miniconda3/bin:/Users/smaccary/.brew/bin:/Users/smac
+[ERROR]: Output differs.
+CMD: echo $SHELL
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/bin/zsh
+[ERROR]: Output differs.
+CMD: echo $0
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	myshell
+[ERROR]: Output differs.
+CMD: /bin/pwd ; echo $?
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+							      >	0
+[ERROR]: Return values differs.
+CMD: ee ; echo $?
+	2 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell ee ; echo $?
+	0 <- bash --posix ee ; echo $?
+[ERROR]: Output differs.
+CMD: ee ; echo $?
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+minishell:src/exec.c:67 : No such file or directory : ee      |	myshell: line 1: ee: command not found
+							      >	127
+[ERROR]: Output differs.
+CMD: /bin/echo $$
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+$							      |	15498
+unit_env:       [KO]
+unit_env:
+[ERROR]: Return values differs.
+CMD: env eee
+	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell env eee
+	127 <- bash --posix env eee
+[ERROR]: Output differs.
+CMD: env eee
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	env: eee: No such file or directory
+[ERROR]: Return values differs.
+CMD: env abc abc
+	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell env abc abc
+	127 <- bash --posix env abc abc
+[ERROR]: Output differs.
+CMD: env abc abc
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	env: abc: No such file or directory
+unit_builtins_no_arg: [KO]
+unit_builtins_no_arg:
+[ERROR]: Output differs.
+CMD: echo
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >
+[ERROR]: Output differs.
+CMD: pwd
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+[ERROR]: Return values differs.
+CMD: exit
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell exit
+	0 <- bash --posix exit
+unit_quotes:    [OK]
+unit_quotes:
+
+unit_argv_zero: [KO]
+unit_argv_zero:
+[ERROR]: Output differs.
+CMD: /bin/echo $0
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      |	myshell
+unit_semicolons: [KO]
+unit_semicolons:
+[ERROR]: Output differs.
+CMD: /bin/echo a; /bin/echo b; /bin/echo c
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+a; /bin/echo b; /bin/echo c				      |	a
+							      >	b
+							      >	c
+[ERROR]: Output differs.
+CMD: /bin/echo "a;echo b;pwd" 
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+a;echo b;pwd 						      |	a;echo b;pwd
+[ERROR]: Output differs.
+CMD: /bin/echo hello;echo ";hello\;;";
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello;echo ;hello\;;;					      |	hello
+							      >	;hello\;;
+unit_return:    [KO]
+unit_return:
+[ERROR]: Output differs.
+CMD: eee ; /bin/echo $?
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+minishell:src/exec.c:67 : No such file or directory : eee     |	myshell: line 1: eee: command not found
+?							      |	127
+[ERROR]: Output differs.
+CMD: /bin/echo $?
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+?							      |	0
 unit_redirect_replace: [KO]
 unit_redirect_replace:
+[ERROR]: Return values differs.
+CMD: /bin/echo hello world > 1; ls ; cat 1
+	1 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo hello world > 1; ls ; cat 1
+	0 <- bash --posix /bin/echo hello world > 1; ls ; cat 1
 [ERROR]: Output differs.
 CMD: /bin/echo hello world > 1; ls ; cat 1
-(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
 hello world ls						      |	1
 cat: 1: No such file or directory			      |	hello world
+[ERROR]: Return values differs.
+CMD: printf h> 2; ls ; cat 2
+	1 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf h> 2; ls ; cat 2
+	0 <- bash --posix printf h> 2; ls ; cat 2
 [ERROR]: Output differs.
 CMD: printf h> 2; ls ; cat 2
-(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-h>printf: warning: ignoring excess arguments, starting with ‘ |	1
-cat: 2: No such file or directory			      |	2
-[32m							      >	h[0m[ERROR]: Output differs.
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+printf: missing format character			      |	1
+h>cat: 2: No such file or directory			      |	2
+							      >	h[ERROR]: Output differs.
 CMD: rm -f test_output; cat test_file; grep world < test_file > test_output   ; cat test_file
-(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
 hello								hello
 world								world
 good								good
 morning								morning
-[32m							      >	worldhello
-[0m[32m							      >	world
-[0m[32m							      >	good
-[0m[32m							      >	morning
-[0mworld								world[ERROR]: Output differs.
+							      >	worldhello
+							      >	world
+							      >	good
+							      >	morning
+world								world[ERROR]: Output differs.
 CMD: rm -f test_output; cat test_file; grep world < test_file > test_output; grep world < test_file > test_output  ; cat test_file
-(/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-[31mminishell:src/exec.c:67 : Bad address : /usr/bin/rm	      <
-[0mhello								hello
-[32m							      >	world
-[0m[32m							      >	good
-[0m[32m							      >	morning
-[0m[32m							      >	worldhello
-[0mworld								world
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello								hello
+world								world
 good								good
 morning								morning
+							      >	worldhello
+							      >	world
+							      >	good
+							      >	morning
+world								world
+unit_redirect_append: [KO]
+unit_redirect_append:
+[ERROR]: Return values differs.
+CMD: /bin/echo hello world >> 1; ls ; cat 1
+	1 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo hello world >> 1; ls ; cat 1
+	0 <- bash --posix /bin/echo hello world >> 1; ls ; cat 1
+[ERROR]: Output differs.
+CMD: /bin/echo hello world >> 1; ls ; cat 1
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello world ls						      |	1
+cat: 1: No such file or directory			      |	hello world
+[ERROR]: Return values differs.
+CMD: printf a >> 2; ls ; cat 2
+	1 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf a >> 2; ls ; cat 2
+	0 <- bash --posix printf a >> 2; ls ; cat 2
+[ERROR]: Output differs.
+CMD: printf a >> 2; ls ; cat 2
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+printf: missing format character			      |	1
+acat: 2: No such file or directory			      |	2
+							      >	a[ERROR]: Return values differs.
+CMD: printf b > 3; ls >> 3 ; cat 3
+	1 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf b > 3; ls >> 3 ; cat 3
+	0 <- bash --posix printf b > 3; ls >> 3 ; cat 3
+[ERROR]: Output differs.
+CMD: printf b > 3; ls >> 3 ; cat 3
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+printf: missing format character			      |	b1
+bcat: 3: No such file or directory			      |	2
+							      >	3
+[ERROR]: Return values differs.
+CMD: printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+	0 <- bash --posix printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+[ERROR]: Output differs.
+CMD: printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+printf: missing format character			      |	c1
+ceee							      \	2
+							      >	3
+							      >	4
+							      >	eee;
+[ERROR]: Return values differs.
+CMD: printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+	0 <- bash --posix printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+[ERROR]: Output differs.
+CMD: printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+printf: missing format character			      |	;
+deee							      <[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello								hello
+world								world
+good								good
+morning								morning
+							      >	worldhello
+							      >	world
+							      >	good
+							      >	morning
+world								world[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello								hello
+world								world
+good								good
+morning								morning
+							      >	worldhello
+							      >	world
+							      >	good
+							      >	morning
 world								world
