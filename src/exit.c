@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:54:02 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/20 20:50:28 by root             ###   ########.fr       */
+/*   Updated: 2021/03/21 16:15:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ int
 	print_exit(void)
 {
 	if (ft_isatty(0) && ft_isatty(1))
+	{
 		ft_putendl_fd("exit", 1);
+		return (1);
+	}
+	return (0);
 }
 
 int
@@ -50,3 +54,4 @@ int	builtin_exit(char **av, char **envp)
 	exit(0);
 	return (1);
 }
+ 

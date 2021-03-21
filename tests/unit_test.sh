@@ -12,9 +12,9 @@ cmp_shell()
 	MY_OUTFILE=/tmp/my_outfile;
 	TST_OUTFILE=/tmp/tst_outfile;
 	
-	echo "$@" | exec -a "$SHELL_TEST_NAME" $MY_SHELL > $MY_OUTFILE 2>&1;
+	echo "$@" | exec -a "$SHELL_TEST_NAME" $MY_SHELL > $MY_OUTFILE  2>/dev/null;
 	MY_RET=$?;
-	echo "$@" | exec -a "$SHELL_TEST_NAME" $TST_SHELL > $TST_OUTFILE 2>&1;
+	echo "$@" | exec -a "$SHELL_TEST_NAME" $TST_SHELL > $TST_OUTFILE 2>/dev/null;
 	TST_RET=$?;
 	
 	if [ "$(uname)" = "Linux" ];then
@@ -189,14 +189,14 @@ unit_pwd()
 {
 	cmp_shell "pwd"
 	cmp_shell "pwd .."
-	cmp_shell 'mkdir /tmp/my_dir;cd /tmp/my_dir ;mkdir 1;mkdir 1/2; mkdir 1/2/3;cd 1/2/3;pwd; rm -rf ../../../1;pwd;echo $?'
+	#undefined #cmp_shell 'mkdir /tmp/my_dir;cd /tmp/my_dir ;mkdir 1;mkdir 1/2; mkdir 1/2/3;cd 1/2/3;pwd; rm -rf ../../../1;pwd;echo $?'
 }
 
 unit_exit()
 {
 	cmp_shell "exit"
 	cmp_shell "exit 53"
-	cmp_shell '/bin/echo "exit 53;" | $0 ;/bin/echo $?'
+	cmp_shell '/bin/echo "exit 53;" | ls ; /bin/echo $?'
 }
 
 unit_env_vars()
@@ -206,7 +206,7 @@ unit_env_vars()
 	cmp_shell 'echo $0'
 	cmp_shell '/bin/pwd ; echo $?'
 	cmp_shell 'ee ; echo $?'
-	cmp_shell '/bin/echo $$'
+	#undefined#cmp_shell '/bin/echo $$'
 }
 
 unit_env()
@@ -281,11 +281,11 @@ unit_redirect_append()
 	pushd . > /dev/null
 	cd $TST_DIR
 
-	cmp_shell '/bin/echo hello world >> 1; ls ; cat 1'
-	cmp_shell 'printf a >> 2; ls ; cat 2'
-	cmp_shell 'printf b > 3; ls >> 3 ; cat 3'
-	cmp_shell 'printf c > 4; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4'
-	cmp_shell 'printf d > 5; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5'
+	cmp_shell '/bin/echo hello world >> 1 ; ls ; cat 1 ; rm 1'
+	cmp_shell 'printf a >> 2 ; ls ; cat 2 ; rm 2'
+	cmp_shell 'printf b > 3 ; ls >> 3 ; cat 3'
+	cmp_shell 'printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4'
+	cmp_shell 'printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5'
 
 
 	printf "hello\nworld\ngood\nmorning\nworld" > test_file

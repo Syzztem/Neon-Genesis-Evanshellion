@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/21 14:14:33 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 16:52:47 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ void
 	do_redirector(t_redirector *rdr, char **redirections)
 {
 	rdr->rtokens = redirections;
+	rdr->in_fd = 0;
+	rdr->out_fd = 1;
 	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
 	rdr->stdin_dup = dup(0);
 	rdr->stdout_dup = dup(1);
-	dup2(rdr->in_fd, 0);
-	dup2(rdr->out_fd, 1);
+	dup2_check(rdr->in_fd, 0);
+	dup2_check(rdr->out_fd, 1);
 }
 
 void
@@ -54,9 +56,7 @@ void
 {
 	extern char		**environ;
 
-	dup2_check(command->fd_input, 0);
-	dup2_check(command->fd_output, 1);
-	//redirect_command(command);
+	redirect_command(command);
 	if (is_builtin(command->argv[0]) != -1)
 		exit(exec_builtin(command->argv, environ));
 	else
@@ -166,8 +166,9 @@ int
 	int		status;
 
 	pipe_nodes(pipeline);
-	pid = exec_command_list(pipeline);
 	print_pipeline(pipeline);
+	//return (0);
+	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
 	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
@@ -201,7 +202,7 @@ int
 	t_redirector	rdr;
 
 	pipeline = parse_pipeline(tokens);
-//	print_pipeline(pipeline);
+	//print_pipeline(pipeline);
 	if (is_single_builtin(pipeline))
 	{
 		do_redirector(&rdr, ((t_command *)pipeline->content)->redirections);
@@ -257,6 +258,8 @@ int
 	/*printf("tokenized line: ");
 	print_argv(tokens);*/
 	ast = parse_ast(tokens);
+	//write(1, "\n",1);
+	//puts("");
 	//print_ast(ast);
 	//return (0);
 	exec_from_ast(ast);

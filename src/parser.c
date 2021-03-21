@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 20:04:40 by root             ###   ########.fr       */
+/*   Updated: 2021/03/21 16:49:43 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ char
 	i = 0;
 	current = tokens;
 	extracted = extract_redirects(tokens);
-	pure_tokens = ft_calloc(pure_tokens_len(tokens, extracted) + 1, sizeof(char *));
+	pure_tokens = ft_calloc(pure_tokens_len(tokens, extracted) + 2, sizeof(char *));
 	while (*current)
 	{
 		if (ref_in_tokens(*current, extracted) == 0)

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/21 14:05:04 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:23:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int				is_sep(char *token);
 char			**find_sep(char **tokens);
 char			**find_pipe(char **tokens);
 char			**dup_n_tab(char **table, size_t n);
+size_t			get_command_len(char **tokens);
 
 char			**find_token_in_tokens(char **tokens, char **to_find);
 

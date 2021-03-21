@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/20 19:35:04 by root             ###   ########.fr       */
+/*   Updated: 2021/03/21 14:24:37 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,6 @@ void
 	if (!DEBUG && !DEBUG_AST)
 		return ;
 	printf("ast: %p\n", ast);
-	ft_lstiter(ast, print_ast_node);
+	ft_lstiter(ast, (void *)print_ast_node);
 	puts("");
 }
