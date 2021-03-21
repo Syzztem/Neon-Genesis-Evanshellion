@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/21 16:52:47 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 17:43:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ static void
 void
 	do_redirector(t_redirector *rdr, char **redirections)
 {
-	rdr->rtokens = redirections;
 	rdr->in_fd = 0;
 	rdr->out_fd = 1;
+	rdr->rtokens = redirections;
+	rdr->stdin_dup = -1;
+	rdr->stdout_dup = -1;
+	if (!redirections || !*redirections)
+		return ;
 	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
 	rdr->stdin_dup = dup(0);
 	rdr->stdout_dup = dup(1);
@@ -48,6 +52,8 @@ void
 {
 	t_redirector	rdr;
 
+	dup2_check(cmd->fd_input, 0);
+	dup2_check(cmd->fd_output, 1);
 	do_redirector(&rdr, cmd->redirections);
 }
 
@@ -57,6 +63,7 @@ void
 	extern char		**environ;
 
 	redirect_command(command);
+	//print_command(command);
 	if (is_builtin(command->argv[0]) != -1)
 		exit(exec_builtin(command->argv, environ));
 	else
@@ -190,8 +197,10 @@ int
 void
 	restore_streams(t_redirector *rdr)
 {
-	dup2_check(rdr->stdout_dup, 1);
-	dup2_check(rdr->stdin_dup, 0);
+	if (rdr->stdout_dup > 0)
+		dup2_check(rdr->stdout_dup, 1);
+	if (rdr->stdin_dup > 0)
+		dup2_check(rdr->stdin_dup, 0);
 }
 
 int
@@ -243,6 +252,7 @@ int
 		node = current->content;
 		if (check_pipeline_run(sep, ret))
 			exec_abstract_pipeline(node->abstract_pipeline);
+
 		ret = g_exit_status;
 		sep = node->sep;
 		current = current->next;

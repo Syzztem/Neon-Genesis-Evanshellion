@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/21 14:38:19 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 17:39:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ static int
 	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
 	{
+		if (!line)
+		{
+			perror("minishell: ");
+			exit (errno);
+		}
 		if (!*line)
 		{
 			free(line);
@@ -77,6 +82,7 @@ static int
 		exec_command_line(tokens);
 		free_tab(tokens);
 		free(line);
+
 	}
 	return (g_exit_status);
 }
