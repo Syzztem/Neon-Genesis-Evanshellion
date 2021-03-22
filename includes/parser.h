@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/21 14:23:55 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:45:40 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <string.h>
 # include <errno.h>
+# include <limits.h>
 # include "libft.h"
 # include "global.h"
 
@@ -74,14 +75,14 @@ typedef struct	s_command
 	pid_t	pid;
 }				t_command;
 
-typedef struct  s_redirector
+typedef struct	s_redirector
 {	
     char			**rtokens;
 	int				in_fd;
 	int				out_fd;
 	int				stdin_dup;
 	int				stdout_dup;
-}               t_redirector;
+}				t_redirector;
 
 size_t			get_pipeline_len(char **tokens);
 size_t			tab_size(char **table);
@@ -95,16 +96,26 @@ int				is_sep(char *token);
 char			**find_sep(char **tokens);
 char			**find_pipe(char **tokens);
 char			**dup_n_tab(char **table, size_t n);
+size_t			pure_tokens_len(char **tokens, char **excluded_tokens);
+
+int				is_redirect(char *token);
+
+t_command		*get_next_command(char **tokens);
 size_t			get_command_len(char **tokens);
 
 char			**find_token_in_tokens(char **tokens, char **to_find);
+char			**ref_in_tokens(char *ref, char **tokens);
+char			**safe_find_token(char **tokens, char *find);
 
 t_pipeline		parse_pipeline(char **tokens);
 t_ast			parse_ast(char **tokens);
 char			**extract_redirects(char **tokens);
 
-int				redirects_to_fds(char **redirects, int *fd_input, int *fd_output);
-	
+
+int				open_output(char **output_path_ptr);
+int				redirects_to_fds(char **redirects, int *input, int *output);
+int				check_path_ptr(char **path_ptr);
+
 void			print_pipeline(t_pipeline lst);
 void			print_command(t_command *command);
 int				print_argv(char **argv);

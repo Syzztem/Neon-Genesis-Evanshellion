@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/21 17:39:55 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:39:51 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,23 @@ static int
 
 #endif
 
+int is_computer_on(void)
+{
+	return (1);
+}
+
 static int
 	minishell(void)
 {
 	char		*line;
 	char		**tokens;
 	extern char	**environ;
+
+	if (!is_computer_on())
+	{
+		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
+		exit (1);
+	}
 
 	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
