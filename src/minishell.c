@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/12 16:09:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 17:39:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_isatty(int fd)
 {
 	struct termios	term;
 	
-  	return (tcgetattr (fd, &term) == 0);
+  	return (tcgetattr(fd, &term) == 0);
 }
 
 sig_t blank(int a)
@@ -64,25 +64,27 @@ static int
 	char		*line;
 	char		**tokens;
 	extern char	**environ;
-	char		*ret;
 
 	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
 	{
+		if (!line)
+		{
+			perror("minishell: ");
+			exit (errno);
+		}
 		if (!*line)
 		{
 			free(line);
 			continue ;
 		}
 		tokens = tokenize(line);
-		exec_from_tokens(tokens);
+		exec_command_line(tokens);
 		free_tab(tokens);
-		ret = strchr(line, 4);
 		free(line);
+
 	}
-	if (!ret)
-		exit(0);
-	return (EXIT_SUCCESS);
+	return (g_exit_status);
 }
 
 #ifdef BONUS
@@ -106,7 +108,8 @@ int
 	copy_env();
 	minishell();
 	//system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
-	builtin_exit(NULL, NULL);
+	print_exit();
+	return (g_exit_status);
 }
 
 #endif

@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/09 13:56:29 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:08:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-/*
-size_t
-	tab_size(char **table)
-{
-	char **current;
-
-	current = table;
-	while (*current)
-		current++;
-	return (current - table);		
-}
-*/
 
 char
 	**find_token(char *token, char **tokens_table)
@@ -32,7 +19,7 @@ char
 
 	i = -1;
 	if (!token)
-		return (tokens_table + get_argv_len(tokens_table));
+		return (tokens_table + tab_size(tokens_table));
 	while (tokens_table[++i])
 	{
 		if (ft_strcmp(tokens_table[i], token) == 0)
@@ -50,7 +37,7 @@ char
 	i = -1;
 	last = NULL;
 	if (!token)
-		return (tokens_table + get_argv_len(tokens_table));
+		return (tokens_table + tab_size(tokens_table));
 	while (tokens_table[++i])
 	{
 		if (ft_strcmp(tokens_table[i], token) == 0)
@@ -83,19 +70,61 @@ int
 	return ((int)find_token(token, SEPARATORS));
 }
 
+/*
 char
-	**find_sep(char **tokens)
+	**find_pipeline_sep(char **tokens)
 {
 	char **current;
 	
 	current = tokens;
-	while (!is_sep(*current))
+	while (!find_token(*current, PIPELINE_SEPARATORS))
+		current++;
+	return (current);
+}
+*/
+
+char
+	**find_token_in_tokens(char **tokens, char **to_find)
+{
+	char **current;
+	
+	current = tokens;
+	while (!find_token(*current, to_find))
+		current++;
+	return (current);	
+}
+
+char
+	**find_sep(char **tokens)
+{
+	return (find_token_in_tokens(tokens, SEPARATORS));
+}
+
+char
+	**safe_find_token(char **tokens, char *find)
+{
+	char **current;
+	
+	current = tokens;
+	while (*current && ft_strcmp(find, *current))
 		current++;
 	return (current);
 }
 
+char
+	**find_pipe(char **tokens)
+{
+	return (safe_find_token(tokens, PIPE));
+}
+
 size_t
-	get_argv_len(char **tokens)
+	get_pipeline_len(char **tokens)
+{
+	return (find_token_in_tokens(tokens, PIPELINE_SEPARATORS) - tokens);
+}
+
+size_t
+	get_command_len(char **tokens)
 {
 	return (find_sep(tokens) - tokens);
 }

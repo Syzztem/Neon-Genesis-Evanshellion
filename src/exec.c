@@ -6,12 +6,19 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/09 14:30:25 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 17:43:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "exec.h"
+
+void
+	close_checked(int fd)
+{
+	if (fd != 0 && fd != 1)
+		close (fd);
+}
 
 static void
 	dup2_check(int fd_src, int fd_dst)
@@ -24,22 +31,49 @@ static void
 }
 
 void
+	do_redirector(t_redirector *rdr, char **redirections)
+{
+	rdr->in_fd = 0;
+	rdr->out_fd = 1;
+	rdr->rtokens = redirections;
+	rdr->stdin_dup = -1;
+	rdr->stdout_dup = -1;
+	if (!redirections || !*redirections)
+		return ;
+	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
+	rdr->stdin_dup = dup(0);
+	rdr->stdout_dup = dup(1);
+	dup2_check(rdr->in_fd, 0);
+	dup2_check(rdr->out_fd, 1);
+}
+
+void
+	redirect_command(t_command *cmd)
+{
+	t_redirector	rdr;
+
+	dup2_check(cmd->fd_input, 0);
+	dup2_check(cmd->fd_output, 1);
+	do_redirector(&rdr, cmd->redirections);
+}
+
+void
 	exec_command(t_command *command)
 {
-	extern char **environ;
+	extern char		**environ;
 
-	dup2_check(command->fd_input, 0);
-	dup2_check(command->fd_output, 1);
+	redirect_command(command);
+	//print_command(command);
 	if (is_builtin(command->argv[0]) != -1)
-		exec_builtin(command->argv, environ);
+		exit(exec_builtin(command->argv, environ));
 	else
 	{
 	//	dprintf(2, "%s is not a builtin\n", command->cmd);
 		execve(command->cmd, command->argv, environ);
 	}
-	dprintf(2, "%s : %s : %s\n", SHELL_NAME, strerror(errno), command->cmd);
+	dprintf(2, "%s:%s:%d : %s : %s\n", SHELL_NAME, __FILE__, __LINE__ , strerror(errno), command->cmd);
 	exit(errno);
-	print_command(command);
+	//print_command(command);
 }
 
 int
@@ -73,8 +107,16 @@ int
 void
 	close_cmd(t_command *cmd)
 {
-	close(cmd->fd_input);
-	close(cmd->fd_output);
+	/*
+	if (DEBUG)
+	{
+		puts("CLOSING:");
+		print_command(cmd);
+	}*/
+	close_checked(cmd->fd_input);
+	close_checked(cmd->fd_output);
+	/*if (DEBUG)
+		puts("CLOSED");*/
 }
 
 void close_all_cmds(t_list *commands, t_command *avoid)
@@ -113,42 +155,36 @@ int
 }
 
 void
-	close_checked(int fd)
-{
-	if (fd != 0 && fd != 1)
-		close (fd);
-}
-
-void
 	wait_command(t_command *cmd)
 {
 	waitpid(cmd->pid, NULL, 0);
 }
 
 void
-	wait_commands(t_list *lst)
+	wait_pipeline(t_pipeline pipeline)
 {
-	ft_lstiter(lst, (void *)wait_command);
+	ft_lstiter(pipeline, (void *)wait_command);
 }
 
 int
-	exec_command_line(t_list *commands)
+	exec_pipeline(t_pipeline pipeline)
 {
 	pid_t	pid;
 	int		status;
 
-	pipe_nodes(commands);
-	pid = exec_command_list(commands);
-	print_cmd_lst(commands);
+	pipe_nodes(pipeline);
+	print_pipeline(pipeline);
+	//return (0);
+	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
-	wait_commands(commands);
+	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
 	return (0);
 }
 
 int
-	is_single_builtin(t_list *lst)
+	is_single_builtin(t_pipeline lst)
 {
 	t_command	*cmd;
 	
@@ -159,39 +195,84 @@ int
 }
 
 void
-	do_redirector(t_redirector *rdr, char **tokens)
-{
-	rdr->rtokens = extract_redirects(tokens);
-	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
-	rdr->stdin_dup = dup(0);
-	rdr->stdout_dup = dup(1);
-	dup2(rdr->in_fd, 0);
-	dup2(rdr->out_fd, 1);
-}
-
-void
 	restore_streams(t_redirector *rdr)
 {
-	dup2_check(rdr->stdout_dup, 1);
-	dup2_check(rdr->stdin_dup, 0);
+	if (rdr->stdout_dup > 0)
+		dup2_check(rdr->stdout_dup, 1);
+	if (rdr->stdin_dup > 0)
+		dup2_check(rdr->stdin_dup, 0);
 }
 
 int
-	exec_from_tokens(char **tokens)
+	exec_abstract_pipeline(char **tokens)
 {
-	t_list			*lst;
-	char			**pure_tokens;
-	t_redirector	redirector;
+	t_pipeline		pipeline;
 	extern	char	**environ;
+	t_redirector	rdr;
 
-	do_redirector(&redirector, tokens);
-	pure_tokens = get_pure_tokens(tokens);
-	lst = parse_list(pure_tokens);
-	if (is_single_builtin(lst))
-		exec_builtin(((t_command *)lst->content)->argv, environ);
+	pipeline = parse_pipeline(tokens);
+	//print_pipeline(pipeline);
+	if (is_single_builtin(pipeline))
+	{
+		do_redirector(&rdr, ((t_command *)pipeline->content)->redirections);
+		exec_builtin(((t_command *)pipeline->content)->argv, environ);
+		restore_streams(&rdr);
+	}
 	else
-		exec_command_line(lst);
-	restore_streams(&redirector);
+		exec_pipeline(pipeline);
 //	printf("$? = %d\n", g_exit_status);
+	return (g_exit_status);
+}
+
+int
+	check_pipeline_run(char *condition, int last_return)
+{
+	if (condition == NULL || !strcmp(condition, ";"))
+		return (1);
+	if (!strcmp(condition, AND) && last_return == 0)
+		return (1);
+	if (!strcmp(condition, OR) && last_return != 0)
+		return (1);
 	return (0);
+}
+
+int
+	exec_from_ast(t_ast ast)
+{
+	t_list		*current;
+	t_ast_node	*node;
+	char		*sep;
+	int			ret;
+
+	current = ast;
+	ret = 0;
+	sep = NULL;
+	while (current)
+	{
+		node = current->content;
+		if (check_pipeline_run(sep, ret))
+			exec_abstract_pipeline(node->abstract_pipeline);
+
+		ret = g_exit_status;
+		sep = node->sep;
+		current = current->next;
+	}
+	return (g_exit_status);
+}
+
+int
+	exec_command_line(char **tokens)
+{
+	t_ast	ast;
+
+	/*printf("tokenized line: ");
+	print_argv(tokens);*/
+	ast = parse_ast(tokens);
+	//write(1, "\n",1);
+	//puts("");
+	//print_ast(ast);
+	//return (0);
+	exec_from_ast(ast);
+	//free_ast(ast);
+	return (g_exit_status);
 }

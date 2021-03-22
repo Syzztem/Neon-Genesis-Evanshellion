@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/12 16:09:46 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:04:42 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <termios.h>
 # include "libft.h"
+# include "global.h"
 
 static const char	*g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
@@ -54,6 +55,8 @@ int				builtin_echo(char **av, char **envp);
 int				builtin_exit(char **av, char **envp);
 int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
+
+int             print_exit(void);
 
 char			*find_exec(char *path_buf, char *name);
 int				handle_error(char *command, char *arg, char *errmsg);
