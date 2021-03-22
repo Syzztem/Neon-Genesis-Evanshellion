@@ -1,49 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 13:50:22 by smaccary         ###   ########.fr       */
+/*   Created: 2021/03/22 13:43:19 by smaccary          #+#    #+#             */
+/*   Updated: 2021/03/22 13:53:02 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include "exec.h"
 
-int
-	exec_from_ast(t_ast ast)
+void
+	close_cmd(t_command *cmd)
 {
-	t_list		*current;
-	t_ast_node	*node;
-	char		*sep;
-	int			ret;
-
-	current = ast;
-	ret = 0;
-	sep = NULL;
-	while (current)
-	{
-		node = current->content;
-		if (check_pipeline_run(sep, ret))
-			exec_abstract_pipeline(node->abstract_pipeline);
-
-		ret = g_exit_status;
-		sep = node->sep;
-		current = current->next;
-	}
-	return (g_exit_status);
+	close_checked(cmd->fd_input);
+	close_checked(cmd->fd_output);
 }
 
-int
-	exec_command_line(char **tokens)
+void
+    close_all_cmds(t_list *commands, t_command *avoid)
 {
-	t_ast	ast;
+	t_list	*current;
 
-	ast = parse_ast(tokens);
-	exec_from_ast(ast);
-	//free_ast(ast);
-	return (g_exit_status);
+	current = commands;
+	while (current)
+	{
+		if (avoid != current->content)
+			close_cmd(current->content);
+		current = current->next;
+	}
 }
