@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 14:10:08 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:38:14 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void
 }
 
 /*
-** Parse redirects tokens, opens files and assign them accordingly to fd_input/output ( input : "<", output: ">") 
-** Returns redirection status as a binary mask (replace = 001 | append = 010 | input = 100)
+** Parse redirects tokens, opens files and assign them accordingly to
+** fd_input/output ( input : "<", output: ">")
+** Returns redirection status as a binary mask
+** (replace = 001 | append = 010 | input = 100)
 */
 
 int
@@ -60,16 +62,17 @@ int
 	char	**output_path_ptr;
 	int		open_mode;
 
-	output_path_ptr = tab_find_last_token(OUTPUT_REDIRECTS, redirects);
+	output_path_ptr = tab_find_last_token(output_redirects(), redirects);
 	open_mode = O_WRONLY | O_CREAT;
 	if (check_path_ptr(output_path_ptr))
 		*fd_output = open_output(output_path_ptr);
-	input_path_ptr = tab_find_last_token(INPUT_REDIRECTS, redirects);
+	input_path_ptr = tab_find_last_token(input_redirects(), redirects);
 	if (check_path_ptr(input_path_ptr))
 	{
 		*fd_input = open(input_path_ptr[1], O_RDONLY);
 		if (*fd_input < 0)
-			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno), input_path_ptr[1]);
+			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
+			input_path_ptr[1]);
 	}
 	return (0);
 }
