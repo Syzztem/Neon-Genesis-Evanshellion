@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 13:50:22 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:59:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,18 @@ int
 		node = current->content;
 		if (check_pipeline_run(sep, ret))
 			exec_abstract_pipeline(node->abstract_pipeline);
-
 		ret = g_exit_status;
 		sep = node->sep;
 		current = current->next;
 	}
 	return (g_exit_status);
+}
+
+void
+	free_ast(t_ast ast)
+{
+	(void)ast;
+	return ;
 }
 
 int
@@ -44,6 +50,6 @@ int
 
 	ast = parse_ast(tokens);
 	exec_from_ast(ast);
-	//free_ast(ast);
+	free_ast(ast);
 	return (g_exit_status);
 }

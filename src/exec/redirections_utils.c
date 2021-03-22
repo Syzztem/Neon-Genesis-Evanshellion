@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 13:43:19 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 13:56:22 by smaccary         ###   ########.fr       */
+/*   Created: 2021/03/22 14:09:23 by smaccary          #+#    #+#             */
+/*   Updated: 2021/03/22 14:47:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include <unistd.h>
 
 void
-	close_cmd(t_command *cmd)
+	close_checked(int fd)
 {
-	close_checked(cmd->fd_input);
-	close_checked(cmd->fd_output);
+	if (fd != 0 && fd != 1)
+		close(fd);
 }
 
 void
-	close_all_cmds(t_list *commands, t_command *avoid)
+	dup2_check(int fd_src, int fd_dst)
 {
-	t_list	*current;
-
-	current = commands;
-	while (current)
+	if (fd_src != fd_dst && fd_dst >= 0)
 	{
-		if (avoid != current->content)
-			close_cmd(current->content);
-		current = current->next;
+		dup2(fd_src, fd_dst);
+		close(fd_src);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 13:35:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:00:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int
 	is_single_builtin(t_pipeline lst)
 {
 	t_command	*cmd;
-	
+
 	if (!lst || lst->next)
 		return (0);
 	cmd = lst->content;

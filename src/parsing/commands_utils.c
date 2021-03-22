@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   commands_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 13:43:19 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 13:56:22 by smaccary         ###   ########.fr       */
+/*   Created: 2021/03/22 14:14:38 by smaccary          #+#    #+#             */
+/*   Updated: 2021/03/22 14:16:27 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parser.h"
 
-void
-	close_cmd(t_command *cmd)
+size_t
+	get_command_len(char **tokens)
 {
-	close_checked(cmd->fd_input);
-	close_checked(cmd->fd_output);
+	return (find_sep(tokens) - tokens);
 }
 
-void
-	close_all_cmds(t_list *commands, t_command *avoid)
+int
+	count_cmd(char **tokens)
 {
-	t_list	*current;
+	int		count;
+	char	**current;
 
-	current = commands;
-	while (current)
+	current = tokens;
+	count = 1;
+	while (*current)
 	{
-		if (avoid != current->content)
-			close_cmd(current->content);
-		current = current->next;
+		if (is_sep(*current))
+			count++;
+		current++;
 	}
+	return (count);
 }
