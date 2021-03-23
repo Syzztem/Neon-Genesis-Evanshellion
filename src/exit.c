@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:54:02 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/21 16:15:21 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:25:29 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int
 	print_exit(void)
 {
-	if (ft_isatty(0) && ft_isatty(1))
+	if (is_shell_interactive())
 	{
 		ft_putendl_fd("exit", 1);
 		return (1);
@@ -41,15 +41,15 @@ int	builtin_exit(char **av, char **envp)
 	(void)envp;
 
 	print_exit();
+	if (av[1] && !is_str_num(av[1]))
+	{
+		p_builtin_error("exit", av[1], "numeric argument required");
+		exit(2);
+	}
 	if (tab_size(av) > 2)
 	{
-		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		p_builtin_error("exit", NULL, "too many arguments");
 		return (1);
-	}
-	if (!is_str_num(av[1]))
-	{
-		dprintf(2, "minishell: exit: %s: numeric argument required\n", av[1]);
-		exit(2);
 	}
 	exit(0);
 	return (1);

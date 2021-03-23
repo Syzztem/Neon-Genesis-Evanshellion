@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/22 15:13:25 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:15:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <termios.h>
 # include "libft.h"
 # include "global.h"
+# define PROMPT "EVA-04$ "
 
 static const char	*g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
@@ -57,11 +58,14 @@ int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
 
 int				print_exit(void);
+void            p_builtin_error(char *name, char *arg, char *error_msg);
 
 char			*find_exec(char *path_buf, char *name);
 int				handle_error(char *command, char *arg, char *errmsg);
 
 void			cap(char *tc);
 int				ft_isatty(int fd);
+int	            is_shell_interactive(void);
+
 
 #endif

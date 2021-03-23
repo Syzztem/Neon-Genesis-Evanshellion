@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/22 15:35:21 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/23 14:48:38 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
 			parsing/commands_utils.c parsing/fake_constants.c \
 			\
+			exec/utils.c \
 			exec/redirections_utils.c exec/close.c \
 			exec/exec_commands.c exec/pipes.c \
 			exec/redirections.c exec/exec.c exec/pipeline.c \
