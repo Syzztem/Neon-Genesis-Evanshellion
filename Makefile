@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/23 14:48:38 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/23 15:48:22 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
 			parsing/commands_utils.c parsing/fake_constants.c \
 			\
-			exec/utils.c \
+			exec/utils.c parsing/checkers.c \
 			exec/redirections_utils.c exec/close.c \
 			exec/exec_commands.c exec/pipes.c \
 			exec/redirections.c exec/exec.c exec/pipeline.c \
@@ -36,7 +36,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			debug_utils.c word_jump.c errmgr.c find_exec.c \
 			tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c \
 			exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c \
-			history.c methods.c minishell.c parsing.c pwd.c termcaps.c \
+			history.c methods.c minishell.c pwd.c termcaps.c \
 			termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c \
 			wildcard.c sub_env.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 14:05:49 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:47:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ int
 	t_redirector	rdr;
 
 	pipeline = parse_pipeline(tokens);
+	if (check_pipeline(pipeline))
+	{
+		printf("pipeline err\n");
+		exit(1);
+	}
 	if (is_single_builtin(pipeline))
 	{
 		do_redirector(&rdr, ((t_command *)pipeline->content)->redirections);

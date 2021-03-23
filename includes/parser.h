@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 14:07:01 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:48:52 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,10 @@ char			**redirects(void);
 char			**output_redirects(void);
 char			**input_redirects(void);
 char			**pipeline_separators(void);
+
+int				check_pipeline(t_pipeline pipeline);
+int				check_command(t_command *cmd);
+int				
+check_ast(t_ast ast);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 13:59:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:47:15 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int
 	t_ast	ast;
 
 	ast = parse_ast(tokens);
+	if (check_ast(ast))
+	{
+		printf("ast error\n");
+		exit(1);
+	}
 	exec_from_ast(ast);
 	free_ast(ast);
 	return (g_exit_status);
