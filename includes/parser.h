@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 14:45:40 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:40:32 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,15 @@
 # define AND "&&"
 # define OR "||"
 
-
-# define SEPARATORS (char *[]){PIPE, SEMICOLON, NULL}
-# define REDIRECTS (char *[]){REDIR_REPLACE, REDIR_APPEND, REDIR_INPUT, NULL}
-# define OUTPUT_REDIRECTS (char *[]){REDIR_REPLACE, REDIR_APPEND, NULL}
-# define INPUT_REDIRECTS (char *[]){REDIR_INPUT, NULL}
-
-# define PIPELINE_SEPARATORS (char *[]){SEMICOLON, AND, OR, NULL}
-
-# define OUTPUT_REPLACE_MASK 0b001
-# define OUTPUT_APPEND_MASK  0b010
-# define INPUT_REDIRECT_MASK 0b100
+# define OUTPUT_REPLACE_MASK 1
+# define OUTPUT_APPEND_MASK  2
+# define INPUT_REDIRECT_MASK 4
 
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
 
 # define DEBUG_AST 1
-
 
 typedef t_list * t_pipeline;
 typedef t_list * t_ast;
@@ -111,7 +102,6 @@ t_pipeline		parse_pipeline(char **tokens);
 t_ast			parse_ast(char **tokens);
 char			**extract_redirects(char **tokens);
 
-
 int				open_output(char **output_path_ptr);
 int				redirects_to_fds(char **redirects, int *input, int *output);
 int				check_path_ptr(char **path_ptr);
@@ -125,4 +115,10 @@ char			*alloc_path_buf(char *cmd);
 char			*do_find_exec(char *cmd);
 void			print_exec_path(char *cmd);
 void			iter_argv(char **argv, void (*func)(char *));
+
+char	**separators(void);
+char	**redirects(void);
+char	**output_redirects(void);
+char	**input_redirects(void);
+char	**pipeline_separators(void);
 #endif

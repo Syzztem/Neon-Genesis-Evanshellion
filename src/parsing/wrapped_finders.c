@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 14:18:06 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:39:18 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int
 	is_sep(char *token)
 {
-	return ((int)find_token(token, SEPARATORS));
+	return ((int)find_token(token, separators()));
 }
 
 char
 	**find_sep(char **tokens)
 {
-	return (find_token_in_tokens(tokens, SEPARATORS));
+	return (find_token_in_tokens(tokens, separators()));
 }
 
 char
@@ -33,11 +33,11 @@ char
 size_t
 	get_pipeline_len(char **tokens)
 {
-	return (find_token_in_tokens(tokens, PIPELINE_SEPARATORS) - tokens);
+	return (find_token_in_tokens(tokens, pipeline_separators()) - tokens);
 }
 
 int
 	is_redirect(char *token)
 {
-	return ((int)find_token(token, REDIRECTS));
+	return ((int)find_token(token, redirects()));
 }
