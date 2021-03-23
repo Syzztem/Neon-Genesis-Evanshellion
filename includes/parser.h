@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 15:40:32 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:07:01 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct	s_command
 }				t_command;
 
 typedef struct	s_redirector
-{	
-    char			**rtokens;
+{
+	char			**rtokens;
 	int				in_fd;
 	int				out_fd;
 	int				stdin_dup;
@@ -116,9 +116,9 @@ char			*do_find_exec(char *cmd);
 void			print_exec_path(char *cmd);
 void			iter_argv(char **argv, void (*func)(char *));
 
-char	**separators(void);
-char	**redirects(void);
-char	**output_redirects(void);
-char	**input_redirects(void);
-char	**pipeline_separators(void);
+char			**separators(void);
+char			**redirects(void);
+char			**output_redirects(void);
+char			**input_redirects(void);
+char			**pipeline_separators(void);
 #endif

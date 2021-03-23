@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/21 14:24:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:47:46 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void
 		printf("  - %-15s", "redirections:");
 		print_argv(command->redirections);
 		printf("  - %-15s\"%s\"\n", "sep:", command->sep);
-		printf("  - %-15s%d\n  - %-15s%d\n", "input:", command->fd_input, "output:", command->fd_output);
+		printf("  - %-15s%d\n  - %-15s%d\n", "input:", command->fd_input,
+				"output:", command->fd_output);
 		printf("  - %-15s%d\n\n", "pid:", command->pid);
 	}
 	fflush(stdout);
@@ -66,7 +67,7 @@ void
 }
 
 /*
-**	For testing purposes only 
+**	For testing purposes only
 */
 
 char
@@ -81,11 +82,10 @@ char
 		return (ft_strdup(cmd));
 	}
 	return (path_buf);
-
 }
 
 /*
-**	For testing purposes only 
+**	For testing purposes only
 */
 
 void
@@ -122,7 +122,7 @@ void
 }
 
 void
-	print_ast(t_ast	ast)
+	print_ast(t_ast ast)
 {
 	if (!DEBUG && !DEBUG_AST)
 		return ;
