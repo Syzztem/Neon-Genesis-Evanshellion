@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 15:12:50 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:59:07 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int		pipe_nodes(t_list *commands);
 
 void	close_cmd(t_command *cmd);
 void	close_all_cmds(t_list *commands, t_command *avoid);
+void	switch_stdout(void);
+void	pcmd_not_found(t_command *cmd);
 
 #endif

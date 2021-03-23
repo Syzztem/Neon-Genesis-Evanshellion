@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/22 13:39:51 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:09:22 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,18 @@ int ft_isatty(int fd)
   	return (tcgetattr(fd, &term) == 0);
 }
 
+int	is_shell_interactive(void)
+{
+	return (ft_isatty(0) && ft_isatty(1) && ft_isatty(2));
+}
+
 sig_t blank(int a)
 {
 	(void)a;
-	write(0, "\n" "EVA-04$ " , 9);
+	if (is_shell_interactive())
+		ft_putstr_fd("\n" PROMPT, 2);
+	else
+		exit(130);
 	return (NULL);
 }
 
@@ -37,7 +45,7 @@ static int
 	t_term	term;
 	t_term	backup;
 
-	ft_putstr_fd("EVA-04$ ", 0);
+	ft_putstr_fd(PROMPT, 2);
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
@@ -52,7 +60,8 @@ static int
 static int
 	prompt_shell(char **line)
 {
-	ft_putstr_fd("EVA-04$ ", 0);
+	if (is_shell_interactive())
+		ft_putstr_fd(PROMPT, 2);
 	return (get_next_line(0, line));
 }
 
