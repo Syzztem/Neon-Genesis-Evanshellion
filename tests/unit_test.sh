@@ -252,6 +252,19 @@ unit_semicolons()
 	cmp_shell '/bin/echo hello;echo ";hello\;;";'
 }
 
+unit_error_semicolons_simple()
+{
+	cmp_shell ';'
+	cmp_shell '; ;'
+	cmp_shell '; ; ;'
+	cmp_shell '; ; ; ; ;'
+	cmp_shell ';;;;'
+	cmp_shell ';;'
+	cmp_shell ' ;; '
+	cmp_shell ';; ;; ;;; ;; ; ;; ; ;;; ; ;;;'
+	cmp_shell ';;;;'
+}
+
 unit_return()
 {
 	cmp_shell 'eee ; /bin/echo $?'
@@ -308,6 +321,13 @@ unit_priorities()
 	cmp_shell 'true && echo hello ; true || echo hello'
 	cmp_shell 'echo hello && echo world'
 	cmp_shell 'echo hello || echo world'
+}
+
+unit_tokenizer()
+{
+	cmp_shell 'echo abc|grep abc'
+	cmp_shell 'echo abc;echo abc|grep abc'
+	cmp_shell "few';"
 }
 
 main()

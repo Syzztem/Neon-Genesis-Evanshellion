@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 15:47:15 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:58:12 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,18 @@ int
 	return (g_exit_status);
 }
 
-void
-	free_ast(t_ast ast)
-{
-	(void)ast;
-	return ;
-}
-
 int
 	exec_command_line(char **tokens)
 {
 	t_ast	ast;
 
+	if (check_syntax(tokens))
+		return (1);
 	ast = parse_ast(tokens);
 	if (check_ast(ast))
 	{
-		printf("ast error\n");
-		exit(1);
+		free_ast(ast);
+		return (1);
 	}
 	exec_from_ast(ast);
 	free_ast(ast);

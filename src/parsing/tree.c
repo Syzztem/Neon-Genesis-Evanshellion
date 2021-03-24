@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 15:40:13 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:46:14 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ t_ast_node
 {
 	t_ast_node	*node;
 
-	node = malloc(sizeof(t_ast_node));
+	node = ft_calloc(1, sizeof(t_ast_node));
 	node->abstract_pipeline = abstract_pipeline;
-	node->sep = sep;
+	if (sep)
+		node->sep = ft_strdup(sep);
 	return (node);
 }
 

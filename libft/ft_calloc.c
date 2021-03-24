@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 18:25:24 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/09 20:13:46 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/06 17:49:26 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/10 19:44:00 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void *out;
+	size_t		total;
+	void		*ptr;
 
-	if (count * size == 0)
-		return (ft_strdup(""));
-	if (!(out = malloc(count * size)))
+	total = (count * size) ? count * size : 1;
+	if (!(ptr = malloc(total)))
 		return (NULL);
-	return (ft_bzero(out, count * size));
+	ft_bzero(ptr, total);
+	return (ptr);
 }

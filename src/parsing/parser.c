@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 14:25:58 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 13:56:13 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char
 	size_t	i;
 
 	i = 0;
-	extracted = ft_calloc(count_avoided_tokens(tokens) + 1, sizeof(char *));
+	extracted = ft_calloc(count_avoided_tokens(tokens) + 2, sizeof(char *));
 	if (!extracted)
 		return (NULL);
 	while (*tokens)

@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 18:37:39 by smaccary          #+#    #+#             */
-/*   Updated: 2019/11/17 16:36:54 by smaccary         ###   ########.fr       */
+/*   Created: 2019/11/12 17:14:00 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/14 15:48:47 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
+#include <stdlib.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+t_list	*ft_lstcpy(t_list *lst, void (*del)(void *))
 {
-	int		res;
-	size_t	i;
+	t_list *dst;
+	t_list *dst_next;
 
-	i = 0;
-	res = 0;
-	if (n == 0)
-		return (0);
-	while (i < n && res == 0)
+	if (!(dst = ft_lstnew(lst->content)))
+		return (NULL);
+	dst_next = dst;
+	while (lst->next)
 	{
-		if (s1[i] == 0 && s2[i] == 0)
-			return (0);
-		res = (unsigned char)s1[i] - (unsigned char)s2[i];
-		i++;
+		if (!(dst_next->next = ft_lstnew(lst->next->content)))
+		{
+			ft_lstclear(&dst, del);
+			return (NULL);
+		}
+		lst = lst->next;
+		dst_next = dst_next->next;
 	}
-	return (res);
+	return (dst);
 }

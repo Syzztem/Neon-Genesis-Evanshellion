@@ -6,22 +6,32 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 16:07:22 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:49:43 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int
-	get_last_token(char *tokens)
+char
+	**get_last_token(char **tokens)
 {
-	return (tokens + tab_size(tokens));
+	return (tokens + tab_size(tokens) - 1);
 }
 
 int
 	check_syntax(char **tokens)
 {
-	puts(get_last_token(tokens));
+	if (is_connective(*tokens))
+	{
+		psyntax_error(*tokens);
+		return (1);
+	}
+	if (is_connective(*get_last_token(tokens)))
+	{
+		psyntax_error(*get_last_token(tokens));
+		return (1);
+	}
+	return (0);
 }
 
 int
@@ -32,14 +42,21 @@ int
 	
 	print_ast(ast);
 	if (!ast)
+	{
+		ft_putstr_fd(SHELL_NAME ": unknown syntax error\n", 2);
 		return (1);
-//	printf("here ast\n");
+	}
 	current = ast;
 	while (current)
 	{
 		node = current->content;
-		if ((node->sep && ft_strcmp(node->sep, SEMICOLON)) && !current->next)
+		if (!((t_ast_node *)(current->content))->abstract_pipeline
+		|| !*(((t_ast_node *)(current->content))->abstract_pipeline)
+		|| (node->sep && ft_strcmp(node->sep, SEMICOLON) && !current->next))
+		{
+			psyntax_error(node->sep);
 			return (2);
+		}
 		current = current->next;
 	}
 	return (0);
@@ -58,9 +75,15 @@ int
 		if (is_redirect(*current))
 		{
 			if (!current[1])
+			{
+				psyntax_error(*current);
 				return (1);
+			}
 			if (is_redirect(current[1]))
+			{
+				psyntax_error(current[1]);
 				return (2);
+			}
 		}
 		current++;
 	}
@@ -86,6 +109,7 @@ int
 
 	current = pipeline;
 //	printf("here pipeline\n");
+//	print_pipeline(pipeline);
 	while (current)
 	{
 		err = check_command(current->content);

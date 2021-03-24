@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/03 10:54:37 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:10:48 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void			ft_lstmerge(t_list **first, t_list *second);
 void			ft_lstadd_back(t_list **alst, void *new);
 void			ft_lstadd_front(t_list **begin_list, t_list *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void*));
-void			ft_lstclear(t_list *lst, void (*free_fct)(void *));
+void			ft_lstclear(t_list **lst, void (*free_fct)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 int				ft_lstsize(t_list *lst);
+t_list			*ft_lstlast(t_list *lst);
+size_t			ft_strnlen(const char *str, size_t maxlen);
+void			free_tokens(char **tokens);
 
 #endif

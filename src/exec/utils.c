@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:21:31 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 15:19:00 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:33:04 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,15 @@ void
 	}
 	ft_putstr_fd(error_msg, 2);
 	ft_putstr_fd("\n", 2);
+}
+
+void
+	psyntax_error(char *token)
+{
+	ft_putstr_fd(SHELL_NAME ": syntax error near unexpected token `", 2);
+	if (token)
+		ft_putstr_fd(token, 2);
+	else
+		ft_putstr_fd("(null)", 2);
+	ft_putstr_fd("'\n", 2);
 }
