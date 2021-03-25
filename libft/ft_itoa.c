@@ -3,59 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/16 18:59:18 by exam              #+#    #+#             */
-/*   Updated: 2019/11/07 11:25:58 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/08 17:35:33 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/16 12:21:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-static char
-	*get_as_str(int n, unsigned long i, char *str, int nbr)
+static	char	*local_copy(char *num, int index)
 {
-	int j;
+	char	*dst;
+	int		i;
 
-	j = 0;
-	if (nbr < 0)
+	i = 0;
+	if (!(dst = malloc(ft_strlen(&num[index + 1]) + 1)))
+		return (NULL);
+	while (num[++index])
 	{
-		str[j] = '-';
-		j++;
+		dst[i] = num[index];
+		i++;
 	}
-	while (i >= 1)
-	{
-		str[j] = n / i + '0';
-		n %= i;
-		i /= 10;
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
+	dst[i] = '\0';
+	return (dst);
 }
 
-char
-	*ft_itoa(int nbr)
+static	char	*transform(long long nb)
 {
-	unsigned long	i;
-	int				sz;
-	unsigned int	n;
-	char			*out;
+	int				index;
+	long	long	n_bis;
+	char			num[11];
 
-	if (nbr == -2147483648)
-		return (ft_strdup("-2147483648"));
-	else if (nbr == 0)
-		return (ft_strdup("0"));
-	i = 1;
-	n = nbr > 0 ? nbr : -nbr;
-	sz = 0;
-	while (i <= n)
+	n_bis = nb;
+	index = 9;
+	num[10] = '\0';
+	if (nb < 0)
+		nb *= -1;
+	while (nb > 0)
 	{
-		i *= 10;
-		sz++;
+		num[index] = nb % 10 + 48;
+		nb /= 10;
+		index--;
 	}
-	i /= 10;
-	if (!(out = malloc(sizeof(char) * (sz + (nbr < 0 ? 2 : 1)))))
-		return (NULL);
-	return (get_as_str(n, i, out, nbr));
+	if (n_bis < 0)
+		num[index--] = '-';
+	return (local_copy(num, index));
+}
+
+char			*ft_itoa(int n)
+{
+	long long nb;
+
+	nb = (long long)n;
+	if (nb == 0)
+		return (ft_strdup("0"));
+	if (nb == 2147483647)
+		return (ft_strdup("2147483647"));
+	else if (nb == -2147483648)
+		return (ft_strdup("-2147483648"));
+	return (transform(n));
 }

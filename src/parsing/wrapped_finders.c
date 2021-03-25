@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 15:39:18 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 13:27:22 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ int
 	is_redirect(char *token)
 {
 	return ((int)find_token(token, redirects()));
+}
+
+int
+	is_connective(char *token)
+{
+	return ((int)find_token(token, connectives()));
 }

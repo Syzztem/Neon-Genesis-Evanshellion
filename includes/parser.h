@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 14:07:01 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:50:51 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 # include <errno.h>
 # include <limits.h>
 # include "libft.h"
+# include "structs.h"
 # include "global.h"
+# include "garbage_collector.h"
+
 
 # define SHELL_NAME "minishell"
 # define CMD_NOT_FOUND_MSG "command not found"
@@ -43,37 +46,7 @@
 #  define DEBUG 0
 # endif
 
-# define DEBUG_AST 1
-
-typedef t_list * t_pipeline;
-typedef t_list * t_ast;
-
-typedef struct	s_ast_node
-{
-	char	**abstract_pipeline;
-	char	*sep;
-}				t_ast_node;
-
-typedef struct	s_command
-{
-	char	*cmd;
-	char	**argv;
-	char	*sep;
-	char	**tokens;
-	char	**redirections;
-	int		fd_output;
-	int		fd_input;
-	pid_t	pid;
-}				t_command;
-
-typedef struct	s_redirector
-{
-	char			**rtokens;
-	int				in_fd;
-	int				out_fd;
-	int				stdin_dup;
-	int				stdout_dup;
-}				t_redirector;
+# define DEBUG_AST 0
 
 size_t			get_pipeline_len(char **tokens);
 size_t			tab_size(char **table);
@@ -90,7 +63,8 @@ char			**dup_n_tab(char **table, size_t n);
 size_t			pure_tokens_len(char **tokens, char **excluded_tokens);
 
 int				is_redirect(char *token);
-
+int				is_connective(char *token);
+	
 t_command		*get_next_command(char **tokens);
 size_t			get_command_len(char **tokens);
 
@@ -110,6 +84,7 @@ void			print_pipeline(t_pipeline lst);
 void			print_command(t_command *command);
 int				print_argv(char **argv);
 void			print_ast(t_ast	ast);
+void			psyntax_error(char *token);
 
 char			*alloc_path_buf(char *cmd);
 char			*do_find_exec(char *cmd);
@@ -121,4 +96,12 @@ char			**redirects(void);
 char			**output_redirects(void);
 char			**input_redirects(void);
 char			**pipeline_separators(void);
+char			**connectives(void);
+
+int				check_pipeline(t_pipeline pipeline);
+int				check_command(t_command *cmd);
+int				check_ast(t_ast ast);
+int				check_syntax(char **tokens);
+
+
 #endif

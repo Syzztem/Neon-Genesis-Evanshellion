@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   garbage_collector.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 08:50:36 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 15:30:44 by smaccary         ###   ########.fr       */
+/*   Created: 2021/03/24 14:27:44 by smaccary          #+#    #+#             */
+/*   Updated: 2021/03/24 14:50:57 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include "libft.h"
+#ifndef GARBAGE_COLLECTOR_H
+# define GARBAGE_COLLECTOR_H
 
-void	*ft_bzero(void *s, size_t n)
-{
-	return (ft_memset(s, '\0', n));
-}
+# include "structs.h"
+# include <stdlib.h>
+# include "libft.h"
+
+void    free_to_null(void **ptr);
+void    free_tokens(char **tokens);
+void    free_cmd(t_command **cmd_ptr);
+void    free_ast_node(t_ast_node *node);
+void    free_ast(t_ast ast);
+
+#endif
