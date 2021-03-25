@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:29:58 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/01 15:07:29 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:02:48 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	realloc_line(t_line *line)
 	char *cpy;
 
 	cpy = malloc(line->max_len + BUFF_SIZE);
-	ft_memmove(cpy, line->line, line->max_len);
+	ft_memmove(cpy, line->line, line->max_len + 1);
 	free(line->line);
 	line->line = cpy;
 	line->max_len += BUFF_SIZE;

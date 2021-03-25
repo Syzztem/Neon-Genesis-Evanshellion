@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 13:56:46 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:04:41 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ static int
 	return (g_exit_status);
 }
 
-#ifdef BONUS
-
 int
 	main(void)
 {
@@ -117,19 +115,6 @@ int
 	setbuf(stdout, NULL);
 	cap("ks");
 	minishell();
-	builtin_exit(NULL, NULL);
-}
-
-#else
-
-int
-	main(void)
-{	
-	copy_env();
-	minishell();
-	//system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
 	print_exit();
 	return (g_exit_status);
 }
-
-#endif
