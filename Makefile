@@ -6,25 +6,41 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/09 11:22:52 by lothieve         ###   ########.fr        #
+#    Updated: 2021/03/24 14:46:57 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -g3 -fsanitize=address $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -Werror -g3  $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
 LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
 LIBFT_INC = -I $(LIBFT_PATH)
-LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses -fsanitize=address
+LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses 
 FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
 
 SRCS_PATH = src
-SRC_LIST =	parser.c parser_utils.c parsing.c exec.c debug_utils.c word_jump.c errmgr.c find_exec.c tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c history.c methods.c minishell.c parsing.c pwd.c termcaps.c termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c wildcard.c sub_env.c
+SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
+			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
+			parsing/commands_utils.c parsing/fake_constants.c \
+			\
+			exec/utils.c parsing/checkers.c \
+			exec/redirections_utils.c exec/close.c \
+			exec/exec_commands.c exec/pipes.c \
+			exec/redirections.c exec/exec.c exec/pipeline.c \
+			\
+			parsing/garbage_collector.c \
+			\
+			debug_utils.c word_jump.c errmgr.c find_exec.c \
+			tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c \
+			exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c \
+			history.c methods.c minishell.c pwd.c termcaps.c \
+			termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c \
+			wildcard.c sub_env.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
@@ -41,6 +57,7 @@ libft:
 			$(LIBFT_MAKE)
 
 $(OBJ_PATH)%.o:		$(SRCS_PATH)/%.c
+			@mkdir -p `dirname $@`
 			$(CC) $(CFLAGS) -c $< -o $@
 
 clean :

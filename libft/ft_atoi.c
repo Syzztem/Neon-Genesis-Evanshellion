@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/03 08:01:42 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/07 12:27:14 by lothieve         ###   ########.fr       */
+/*   Created: 2019/08/10 20:59:54 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/17 16:46:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-static void
-	addto(unsigned int *out, char c)
+static	int	ft_numerical_strlen(char *str)
 {
-	*out *= 10;
-	*out += c - '0';
+	int i;
+
+	i = 0;
+	while (('0' <= str[i] && str[i] <= '9') && str[i])
+		i++;
+	return (i);
 }
 
-int
-	ft_atoi(const char *str)
+int			ft_atoi(const char *str)
 {
-	int				sign;
-	unsigned int	out;
+	int i;
+	int sign;
+	int number;
+	int j;
 
-	sign = 1;
-	out = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+	number = 0;
+	i = 0;
+	while ((9 <= str[i] && str[i] <= 13) || str[i] == ' ')
+		i++;
+	sign = (str[i] == '-') ? -1 : 1;
+	i = (str[i] == '-' || str[i] == '+') ? i + 1 : i;
+	j = ft_numerical_strlen((char *)&str[i]);
+	while (j)
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		number = number * 10 + (str[i] - 48);
+		i++;
+		j--;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		addto(&out, *str);
-		str++;
-	}
-	return (out * sign);
+	return (number * sign);
 }

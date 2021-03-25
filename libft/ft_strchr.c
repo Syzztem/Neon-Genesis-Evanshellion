@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 18:24:15 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/07 15:36:57 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/04 15:26:49 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/24 16:27:54 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s)
-	{
-		if (c == *s)
+	c = (unsigned char)c;
+	s--;
+	while (*++s)
+		if (*s == (char)c)
 			return ((char *)s);
-		s++;
-	}
-	return (NULL);
+	return ((c == '\0') ? (char *)s : 0);
 }

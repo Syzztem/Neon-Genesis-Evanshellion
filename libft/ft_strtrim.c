@@ -3,66 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 08:22:43 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/07 12:01:38 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/07 16:05:51 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/18 15:40:07 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
 
-static int
-	is_separate(char c, char const *charset)
+static int	is_in_set(char	const *s1, char const *set)
 {
-	while (*charset)
-	{
-		if (c == *charset)
+	while (set)
+		if (ft_strrchr(s1, *set++))
 			return (1);
-		charset++;
-	}
 	return (0);
 }
 
-static size_t
-	strslen(char const *str, char const *set)
+char		*ft_strtrim(char const *s1, char const *set)
 {
-	int i;
+	size_t	min;
+	size_t	max;
 
-	i = 0;
-	while (*str && is_separate(*str, set))
-		str++;
-	if (!*str)
-		return (0);
-	while (str[i])
-		i++;
-	i--;
-	while (str[i] && is_separate(str[i], set))
-		i--;
-	i += 1;
-	return (i);
-}
-
-char
-	*ft_strtrim(char const *s1, char const *set)
-{
-	char	*a;
-	char	*out;
-	int		i;
-	size_t	len;
-
-	a = (char *)s1;
-	len = strslen(a, set);
-	while (*a && is_separate(*a, set))
-		a++;
-	if (!(out = malloc(sizeof(char) * (len + 1))))
+	min = 0;
+	if (!s1)
 		return (NULL);
-	i = 0;
-	while (len-- > 0)
-	{
-		out[i++] = *a;
-		a++;
-	}
-	out[i] = 0;
-	return (out);
+	if (!set || !set[0] || !s1[0] || !is_in_set(s1, set))
+		return (ft_strdup(s1));
+	while (s1[min] != '\0' && ft_strchr(set, s1[min]))
+		min++;
+	max = ft_strlen(s1);
+	if (max == 0 || min == max)
+		return (ft_strdup(""));
+	if (!set || !set[0] || !is_in_set(s1, set))
+		return (ft_strdup(s1));
+	while (ft_strchr(set, s1[max]))
+		max--;
+	if (max <= min)
+		return (ft_strdup(""));
+	return (ft_substr(s1, min, max - min + 1));
 }

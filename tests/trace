@@ -1,0 +1,59 @@
+
+unit_redirect_append: [KO]
+unit_redirect_append:
+[ERROR]: Output differs.
+CMD: /bin/echo hello world >> 1 ; ls ; cat 1 ; rm 1
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	1
+hello world							hello world
+[ERROR]: Output differs.
+CMD: printf a >> 2 ; ls ; cat 2 ; rm 2
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	2
+a								a[ERROR]: Output differs.
+CMD: printf b > 3 ; ls >> 3 ; cat 3
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+b							      \	b3
+[ERROR]: Return values differs.
+CMD: printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+	0 <- bash --posix printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+[ERROR]: Output differs.
+CMD: printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+c3								c3
+eee							      |	4
+							      >	eee;
+[ERROR]: Return values differs.
+CMD: printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+	139 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+	0 <- bash --posix printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+[ERROR]: Output differs.
+CMD: printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+d3							      |	;
+4							      <
+eee							      <
+[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello								hello
+world								world
+good								good
+morning								morning
+							      >	worldhello
+							      >	world
+							      >	good
+							      >	morning
+world								world[ERROR]: Output differs.
+CMD: rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+hello								hello
+world								world
+good								good
+morning								morning
+							      >	worldhello
+							      >	world
+							      >	good
+							      >	morning
+world								world

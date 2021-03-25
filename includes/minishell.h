@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/05 13:53:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:15:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include <fcntl.h>
 # include <termios.h>
 # include "libft.h"
+# include "global.h"
+# define PROMPT "EVA-04$ "
 
-static const char *g_seps[6] = {">>", "<", ">", "|", ";", NULL};
+static const char	*g_seps[6] = {">>", "<", ">", "|", ";", NULL};
 
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
@@ -41,7 +43,7 @@ char			*ft_setenv(char *name, char *value);
 void			copy_env(void);
 
 int				is_builtin(char *command);
-int 			exec_builtin(char **av, char **envp);
+int				exec_builtin(char **av, char **envp);
 
 void			free_tab(char **table);
 size_t			tab_size(char **table);
@@ -55,8 +57,15 @@ int				builtin_exit(char **av, char **envp);
 int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
 
+int				print_exit(void);
+void            p_builtin_error(char *name, char *arg, char *error_msg);
+
 char			*find_exec(char *path_buf, char *name);
 int				handle_error(char *command, char *arg, char *errmsg);
 
 void			cap(char *tc);
+int				ft_isatty(int fd);
+int	            is_shell_interactive(void);
+
+
 #endif

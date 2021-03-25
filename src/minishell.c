@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/05 14:23:00 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:11:07 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,25 @@
 #include "exec.h"
 #include <limits.h>
 
+int ft_isatty(int fd)
+{
+	struct termios	term;
+	
+  	return (tcgetattr(fd, &term) == 0);
+}
+
+int	is_shell_interactive(void)
+{
+	return (ft_isatty(0) && ft_isatty(1) && ft_isatty(2));
+}
 
 sig_t blank(int a)
 {
 	(void)a;
-	write(0, "\n" "EVA-04$ " , 9);
+	if (is_shell_interactive())
+		ft_putstr_fd("\n" PROMPT, 2);
+	else
+		exit(130);
 	return (NULL);
 }
 
@@ -31,7 +45,7 @@ static int
 	t_term	term;
 	t_term	backup;
 
-	ft_putstr_fd("EVA-04$ ", 0);
+	ft_putstr_fd(PROMPT, 2);
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
@@ -46,11 +60,17 @@ static int
 static int
 	prompt_shell(char **line)
 {
-	ft_putstr_fd("EVA-04$ ", 0);
+	if (is_shell_interactive())
+		ft_putstr_fd(PROMPT, 2);
 	return (get_next_line(0, line));
 }
 
 #endif
+
+int is_computer_on(void)
+{
+	return (1);
+}
 
 static int
 	minishell(void)
@@ -58,25 +78,33 @@ static int
 	char		*line;
 	char		**tokens;
 	extern char	**environ;
-	char		buf[PATH_MAX];
 
-	signal(SIGINT, blank);
+	if (!is_computer_on())
+	{
+		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
+		exit (1);
+	}
+
+	signal(SIGINT, (void *)blank);
 	while (prompt_shell(&line))
 	{
+		if (!line)
+		{
+			perror("minishell: ");
+			exit (errno);
+		}
 		if (!*line)
 		{
 			free(line);
 			continue ;
 		}
-	//	line = ft_strdup("pwd");
 		tokens = tokenize(line);
-	//	print_argv(tokens);
-	//	printf("\n");
-		exec_from_tokens(tokens);
-		free_tab(tokens);
+		exec_command_line(tokens);
+		free_tokens(tokens);
 		free(line);
+
 	}
-	return (EXIT_SUCCESS);
+	return (g_exit_status);
 }
 
 #ifdef BONUS
@@ -100,7 +128,8 @@ int
 	copy_env();
 	minishell();
 	//system("leaks minishell | awk '/----/{y=2;next}y' | /Users/lothieve/.brew/bin/lolcat");
-	builtin_exit(NULL, NULL);
+	print_exit();
+	return (g_exit_status);
 }
 
 #endif

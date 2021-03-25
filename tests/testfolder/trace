@@ -1,0 +1,67 @@
+
+unit_parsing:   [KO]
+unit_parsing:
+[ERROR]: Output differs.
+CMD: export A=p;export B=w;$A$B"d"
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      >	/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
+[ERROR]: Output differs.
+CMD: /bin/echo a;/bin/echo b;/bin/echo c;/bin/echo d;/bin/echo e;/bin/echo f;/bin/echo g;/bin/echo h;/bin/echo i;/bin/echo j;/bin/echo k;/bin/echo l;/bin/echo m;/bin/echo n;/bin/echo o;/bin/echo p;/bin/echo q;/bin/echo r;/bin/echo s;/bin/echo t;/bin/echo u;/bin/echo v;/bin/echo w;/bin/echo x;/bin/echo y;/bin/echo z;/bin/echo A;/bin/echo B;/bin/echo C;/bin/echo D;/bin/echo E;/bin/echo F
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+a;/bin/echo b;/bin/echo c;/bin/echo d;/bin/echo e;/bin/echo f |	a
+							      >	b
+							      >	c
+							      >	d
+							      >	e
+							      >	f
+							      >	g
+							      >	h
+							      >	i
+							      >	j
+							      >	k
+							      >	l
+							      >	m
+							      >	n
+							      >	o
+							      >	p
+							      >	q
+							      >	r
+							      >	s
+							      >	t
+							      >	u
+							      >	v
+							      >	w
+							      >	x
+							      >	y
+							      >	z
+							      >	A
+							      >	B
+							      >	C
+							      >	D
+							      >	E
+							      >	F
+[ERROR]: Output differs.
+CMD: /bin/echo 0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5;/bin/echo 6;/bin/echo 7;/bin/echo 8;/bin/echo 9;/bin/echo 10;/bin/echo 11;/bin/echo 12;/bin/echo 13;/bin/echo 14;/bin/echo 15;/bin/echo 16;/bin/echo 17;/bin/echo 18;/bin/echo 19;/bin/echo 20
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+0;/bin/echo 1;/bin/echo 2;/bin/echo 3;/bin/echo 4;/bin/echo 5 |	0
+							      >	1
+							      >	2
+							      >	3
+							      >	4
+							      >	5
+							      >	6
+							      >	7
+							      >	8
+							      >	9
+							      >	10
+							      >	11
+							      >	12
+							      >	13
+							      >	14
+							      >	15
+							      >	16
+							      >	17
+							      >	18
+							      >	19
+							      >	20
+unit_parsing:   [KO]

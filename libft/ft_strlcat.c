@@ -3,40 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 12:57:41 by lothieve          #+#    #+#             */
-/*   Updated: 2019/11/08 11:08:11 by lothieve         ###   ########.fr       */
+/*   Created: 2019/11/05 08:30:07 by smaccary          #+#    #+#             */
+/*   Updated: 2019/11/24 15:39:28 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-size_t
-	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char		*d;
-	const char	*s = src;
-	size_t		i;
-	size_t		dlen;
+	size_t	dstlen;
 
-	d = dst;
-	dlen = ft_strlen(dst);
-	dlen = (dlen >= size ? size : dlen);
-	i = size - dlen;
-	d += dlen;
-	if (!i)
-		return (dlen + ft_strlen(src));
-	while (*s)
-	{
-		if (i != 1)
-		{
-			*d++ = *s;
-			i--;
-		}
-		s++;
-	}
-	*d = 0;
-	return (dlen + s - src);
+	dstlen = ft_strnlen(dst, size);
+	if (size > dstlen)
+		return (dstlen + ft_strlcpy(dst + dstlen, src, size - dstlen));
+	return (dstlen + ft_strlen(src));
 }

@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   finders.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/02/19 15:55:58 by smaccary         ###   ########.fr       */
+/*   Created: 2021/03/22 14:04:23 by smaccary          #+#    #+#             */
+/*   Updated: 2021/03/22 14:37:01 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-/*
-size_t
-	tab_size(char **table)
-{
-	char **current;
-
-	current = table;
-	while (*current)
-		current++;
-	return (current - table);		
-}
-*/
 
 char
 	**find_token(char *token, char **tokens_table)
@@ -32,7 +19,7 @@ char
 
 	i = -1;
 	if (!token)
-		return (tokens_table + get_argv_len(tokens_table));
+		return (tokens_table + tab_size(tokens_table));
 	while (tokens_table[++i])
 	{
 		if (ft_strcmp(tokens_table[i], token) == 0)
@@ -50,7 +37,7 @@ char
 	i = -1;
 	last = NULL;
 	if (!token)
-		return (tokens_table + get_argv_len(tokens_table));
+		return (tokens_table + tab_size(tokens_table));
 	while (tokens_table[++i])
 	{
 		if (ft_strcmp(tokens_table[i], token) == 0)
@@ -77,59 +64,24 @@ char
 	return (last);
 }
 
-int
-	is_sep(char *token)
-{
-	return ((int)find_token(token, SEPARATORS));
-}
-
 char
-	**find_sep(char **tokens)
+	**find_token_in_tokens(char **tokens, char **to_find)
 {
-	char **current;
-	
+	char	**current;
+
 	current = tokens;
-	while (!is_sep(*current))
+	while (!find_token(*current, to_find))
 		current++;
 	return (current);
 }
 
-size_t
-	get_argv_len(char **tokens)
-{
-	return (find_sep(tokens) - tokens);
-}
-
 char
-	**dup_n_tab(char **table, size_t n)
+	**safe_find_token(char **tokens, char *find)
 {
-	char	**dup;
-	int		size;
-	int		i;
-
-	size = tab_size(table);
-	if (n < size)
-		size = n;
-	dup = ft_calloc(sizeof(char *), size + 1);
-	i = -1;
-	while (++i < size)
-		dup[i] = ft_strdup(table[i]);
-	return (dup);
-}
-
-int
-	count_cmd(char **tokens)
-{
-	int		count;
-	char	**current;
+	char **current;
 
 	current = tokens;
-	count = 1;
-	while (*current)
-	{
-		if (is_sep(*current))
-			count++;
-		current++;	
-	}
-	return (count);
+	while (*current && ft_strcmp(find, *current))
+		current++;
+	return (current);
 }
