@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 14:36:57 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:20:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int				builtin_echo(char **av, char **envp);
 int				builtin_exit(char **av, char **envp);
 int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
-
+int             builtin_parenthesis(char **av, char **envp);
 int				print_exit(void);
 void            p_builtin_error(char *name, char *arg, char *error_msg);
 

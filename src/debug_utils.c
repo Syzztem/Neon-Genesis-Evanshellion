@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 19:26:02 by root             ###   ########.fr       */
+/*   Updated: 2021/03/25 21:58:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void
 			{
 				if (DEBUG_SEP)
 					ft_putstr_fd("\\x1b", fd);
-				else
-					ft_putchar_fd(*token, fd);
 			}
+			else
+				ft_putchar_fd(*token, fd);
 			token++;
 		}
 	}
