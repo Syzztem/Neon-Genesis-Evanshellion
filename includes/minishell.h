@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 12:16:06 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 14:36:57 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "global.h"
 # define PROMPT "EVA-04$ "
 
-static const char	*g_seps[10] = {">>", "<", ">", "|", ";", "&&", "||", "(", ")", NULL};
+static const char	*g_seps[] = {">>", "<", ">", "|", ";", "&&", "&", "||", "(", ")", NULL};
 
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
