@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 16:50:51 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 17:07:13 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@
 # define SHELL_NAME "minishell"
 # define CMD_NOT_FOUND_MSG "command not found"
 
-# define REDIR_REPLACE ">"
-# define REDIR_APPEND ">>"
-# define REDIR_INPUT "<"
-# define PIPE "|"
-# define SEMICOLON ";"
-# define AND "&&"
-# define OR "||"
+# define ESCAPE_CHAR 0x1b
+# define ESCAPE "\x1b"
+# define REDIR_REPLACE ESCAPE ">"
+# define REDIR_APPEND ESCAPE ">>"
+# define REDIR_INPUT ESCAPE "<"
+# define PIPE ESCAPE "|"
+# define SEMICOLON ESCAPE ";"
+# define AND ESCAPE "&&"
+# define OR ESCAPE"||"
 
 # define OUTPUT_REPLACE_MASK 1
 # define OUTPUT_APPEND_MASK  2
@@ -85,6 +87,7 @@ void			print_command(t_command *command);
 int				print_argv(char **argv);
 void			print_ast(t_ast	ast);
 void			psyntax_error(char *token);
+void            pescaped_token(char *token, int fd);
 
 char			*alloc_path_buf(char *cmd);
 char			*do_find_exec(char *cmd);
