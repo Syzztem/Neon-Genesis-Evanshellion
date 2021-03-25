@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:06:11 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/09 10:37:20 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:50:40 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,17 @@ size_t
 size_t
 	seps(char *token, char **line)
 {
-	size_t	i;
+	int	i;
+	int sequence;
 
 	i = 0;
 	while (g_seps[i])
 	{
 		if (ft_strbegin(*line, g_seps[i]))
 		{
-			ft_strcpy(token, g_seps[i]);
+			sequence = i | 0x1b000000;
+			printf("%x\n", sequence);
+			ft_memmove(token, &sequence, sizeof(int));
 			i = ft_strlen(g_seps[i]);
 			*line += i;
 			return (i);

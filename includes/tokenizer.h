@@ -6,15 +6,15 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/09 11:22:12 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 12:12:14 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 # include "minishell.h"
-# define SEPS "|;<>\"\'"
-# define TOKEN_SPLITTERS "|;<> \t\n\v\f\r"
+# define SEPS "|;<>\"\'&()"
+# define TOKEN_SPLITTERS "|;<>&() \t\n\v\f\r"
 
 typedef struct	s_token
 {

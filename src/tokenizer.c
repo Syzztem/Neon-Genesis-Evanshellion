@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 11:51:08 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:44:22 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static size_t
 					len++;
 		line++;
 	}
+	if (len < 4)
+		return (4);
 	return (len);
 }
 
