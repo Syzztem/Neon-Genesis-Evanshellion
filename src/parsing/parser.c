@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 13:56:13 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:53:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,12 @@ char
 	{
 		if (ref_in_tokens(*current, extracted) == 0)
 		{
-			pure_tokens[i] = *current;
+			pure_tokens[i] = ft_strdup(*current);
 			i++;
 		}
 		current++;
 	}
+	free_tokens(extracted);
 	return (pure_tokens);
 }
 

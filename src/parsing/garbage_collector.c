@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:27:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 16:41:46 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 20:02:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ void
 }
 
 void
-	free_cmd(t_command **cmd_ptr)
+	free_cmd(t_command *cmd)
 {
-	t_command	*cmd;
-
-	cmd = *cmd_ptr;
-	free_to_null((void **)&(cmd->cmd));
 	free_tokens(cmd->argv);
 	cmd->argv = NULL;
 	free_to_null((void **)&(cmd->sep));
@@ -52,7 +48,13 @@ void
 	cmd->tokens = NULL;
 	free_tokens(cmd->redirections);
 	cmd->redirections = NULL;
-	free_to_null((void **)cmd_ptr);
+	free(cmd);
+}
+
+void
+	free_pipeline(t_pipeline *pipeline)
+{
+	ft_lstclear(pipeline, (void *)free_cmd);
 }
 
 void
@@ -61,6 +63,7 @@ void
 	free_tokens(node->abstract_pipeline);
 	node->abstract_pipeline = NULL;
 	free_to_null((void **)&node->sep);
+	free(node);
 }
 
 void
