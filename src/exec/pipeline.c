@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/23 15:47:23 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:57:30 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int
 int
 	check_pipeline_run(char *condition, int last_return)
 {
-	if (condition == NULL || !strcmp(condition, ";"))
+	if (condition == NULL || !strcmp(condition, SEMICOLON))
 		return (1);
 	if (!strcmp(condition, AND) && last_return == 0)
 		return (1);
