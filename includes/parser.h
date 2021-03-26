@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/26 11:08:21 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/26 11:10:55 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define PIPE ESCAPE "|"
 # define SEMICOLON ESCAPE ";"
 # define AND ESCAPE "&&"
-# define OR ESCAPE"||"
+# define OR ESCAPE "||"
 
 # define OUTPUT_REPLACE_MASK 1
 # define OUTPUT_APPEND_MASK  2
@@ -87,7 +87,7 @@ void			print_command(t_command *command);
 int				print_argv(char **argv);
 void			print_ast(t_ast	ast);
 void			psyntax_error(char *token);
-void            pescaped_token(char *token, int fd);
+void			pescaped_token(char *token, int fd);
 
 char			*alloc_path_buf(char *cmd);
 char			*do_find_exec(char *cmd);
