@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 22:30:29 by root             ###   ########.fr       */
+/*   Updated: 2021/03/26 01:07:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,28 @@ t_command
 	return (command);
 }
 
+int
+	parenthesis_len(char **tokens)
+{
+	return (safe_find_token(tokens, PARENTHESIS_CLOSE) - tokens + 1);
+}
+
+t_command
+	*parse_parenthesis(char **current, int *len_ptr)
+{
+	int			end;
+	char		**extracted;
+	t_command	*command;
+
+	end = parenthesis_len(current);
+	extracted = dup_n_tab(current, end);
+	command = command_from_tokens(extracted, *find_sep(current));
+	free_tokens(extracted);
+	if (len_ptr)
+		*len_ptr = end;
+	return (command);
+}
+
 t_command
 	*get_next_command(char **tokens)
 {
@@ -107,7 +129,10 @@ t_command
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	command = parse_simple_command(current, &end);
+	if (!strcmp(*current, PARENTHESIS_OPEN))
+		command = parse_parenthesis(current, &end);
+	else
+		command = parse_simple_command(current, &end);
 	current += end;
 	if (*current)
 		current++;

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:02:33 by root              #+#    #+#             */
-/*   Updated: 2021/03/25 22:20:20 by root             ###   ########.fr       */
+/*   Updated: 2021/03/25 22:40:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int
         return (1);
     }
     len = last - av;
-    sub_argv = dup_n_tab(av + 1, len);
+    sub_argv = dup_n_tab(av + 1, len - 1);
     ret = exec_command_line(sub_argv);
     free_tokens(sub_argv);
     return (ret);
