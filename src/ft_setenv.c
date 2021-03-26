@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/20 21:26:28 by root             ###   ########.fr       */
+/*   Updated: 2021/03/26 11:00:21 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static size_t
 }
 
 static size_t
-	realloc_env()
+	realloc_env(void)
 {
 	extern char	**environ;
 	char		**sw;
@@ -61,7 +61,6 @@ char
 	ft_strcpy(environ[env_index], name);
 	ft_strcat(environ[env_index], "=");
 	ft_strcat(environ[env_index], value);
-	//environ[env_index + 1] = NULL; ?? It just erases the rest of environ
 	return (environ[env_index]);
 }
 

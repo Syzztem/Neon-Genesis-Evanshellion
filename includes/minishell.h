@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 14:36:57 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/26 11:06:41 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # include "global.h"
 # define PROMPT "EVA-04$ "
 
-static const char	*g_seps[] = {">>", "<", ">", "|", ";", "&&", "&", "||", "(", ")", NULL};
+static const char	*g_seps[] = {">>", "<", ">", "|", ";",
+	"&&", "&", "||", "(", ")", NULL};
 
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
@@ -58,13 +59,13 @@ int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
 
 int				print_exit(void);
-void            p_builtin_error(char *name, char *arg, char *error_msg);
+void			p_builtin_error(char *name, char *arg, char *error_msg);
 
 char			*find_exec(char *path_buf, char *name);
 int				handle_error(char *command, char *arg, char *errmsg);
 
 void			cap(char *tc);
 int				ft_isatty(int fd);
-int	            is_shell_interactive(void);
+int				is_shell_interactive(void);
 
 #endif
