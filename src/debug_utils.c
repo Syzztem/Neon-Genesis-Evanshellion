@@ -3,15 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/22 15:47:46 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:26:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
+
+void
+	pesc(char *token, int fd)
+{
+	ft_putstr_fd("\"", fd);
+	if (!token)
+	{
+		ft_putstr_fd("(null)", fd);
+	}
+	else
+	{
+		while (*token)
+		{
+			if (*token == ESCAPE_CHAR)
+			{
+				if (DEBUG_SEP)
+					ft_putstr_fd("\\x1b", fd);
+				else
+					ft_putchar_fd(*token, fd);
+			}
+			token++;
+		}
+	}
+	ft_putstr_fd("\"", fd);
+}
+
 
 int
 	print_argv(char **argv)
@@ -22,7 +48,7 @@ int
 		printf("%s", "{");
 		while (0[argv])
 		{
-			printf("\"%s\"", *argv);
+			pesc(*argv, 1);
 			printf("%s", ", ");
 			fflush(stdout);
 			argv++;
@@ -43,7 +69,9 @@ void
 	printf("%p:\n", command);
 	if (command)
 	{
-		printf("  - %-15s\"%s\"\n", "cmd:", command->cmd);
+		printf("  - %-15s", "cmd:");
+		pesc(command->cmd, 1);
+		ft_putstr_fd("\n", 1);
 		printf("  - %-15s", "argv:");
 		print_argv(command->argv);
 		printf("  - %-15s", "tokens:");
@@ -118,7 +146,9 @@ void
 	printf("  node: %p\n", node);
 	printf("    - %-15s", "pipeline:");
 	print_argv(node->abstract_pipeline);
-	printf("    - %-15s\"%s\"\n", "sep:", node->sep);
+	printf("    - %-15s\n", "sep:");
+	pesc(node->sep, 1);
+	puts("");
 }
 
 void

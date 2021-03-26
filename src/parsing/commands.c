@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 16:31:42 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 20:01:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ t_command
 	cmd = ft_calloc(1, sizeof(t_command));
 	if (!cmd)
 		return (NULL);
-	cmd->sep = sep;
+	if (sep)
+		cmd->sep = ft_strdup(sep);
+	else
+		cmd->sep = NULL;
 	cmd->tokens = dup_tab(tokens);
 	cmd->redirections = extract_redirects(tokens);
 	cmd->argv = get_pure_tokens(tokens);
@@ -80,6 +83,7 @@ t_command
 	static char **tokens_start = NULL;
 	int			end;
 	t_command	*command;
+	char		**extracted;
 
 	if (tokens != tokens_start)
 	{
@@ -89,7 +93,9 @@ t_command
 	if (current == NULL || *current == NULL)
 		return (NULL);
 	end = get_command_len(current);
-	command = command_from_tokens(dup_n_tab(current, end), *find_sep(current));
+	extracted = dup_n_tab(current, end);
+	command = command_from_tokens(extracted, *find_sep(current));
+	free_tokens(extracted);
 	current += end;
 	if (*current)
 		current++;
