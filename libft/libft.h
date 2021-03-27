@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:11:40 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/24 16:10:48 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:41:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 size_t			ft_strnlen(const char *str, size_t maxlen);
 void			free_tokens(char **tokens);
+int				ft_strcmp(const char *s1, const char *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/27 16:40:35 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:47:52 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int
 		if (!*line)
 		{
 			free(line);
-			break ;
+			continue ;
 		}
 		if (!ret)
 		{

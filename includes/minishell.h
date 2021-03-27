@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 22:20:41 by root             ###   ########.fr       */
+/*   Updated: 2021/03/27 16:52:29 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "libft.h"
 # include "global.h"
 # define PROMPT "EVA-04$ "
+
+
 
 static const char	*g_seps[] = {">>", "<", ">", "|", ";", "&&", "&", "||", "(", ")", NULL};
 
