@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 13:53:05 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:28:36 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int
 	input_path_ptr = tab_find_last_token(input_redirects(), redirects);
 	if (check_path_ptr(input_path_ptr))
 	{
-		*fd_input = open(input_path_ptr[1], O_RDONLY);
+		*fd_input = open_input(input_path_ptr);
 		if (*fd_input < 0)
 			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
 			input_path_ptr[1]);

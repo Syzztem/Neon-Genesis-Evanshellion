@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/29 14:41:22 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/29 15:25:39 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,8 +78,8 @@ debug_flags :
 	@mkdir -p ./obj
 
 
-debug :
-	$(MAKE) -C  ./libft debug re
+debug:
+	$(MAKE) -C  ./libft debug all
 	$(MAKE) debug_flags $(NAME)
 
 

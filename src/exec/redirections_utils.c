@@ -6,12 +6,13 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:09:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:00:51 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:39:54 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "exec.h"
+#include "get_next_line.h"
 
 void
 	close_checked(int fd)
@@ -48,23 +49,42 @@ int
 	return (open(output_path_ptr[1], open_mode, open_flags));
 }
 
-/*
+int
+	here_doc(char *end_mark)
+{
+	int		pipes[2];
+	char	*line;
+	
+	pipe(pipes);
+	//printf("HERE DOC: %s\n", end_mark);
+	if (is_shell_interactive())
+			ft_putstr_fd("> ", 2);
+	while (get_next_line(0, &line) == 1 && line && strcmp(line, end_mark))
+	{
+		write(pipes[1], line, ft_strlen(line));
+		write(pipes[1], "\n", 1);
+		free(line);
+		if (is_shell_interactive())
+			ft_putstr_fd("> ", 2);
+	}
+	close(pipes[1]);
+	return (pipes[0]);
+}
+
 int
 	open_input(char	**input_path_ptr)
 {
-	size_t	redir_type;
+	int	redir_type;
 	int		fd;
 
-	redir_type = ft_strlen(*input_path_ptr);
-	if (redir_type == 1)
+	redir_type = ft_strcmp(input_path_ptr[0], REDIR_INPUT);
+	if (!redir_type)
 	{
 		fd = open(input_path_ptr[1], O_RDONLY);
 		if (fd < 0)
 			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
 			input_path_ptr[1]);
+		return (fd);
 	}
-	else if (redir_type == 2)
-	{
-		
-	}
-}*/
+	return (here_doc(input_path_ptr[1]));
+}

@@ -1,0 +1,15 @@
+Makefile
+README.md
+a.out
+e
+hello
+includes
+libft
+lldb_commands
+main.c
+minishell
+obj
+print.c
+run_all_tests.sh
+src
+tests
