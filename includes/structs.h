@@ -6,15 +6,13 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:48:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 14:51:36 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/26 11:02:32 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-
 # include "libft.h"
-
 
 typedef t_list * t_pipeline;
 typedef t_list * t_ast;

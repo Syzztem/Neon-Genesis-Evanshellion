@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/25 10:37:35 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/26 10:58:59 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static const t_cap	g_caps[CAP_COUNT] = {
 	retreive_hist
 };
 
-/**
- * That makes no sense at all but
- * #4 is the shift + left key
- * %i is the shift + right key
- * Now I can die in peace for finding them
- * And they both return the same value :)
-**/
+/*
+** That makes no sense at all but
+** #4 is the shift + left key
+** %i is the shift + right key
+** Now I can die in peace for finding them
+** And they both return the same value :)
+*/
 
 static const char	*g_capstr[CAP_COUNT] = {
 	"kl",

@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 10:36:17 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/09 13:59:37 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/26 10:56:28 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static size_t
 {
 	char	*env;
 	size_t	len;
-	
+
 	env = ft_lgetenv(var);
 	len = 0;
 	if (!env)

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:54:02 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/23 15:25:29 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/26 10:55:23 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ int
 			return (0);
 		str++;
 	}
-	return (1);	
+	return (1);
 }
 
 int	builtin_exit(char **av, char **envp)
 {
 	(void)av;
 	(void)envp;
-
 	print_exit();
 	if (av[1] && !is_str_num(av[1]))
 	{
@@ -54,4 +53,3 @@ int	builtin_exit(char **av, char **envp)
 	exit(0);
 	return (1);
 }
- 

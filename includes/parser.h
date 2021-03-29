@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 22:05:04 by root             ###   ########.fr       */
+/*   Updated: 2021/03/26 11:10:55 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "structs.h"
 # include "global.h"
 # include "garbage_collector.h"
-
 
 # define SHELL_NAME "minishell"
 # define CMD_NOT_FOUND_MSG "command not found"
@@ -69,7 +68,7 @@ size_t			pure_tokens_len(char **tokens, char **excluded_tokens);
 
 int				is_redirect(char *token);
 int				is_connective(char *token);
-	
+
 t_command		*get_next_command(char **tokens);
 size_t			get_command_len(char **tokens);
 
@@ -91,7 +90,7 @@ void			print_command(t_command *command);
 int				print_argv(char **argv);
 void			print_ast(t_ast	ast);
 void			psyntax_error(char *token);
-void            pescaped_token(char *token, int fd);
+void			pescaped_token(char *token, int fd);
 
 char			*alloc_path_buf(char *cmd);
 char			*do_find_exec(char *cmd);
@@ -109,6 +108,5 @@ int				check_pipeline(t_pipeline pipeline);
 int				check_command(t_command *cmd);
 int				check_ast(t_ast ast);
 int				check_syntax(char **tokens);
-
 
 #endif
