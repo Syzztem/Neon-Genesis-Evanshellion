@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/26 11:06:41 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:52:29 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "libft.h"
 # include "global.h"
 # define PROMPT "EVA-04$ "
+
 
 static const char	*g_seps[] = {">>", "<", ">", "|", ";",
 	"&&", "&", "||", "(", ")", NULL};
@@ -57,7 +58,7 @@ int				builtin_echo(char **av, char **envp);
 int				builtin_exit(char **av, char **envp);
 int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
-
+int             builtin_parenthesis(char **av, char **envp);
 int				print_exit(void);
 void			p_builtin_error(char *name, char *arg, char *error_msg);
 

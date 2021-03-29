@@ -38,6 +38,8 @@
 # define SEMICOLON ESCAPE ";"
 # define AND ESCAPE "&&"
 # define OR ESCAPE "||"
+# define PARENTHESIS_OPEN ESCAPE "("
+# define PARENTHESIS_CLOSE ESCAPE ")"
 
 # define OUTPUT_REPLACE_MASK 1
 # define OUTPUT_APPEND_MASK  2
@@ -73,6 +75,7 @@ size_t			get_command_len(char **tokens);
 char			**find_token_in_tokens(char **tokens, char **to_find);
 char			**ref_in_tokens(char *ref, char **tokens);
 char			**safe_find_token(char **tokens, char *find);
+char			**get_last_token(char **tokens);
 
 t_pipeline		parse_pipeline(char **tokens);
 t_ast			parse_ast(char **tokens);
