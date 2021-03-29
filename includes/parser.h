@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/26 11:10:55 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:49:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define ESCAPE "\x1b"
 # define REDIR_REPLACE ESCAPE ">"
 # define REDIR_APPEND ESCAPE ">>"
+# define REDIR_HERE_DOC ESCAPE "<<"
 # define REDIR_INPUT ESCAPE "<"
 # define PIPE ESCAPE "|"
 # define SEMICOLON ESCAPE ";"

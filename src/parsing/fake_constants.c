@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 15:16:52 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 15:54:26 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:39:04 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char
 char
 	**redirects(void)
 {
-	static char *arr[] = {REDIR_REPLACE, REDIR_APPEND, REDIR_INPUT, NULL};
+	static char *arr[] = {REDIR_REPLACE, REDIR_APPEND, REDIR_INPUT,
+	REDIR_HERE_DOC, NULL};
 
 	return (arr);
 }
@@ -39,7 +40,7 @@ char
 char
 	**input_redirects(void)
 {
-	static char *arr[] = {REDIR_INPUT, NULL};
+	static char *arr[] = {REDIR_INPUT, REDIR_HERE_DOC, NULL};
 
 	return (arr);
 }
@@ -56,7 +57,7 @@ char
 	**connectives(void)
 {
 	static char *arr[] = {PIPE, AND, OR, REDIR_APPEND, REDIR_REPLACE,
-	REDIR_INPUT, NULL};
+	REDIR_INPUT, REDIR_HERE_DOC, NULL};
 
 	return (arr);
 }

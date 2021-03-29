@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 16:49:43 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:37:25 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int
 	current = redirections;
 	if (!current || !*current)
 		return (0);
-	while (current)
+	while (current && *current)
 	{
 		if (is_redirect(*current))
 		{
@@ -97,7 +97,7 @@ int
 	if (check_redirections(cmd->redirections))
 		return (1);
 	if (!cmd->argv)
-		return (1);
+		return (2);
 	return (0);
 }
 
