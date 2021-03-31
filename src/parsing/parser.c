@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 19:53:26 by root             ###   ########.fr       */
+/*   Updated: 2021/03/29 14:45:10 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char
 		{
 			extracted[i] = *tokens;
 			if (*(tokens + 1))
-				extracted[++i] = *(++tokens);
+				extracted[++i] = (*(++tokens));
 			i++;
 		}
 		tokens++;
@@ -85,7 +85,7 @@ char
 	i = 0;
 	current = tokens;
 	extracted = extract_redirects(tokens);
-	pure_tokens = ft_calloc(pure_tokens_len(tokens, extracted) + 2,
+	pure_tokens = ft_calloc(pure_tokens_len(tokens, extracted) + 3,
 	sizeof(char *));
 	while (*current)
 	{
@@ -96,24 +96,6 @@ char
 		}
 		current++;
 	}
-	free_tokens(extracted);
+	free(extracted);
 	return (pure_tokens);
-}
-
-int
-	open_output(char **output_path_ptr)
-{
-	int	open_mode;
-	int	redir_type;
-	int open_flags;
-
-	redir_type = 0;
-	open_flags = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	open_mode = O_WRONLY | O_CREAT;
-	redir_type |= (int)ft_strlen(*output_path_ptr);
-	if (redir_type == 1)
-		open_mode |= O_TRUNC;
-	else if (redir_type == 2)
-		open_mode |= O_APPEND;
-	return (open(output_path_ptr[1], open_mode, open_flags));
 }

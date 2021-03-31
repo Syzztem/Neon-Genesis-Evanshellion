@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/27 16:52:29 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:42:47 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PROMPT "EVA-04$ "
 
 
-static const char	*g_seps[] = {">>", "<", ">", "|", ";",
+static const char	*g_seps[] = {"<<", ">>","<", ">", "|", ";",
 	"&&", "&", "||", "(", ")", NULL};
 
 typedef int	(*t_builtin)(char **av, char **envp);

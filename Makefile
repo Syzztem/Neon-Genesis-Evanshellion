@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/25 22:20:05 by root             ###   ########.fr        #
+#    Updated: 2021/03/29 15:25:39 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -Werror -g3  $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra  -g3  $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
@@ -78,8 +78,8 @@ debug_flags :
 	@mkdir -p ./obj
 
 
-debug : fclean
-	$(MAKE) -C  ./libft debug re
+debug:
+	$(MAKE) -C  ./libft debug all
 	$(MAKE) debug_flags $(NAME)
 
 
