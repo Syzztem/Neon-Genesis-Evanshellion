@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/26 11:06:41 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/01 15:36:39 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@
 static const char	*g_seps[] = {">>", "<", ">", "|", ";",
 	"&&", "&", "||", "(", ")", NULL};
 
+static const char 	*g_splitters[] = {"&&", "||", ";"};
+
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
 int				get_term_line(char **buffer);
 char			**tokenize(char *line);
+char			**split_line(char *line);
 
 int				ft_igetenv(char *name);
 char			*ft_getenv(char *name);

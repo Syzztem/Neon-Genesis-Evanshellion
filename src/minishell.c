@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 20:03:06 by root             ###   ########.fr       */
+/*   Updated: 2021/04/01 15:39:30 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int
 {
 	char		*line;
 	char		**tokens;
+	char		**lines;
 	extern char	**environ;
 
 	if (!is_computer_on())
@@ -98,11 +99,13 @@ static int
 			free(line);
 			continue ;
 		}
+		lines = split_line(line);
+		print_argv(lines);
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);
+		free_tokens(lines);
 		free(line);
-
 	}
 	free(line);
 	return (g_exit_status);
