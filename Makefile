@@ -6,14 +6,14 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/24 14:46:57 by smaccary         ###   ########.fr        #
+#    Updated: 2021/03/29 15:25:39 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra -Werror -g3  $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra  -g3  $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
@@ -34,6 +34,8 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			exec/redirections.c exec/exec.c exec/pipeline.c \
 			\
 			parsing/garbage_collector.c \
+			\
+			parenthesis.c \
 			\
 			debug_utils.c word_jump.c errmgr.c find_exec.c \
 			tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c \
@@ -76,8 +78,8 @@ debug_flags :
 	@mkdir -p ./obj
 
 
-debug : fclean
-	$(MAKE) -C  ./libft debug re
+debug:
+	$(MAKE) -C  ./libft debug all
 	$(MAKE) debug_flags $(NAME)
 
 

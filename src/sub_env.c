@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 10:36:17 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/26 10:56:28 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:36:01 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static size_t
 }
 
 static void
-	sub_envs(char *dst, char *src)
+	  sub_envs(char *dst, char *src)
 {
 	while (*src)
 	{

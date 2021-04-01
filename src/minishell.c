@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/01 15:39:30 by lothieve         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/27 17:47:52 by smaccary         ###   ########.fr       */
+>>>>>>> 39ebd0f9078f304272efdc3b6f8346e6d938317e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +83,7 @@ static int
 	char		**tokens;
 	char		**lines;
 	extern char	**environ;
+	int			ret;
 
 	if (!is_computer_on())
 	{
@@ -87,7 +92,7 @@ static int
 	}
 
 	signal(SIGINT, (void *)blank);
-	while (prompt_shell(&line))
+	while ((ret = prompt_shell(&line)) || ft_strlen(line))
 	{
 		if (!line)
 		{
@@ -99,8 +104,17 @@ static int
 			free(line);
 			continue ;
 		}
+<<<<<<< HEAD
 		lines = split_line(line);
 		print_argv(lines);
+=======
+		if (!ret)
+		{
+			write(1, "\n", 1);
+			free(line);
+			continue;
+		}
+>>>>>>> 39ebd0f9078f304272efdc3b6f8346e6d938317e
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);

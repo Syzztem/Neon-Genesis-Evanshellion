@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 19:38:25 by root             ###   ########.fr       */
+/*   Updated: 2021/03/31 13:50:22 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int
 	if (!lst || lst->next)
 		return (0);
 	cmd = lst->content;
-	return (cmd && cmd->argv && is_builtin(cmd->argv[0]) != -1);
+	return (cmd && cmd->argv && is_builtin(cmd->argv[0]) != -1
+	&& ft_strcmp(cmd->argv[0], PARENTHESIS_OPEN));
 }
 
 void

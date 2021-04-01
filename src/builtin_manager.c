@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:42:39 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/05 13:53:27 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:01:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define BUILTIN_COUNT 7
+#define BUILTIN_COUNT 8
 
 static const t_builtin g_builtins[BUILTIN_COUNT + 1] = {
 	builtin_echo,
@@ -21,6 +21,7 @@ static const t_builtin g_builtins[BUILTIN_COUNT + 1] = {
 	builtin_pwd,
 	builtin_unset,
 	builtin_export,
+	builtin_parenthesis,
 	NULL
 };
 
@@ -32,6 +33,7 @@ static const char *g_builtin_list[BUILTIN_COUNT + 1] = {
 	"pwd",
 	"unset",
 	"export",
+	"\x1b(",
 	NULL
 };
 

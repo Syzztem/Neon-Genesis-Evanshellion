@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/26 11:10:55 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:49:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@
 # define ESCAPE "\x1b"
 # define REDIR_REPLACE ESCAPE ">"
 # define REDIR_APPEND ESCAPE ">>"
+# define REDIR_HERE_DOC ESCAPE "<<"
 # define REDIR_INPUT ESCAPE "<"
 # define PIPE ESCAPE "|"
 # define SEMICOLON ESCAPE ";"
 # define AND ESCAPE "&&"
 # define OR ESCAPE "||"
+# define PARENTHESIS_OPEN ESCAPE "("
+# define PARENTHESIS_CLOSE ESCAPE ")"
 
 # define OUTPUT_REPLACE_MASK 1
 # define OUTPUT_APPEND_MASK  2
@@ -73,6 +76,7 @@ size_t			get_command_len(char **tokens);
 char			**find_token_in_tokens(char **tokens, char **to_find);
 char			**ref_in_tokens(char *ref, char **tokens);
 char			**safe_find_token(char **tokens, char *find);
+char			**get_last_token(char **tokens);
 
 t_pipeline		parse_pipeline(char **tokens);
 t_ast			parse_ast(char **tokens);
