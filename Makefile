@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/03/29 15:25:39 by smaccary         ###   ########.fr        #
+#    Updated: 2021/04/01 15:44:49 by lothieve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c \
 			exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c \
 			history.c methods.c minishell.c pwd.c termcaps.c \
-			termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c \
+			termcaps_utils.c tokenizer.c tokenizer_utils.c unset.c split_line.c\
 			wildcard.c sub_env.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))

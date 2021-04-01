@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/01 15:37:11 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:19:04 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static size_t
 		i = 0;
 		while (g_splitters[i])
 		{
-			if (strbegin(line, g_splitters[i]))
+			if (ft_strbegin(line, g_splitters[i]))
 				count += 2;
 			++i;
 		}
@@ -34,26 +34,44 @@ static size_t
 }
 
 static size_t
+	skip_quotes(char *str)
+{
+	char	quote;
+	char	*ref;
+
+	ref = str;
+	quote = *ref++;
+	while (*ref && (*ref != quote || *(ref - 1) == '\\'))
+		++ref;
+	++ref;
+	return (ref - str);
+}
+
+static size_t
 	next_sep(char *line, char **sep)
 {
-	char *cpy;
+	char *ref;
+	uint8_t	i;
 
-	cpy = line;
-	while (*cpy)
+	ref = line;
+	while (*ref)
 	{
+		if ((*ref == '\'' || *ref == '\"') && (ref != line && *ref != '\\'))
+			ref += skip_quotes(ref);
+		i = 0;
 		while (g_splitters[i])
 		{
-			if (strbegin(line, g_splitters[i]))
+			if (ft_strbegin(ref, g_splitters[i]))
 			{
-				*sep = g_splitters[i];
-				return (cpy - line);
+				*sep = (char *)g_splitters[i];
+				return (ref - line);
 			}
 			++i;
 		}
-		++cpy;
+		++ref;
 	}
 	*sep = NULL;
-	return (cpy - line);
+	return (ref - line);
 }
 
 char **split_line(char *line)
@@ -72,9 +90,11 @@ char **split_line(char *line)
 		line += index;
 		++i;
 		if (!sep)
-			return (out);
+			break ;
 		out[i] = ft_strdup(sep);
 		++i;
+		line += ft_strlen(sep);
 	}
+	out[i] = NULL;
 	return (out);
 }

@@ -6,11 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/04/01 15:39:30 by lothieve         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/27 17:47:52 by smaccary         ###   ########.fr       */
->>>>>>> 39ebd0f9078f304272efdc3b6f8346e6d938317e
+/*   Updated: 2021/04/01 15:48:05 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +77,7 @@ static int
 {
 	char		*line;
 	char		**tokens;
-	char		**lines;
+	char		**commands;
 	extern char	**environ;
 	int			ret;
 
@@ -104,21 +100,18 @@ static int
 			free(line);
 			continue ;
 		}
-<<<<<<< HEAD
-		lines = split_line(line);
-		print_argv(lines);
-=======
+		commands = split_line(line);
+		print_argv(commands);
 		if (!ret)
 		{
 			write(1, "\n", 1);
 			free(line);
 			continue;
 		}
->>>>>>> 39ebd0f9078f304272efdc3b6f8346e6d938317e
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);
-		free_tokens(lines);
+		free_tokens(commands);
 		free(line);
 	}
 	free(line);
