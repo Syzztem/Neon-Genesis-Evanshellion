@@ -6,7 +6,11 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/02 11:19:47 by smaccary         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/02 11:21:18 by lothieve         ###   ########.fr       */
+>>>>>>> fce33670a4d8adee0326dcd4283ab8319261d1de
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +22,7 @@ static size_t
 	size_t	count;
 	uint8_t	i;
 
-	count = 0;
+	count = 1;
 	while (*line)
 	{
 		i = 0;
@@ -41,7 +45,7 @@ static size_t
 
 	ref = str;
 	quote = *ref++;
-	while (*ref && (*ref != quote || (*(ref - 1) == '\\') && quote == '\"'))
+	while (*ref && (*ref != quote || (*(ref - 1) == '\\' && quote == '\"')))
 		++ref;
 	if (*ref)
 		++ref;
