@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:06:58 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:21:02 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int
 	minishell(void)
 {
 	char		*line;
-	char		**tokens;
 	char		**commands;
 	extern char	**environ;
 	int			ret;
@@ -78,14 +77,11 @@ static int
 	while ((ret = prompt_shell(&line)))
 	{
 		commands = split_line(line);
+		exec_command_line(commands);
 		print_argv(commands);
-		tokens = tokenize(line);
-		exec_command_line(tokens);
-		free_tokens(tokens);
 		free_tokens(commands);
 		free(line);
 	}
-	free(line);
 	return (g_exit_status);
 }
 

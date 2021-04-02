@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 15:16:52 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:39:04 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:13:11 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char
 char
 	**pipeline_separators(void)
 {
-	static char *arr[] = {SEMICOLON, AND, OR, NULL};
+	static char *arr[] = {";", "&&", "||", NULL};
 
 	return (arr);
 }

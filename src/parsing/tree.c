@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 16:46:14 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:23:15 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_ast_node
 	if (current == NULL || *current == NULL)
 		return (NULL);
 	end = get_pipeline_len(current);
-	node = node_from_line(dup_n_tab(current, end),
+	node = node_from_line(current, end),
 	*find_token_in_tokens(current, pipeline_separators()));
 	current += end;
 	if (*current)

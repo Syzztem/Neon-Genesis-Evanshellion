@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 13:49:23 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:21:57 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 #  define DEBUG 0
 # endif
 
-# define DEBUG_AST 0
+# define DEBUG_AST 1
 # define DEBUG_SEP 1
 
 size_t			get_pipeline_len(char **tokens);
