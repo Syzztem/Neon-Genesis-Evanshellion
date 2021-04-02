@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 10:55:36 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:21:18 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static size_t
 	size_t	count;
 	uint8_t	i;
 
-	count = 0;
+	count = 1;
 	while (*line)
 	{
 		i = 0;
@@ -41,7 +41,7 @@ static size_t
 
 	ref = str;
 	quote = *ref++;
-	while (*ref && (*ref != quote || (*(ref - 1) == '\\') && quote == '\"'))
+	while (*ref && (*ref != quote || (*(ref - 1) == '\\' && quote == '\"')))
 		++ref;
 	if (*ref)
 		++ref;
