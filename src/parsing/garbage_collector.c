@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:27:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:09:59 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:37:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void
 void
 	free_ast_node(t_ast_node *node)
 {
-	free_tokens(node->abstract_pipeline);
+	free(node->abstract_pipeline);
 	node->abstract_pipeline = NULL;
 	free_to_null((void **)&node->sep);
 	free(node);

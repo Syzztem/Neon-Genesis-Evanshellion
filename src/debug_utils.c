@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:29:09 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:38:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,9 @@ void
 		return ;
 	printf("  node: %p\n", node);
 	printf("    - %-15s", "pipeline:");
-	print_argv(node->abstract_pipeline);
-	printf("    - %-15s\n", "sep:");
+	pesc(node->abstract_pipeline, 1);
+	puts("");
+	printf("    - %-15s", "sep:");
 	pesc(node->sep, 1);
 	puts("");
 }

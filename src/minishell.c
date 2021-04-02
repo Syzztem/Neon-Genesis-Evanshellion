@@ -59,11 +59,10 @@ int is_computer_on(void)
 	return (1);
 }
 
-static int
+int
 	minishell(void)
 {
 	char		*line;
-	char		**tokens;
 	char		**commands;
 	extern char	**environ;
 
@@ -79,9 +78,7 @@ static int
 		if (!complete_line(&line))
 			continue ;
 		commands = split_line(line);
-		tokens = tokenize(line);
-		exec_command_line(tokens);
-		free_tokens(tokens);
+		exec_command_line(commands);
 		free_tokens(commands);
 		free(line);
 	}
