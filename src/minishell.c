@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/01 15:48:05 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:21:12 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,13 @@ static int
 			free(line);
 			continue ;
 		}
-		commands = split_line(line);
-		print_argv(commands);
 		if (!ret)
 		{
 			write(1, "\n", 1);
 			free(line);
 			continue;
 		}
+		commands = split_line(line);
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);

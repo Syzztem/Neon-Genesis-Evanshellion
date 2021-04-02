@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 16:41:47 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:49:00 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static t_token
 
 	head = NULL;
 	tok_len = token_len(line);
-	if (!parse_error(verify_line(line)))
-		return (NULL);
 	while (*line)
 	{
 		while (*line && ft_isspace(*line))
