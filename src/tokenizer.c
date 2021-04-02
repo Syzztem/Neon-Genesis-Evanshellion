@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 10:49:00 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:52:24 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ static size_t
 	token_len(char *line)
 {
 	size_t	len;
+	char *begin;
 
+	begin = line;
 	len = ft_strlen(line);
 	while (*line)
 	{
-		if (*line == '\"')
+		if (*line == '\'' && (line == begin || *(line - 1) != '\\'))
 		{
 			while (*++line && *(line - 1) != '\\' && *line != '\"')
 				if (*line == '*')
 					len++;
 		}
-		else if (*line == '\'')
+		if (*line == '\"' && (line == begin || *(line - 1) != '\\'))
 			while (*++line != '\'')
 				if (*line == '*')
 					len++;

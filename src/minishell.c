@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:22:52 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:58:13 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int
 	char		**tokens;
 	char		**commands;
 	extern char	**environ;
-	int			ret;
 
 	if (!is_computer_on())
 	{
@@ -75,17 +74,17 @@ static int
 	}
 
 	signal(SIGINT, (void *)blank);
-	while ((ret = prompt_shell(&line)))
+	while ((prompt_shell(&line)))
 	{
+		if (!complete_line(&line))
+			continue ;
 		commands = split_line(line);
-		print_argv(commands);
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);
 		free_tokens(commands);
 		free(line);
 	}
-	free(line);
 	return (g_exit_status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 10:30:48 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:46:05 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct termios	t_term;
 int				get_term_line(char **buffer);
 char			**tokenize(char *line);
 char			**split_line(char *line);
+int				complete_line(char **line);
 
 int				ft_igetenv(char *name);
 char			*ft_getenv(char *name);

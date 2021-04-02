@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:21:18 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:51:16 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ static size_t
 			}
 			++i;
 		}
-		++ref;
+		if (ref)
+			++ref;
 	}
 	*sep = NULL;
 	return (ref - line);
