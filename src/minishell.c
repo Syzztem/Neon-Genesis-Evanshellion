@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:23:57 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:53:28 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int is_computer_on(void)
 	return (1);
 }
 
-static int
+int
 	minishell(void)
 {
 	char		*line;
@@ -78,7 +78,6 @@ static int
 	{
 		commands = split_line(line);
 		exec_command_line(commands);
-		print_argv(commands);
 		free_tokens(commands);
 		free(line);
 	}

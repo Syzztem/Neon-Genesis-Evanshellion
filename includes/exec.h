@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 15:28:16 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:54:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include "global.h"
 # include <sys/wait.h>
 
+int     minishell(void);
 void	exec_command(t_command *command);
 int		exec_command_list(t_list *commands);
-int		exec_abstract_pipeline(char **tokens);
+int		exec_abstract_pipeline(char *tokens);
 int		exec_command_line(char **tokens);
 int		exec_builtin(char **av, char **envp);
 int		exec_from_ast(t_ast ast);

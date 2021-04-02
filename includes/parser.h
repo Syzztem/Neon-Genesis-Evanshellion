@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 11:21:57 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:31:24 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 # define REDIR_HERE_DOC ESCAPE "<<"
 # define REDIR_INPUT ESCAPE "<"
 # define PIPE ESCAPE "|"
-# define SEMICOLON ESCAPE ";"
-# define AND ESCAPE "&&"
-# define OR ESCAPE "||"
+# define SEMICOLON  ";"
+# define AND  "&&"
+# define OR  "||"
 # define PARENTHESIS_OPEN ESCAPE "("
 # define PARENTHESIS_CLOSE ESCAPE ")"
 
@@ -50,8 +50,8 @@
 #  define DEBUG 0
 # endif
 
-# define DEBUG_AST 1
-# define DEBUG_SEP 1
+# define DEBUG_AST 0
+# define DEBUG_SEP 0
 
 size_t			get_pipeline_len(char **tokens);
 size_t			tab_size(char **table);
@@ -78,7 +78,7 @@ char			**ref_in_tokens(char *ref, char **tokens);
 char			**safe_find_token(char **tokens, char *find);
 char			**get_last_token(char **tokens);
 
-t_pipeline		parse_pipeline(char **tokens);
+t_pipeline		parse_pipeline(char *pipeline);
 t_ast			parse_ast(char **tokens);
 char			**extract_redirects(char **tokens);
 
