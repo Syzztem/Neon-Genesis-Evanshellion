@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 10:48:24 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:07:12 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ static void
 	}
 }
 
+static size_t
+	handle_parenthesis(char *token, t_token **list, char *line)
+{
+	char *ref;
+
+	ref = line;
+	ft_lstadd_back((t_list **)list, ft_strdup("("));
+	++ref;
+	ft_lstadd_back((t_list **)list, token);
+	while (*ref && (*ref != ')' || (ref != line && *(ref - 1) == '\\')))
+		*token++ = *ref++;
+	ft_lstadd_back((t_list **)list, ft_strdup(")"));
+	return (++ref - line);
+}
+
 size_t
 	add_token(char *token, t_token **list, char *line)
 {
@@ -46,7 +61,9 @@ size_t
 
 	ref = line;
 	tkref = token;
-	while (*ref && !ft_isspace(*ref) && ft_indexof(TOKEN_SPLITTERS, *ref) == -1)
+	if (*line == '(')
+		return (handle_parenthesis(token, list, line));
+	while (*ref && ft_indexof(TOKEN_SPLITTERS, *ref) == -1)
 	{
 		if (*ref == '\'')
 			tkref += squotes(tkref, &ref);

@@ -6,7 +6,7 @@
 /*   By: smaccary <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:31:37 by smaccary          #+#    #+#             */
-/*   Updated: 2019/11/16 12:53:41 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:34:24 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strjoin(char const *s1, const char *s2)
 		return (ft_strdup(s1));
 	if (!(dst = malloc(sizeof(char) * (max_len + 1))))
 		return (NULL);
-	ft_strlcpy(dst, s1, s1_len + 1);
-	ft_strlcat(dst, s2, max_len + 1);
+	ft_strcpy(dst, s1);
+	ft_strcat(dst, s2);
 	return (dst);
 }
