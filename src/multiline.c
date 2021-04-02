@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strbegin.c                                      :+:      :+:    :+:   */
+/*   multiline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 15:16:25 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 10:37:03 by lothieve         ###   ########.fr       */
+/*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
+/*   Updated: 2021/04/02 10:56:19 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strbegin(const char *str, const char *begin)
+static int
+	verify_line(char *line)
 {
-	size_t	i;
+	char *begin;
 
-	i = 0;
-	while (begin[i] && str[i] && begin[i] == str[i])
-		i++;
-	if (!begin[i])
-		return (1);
-	return (0);
+	begin = line;
+	while (*line)
+	{
+		if (*line == '\'')
+			while (*++line != '\'')
+				if (!*line)
+					return (0);
+		if (*line == '\"')
+			while (*line == '\\' || *++line != '\"')
+				if (!*line)
+					return (0);
+		++line;
+	}
+	return (1);
 }
+
