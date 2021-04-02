@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:51:16 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:43:03 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static size_t
 
 	ref = str;
 	quote = *ref++;
-	while (*ref && (*ref != quote || (*(ref - 1) == '\\' && quote == '\"')))
+	if (quote == '(')
+		quote = ')';
+	while (*ref && (*ref != quote || (*(ref - 1) == '\\' && quote != '\'')))
 		++ref;
 	if (*ref)
 		++ref;
@@ -51,14 +53,17 @@ static size_t
 static size_t
 	next_sep(char *line, char **sep)
 {
-	char *ref;
+	char	*ref;
 	uint8_t	i;
 
 	ref = line;
 	while (*ref)
 	{
-		if ((*ref == '\'' || *ref == '\"') && (ref != line && *(ref - 1) != '\\'))
+		if ((*ref == '\'' || *ref == '\"' || *ref == '(')
+				&& (ref != line && *(ref - 1) != '\\'))
 			ref += skip_quotes(ref);
+		if (!*ref)
+			break ;
 		i = 0;
 		while (g_splitters[i])
 		{
