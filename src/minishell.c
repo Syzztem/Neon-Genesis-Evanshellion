@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:14:07 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:22:52 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ sig_t blank(int a)
 	return (NULL);
 }
 
-#ifdef BONUS
-
 static int
 	prompt_shell(char **line)
 {
@@ -55,17 +53,6 @@ static int
 	return (ret);
 }
 
-#else
-
-static int
-	prompt_shell(char **line)
-{
-	if (is_shell_interactive())
-		ft_putstr_fd(PROMPT, 2);
-	return (get_next_line(0, line));
-}
-
-#endif
 
 int is_computer_on(void)
 {
@@ -88,25 +75,10 @@ static int
 	}
 
 	signal(SIGINT, (void *)blank);
-	while ((ret = prompt_shell(&line)) || ft_strlen(line))
+	while ((ret = prompt_shell(&line)))
 	{
-		if (!line)
-		{
-			perror("minishell: ");
-			exit (errno);
-		}
-		if (!*line)
-		{
-			free(line);
-			continue ;
-		}
-		if (!ret)
-		{
-			write(1, "\n", 1);
-			free(line);
-			continue;
-		}
 		commands = split_line(line);
+		print_argv(commands);
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);
