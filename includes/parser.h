@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:31:24 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:26:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # endif
 
 # define DEBUG_AST 0
-# define DEBUG_SEP 0
+# define DEBUG_SEP 1
 
 size_t			get_pipeline_len(char **tokens);
 size_t			tab_size(char **table);

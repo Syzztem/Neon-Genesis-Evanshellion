@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_token.c                                        :+:      :+:    :+:   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 15:07:12 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:37:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static size_t
 	char *ref;
 
 	ref = line;
-	ft_lstadd_back((t_list **)list, ft_strdup("("));
+	ft_lstadd_back((t_list **)list, ft_strdup("\x1b("));
 	++ref;
 	ft_lstadd_back((t_list **)list, token);
 	while (*ref && (*ref != ')' || (ref != line && *(ref - 1) == '\\')))
 		*token++ = *ref++;
-	ft_lstadd_back((t_list **)list, ft_strdup(")"));
+	ft_lstadd_back((t_list **)list, ft_strdup("\x1b)"));
 	return (++ref - line);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:58:13 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:57:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,49 @@ int is_computer_on(void)
 }
 
 int
+	minishell_non_interactive(void)
+{
+	char		*line;
+	char		**tokens;
+	char		**commands;
+	extern char	**environ;
+	int			ret;
+
+	if (!is_computer_on())
+	{
+		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
+		exit (1);
+	}
+	signal(SIGINT, (void *)blank);
+	while ((ret = get_next_line(0, &line)) || ft_strlen(line))
+	{
+		if (!line)
+		{
+			perror("minishell: ");
+			exit (errno);
+		}
+		if (!*line)
+		{
+			free(line);
+			continue ;
+		}
+		commands = split_line(line);
+		print_argv(commands);
+		tokens = tokenize(line);
+		exec_command_line(tokens);
+		free_tokens(tokens);
+		free_tokens(commands);
+		free(line);
+	}
+	free(line);
+	return (g_exit_status);
+}
+
+
+int
 	minishell(void)
 {
 	char		*line;
-	char		**commands;
 	extern char	**environ;
 
 	if (!is_computer_on())
@@ -77,9 +116,7 @@ int
 	{
 		if (!complete_line(&line))
 			continue ;
-		commands = split_line(line);
-		exec_command_line(commands);
-		free_tokens(commands);
+		exec_line(line);
 		free(line);
 	}
 	return (g_exit_status);
@@ -89,10 +126,15 @@ int
 	main(void)
 {
 	copy_env();
-	tgetent(NULL, ft_getenv("TERM"));
-	setbuf(stdout, NULL);
-	cap("ks");
-	minishell();
-	print_exit();
+	if (is_shell_interactive())
+	{
+		tgetent(NULL, ft_getenv("TERM"));
+		setbuf(stdout, NULL);
+		cap("ks");
+		minishell();
+		print_exit();
+	}
+	else
+		minishell_non_interactive();
 	return (g_exit_status);
 }

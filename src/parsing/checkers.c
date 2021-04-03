@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:37:25 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:58:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ char
 int
 	check_syntax(char **tokens)
 {
+	if (!tokens)
+	{
+		printf("TOKENS ARE NULL\n");
+		return (1);
+	}
 	if (is_connective(*tokens))
 	{
 		psyntax_error(*tokens);
