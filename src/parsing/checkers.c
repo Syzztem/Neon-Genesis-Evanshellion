@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 21:58:46 by root             ###   ########.fr       */
+/*   Updated: 2021/04/03 15:26:07 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ int
 {
 	if (!tokens)
 	{
-		printf("TOKENS ARE NULL\n");
+		printf("error: TOKENS ARE NULL\n");
 		return (1);
 	}
+	if (!tokens[0])
+		return (1);
 	if (is_connective(*tokens))
 	{
 		psyntax_error(*tokens);
