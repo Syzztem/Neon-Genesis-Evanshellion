@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/03 15:57:30 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/03 16:02:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void
 static void
 	init_line(t_line *line)
 {
-	char	cursor_pos[16];
+	char	cursor_pos[17];
 	int		rd;
 	size_t	i;
 
