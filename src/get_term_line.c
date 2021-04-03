@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/26 10:58:59 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:57:30 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static void
 int
 	get_term_line(char **buffer)
 {
-	char	key[5];
+	char	key[10];
 	t_line	*line;
 
 	line = malloc(sizeof(t_line));
