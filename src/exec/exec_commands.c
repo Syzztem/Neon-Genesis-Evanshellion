@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 22:03:27 by root             ###   ########.fr       */
+/*   Updated: 2021/04/03 17:51:10 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void
 	extern char		**environ;
 
 	redirect_command(command);
+	if (!strcmp(command->cmd, ESCAPE))
+		exit(0);
 	if (is_cmd_parenthesis(command))
 		exit(exec_parenthesis(command));
 	else if (is_builtin(command->argv[0]) != -1)
