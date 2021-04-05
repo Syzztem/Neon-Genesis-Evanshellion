@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 15:07:12 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/05 10:39:14 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,25 @@ static void
 static size_t
 	handle_parenthesis(char *token, t_token **list, char *line)
 {
-	char *ref;
+	char		*ref;
+	unsigned	level;
 
 	ref = line;
-	ft_lstadd_back((t_list **)list, ft_strdup("("));
+	ft_lstadd_back((t_list **)list, ft_strdup("\x1b("));
 	++ref;
 	ft_lstadd_back((t_list **)list, token);
-	while (*ref && (*ref != ')' || (ref != line && *(ref - 1) == '\\')))
+	level = 1;
+	while (*ref && level != 0)
+	{
+		if (*ref == '(' && *(ref - 1) != '\\')
+			level++;
+		else if (*ref == ')' && *(ref - 1) != '\\')
+			level--;
+		if (level == 0)
+			break ;
 		*token++ = *ref++;
-	ft_lstadd_back((t_list **)list, ft_strdup(")"));
+	}
+	ft_lstadd_back((t_list **)list, ft_strdup("\x1b)"));
 	return (++ref - line);
 }
 
