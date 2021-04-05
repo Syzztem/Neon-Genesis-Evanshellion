@@ -1,9 +1,9 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_token.c                                        :+:      :+:    :+:   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:49 by lothieve          #+#    #+#             */
 /*   Updated: 2021/04/05 10:39:14 by lothieve         ###   ########.fr       */
@@ -58,6 +58,7 @@ static size_t
 		if (level == 0)
 			break ;
 		*token++ = *ref++;
+
 	}
 	ft_lstadd_back((t_list **)list, ft_strdup("\x1b)"));
 	return (++ref - line);

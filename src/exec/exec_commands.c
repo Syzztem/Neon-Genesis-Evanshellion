@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:55:12 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:51:10 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,16 @@ void
 }
 */
 
-void
+int
 	exec_parenthesis(t_command *cmd)
 {
-	int		pipes[2];
-
-	pipe(pipes);
-	write(pipes[1], cmd->cmd + 2, ft_strlen(cmd->cmd + 2) - 1);
-	close(pipes[1]);
-	exit(minishell());
+	return (exec_line(cmd->argv[1]));
 }
 
 int
 	is_cmd_parenthesis(t_command *cmd)
 {
-	return (!ft_strncmp(PARENTHESIS_OPEN, cmd->cmd, 2));
+	return (!ft_strcmp(PARENTHESIS_OPEN, cmd->cmd));
 }
 
 void
@@ -57,8 +52,10 @@ void
 	extern char		**environ;
 
 	redirect_command(command);
+	if (!strcmp(command->cmd, ESCAPE))
+		exit(0);
 	if (is_cmd_parenthesis(command))
-		exec_parenthesis(command);
+		exit(exec_parenthesis(command));
 	else if (is_builtin(command->argv[0]) != -1)
 		exit(exec_builtin(command->argv, environ));
 	else

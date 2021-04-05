@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 11:38:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:32:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ void
 		print_argv(command->tokens);
 		printf("  - %-15s", "redirections:");
 		print_argv(command->redirections);
-		printf("  - %-15s\"%s\"\n", "sep:", command->sep);
+		printf("  - %-15s" , "sep:");
+		pesc(command->sep, 1);
+		write(1, "\n", 1);
 		printf("  - %-15s%d\n  - %-15s%d\n", "input:", command->fd_input,
 				"output:", command->fd_output);
 		printf("  - %-15s%d\n\n", "pid:", command->pid);
