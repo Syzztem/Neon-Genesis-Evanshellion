@@ -6,11 +6,12 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/25 17:13:22 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:49:16 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+#define TEMP_HIST_FILE "/tmp/msh_hist_tmp"
 
 void	set_line(t_line *line)
 {
@@ -47,7 +48,7 @@ void	add_to_hist(char *cmd)
 	path = ft_getenv(HIST_ENV);
 	if (!path)
 		path = DEFAULT_HIST_FILE;
-	fd = open(path, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR);
+	fd = open(path, O_CREAT | O_RDONLY, S_IRUSR | S_IWUSR);
 	ft_putendl_fd(cmd, fd);
 	close(fd);
 }
