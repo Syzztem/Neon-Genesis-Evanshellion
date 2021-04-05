@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/31 13:50:22 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:31:56 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int
 }
 
 int
-	exec_abstract_pipeline(char **tokens)
+	exec_abstract_pipeline(char *tokens)
 {
 	t_pipeline		pipeline;
 	extern	char	**environ;

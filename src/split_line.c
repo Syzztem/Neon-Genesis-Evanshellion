@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   split_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
 /*   Updated: 2021/04/02 15:43:03 by lothieve         ###   ########.fr       */
@@ -88,7 +88,7 @@ char **split_line(char *line)
 	size_t	index;
 	char	*sep;
 
-	out = malloc(sizeof(char *) * (nblines(line) + 1));
+	out = malloc(sizeof(char *) * (nblines(line) + 2));
 	i = 0;
 	while (*line)
 	{
