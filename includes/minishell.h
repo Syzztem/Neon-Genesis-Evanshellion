@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 11:46:05 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:56:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int				handle_error(char *command, char *arg, char *errmsg);
 void			cap(char *tc);
 int				ft_isatty(int fd);
 int				is_shell_interactive(void);
-
+int				exec_line(char *line);
 #endif

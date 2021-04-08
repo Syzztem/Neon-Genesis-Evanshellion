@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:27:45 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:55:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,14 @@ int
 	return (g_exit_status);
 }
 
+int
+	exec_line(char *line)
+{
+	char		**commands;
+	int			ret;
+
+	commands = split_line(line);
+	ret = exec_command_line(commands);
+	free_tokens(commands);
+	return (ret);
+}

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:44:25 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:47:11 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_command
 	cmd->tokens = dup_tab(tokens);
 	cmd->redirections = extract_redirects(tokens);
 	cmd->argv = get_pure_tokens(tokens);
+	if (cmd->argv[0] == NULL)
+		cmd->argv[0] = ft_strdup(ESCAPE);
 	cmd->cmd = cmd->argv[0];
 	cmd->fd_input = 0;
 	cmd->fd_output = 1;
@@ -62,7 +64,7 @@ t_command
 
 	cmd = init_command_from_tokens(tokens, sep);
 	if (!cmd)
-		return (NULL);
+		return (cmd);
 	path_buf = alloc_path_buf(cmd->cmd);
 	found_exec = find_exec(path_buf, cmd->cmd);
 	if (!path_buf || !found_exec)

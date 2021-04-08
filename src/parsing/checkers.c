@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 14:37:25 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/03 15:26:07 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ char
 int
 	check_syntax(char **tokens)
 {
+	if (!tokens)
+	{
+		printf("error: TOKENS ARE NULL\n");
+		return (1);
+	}
+	if (!tokens[0])
+		return (1);
 	if (is_connective(*tokens))
 	{
 		psyntax_error(*tokens);

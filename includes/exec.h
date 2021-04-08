@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:54:21 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/02 22:03:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	exec_command(t_command *command);
 int		exec_command_list(t_list *commands);
 int		exec_abstract_pipeline(char *tokens);
 int		exec_command_line(char **tokens);
+int		exec_line(char *line);
 int		exec_builtin(char **av, char **envp);
 int		exec_from_ast(t_ast ast);
 int		is_builtin(char *command);
@@ -42,5 +43,6 @@ void	switch_stdout(void);
 void	pcmd_not_found(t_command *cmd);
 int	    is_shell_interactive(void);
 int     open_input(char	**input_path_ptr);
+char	**split_line(char *line);
 
 #endif
