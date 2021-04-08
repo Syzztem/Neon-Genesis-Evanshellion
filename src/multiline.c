@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 15:16:51 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/05 14:04:45 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int
 static int
 	verify_line(char *line)
 {
-	char *begin;
+	char		*begin;
+	unsigned	level;
 
 	begin = line;
 	while (*line)
@@ -47,9 +48,12 @@ static int
 				if (!*line)
 					return (0);
 		if (*line == '(' && (line == begin || *(line - 1) != '\\'))
+		{
+			level = 1;
 			while (*line == '\\' || *++line != ')')
 				if (!*line)
 					return (0);
+		}
 		++line;
 	}
 	if (line != begin && *(line - 1) == '\\')
