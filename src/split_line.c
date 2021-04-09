@@ -6,73 +6,56 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 15:43:03 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 10:34:59 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int
+	is_sep(char *str)
+{
+	uint8_t i;
+
+	i = 0;
+	while (g_seps[i])
+	{
+		if (ft_strbegin(str, g_seps[i]))
+			return (i);
+		++i;
+	}
+	return (-1);
+}
+
 static size_t
 	nblines(char *line)
 {
 	size_t	count;
-	uint8_t	i;
 
 	count = 1;
 	while (*line)
 	{
-		i = 0;
-		while (g_splitters[i])
-		{
-			if (ft_strbegin(line, g_splitters[i]))
-				count += 2;
-			++i;
-		}
+		if (is_sep(line) != -1)
+			count += 2;
 		++line;
 	}
 	return (count);
 }
 
 static size_t
-	skip_quotes(char *str)
-{
-	char	quote;
-	char	*ref;
-
-	ref = str;
-	quote = *ref++;
-	if (quote == '(')
-		quote = ')';
-	while (*ref && (*ref != quote || (*(ref - 1) == '\\' && quote != '\'')))
-		++ref;
-	if (*ref)
-		++ref;
-	return (ref - str);
-}
-
-static size_t
 	next_sep(char *line, char **sep)
 {
 	char	*ref;
-	uint8_t	i;
+	int		i;
 
 	ref = line;
 	while (*ref)
 	{
-		if ((*ref == '\'' || *ref == '\"' || *ref == '(')
-				&& (ref != line && *(ref - 1) != '\\'))
-			ref += skip_quotes(ref);
-		if (!*ref)
-			break ;
-		i = 0;
-		while (g_splitters[i])
+		i = is_sep(ref);
+		if (i != -1 && (ref == line || *(ref - 1) != '\\'))
 		{
-			if (ft_strbegin(ref, g_splitters[i]))
-			{
-				*sep = (char *)g_splitters[i];
-				return (ref - line);
-			}
-			++i;
+			*sep = (char *)g_seps[i];
+			return (ref - line);
 		}
 		if (ref)
 			++ref;

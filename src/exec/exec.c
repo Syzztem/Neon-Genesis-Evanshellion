@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 21:55:58 by root             ###   ########.fr       */
+/*   Updated: 2021/04/09 10:13:35 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,10 @@ int
 }
 
 int
-	exec_line(char *line)
+	exec_line(char **commands)
 {
-	char		**commands;
 	int			ret;
 
-	commands = split_line(line);
 	ret = exec_command_line(commands);
-	free_tokens(commands);
 	return (ret);
 }

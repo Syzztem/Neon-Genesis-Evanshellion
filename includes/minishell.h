@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 21:56:55 by root             ###   ########.fr       */
+/*   Updated: 2021/04/09 10:20:01 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@
 static const char	*g_seps[] = {"<<", ">>","<", ">", "|", ";",
 	"&&", "&", "||", "(", ")", NULL};
 
-static const char 	*g_splitters[] = {"&&", "||", ";", NULL};
-
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
 int				get_term_line(char **buffer);
 char			**tokenize(char *line);
 char			**split_line(char *line);
+char			*remove_quotes(char *line);
 int				complete_line(char **line);
 
 int				ft_igetenv(char *name);
@@ -72,5 +71,5 @@ int				handle_error(char *command, char *arg, char *errmsg);
 void			cap(char *tc);
 int				ft_isatty(int fd);
 int				is_shell_interactive(void);
-int				exec_line(char *line);
+int				exec_line(char **commands);
 #endif

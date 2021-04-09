@@ -6,13 +6,13 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/08 16:58:35 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:13:05 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define SQ_ESCAPES ";&|\"*<>()\\$"
-#define DQ_ESCAPES ";&|\'*<>()"
+#define SQ_ESCAPES " ;&|\"*<>()\\$"
+#define DQ_ESCAPES " ;&|\'*<>()"
 
 static size_t
 	size_escaped(char *line)
@@ -67,7 +67,8 @@ static size_t
 	return ((ref - line) + 1);
 }
 
-char *remove_quotes(char *line)
+char
+	*remove_quotes(char *line)
 {
 	char *out;
 	char *ref;

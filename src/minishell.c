@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/05 10:40:52 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:17:07 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int
 	minishell_non_interactive(void)
 {
 	char		*line;
-	char		**tokens;
+	char		*dequoted;
+//	char		**tokens;
 	char		**commands;
-	extern char	**environ;
 	int			ret;
 
 	if (!is_computer_on())
@@ -86,12 +86,17 @@ int
 			free(line);
 			continue ;
 		}
-		commands = split_line(line);
+		dequoted = remove_quotes(line);
+		puts(dequoted);
+		commands = split_line(dequoted);
 		print_argv(commands);
+		/*
 		tokens = tokenize(line);
 		exec_command_line(tokens);
 		free_tokens(tokens);
+		*/
 		free_tokens(commands);
+		free(dequoted);
 		free(line);
 	}
 	free(line);
@@ -103,20 +108,31 @@ int
 	minishell(void)
 {
 	char		*line;
-	extern char	**environ;
+	char		*dequote;
+	char		**commands;
 
 	if (!is_computer_on())
 	{
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-
 	signal(SIGINT, (void *)blank);
 	while ((prompt_shell(&line)))
 	{
 		if (!complete_line(&line))
 			continue ;
-		exec_line(line);
+		dequote = remove_quotes(line);
+		commands = split_line(dequote);
+		print_argv(commands);
+
+		//working single command tokenizer
+		char **tokens = tokenize(*commands);
+		puts("tokens");
+		print_argv(tokens);
+
+//		exec_line(commands);
+		free_tokens(commands);
+		free(dequote);
 		free(line);
 	}
 	return (g_exit_status);
