@@ -6,12 +6,11 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:23:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 11:25:33 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 12:33:18 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define ENV_ALLOC_SIZE 5
 #include <stdlib.h>
 #include <stdio.h>
 

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 11:17:07 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 14:20:39 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ int
 		print_argv(commands);
 
 		//working single command tokenizer
-		char **tokens = tokenize(*commands);
+		char *command = perform_expansions(*commands);
+		puts(command);
+		char **tokens = tokenize(command);
+		free(command);
 		puts("tokens");
 		print_argv(tokens);
 

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 14:48:31 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 14:24:37 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ typedef	size_t	(*t_method)(char *token, char *line);
 
 t_token			*expand_wildcard(char *expr);
 char			*parse_variables(char *line);
-size_t			add_token(char *token, t_token **list, char *line);
-size_t			spaces(char *token, char **line);
-size_t			squotes(char *token, char **line);
-size_t			dquotes(char *token, char **line);
-size_t			seps(char *token, char **line);
+void			free_list(t_token *list);
+char			*list_to_pure_string(t_token *list);
+void			print_list(t_token *list);
 
 #endif
