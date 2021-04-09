@@ -6,13 +6,13 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 11:13:05 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:32:31 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define SQ_ESCAPES " ;&|\"*<>()\\$"
-#define DQ_ESCAPES " ;&|\'*<>()"
+#define SQ_ESCAPES " \t\n\v\f\r;&|\"*<>()\\$"
+#define DQ_ESCAPES " \t\n\v\f\r;&|\'*<>()"
 
 static size_t
 	size_escaped(char *line)

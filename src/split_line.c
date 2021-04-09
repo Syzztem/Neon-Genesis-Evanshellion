@@ -6,11 +6,13 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 10:34:59 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:36:57 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define  ESCAPES ";&|\"*<>()\\$"
+
 
 static int
 	is_sep(char *str)
@@ -64,6 +66,24 @@ static size_t
 	return (ref - line);
 }
 
+static void
+	clean_backslashes(char **commands)
+{
+	char	*line;
+
+	while (*commands)
+	{
+		line = *commands;
+		while (*line)
+		{
+			if (*line == '\\' && ft_indexof(ESCAPES, *line) != -1)
+				ft_memmove(line, line + 1, ft_strlen(line) + 1);
+			++line;
+		}
+		++commands;
+	}
+}
+
 char **split_line(char *line)
 {
 	char	**out;
@@ -86,5 +106,6 @@ char **split_line(char *line)
 		line += ft_strlen(sep);
 	}
 	out[i] = NULL;
+	clean_backslashes(out);
 	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 10:20:01 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:35:29 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "libft.h"
 # include "global.h"
 # define PROMPT "EVA-04$ "
-
 
 static const char	*g_seps[] = {"<<", ">>","<", ">", "|", ";",
 	"&&", "&", "||", "(", ")", NULL};
