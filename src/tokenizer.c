@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 11:12:16 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/12 11:17:25 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char
 	{
 		command += next_token(command);
 		next = next_space(command);
+		if (!next)
+			continue ;
 		out[i] = ft_strndup(command, next);
 		command += next;
 		++i;

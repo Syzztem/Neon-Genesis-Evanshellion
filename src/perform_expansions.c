@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 14:53:51 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/12 11:12:47 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ static size_t
 	env = ft_lgetenv(++ref);
 	if (env)
 		ft_lstadd_back((t_list **)&list, ft_strdup(env));
+	else if (*ref == '?')
+	{
+		ft_lstadd_back((t_list **)&list, ft_itoa(g_exit_status));
+		return (2);
+	}
 	while (ft_isalnum(*ref) || *ref == '_')
 		++ref;
 	return (ref - command);
