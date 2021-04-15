@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/12 11:12:47 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:10:58 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static size_t
 static size_t
 	add_wildcard(char *command, size_t len, t_token *list)
 {
-	ft_lstmerge((t_list **)&list,(t_list *)
+	ft_lstmerge((t_list **)&list, (t_list *)
 			expand_wildcard(ft_strndup(command, len)));
 	return (len);
 }

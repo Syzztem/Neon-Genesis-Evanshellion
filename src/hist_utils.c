@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:00:33 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:24:41 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #define TEMP_HIST_FILE "/tmp/msh_hist_tmp"
 #define TRANSFER_BUFF_SIZE 1024
 
-void	set_line(t_line *line)
+void
+	set_line(t_line *line)
 {
 	go_home(line);
 	cap("ce");
@@ -22,7 +23,8 @@ void	set_line(t_line *line)
 	go_end(line);
 }
 
-t_line	*create_line(t_line *buf, t_line *origin)
+t_line
+	*create_line(t_line *buf, t_line *origin)
 {
 	buf->r_cur_pos = ft_strlen(buf->line);
 	buf->len = buf->r_cur_pos;
@@ -33,7 +35,8 @@ t_line	*create_line(t_line *buf, t_line *origin)
 	return (buf);
 }
 
-void	clear_unused_lines(t_line *hist, char *to_keep, size_t size)
+void
+	clear_unused_lines(t_line *hist, char *to_keep, size_t size)
 {
 	while (size-- > 0)
 		if (hist[size].line != to_keep)
@@ -55,7 +58,8 @@ static void
 	}
 }
 
-void	add_to_hist(char *cmd)
+void
+	add_to_hist(char *cmd)
 {
 	int		hist_fd;
 	int		tmp_fd;

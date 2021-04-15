@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 10:36:17 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 10:42:45 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:08:42 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static size_t
 }
 
 static void
-	  sub_envs(char *dst, char *src)
+	sub_envs(char *dst, char *src)
 {
 	while (*src)
 	{

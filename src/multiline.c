@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 13:26:15 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:23:30 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,30 @@ static int
 	return (ret);
 }
 
+static size_t
+	handle_parenthesis(char **line)
+{
+	char		*ref;
+	unsigned	level;
+
+	ref = *line;
+	level = 1;
+	while (*++ref && level)
+	{
+		if (*ref == '(' && *(ref - 1) != '\\')
+			++level;
+		if (*ref == ')' && *(ref - 1) != '\\')
+			--level;
+	}
+	if (level)
+		return (0);
+	return (1);
+}
+
 static int
 	verify_line(char *line)
 {
 	char		*begin;
-	unsigned	level;
 
 	begin = line;
 	while (*line)
@@ -47,13 +66,9 @@ static int
 			while (*++line != '\"' || *(line - 1) == '\\')
 				if (!*line)
 					return (0);
-		if (*line == '(' && (line == begin || *(line - 1) != '\\'))
-		{
-			level = 1;
-			while (*++line != ')' || *(line - 1) == '\\')
-				if (!*line)
-					return (0);
-		}
+		if (*line == '(' && (line == begin || *(line - 1) != '\\')
+				&& !handle_parenthesis(&line))
+			return (0);
 		++line;
 	}
 	if (line != begin && *(line - 1) == '\\')
@@ -81,4 +96,3 @@ int
 	}
 	return (1);
 }
-

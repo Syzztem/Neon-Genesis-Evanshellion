@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:41:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 14:46:19 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:25:14 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static size_t
 	return (0);
 }
 
-static char *
-	copy_and_epurate(char *dst, char *src)
+static char
+	*copy_and_epurate(char *dst, char *src)
 {
 	while (*src)
 	{
