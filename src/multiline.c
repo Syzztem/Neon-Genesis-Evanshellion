@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/05 14:04:45 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 13:26:15 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static int
 				if (!*line)
 					return (0);
 		if (*line == '\"' && (line == begin || *(line - 1) != '\\'))
-			while (*line == '\\' || *++line != '\"')
+			while (*++line != '\"' || *(line - 1) == '\\')
 				if (!*line)
 					return (0);
 		if (*line == '(' && (line == begin || *(line - 1) != '\\'))
 		{
 			level = 1;
-			while (*line == '\\' || *++line != ')')
+			while (*++line != ')' || *(line - 1) == '\\')
 				if (!*line)
 					return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 11:32:31 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 13:46:02 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t
 	len = ft_strlen(line);
 	while (*line)
 	{
-		if (ft_indexof(SQ_ESCAPES, *line) != -1)
+		if (ft_indexof(SQ_ESCAPES, *line) != -1 || *line == '\'')
 			++len;
 		++line;
 	}
@@ -59,7 +59,7 @@ static size_t
 	outref = *out;
 	while (*ref != '\"' || *(ref - 1) == '\\')
 	{
-		if (ft_indexof(DQ_ESCAPES, *outref) != -1)
+		if (ft_indexof(DQ_ESCAPES, *ref) != -1)
 			*outref++ = '\\';
 		*outref++ = *ref++;
 	}
@@ -70,18 +70,21 @@ static size_t
 char
 	*remove_quotes(char *line)
 {
-	char *out;
-	char *ref;
+	char	*out;
+	char	*ref;
+	char	*lref;
 
-	out = malloc(sizeof(char) * (size_escaped(line) + 1));
+	out = malloc(sizeof(char) * (size_escaped(line) * 2 + 1));
 	ref = out;
+	lref = line;
 	while (*line)
 	{
-		if (*line == '\'' && line != out && *(line - 1) != '\\')
+		if (*line == '\'' || (line != lref && *(line - 1) == '\\'))
 			line += escape_sq(line, &ref);
-		if (*line == '\"' && line != out && *(line - 1) != '\\')
+		if (*line == '\"' || (line != lref && *(line - 1) == '\\'))
 			line += escape_dq(line, &ref);
-		*ref++ = *line++;
+		if (*line)
+			*ref++ = *line++;
 	}
 	*ref = 0;
 	return (out);

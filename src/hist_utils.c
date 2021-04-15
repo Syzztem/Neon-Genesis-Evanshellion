@@ -6,12 +6,13 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/02 15:49:16 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 13:15:01 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 #define TEMP_HIST_FILE "/tmp/msh_hist_tmp"
+#define TRANSFER_BUFF_SIZE 1024
 
 void	set_line(t_line *line)
 {
@@ -40,15 +41,43 @@ void	clear_unused_lines(t_line *hist, char *to_keep, size_t size)
 	free(hist);
 }
 
+static void
+	transfer_file(int fd1, int fd2)
+{
+	char	buf[TRANSFER_BUFF_SIZE];
+	int		ret;
+
+	ret = 1;
+	while (ret)
+	{
+		ret = read(fd2, buf, TRANSFER_BUFF_SIZE);
+		write(fd1, buf, ret);
+	}
+}
+
 void	add_to_hist(char *cmd)
 {
-	int		fd;
+	int		hist_fd;
+	int		tmp_fd;
 	char	*path;
 
 	path = ft_getenv(HIST_ENV);
 	if (!path)
 		path = DEFAULT_HIST_FILE;
-	fd = open(path, O_CREAT | O_RDONLY, S_IRUSR | S_IWUSR);
-	ft_putendl_fd(cmd, fd);
-	close(fd);
+	hist_fd = open(path, O_CREAT | O_RDWR, 0x1ff);
+	tmp_fd = open(TEMP_HIST_FILE, O_RDWR | O_CREAT, 0x1ff);
+	if (tmp_fd == -1)
+	{
+		perror("minishell");
+		return ;
+	}
+	ft_putendl_fd(cmd, tmp_fd);
+	transfer_file(tmp_fd, hist_fd);
+	close(hist_fd);
+	close(tmp_fd);
+	hist_fd = open(path, O_WRONLY, S_IRUSR | S_IWUSR);
+	tmp_fd = open(TEMP_HIST_FILE, O_RDONLY | O_CREAT, S_IRUSR, S_IWUSR);
+	transfer_file(hist_fd, tmp_fd);
+	close(hist_fd);
+	close(tmp_fd);
 }

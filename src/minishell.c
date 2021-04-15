@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 14:20:39 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/15 13:21:20 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,19 +119,20 @@ int
 	signal(SIGINT, (void *)blank);
 	while ((prompt_shell(&line)))
 	{
-		if (!complete_line(&line))
+		if (!*line || !complete_line(&line))
+		{
+			free(line);
 			continue ;
+		}
 		dequote = remove_quotes(line);
 		commands = split_line(dequote);
 		print_argv(commands);
 
 		//working single command tokenizer
 		char *command = perform_expansions(*commands);
-		puts(command);
 		char **tokens = tokenize(command);
 		free(command);
-		puts("tokens");
-		print_argv(tokens);
+		free_tokens(tokens);
 
 //		exec_line(commands);
 		free_tokens(commands);
