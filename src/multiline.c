@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/16 14:33:59 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/16 15:51:35 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ int
 		if (code == -1 || !prompt_shell(&buf))
 		{
 			if (code == -1)
-				ft_putendl_fd("minishell: syntax error near unexpected token `)'", 2);
+				ft_putendl_fd(
+					"minishell: syntax error near unexpected token `)'", 2);
+			else
+				ft_putendl_fd("minishell: unexpected EOF", 2);
+
 			return (0);
 		}
 		new = ft_strjoin(*line, buf);
