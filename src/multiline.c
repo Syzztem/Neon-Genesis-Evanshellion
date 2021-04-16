@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:23:30 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/16 14:33:59 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static size_t
 		if (*ref == ')' && *(ref - 1) != '\\')
 			--level;
 	}
+	*line = ref;
 	if (level)
 		return (0);
 	return (1);
@@ -69,6 +70,8 @@ static int
 		if (*line == '(' && (line == begin || *(line - 1) != '\\')
 				&& !handle_parenthesis(&line))
 			return (0);
+		if (*line == ')')
+			return (-1);
 		++line;
 	}
 	if (line != begin && *(line - 1) == '\\')
@@ -79,14 +82,17 @@ static int
 int
 	complete_line(char **line)
 {
-	char *buf;
-	char *new;
+	char	*buf;
+	char	*new;
+	int		code;
 
-	while (!verify_line(*line))
+	code = verify_line(*line);
+	while (!code || code == -1)
 	{
-		if (!prompt_shell(&buf))
+		if (code == -1 || !prompt_shell(&buf))
 		{
-			free(*line);
+			if (code == -1)
+				ft_putendl_fd("minishell: syntax error near unexpected token `)'", 2);
 			return (0);
 		}
 		new = ft_strjoin(*line, buf);
