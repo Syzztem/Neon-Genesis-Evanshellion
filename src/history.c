@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:00:58 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:35:19 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void
 	if (!hist_file_path)
 		hist_file_path = DEFAULT_HIST_FILE;
 	fd = open(hist_file_path, O_RDONLY);
+	if (fd == -1)
+		return ;
 	loop_hist(line, fd, hist_lines, line_count);
 	close(fd);
 }

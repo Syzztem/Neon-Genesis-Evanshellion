@@ -6,7 +6,7 @@
 /*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:24:41 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:52:47 by lothieve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,13 @@ void
 	int		tmp_fd;
 	char	*path;
 
+	if (!*cmd)
+		return ;
 	path = ft_getenv(HIST_ENV);
 	if (!path)
 		path = DEFAULT_HIST_FILE;
 	hist_fd = open(path, O_CREAT | O_RDWR, 0x1ff);
 	tmp_fd = open(TEMP_HIST_FILE, O_RDWR | O_CREAT, 0x1ff);
-	if (tmp_fd == -1)
-	{
-		perror("minishell");
-		return ;
-	}
 	ft_putendl_fd(cmd, tmp_fd);
 	transfer_file(tmp_fd, hist_fd);
 	close(hist_fd);
