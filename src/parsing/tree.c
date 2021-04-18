@@ -6,21 +6,24 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 11:30:55 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:59:56 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 t_ast_node
-	*node_from_line(char *abstract_pipeline, char *sep)
+	*node_from_line(char **tokens)
 {
 	t_ast_node	*node;
+	char		**sep;
 
 	node = ft_calloc(1, sizeof(t_ast_node));
-	node->abstract_pipeline = ft_strdup(abstract_pipeline);
-	if (sep)
-		node->sep = ft_strdup(sep);
+	sep = find_token_in_tokens(tokens, pipeline_separators());
+	node->abstract_pipeline = dup_n_tab(tokens, sep - tokens);
+	node->pipeline = parse_pipeline(node->abstract_pipeline);
+	if (sep && *sep)
+		node->sep = ft_strdup(*sep);
 	return (node);
 }
 
@@ -38,8 +41,8 @@ t_ast_node
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	node = node_from_line(current[0], current[1]);
-	current++;
+	node = node_from_line(current);
+	current = find_token_in_tokens(current, pipeline_separators());
 	if (*current)
 		current++;
 	return (node);

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:31:17 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:46:48 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 #include "minishell.h"
 
 t_pipeline
-	parse_pipeline(char *pipeline)
+	parse_pipeline(char **pipeline)
 {
 	t_command	*command;
 	t_list		*lst;
 	char		**tokens;
 
 	lst = NULL;
-	tokens = tokenize(pipeline);
+	tokens = pipeline;
+	//tokens = tokenize(pipeline);
 	while ((command = get_next_command(tokens)))
 		ft_lstadd_back(&lst, command);
 	get_next_command(NULL);

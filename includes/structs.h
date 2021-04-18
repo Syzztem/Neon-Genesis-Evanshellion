@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:48:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 11:29:29 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:42:22 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ typedef t_list * t_ast;
 
 typedef struct	s_ast_node
 {
-	char	*abstract_pipeline;
-	char	*sep;
+	char		**abstract_pipeline;
+	t_pipeline	pipeline;
+	char		*sep;
 }				t_ast_node;
 
 typedef struct	s_command

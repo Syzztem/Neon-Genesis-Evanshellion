@@ -6,11 +6,12 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/03 17:51:10 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/18 18:16:14 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "tokenizer.h"
 
 /*
 void
@@ -47,12 +48,25 @@ int
 }
 
 void
+	expand_command(t_command *command)
+{
+	char	**tokenized;
+
+	tokenized = tokenize(command->cmd);
+	command->argv = tokenized;
+	command->cmd = get_command_path(tokenized[0]);
+	return ;
+}
+
+void
 	exec_command(t_command *command)
 {
 	extern char		**environ;
 
+	expand_command(command);
 	redirect_command(command);
-	if (!strcmp(command->cmd, ESCAPE))
+	//if (!strcmp(command->cmd, ESCAPE))
+	if(!command->cmd)
 		exit(0);
 	if (is_cmd_parenthesis(command))
 		exit(exec_parenthesis(command));

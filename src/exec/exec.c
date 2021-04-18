@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/09 10:13:35 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/18 18:22:24 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int
 	{
 		node = current->content;
 		if (check_pipeline_run(sep, ret))
-			exec_abstract_pipeline(node->abstract_pipeline);
+			exec_pipeline(node->pipeline);
 		ret = g_exit_status;
 		sep = node->sep;
 		current = current->next;
@@ -44,6 +44,8 @@ int
 	if (check_syntax(tokens))
 		return (1);
 	ast = parse_ast(tokens);
+	print_ast(ast);
+	//return 0;
 	if (check_ast(ast))
 	{
 		free_ast(ast);

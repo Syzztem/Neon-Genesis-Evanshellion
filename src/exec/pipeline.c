@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:31:56 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/18 18:20:04 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void
 }
 
 int
-	exec_pipeline(t_pipeline pipeline)
+	do_exec_pipeline(t_pipeline pipeline)
 {
 	pid_t	pid;
 	int		status;
 
 	pipe_nodes(pipeline);
-	print_pipeline(pipeline);
+	//print_pipeline(pipeline);
 	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
 	wait_pipeline(pipeline);
@@ -46,6 +46,7 @@ int
 	return (0);
 }
 
+/*
 int
 	exec_abstract_pipeline(char *tokens)
 {
@@ -67,6 +68,43 @@ int
 	}
 	else
 		exec_pipeline(pipeline);
+	free_pipeline(&pipeline);
+	return (g_exit_status);
+}
+*/
+
+
+int
+	exec_pipeline(t_pipeline pipeline)
+{
+	extern	char	**environ;
+//	t_redirector	rdr;
+	pid_t			pid;
+	int				status;
+
+	if (check_pipeline(pipeline))
+	{
+		printf("pipeline err\n");
+		exit(1);
+	}
+	/*if (is_single_builtin(pipeline))
+	{
+		do_redirector(&rdr, ((t_command *)pipeline->content)->redirections);
+		exec_builtin(((t_command *)pipeline->content)->argv, environ);
+		restore_streams(&rdr);
+	}
+	else*/
+	//	do_exec_pipeline(pipeline);
+
+
+
+	pipe_nodes(pipeline);
+	//print_pipeline(pipeline);
+	pid = exec_command_list(pipeline);
+	waitpid(pid, &status, 0);
+	wait_pipeline(pipeline);
+	if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
 	free_pipeline(&pipeline);
 	return (g_exit_status);
 }
