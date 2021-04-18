@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/18 15:34:01 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/18 15:46:26 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static size_t
 	ref = command;
 	env = ft_lgetenv(++ref);
 	if (env)
-		ft_lstadd_back(list, ft_strdup(env));
+		ft_lstadd_back((t_list **)list, ft_strdup(env));
 	else if (*ref == '?')
 	{
-		ft_lstadd_back(list, ft_itoa(g_exit_status));
+		ft_lstadd_back((t_list **)list, ft_itoa(g_exit_status));
 		return (2);
 	}
 	while (ft_isalnum(*ref) || *ref == '_')
@@ -66,7 +66,7 @@ static size_t
 static size_t
 	add_wildcard(char *command, size_t len, t_token **list)
 {
-	ft_lstmerge(list, (t_list *)
+	ft_lstmerge((t_list **)list, (t_list *)
 			expand_wildcard(ft_strndup(command, len)));
 	return (len);
 }
