@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/09 10:19:18 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/20 21:29:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/wait.h>
 
 int     minishell(void);
+int		exec_pipeline(t_pipeline pipeline);
 void	exec_command(t_command *command);
 int		exec_command_list(t_list *commands);
 int		exec_abstract_pipeline(char *tokens);

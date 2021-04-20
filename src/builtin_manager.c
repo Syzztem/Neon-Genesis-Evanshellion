@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:42:39 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/25 22:01:54 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 00:27:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const char *g_builtin_list[BUILTIN_COUNT + 1] = {
 	"pwd",
 	"unset",
 	"export",
-	"\x1b(",
+	"(",
 	NULL
 };
 

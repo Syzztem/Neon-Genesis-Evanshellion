@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/18 17:14:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/20 21:17:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int
 			free(line);
 			continue ;
 		}
-		dequote = remove_quotes(line);
+		dequote = line;//remove_quotes(line);
 		commands = split_line(dequote);
 		print_argv(commands);
 		exec_command_line(commands);
