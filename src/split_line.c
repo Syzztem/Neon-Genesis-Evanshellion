@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:11:34 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 01:06:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ char
 		line += ft_strlen(sep);
 	}
 	out[i] = NULL;
-	clean_backslashes(out);
+//	clean_backslashes(out);
 	return (out);
 }

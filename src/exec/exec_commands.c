@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 00:24:54 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 01:08:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void
 	current = splitted;
 	while (*current)
 	{
+		printf("current: %s\n", *current);
 		dequoted = remove_quotes(*current);
 		vector_append(new, &dequoted, 1);
 		current++;
@@ -95,7 +96,7 @@ char
 		current = str;
 	}
 	skip = 0;
-	while (ft_isspace(*current))
+	while (ft_isspace(*current) || (*current == '\\' && ft_isspace(current[1])))
 		current++;
 	if (!*current)
 		return (NULL);
@@ -108,8 +109,7 @@ char
 			skip = 0;
 			if (*current == 0)
 				return (NULL);
-			if (*current == '\\' && current[1] == *begin)
-				skip = 1;
+			skip = (*current == '\\' && current[1] == *begin);
 			current++;
 		}
 		current++;
@@ -118,8 +118,7 @@ char
 	begin = current;
 	while (*current && (skip || !ft_strchr("\"' ", *current)))
 	{
-		if (*current == '\\' && ft_strchr("\"' ", current[1]))
-			skip = 1;
+		skip = (*current == '\\' && ft_strchr("\"' ", current[1]));
 		current++;
 	}
 	return (ft_strndup(begin, current - begin));
@@ -159,7 +158,6 @@ void
 		if (is_redirect(*current))
 		{
 			printf("string: %s\ntokenized: ", current[1]);
-			//tokenized = tokenize(current[1]);
 			tokenized = split_quotes(current[1]);
 			print_argv(tokenized);
 			printf("\n");
