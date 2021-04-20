@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/18 18:14:08 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 01:22:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_command
 	t_command	*cmd;
 
 	cmd = init_command_from_tokens(tokens, sep);
-	if (cmd)
-		cmd->cmd = get_command_path(cmd->cmd);
+	/*if (cmd)
+		cmd->cmd = get_command_path(cmd->cmd);*/
 	return (cmd);
 }
 
@@ -95,6 +95,7 @@ t_command
 	end = get_command_len(current);
 	extracted = dup_n_tab(current, end);
 	command = command_from_tokens(extracted, *find_sep(current));
+	free_tokens(extracted);
 	if (len_ptr)
 		*len_ptr = end;
 	return (command);
