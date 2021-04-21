@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 07:10:56 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:40:10 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ char
 	char	*out;
 	char	*quote;
 
+	if (!command)
+		return (NULL);
 	ref = command;
 	list = NULL;
 	quote = "\0";

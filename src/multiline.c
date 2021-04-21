@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 08:55:57 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 14:27:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int
 				if (!*line)
 					return (0);
 		if (*line == '\"' && (line == begin || *(line - 1) != '\\'))
-			while (*++line != '\"' || *(line - 1) == '\\')
+			while (*++line != '\"' || (*(line - 1) == '\\' && (line - begin < 2 || line[-2] != '\\')))
 				if (!*line)
 					return (0);
 		if (*line == '(' && (line == begin || *(line - 1) != '\\')

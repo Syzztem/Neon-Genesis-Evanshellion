@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 11:05:06 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:43:56 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void
 	{
 		if (!*quote && ft_strchr("\"'", *line))
 			quote = line;
-		if (!*quote && line[0] == '\\')
+		if ((!*quote || *quote == '"') && line[0] == '\\')
 		{
 			if (line[1] == '\\')
 			{
-				ft_memmove(line, line + 1, ft_strlen(line) + 1);
+				ft_memmove(line, line + 1, ft_strlen(line));
 				++line;
 			}
-			else if (!ft_strchr("\"'", line[1]))
+			else if (!*quote && !ft_strchr("\"'", line[1]))
 				ft_memmove(line, line + 1, ft_strlen(line));
 		}
 		++line;
@@ -103,10 +103,11 @@ void
 	char	*dequoted;
 	char	**splitted;
 
-//	printf("argv: %s\n", argv);
+	//printf("argv: %s\n", argv);
 	expanded = perform_expansions(argv);
-//	printf("expanded: %s\n", expanded);
+	//printf("expanded: %s\n", expanded);
 	splitted = split_quotes(expanded);
+//	print_argv(splitted);
 	clean_argv_backslashes(splitted);
 //	print_argv(splitted);
 	free(expanded);
@@ -114,7 +115,9 @@ void
 //	print_argv(splitted);
 	while (*current)
 	{
+		//printf("current: %s\n", *current);
 		dequoted = remove_quotes(*current);
+		//printf("dequoted: %s\n", dequoted);
 		//clear_one_backslash(dequoted);
 		vector_append(new, &dequoted, 1);
 		free(*current);
@@ -162,7 +165,6 @@ char
 	{
 		if (ft_strchr("\"'", *current))
 		{
-	//		printf("curr: %s\n", current);
 			quote = current;
 			current++;
 			while (*current != *quote || skip)
@@ -170,9 +172,14 @@ char
 				skip = 0;
 				if (*current == 0)
 					return (NULL);
-				skip = (*quote != '\'' && *current == '\\'
-						&& current[1] == *quote);
-				current++;
+				if (current[0] == '\\' && current[1] == '\\')
+					current += 2;
+				else
+				{
+					skip = (*quote != '\'' && *current == '\\'
+							&& current[1] == *quote);
+					current++;				
+				}
 			}
 			current++;
 		}
@@ -221,8 +228,10 @@ void
 	{
 		if (is_redirect(*current))
 		{
-			tokenized = split_quotes(current[1]);;
+			tokenized = split_quotes(current[1]);
 			extract_redir_tokens(tokenized + 1, argv_vect);
+			if (!tokenized[0])
+				break ;
 			expanded = perform_expansions(tokenized[0]);
 			dequoted = remove_quotes(expanded);
 			free(expanded);

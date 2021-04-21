@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 10:34:34 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:41:15 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,19 @@ static size_t
 	outref = *out;
 	while (*ref != '\"' || *(ref - 1) == '\\')
 	{
-		/*if (!*ref)
+		if (!*ref)
 		{
-			ft_putendl_fd("minishell: missing matching \"", 2);
-			exit(1);
-		}*/
-		//if (ft_indexof(DQ_ESCAPES, *ref) != -1)
-		//	*outref++ = '\\';
-		*outref++ = *ref++;
+			ref[-1] = 0;
+			ft_strcpy(*out, line + 1);
+		//	printf("out: %s\n", *out);
+			*out = ft_strchr(*out, 0);
+			return (ref - line + 1);
+		}
+		ref++;
 	}
+	ref = line + 1;
+	while (*ref != '\"' || *(ref - 1) == '\\')
+		*outref++ = *ref++;
 	*out = outref;
 	return ((ref - line) + 1);
 }
@@ -91,11 +95,14 @@ char
 	lref = line;
 	while (*line)
 	{
-	//	printf("line: %s | out: %s\n", line, out);
 		if (*line == '\'' && (line == lref || *(line - 1) != '\\'))
 			line += escape_sq(line, &ref);
 		else if (*line == '\"' && (line == lref || *(line - 1) != '\\'))
+		{
 			line += escape_dq(line, &ref);
+			//printf("outttt: %s\n", out);
+		//	printf("line: %s\n", line);
+		}
 		else if (*line)
 			*ref++ = *line++;
 	}

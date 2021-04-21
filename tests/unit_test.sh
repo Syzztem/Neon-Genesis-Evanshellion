@@ -234,6 +234,9 @@ unit_quotes()
 	cmp_shell "/bin/echo \"''''''''''''''''\""
 	cmp_shell "/bin/echo \'hello world\'"
 	cmp_shell '/bin/echo "" "" "" "" " "'
+	cmp_shell '/bin/echo "\\"'
+	cmp_shell '/bin/echo "    \\"'
+#	cmp_shell "/bin/echo '\''"
 }
 
 unit_argv_zero()
@@ -353,7 +356,7 @@ main()
 			VERBOSE="on";
 		fi
 		if [ "$arg" = 'unit_all' ];then
-			ALL_ARGS="unit_multiline unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_argv_zero unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
+			ALL_ARGS="unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_argv_zero unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
 		fi
 	done
 

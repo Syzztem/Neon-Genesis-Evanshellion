@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 07:11:47 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 16:59:03 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int
 
 	if (check_pipeline(pipeline))
 	{
-		printf("pipeline error\n");
-		exit(1);
+		//printf("pipeline error\n");
+		return (1);
 	}
 	if (is_single_builtin(pipeline))
 		return (exec_single_builtin(pipeline->content));
