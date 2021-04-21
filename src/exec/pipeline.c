@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/18 18:20:04 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 02:14:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int
 	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
-	free_pipeline(&pipeline);
 	return (g_exit_status);
 }
 
