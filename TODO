@@ -1,0 +1,2 @@
+shell waits for more input when we only type \\
+heap buffer overflow when erasing a character (try with -fsanitize=address)

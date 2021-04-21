@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 03:33:13 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 03:53:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ int
 	extern	char	**environ;
 	t_redirector	rdr;
 
-	//expand_command(cmd);
+	dup2_check(cmd->fd_input, 0);
+	dup2_check(cmd->fd_output, 1);
+	do_redirector(&rdr, cmd->redirections);
 	exec_builtin(cmd->argv, environ);
 	restore_streams(&rdr);
 	g_exit_status = 0;

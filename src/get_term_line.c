@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/03 16:02:38 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 03:48:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+#include <string.h>
+#include <errno.h>
 
 static const t_cap	g_caps[CAP_COUNT] = {
 	move_left,
@@ -105,6 +107,11 @@ static void
 	line->max_len = BUFF_SIZE;
 	write(0, CURSOR_QUERY, 4);
 	rd = read(1, cursor_pos, 16);
+	if (rd < 0)
+	{
+		perror(strerror(errno));
+		exit(errno);
+	}
 	cursor_pos[rd] = '\0';
 	i = 2;
 	line->cursor_pos.y = ft_atoi(cursor_pos + i);
