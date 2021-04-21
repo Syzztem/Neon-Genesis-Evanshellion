@@ -8,11 +8,6 @@ hello
 world
 "
 
-shell's acts like there is an unfinished double quote when there's a pipe at end of line
-try: echo |
-You can just return me {"echo", "|", NULL}, i should already handle the syntax error
-Same for && or || at end of line.
-
 single quotes multiline prompt is dquote>, it should be quote>
 unfinished \ multiline prompt is also dquote>, bash --posix only prints >
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/16 15:51:35 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 07:34:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ static size_t
 		return (0);
 	return (1);
 }
+
+/*
+** 
+*/
 
 static int
 	verify_line(char *line)
@@ -99,10 +103,14 @@ int
 
 			return (0);
 		}
+		new = ft_strjoin(*line, "\n");
+		free(*line);
+		*line = new;
 		new = ft_strjoin(*line, buf);
 		free(*line);
 		free(buf);
 		*line = new;
+		code = verify_line(*line);
 	}
 	return (1);
 }
