@@ -6,12 +6,12 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 07:34:13 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 07:37:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define ML_PROMPT "dquote>"
+#define ML_PROMPT "> "
 
 static int
 	prompt_shell(char **line)
