@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 04:28:39 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 05:53:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void
 	command->argv = v->bytes;
 	clean_backslashes(command->argv);
 	command->cmd = get_command_path(command->argv[0]);
-	//print_command(command);
+	print_command(command);
 	free(v);
 	return ;
 }

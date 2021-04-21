@@ -16,4 +16,4 @@ Same for && or || at end of line.
 single quotes multiline prompt is dquote>, it should be quote>
 unfinished \ multiline prompt is also dquote>, bash --posix only prints >
 
-
+CTRL-C can't delete the current line, i'll need a function that erases the current line to handle that

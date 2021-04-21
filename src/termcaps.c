@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/16 10:58:23 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 05:44:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,25 @@ void	insert_char(t_line *line, char c)
 	cap("ei");
 }
 
+/*
+** void
+** print_line(t_line *line)
+** {
+** printf("line: %s\n", line->line);
+** printf("r_cur_pos: %zu\n", line->r_cur_pos);
+** printf("len: %zu\n", line->len);
+** printf("start_row: %zu\n", line->start_row);
+** printf("max_len: %zu\n", line->max_len);
+** printf("cursor_pos: .x=%zu .y=%zu\n", line->cursor_pos.x, line->cursor_pos.y);
+** }
+*/
+
 void	delete_char(t_line *line)
 {
 	if (line->r_cur_pos == 0)
 		return ;
 	ft_memmove(line->line + line->r_cur_pos - 1, line->line + line->r_cur_pos,
-			(line->max_len - line->r_cur_pos + 1));
+			(line->max_len - line->r_cur_pos));
 	line->r_cur_pos--;
 	line->len--;
 	line->cursor_pos.x--;
