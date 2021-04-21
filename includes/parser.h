@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 07:09:50 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 10:26:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int				check_pipeline(t_pipeline pipeline);
 int				check_command(t_command *cmd);
 int				check_ast(t_ast ast);
 int				check_syntax(char **tokens);
+void			clear_one_backslash(char *command);
 
 #endif

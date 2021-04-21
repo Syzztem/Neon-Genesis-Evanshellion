@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 07:54:25 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 08:55:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ static int
 			return (-1);
 		++line;
 	}
-	if (line != begin && *(line - 1) == '\\')
+	if (line != begin && *(line - 1) == '\\'
+	&& (line - 2 < begin || line[-2] != '\\'))
 		return (0);
 	return (1);
 }

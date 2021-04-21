@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 07:13:41 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 10:44:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,53 @@ void
 }
 */
 
+void
+	clear_one_backslash(char *command)
+{
+	char	*line;
+	char	*quote;
+
+	line = command;
+	quote = "\0";
+	while (*line)
+	{
+		if (!*quote && ft_strchr("\"'", *line))
+			quote = line;
+		if (!*quote && line[0] == '\\')
+		{
+			if (line[1] == '\\')
+			{
+				ft_memmove(line, line + 1, ft_strlen(line) + 1);
+				++line;
+			}
+			else if (!ft_strchr("\"'", line[1]))
+				ft_memmove(line, line + 1, ft_strlen(line));
+		}
+		++line;
+		if (*line == *quote)
+			quote = "\0";
+	}
+}
+
+void
+	clear_escaped_quotes(char *command)
+{
+	char	*line;
+
+	line = command;
+	while (*line)
+	{
+		if (line[0] == '\\' && line[1] && ft_strchr("\"'", line[1]))
+			ft_memmove(line, line + 1, ft_strlen(line));
+		++line;
+	}
+}
+void
+	clean_argv_backslashes(char **commands)
+{
+	iter_argv(commands, (void *)clear_one_backslash);
+}
+
 int
 	exec_parenthesis(t_command *cmd)
 {
@@ -56,13 +103,19 @@ void
 	char	*dequoted;
 	char	**splitted;
 
+//	printf("argv: %s\n", argv);
 	expanded = perform_expansions(argv);
+//	printf("expanded: %s\n", expanded);
 	splitted = split_quotes(expanded);
+	clean_argv_backslashes(splitted);
+//	print_argv(splitted);
 	free(expanded);
 	current = splitted;
+//	print_argv(splitted);
 	while (*current)
 	{
 		dequoted = remove_quotes(*current);
+		//clear_one_backslash(dequoted);
 		vector_append(new, &dequoted, 1);
 		free(*current);
 		current++;
@@ -98,6 +151,7 @@ char
 		start = str;
 		current = str;
 	}
+//	printf("str: %s\n", str);
 	skip = 0;
 	while (ft_isspace(*current) || (*current == '\\' && ft_isspace(current[1])))
 		current++;
@@ -108,6 +162,7 @@ char
 	{
 		if (ft_strchr("\"'", *current))
 		{
+	//		printf("curr: %s\n", current);
 			quote = current;
 			current++;
 			while (*current != *quote || skip)
@@ -115,7 +170,8 @@ char
 				skip = 0;
 				if (*current == 0)
 					return (NULL);
-				skip = (*current == '\\' && current[1] == *quote);
+				skip = (*quote != '\'' && *current == '\\'
+						&& current[1] == *quote);
 				current++;
 			}
 			current++;
@@ -142,7 +198,9 @@ char
 	while ((new_token = get_next_token(str)))
 		vector_append(v, &new_token, 1);
 	splitted = v->bytes;
-	clean_backslashes(splitted);
+	//print_argv(splitted);
+	//clean_argv_backslashes(splitted);
+	//print_argv(splitted);
 	free(v);
 	return (splitted);
 	
@@ -194,7 +252,9 @@ void
 	expand_redir(&(command->redirections), v);
 	free_tokens(command->argv);
 	command->argv = v->bytes;
-	clean_backslashes(command->argv);
+	//print_argv(command->argv);
+	iter_argv(command->argv, (void *)clear_escaped_quotes);
+//	clean_argv_backslashes(command->argv);
 	command->cmd = get_command_path(command->argv[0]);
 	print_command(command);
 	free(v);

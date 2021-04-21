@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 01:06:29 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 09:40:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,31 @@ static size_t
 {
 	char	*ref;
 	int		i;
+	char	*quote;
 
 	ref = line;
+	quote = "\0";
 	while (*ref)
 	{
-		i = is_sep(ref);
-		if (i != -1 && (ref == line || *(ref - 1) != '\\'))
+		if (!*quote && ft_strchr("\"'", *ref))
+			quote = ref;
+		if (!*quote)
 		{
-			*sep = (char *)g_seps[i];
-			return (ref - line);
+			i = is_sep(ref);
+			if (i != -1 && (ref == line || *(ref - 1) != '\\'))
+			{
+				*sep = (char *)g_seps[i];
+				return (ref - line);
+			}
 		}
 		if (ref)
 			++ref;
+		if (*quote && *ref == *quote)
+		{
+		//	printf("quote: %s\n", ref);
+			ref++;
+			quote = "\0";
+		}
 	}
 	*sep = NULL;
 	return (ref - line);
@@ -97,6 +110,7 @@ char
 	{
 		index = next_sep(line, &sep);
 		out[i] = ft_strndup(line, index);
+	//	printf("out[%zu]: %s\n", i, out[i]);
 		line += index;
 		++i;
 		if (!sep)

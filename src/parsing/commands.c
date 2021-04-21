@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 03:32:45 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 08:36:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_command
 	end = get_command_len(current);
 	extracted = dup_n_tab(current, end);
 	command = command_from_tokens(extracted, *find_sep(current));
-	free_tokens(extracted);
+	//free_tokens(extracted);
 	if (len_ptr)
 		*len_ptr = end;
 	return (command);

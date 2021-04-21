@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 08:00:02 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 09:26:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int
 			continue ;
 		}
 		commands = split_line(line);
+		if (DEBUG)
+			print_argv(commands);
 		exec_command_line(commands);
 		free_tokens(commands);
 		free(line);
