@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 05:35:38 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 07:10:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char
 		len = wildcard_len(ref);
 		if (len && *quote != '\'')
 			ref += add_wildcard(ref, len, &list);
-		else if (*quote != '\'' && *ref == '$' && (ref == command || *ref != '\\'))
+		else if (*quote != '\'' && *ref == '$' && (ref == command || ref[-1] != '\\'))
 			ref += add_env(ref, &list);
 		else
 		{
@@ -102,7 +102,6 @@ char
 		}
 	}
 	out = list_to_pure_string(list);
-	//printf("out: %s\n", out);
 	free_list(list);
 	return (out);
 }

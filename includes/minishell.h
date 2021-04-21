@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 02:13:01 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 07:10:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # include <fcntl.h>
 # include <termios.h>
 # include "libft.h"
-# include "global.h"
 # define PROMPT "EVA-04$ "
+
+extern int	g_exit_status;
 
 static const char	*g_seps[] = {"<<", ">>","<", ">", "||", "|", ";",
 	"&&", "&", "(", ")", NULL};

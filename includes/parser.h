@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/18 18:14:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 07:09:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include <limits.h>
 # include "libft.h"
 # include "structs.h"
-# include "global.h"
 # include "garbage_collector.h"
+
+extern int	g_exit_status;
 
 # define SHELL_NAME "minishell"
 # define CMD_NOT_FOUND_MSG "command not found"

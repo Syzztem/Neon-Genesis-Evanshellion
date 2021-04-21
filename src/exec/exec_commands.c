@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 05:53:01 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 07:13:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,6 @@ void
 void
 	expand_command(t_command *command)
 {
-	char		**tokenized;
 	t_vector	*v;
 
 	if (command->expanded)

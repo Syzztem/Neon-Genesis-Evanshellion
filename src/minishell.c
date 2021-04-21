@@ -6,13 +6,14 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 04:44:49 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 07:11:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
 #include <limits.h>
+#include "global.h"
 
 int ft_isatty(int fd)
 {

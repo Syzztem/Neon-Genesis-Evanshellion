@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 02:53:42 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 07:08:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define EXEC_H
 
 # include "parser.h"
-# include "global.h"
 # include <sys/wait.h>
 # include "vector.h"
 

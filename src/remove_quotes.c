@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 04:28:03 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 05:56:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static size_t
 	outref = *out;
 	while (*ref != '\'')
 	{
-		if (ft_indexof(SQ_ESCAPES, *ref) != -1)
+		/*if (ft_indexof(SQ_ESCAPES, *ref) != -1)
 		{
 			*outref++ = '\\';
-		}
+		}*/
 		*outref++ = *ref++;
 	}
 	*out = outref;
@@ -59,8 +59,8 @@ static size_t
 	outref = *out;
 	while (*ref != '\"' || *(ref - 1) == '\\')
 	{
-		if (ft_indexof(DQ_ESCAPES, *ref) != -1)
-			*outref++ = '\\';
+		//if (ft_indexof(DQ_ESCAPES, *ref) != -1)
+		//	*outref++ = '\\';
 		*outref++ = *ref++;
 	}
 	*out = outref;
