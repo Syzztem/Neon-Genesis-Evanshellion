@@ -236,7 +236,6 @@ unit_quotes()
 	cmp_shell '/bin/echo "" "" "" "" " "'
 	cmp_shell '/bin/echo "\\"'
 	cmp_shell '/bin/echo "    \\"'
-#	cmp_shell "/bin/echo '\''"
 }
 
 unit_argv_zero()

@@ -105,9 +105,16 @@ COLORTERM=truecolor					      <
 unit_builtins_no_arg: [OK]
 unit_builtins_no_arg:
 
-unit_quotes:    [OK]
+unit_quotes:    [KO]
 unit_quotes:
-
+[ERROR]: Return values differs.
+CMD: /bin/echo '\''
+	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo '\''
+	2 <- bash --posix /bin/echo '\''
+[ERROR]: Output differs.
+CMD: /bin/echo '\''
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+							      <
 unit_argv_zero: [KO]
 unit_argv_zero:
 [ERROR]: Output differs.
