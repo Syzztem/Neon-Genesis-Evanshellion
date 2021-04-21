@@ -1,4 +1,4 @@
 
-unit_env_vars:  [OK]
-unit_env_vars:
+unit_exit:      [OK]
+unit_exit:
 
