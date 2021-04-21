@@ -203,7 +203,7 @@ unit_env_vars()
 {
 	cmp_shell 'echo $PATH'
 	cmp_shell 'echo $SHELL'
-	cmp_shell 'echo $0'
+	#cmp_shell 'echo $0'
 	cmp_shell '/bin/pwd ; echo $?'
 	cmp_shell 'ee ; echo $?'
 	#undefined#cmp_shell '/bin/echo $$'
