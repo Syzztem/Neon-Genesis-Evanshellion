@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 03:32:15 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 04:28:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char
 	lref = line;
 	while (*line)
 	{
-		if (*line == '\'' && (line != lref && *(line - 1) != '\\'))
+		if (*line == '\'' && (line == lref || *(line - 1) != '\\'))
 			line += escape_sq(line, &ref);
-		if (*line == '\"' && (line != lref && *(line - 1) != '\\'))
+		if (*line == '\"' && (line == lref || *(line - 1) != '\\'))
 			line += escape_dq(line, &ref);
 		if (*line)
 			*ref++ = *line++;
