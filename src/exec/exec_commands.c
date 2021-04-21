@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 10:49:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 11:05:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,7 @@ void
 			expand_argv(*current, argv_vect);
 		current++;
 	}
+	vector_append(redir_vector, current, 1);
 	free(*redir_ptr);
 	*redir_ptr = redir_vector->bytes;
 	free(redir_vector);
