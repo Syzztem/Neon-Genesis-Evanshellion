@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 03:25:50 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 03:32:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char
 	char		*path_buf;
 	char		*found_exec;
 
+	if (!cmd)
+		return (NULL);
 	path_buf = alloc_path_buf(cmd);
 	found_exec = find_exec(path_buf, cmd);
 	if (!path_buf || !found_exec)

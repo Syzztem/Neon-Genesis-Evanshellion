@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/18 15:45:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 03:30:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ char			*parse_variables(char *line);
 void			free_list(t_token *list);
 char			*list_to_pure_string(t_token *list);
 void			print_list(t_token *list);
+void			clean_backslashes(char **tokens);
 
 #endif

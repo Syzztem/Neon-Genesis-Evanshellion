@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 03:26:37 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 03:31:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void
 	current = splitted;
 	while (*current)
 	{
-		printf("current %s\n", *current);
 		dequoted = remove_quotes(*current);
 		vector_append(new, &dequoted, 1);
 		free(*current);
@@ -143,6 +142,7 @@ char
 	while ((new_token = get_next_token(str)))
 		vector_append(v, &new_token, 1);
 	splitted = v->bytes;
+	clean_backslashes(splitted);
 	free(v);
 	return (splitted);
 	
@@ -195,6 +195,7 @@ void
 	expand_redir(&(command->redirections), v);
 	free_tokens(command->argv);
 	command->argv = v->bytes;
+	clean_backslashes(command->argv);
 	command->cmd = get_command_path(command->argv[0]);
 	//print_command(command);
 	free(v);

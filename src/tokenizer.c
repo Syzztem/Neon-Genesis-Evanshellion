@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 01:15:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 03:30:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static size_t
 	return (count);
 }
 
-static void
+void
 	clean_backslashes(char **tokens)
 {
 	char	*line;
