@@ -1,8 +1,4 @@
 
-unit_parsing:   [KO]
-unit_parsing:
-[ERROR]: Output differs.
-CMD: export A=p;export B=w;$A$B"d"
-(/home/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-[32m							      >	/home/smaccary/Neon-Genesis-Evanshellion/tests/testfolder
-[0m
+unit_pipes:     [OK]
+unit_pipes:
+
