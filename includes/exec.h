@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/20 21:29:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 02:53:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "parser.h"
 # include "global.h"
 # include <sys/wait.h>
+# include "vector.h"
 
 int     minishell(void);
 int		exec_pipeline(t_pipeline pipeline);
@@ -45,5 +46,7 @@ void	pcmd_not_found(t_command *cmd);
 int	    is_shell_interactive(void);
 int     open_input(char	**input_path_ptr);
 char	**split_line(char *line);
-
+char	**split_quotes(char	*str);
+void	expand_command(t_command *command);
+void	expand_redir(char ***redir_ptr, t_vector *argv_vect);
 #endif

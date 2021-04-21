@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 02:32:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 03:26:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ void
 	char	**splitted;
 
 	expanded = perform_expansions(argv);
-	splitted = tokenize(expanded);
+	splitted = split_quotes(expanded);
 	free(expanded);
 	current = splitted;
 	while (*current)
 	{
+		printf("current %s\n", *current);
 		dequoted = remove_quotes(*current);
 		vector_append(new, &dequoted, 1);
 		free(*current);
@@ -90,6 +91,7 @@ char
 	static char	*current = NULL;
 	static char	*start = NULL;
 	char		*begin;
+	char		*quote;
 	int			skip;
 
 	if (start != str)
@@ -102,26 +104,28 @@ char
 		current++;
 	if (!*current)
 		return (NULL);
-	if (ft_strchr("\"'", *current))
+	begin = current;
+	while (*current && !ft_isspace(*current))
 	{
-		begin = current;
-		current++;
-		while (*current != *begin || skip)
+		if (ft_strchr("\"'", *current))
 		{
-			skip = 0;
-			if (*current == 0)
-				return (NULL);
-			skip = (*current == '\\' && current[1] == *begin);
+			quote = current;
+			current++;
+			while (*current != *quote || skip)
+			{
+				skip = 0;
+				if (*current == 0)
+					return (NULL);
+				skip = (*current == '\\' && current[1] == *quote);
+				current++;
+			}
 			current++;
 		}
-		current++;
-		return (ft_strndup(begin, current - begin));
-	}
-	begin = current;
-	while (*current && (skip || !ft_strchr("\"' ", *current)))
-	{
-		skip = (*current == '\\' && ft_strchr("\"' ", current[1]));
-		current++;
+		while (*current && (skip || !ft_strchr("\"' ", *current)))
+		{
+			skip = (*current == '\\' && ft_strchr("\"' ", current[1]));
+			current++;
+		}
 	}
 	return (ft_strndup(begin, current - begin));
 }
@@ -183,6 +187,9 @@ void
 	char		**tokenized;
 	t_vector	*v;
 
+	if (command->expanded)
+		return ;
+	command->expanded = 1;
 	v = new_vector(20, sizeof(char **));
 	expand_argv(command->cmd, v);
 	expand_redir(&(command->redirections), v);
