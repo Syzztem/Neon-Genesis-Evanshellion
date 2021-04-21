@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 02:14:58 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 02:15:33 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int
 
 	if (check_pipeline(pipeline))
 	{
-		printf("pipeline err\n");
+		printf("pipeline error\n");
 		exit(1);
 	}
 	/*if (is_single_builtin(pipeline))
