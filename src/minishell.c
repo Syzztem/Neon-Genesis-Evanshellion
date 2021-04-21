@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 07:11:11 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 08:00:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int
 	minishell_non_interactive(void)
 {
 	char		*line;
-	char		*dequoted;
-//	char		**tokens;
 	char		**commands;
 	int			ret;
 
@@ -87,17 +85,9 @@ int
 			free(line);
 			continue ;
 		}
-		dequoted = remove_quotes(line);
-		puts(dequoted);
-		commands = split_line(dequoted);
-		print_argv(commands);
-		/*
-		tokens = tokenize(line);
-		exec_command_line(tokens);
-		free_tokens(tokens);
-		*/
+		commands = split_line(line);
+		exec_command_line(commands);
 		free_tokens(commands);
-		free(dequoted);
 		free(line);
 	}
 	free(line);
@@ -125,7 +115,6 @@ int
 			continue ;
 		}
 		commands = split_line(line);
-	//	print_argv(commands);
 		exec_command_line(commands);
 		free_tokens(commands);
 		free(line);
