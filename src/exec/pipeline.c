@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 02:15:33 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 02:38:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ int
 		return (1);
 	if (!strcmp(condition, OR) && last_return != 0)
 		return (1);
+	printf("cond: %s, $? == %d\n", condition, last_return);
 	return (0);
 }

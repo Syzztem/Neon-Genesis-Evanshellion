@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 01:29:24 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 02:38:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int
 	{
 		node = current->content;
 		if (check_pipeline_run(sep, ret))
-			exec_pipeline(node->pipeline);
-		ret = g_exit_status;
+			ret = exec_pipeline(node->pipeline);
 		sep = node->sep;
 		current = current->next;
 	}
