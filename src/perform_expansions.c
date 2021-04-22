@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 16:40:10 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 09:27:53 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ static size_t
 	return (0);
 }
 
-static size_t
-	raw_input_len(char *command)
-{
-	char *ref;
-
-	ref = command;
-	while (*ref && !wildcard_len(ref) &&
-			(*ref != '$' || (ref != command && *ref == '\\')))
-		++ref;
-	return (ref - command);
-}
+/*
+** static size_t
+** 	raw_input_len(char *command)
+** {
+** 	char *ref;
+** 
+** 	ref = command;
+** 	while (*ref && !wildcard_len(ref) &&
+** 			(*ref != '$' || (ref != command && *ref == '\\')))
+** 		++ref;
+** 	return (ref - command);
+** }
+*/
 
 static size_t
 	add_env(char *command, t_token **list)

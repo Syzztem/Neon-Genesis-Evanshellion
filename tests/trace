@@ -39,14 +39,13 @@ TERM_PROGRAM=vscode					      <
 TERM=xterm-256color					      <
 SHELL=/bin/zsh						      <
 TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz40013zs/T/      <
-Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.2u4 <
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.cNv <
 TERM_PROGRAM_VERSION=1.51.1				      <
 OLDPWD=/Users/smaccary/Neon-Genesis-Evanshellion/tests	      <
 ORIGINAL_XDG_CURRENT_DESKTOP=undefined			      <
 ZSH=/Users/smaccary/.oh-my-zsh				      <
 USER=smaccary						      <
-COMMAND_MODE=unix2003					      <
-SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.YRbea9loCe/Liste <
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.4GltWeLyHv/Liste <
 __CF_USER_TEXT_ENCODING=0x8FF9:0x0:0x1			      <
 PAGER=less						      <
 LSCOLORS=Gxfxcxdxbxegedabagacad				      <
@@ -63,7 +62,6 @@ LOGNAME=smaccary					      <
 VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz <
 VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/ <
 GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Res <
-SECURITYSESSIONID=186a8					      <
 COLORTERM=truecolor					      <
 [ERROR]: Return values differs.
 CMD: env abc abc
@@ -76,14 +74,13 @@ TERM_PROGRAM=vscode					      <
 TERM=xterm-256color					      <
 SHELL=/bin/zsh						      <
 TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz40013zs/T/      <
-Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.2u4 <
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.cNv <
 TERM_PROGRAM_VERSION=1.51.1				      <
 OLDPWD=/Users/smaccary/Neon-Genesis-Evanshellion/tests	      <
 ORIGINAL_XDG_CURRENT_DESKTOP=undefined			      <
 ZSH=/Users/smaccary/.oh-my-zsh				      <
 USER=smaccary						      <
-COMMAND_MODE=unix2003					      <
-SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.YRbea9loCe/Liste <
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.4GltWeLyHv/Liste <
 __CF_USER_TEXT_ENCODING=0x8FF9:0x0:0x1			      <
 PAGER=less						      <
 LSCOLORS=Gxfxcxdxbxegedabagacad				      <
@@ -100,21 +97,13 @@ LOGNAME=smaccary					      <
 VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz <
 VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/ <
 GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Res <
-SECURITYSESSIONID=186a8					      <
 COLORTERM=truecolor					      <
 unit_builtins_no_arg: [OK]
 unit_builtins_no_arg:
 
-unit_quotes:    [KO]
+unit_quotes:    [OK]
 unit_quotes:
-[ERROR]: Return values differs.
-CMD: /bin/echo '\''
-	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell /bin/echo '\''
-	2 <- bash --posix /bin/echo '\''
-[ERROR]: Output differs.
-CMD: /bin/echo '\''
-(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-							      <
+
 unit_argv_zero: [KO]
 unit_argv_zero:
 [ERROR]: Output differs.

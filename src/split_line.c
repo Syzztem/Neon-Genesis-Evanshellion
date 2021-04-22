@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 17:04:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 09:27:42 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,26 @@ static size_t
 	return (ref - line);
 }
 
-static void
-	clean_backslashes(char **commands)
-{
-	char	*line;
-
-	while (*commands)
-	{
-		line = *commands;
-		while (*line)
-		{
-			if (*line == '\\' && ft_indexof(ESCAPES, *line) != -1)
-				ft_memmove(line, line + 1, ft_strlen(line) + 1);
-			++line;
-		}
-		++commands;
-	}
-}
+/*
+** static void
+** 	clean_backslashes(char **commands)
+** {
+** 	char	*line;
+** 
+** 	while (*commands)
+** 	{
+** 		line = *commands;
+** 		while (*line)
+** 		{
+** 			if (*line == '\\' && ft_indexof(ESCAPES, *line) != -1)
+** 				ft_memmove(line, line + 1, ft_strlen(line) + 1);
+** 			++line;
+** 		}
+** 		++commands;
+** 	}
+** }
+** 
+*/
 
 char
 	**split_line(char *line)
