@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 08:36:12 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 17:28:39 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,32 @@ t_command
 	return (command);
 }
 
-int
+size_t
 	parenthesis_len(char **tokens)
 {
-	return (safe_find_token(tokens, PARENTHESIS_CLOSE) - tokens + 1);
+	char		**current;
+	unsigned	level;
+
+	if (!tokens || !*tokens)
+		return (1);
+	current = tokens + 1;
+	level = 1;
+	printf("%s\n", *tokens);
+	while (*current && level)
+	{
+		if (!ft_strcmp(*current, PARENTHESIS_OPEN))
+			++level;
+		if (!ft_strcmp(*current, PARENTHESIS_CLOSE))
+			--level;
+		current++;
+	}
+	if (level)
+	{
+		ft_strlen(NULL);
+		ft_putendl_fd("%s: missing `)'\n", 2);
+		exit (1);
+	}
+	return (current - tokens);
 }
 
 t_command
@@ -117,9 +139,11 @@ t_command
 	t_command	*command;
 
 	end = parenthesis_len(current);
+	printf("end: %d\n", end);
 	extracted = dup_n_tab(current, end);
-	command = command_from_tokens(extracted, *find_sep(current));
-	free_tokens(extracted);
+	command = new_command(ft_strdup(extracted[0]), dup_tab(extracted), NULL);
+	//command->tokens = current;
+	command->redirections = extract_redirects(current + end);
 	if (len_ptr)
 		*len_ptr = end;
 	return (command);
@@ -140,12 +164,21 @@ t_command
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
+	//printf("tokens: ");
+	//print_argv(tokens);
 	if (!strcmp(*current, PARENTHESIS_OPEN))
+	{
+		//printf("hello: ");
+		//print_argv(current);
+		//printf("\n");
 		command = parse_parenthesis(current, &end);
+	}
 	else
 		command = parse_simple_command(current, &end);
 	current += end;
 	if (*current)
 		current++;
+	//printf("end next\n");
+	//print_argv(current);
 	return (command);
 }

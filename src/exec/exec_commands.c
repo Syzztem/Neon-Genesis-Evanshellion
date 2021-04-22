@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 16:43:56 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:23:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void
 int
 	exec_parenthesis(t_command *cmd)
 {
-	return (exec_line(cmd->argv));
+	extern char	**environ;
+
+	redirect_command(cmd);
+	return (builtin_parenthesis(cmd->argv, environ));
 }
 
 int
@@ -266,7 +269,7 @@ void
 	iter_argv(command->argv, (void *)clear_escaped_quotes);
 //	clean_argv_backslashes(command->argv);
 	command->cmd = get_command_path(command->argv[0]);
-	print_command(command);
+	//print_command(command);
 	free(v);
 	return ;
 }
@@ -276,13 +279,14 @@ void
 {
 	extern char		**environ;
 
-	expand_command(command);
-	redirect_command(command);
 	//if (!strcmp(command->cmd, ESCAPE))
-	if(!command->cmd)
-		exit(0);
 	if (is_cmd_parenthesis(command))
 		exit(exec_parenthesis(command));
+	expand_command(command);
+	redirect_command(command);
+//	print_command(command);
+	if(!command->cmd)
+		exit(0);
 	else if (is_builtin(command->argv[0]) != -1)
 		exit(exec_builtin(command->argv, environ));
 	else

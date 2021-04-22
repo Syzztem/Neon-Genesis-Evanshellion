@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/18 17:46:48 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:44:15 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_pipeline
 	lst = NULL;
 	tokens = pipeline;
 	//tokens = tokenize(pipeline);
+	print_argv(pipeline);
 	while ((command = get_next_command(tokens)))
 		ft_lstadd_back(&lst, command);
 	get_next_command(NULL);

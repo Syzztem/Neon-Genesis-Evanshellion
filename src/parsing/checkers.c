@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 17:10:26 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 16:00:45 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int
 	t_list		*current;
 	t_ast_node	*node;
 	
-	print_ast(ast);
+	//print_ast(ast);
 	if (!ast)
 	{
 		ft_putstr_fd(SHELL_NAME ": unknown syntax error\n", 2);
@@ -111,7 +111,7 @@ int
 int
 	check_command(t_command *cmd)
 {
-	print_command(cmd);
+	//print_command(cmd);
 	if (check_redirections(cmd->redirections))
 		return (1);
 	if (!cmd->argv)

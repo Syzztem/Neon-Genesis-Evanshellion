@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:02:33 by root              #+#    #+#             */
-/*   Updated: 2021/04/02 12:32:17 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:27:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int
 
     (void)envp;
     last = get_last_token(av);
+    //printf("parenthesis: %s ");
+    //print_argv(av);
+    //printf("\n");
     if (strcmp(*last, PARENTHESIS_CLOSE))
     {
         ft_putstr_fd(SHELL_NAME ": syntax error: missing `)'\n", 2);

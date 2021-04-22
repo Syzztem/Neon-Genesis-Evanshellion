@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 11:00:08 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:24:53 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int
 	char	*new;
 	int		code;
 
-	printf("verifying line: [%s]\nlen: %zu\n", *line, strlen(*line));
 	code = verify_line(*line);
 	while (!code || code == -1)
 	{
