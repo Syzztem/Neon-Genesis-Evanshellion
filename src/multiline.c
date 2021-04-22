@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 14:27:21 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:24:53 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,17 @@ static size_t
 	char		*ref;
 	unsigned	level;
 
-	ref = *line;
+	if (!line || !*line)
+		return (1);
+	ref = *line + 1;
 	level = 1;
-	while (*++ref && level)
+	while (*ref && level)
 	{
 		if (*ref == '(' && *(ref - 1) != '\\')
 			++level;
 		if (*ref == ')' && *(ref - 1) != '\\')
 			--level;
+		ref++;
 	}
 	*line = ref;
 	if (level)
@@ -106,9 +109,12 @@ static int
 			while (*++line != '\"' || (*(line - 1) == '\\' && (line - begin < 2 || line[-2] != '\\')))
 				if (!*line)
 					return (0);
-		if (*line == '(' && (line == begin || *(line - 1) != '\\')
-				&& !handle_parenthesis(&line))
-			return (0);
+		if (*line == '(' && (line == begin || *(line - 1) != '\\'))
+		{
+			if (!handle_parenthesis(&line))
+				return (0);
+			continue ;
+		}
 		if (*line == ')')
 			return (-1);
 		++line;

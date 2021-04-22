@@ -6,10 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 03:48:32 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 20:55:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "termcaps.h"
 #include <string.h>
 #include <errno.h>
@@ -93,7 +94,7 @@ void
 		return (exec_cap(key)(line));
 }
 
-static void
+void
 	init_line(t_line *line)
 {
 	char	cursor_pos[17];
@@ -131,13 +132,20 @@ int
 
 	line = malloc(sizeof(t_line));
 	init_line(line);
+	interrupt_singleton(0);
 	while (1)
 	{
-		if (get_key(key, 0) == 0 && line->len == 0)
+		if ((get_key(key, 0) == 0 && line->len == 0))
 		{
 			free(line->line);
 			free(line);
 			return (0);
+		}
+		if (interrupt_singleton(-1))
+		{
+			interrupt_singleton(0);
+			free(line->line);
+			init_line(line);
 		}
 		if (*key == '\n')
 		{
@@ -148,6 +156,7 @@ int
 			return (1);
 		}
 		exec_key(line, key);
+
 	}
 	return (1);
 }

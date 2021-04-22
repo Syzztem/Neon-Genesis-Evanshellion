@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 16:43:56 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 22:43:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void
 int
 	exec_parenthesis(t_command *cmd)
 {
-	return (exec_line(cmd->argv));
+	extern char	**environ;
+
+	redirect_command(cmd);
+	return (builtin_parenthesis(cmd->argv, environ));
 }
 
 int
@@ -213,13 +216,32 @@ char
 	
 }
 
+static int
+	parse_redirect(char **current, t_vector *argv_vect, t_vector *redir_vector)
+{
+	char		**tokenized;
+	char		*expanded;
+	char		*dequoted;
+	char		*copy;
+
+	tokenized = split_quotes(current[1]);
+	extract_redir_tokens(tokenized + 1, argv_vect);
+	if (!tokenized[0])
+		return (0);
+	expanded = perform_expansions(tokenized[0]);
+	free_tokens(tokenized);
+	dequoted = remove_quotes(expanded);
+	free(expanded);
+	copy = ft_strdup(*current);
+	vector_append(redir_vector, &copy, 1);
+	vector_append(redir_vector, &dequoted, 1);
+	return (1);
+}
+
 void
 	expand_redir(char ***redir_ptr, t_vector *argv_vect)
 {
 	char		**current;
-	char		**tokenized;
-	char		*expanded;
-	char		*dequoted;
 	t_vector	*redir_vector;
 
 	current = *redir_ptr;
@@ -228,15 +250,8 @@ void
 	{
 		if (is_redirect(*current))
 		{
-			tokenized = split_quotes(current[1]);
-			extract_redir_tokens(tokenized + 1, argv_vect);
-			if (!tokenized[0])
+			if (!parse_redirect(current, argv_vect, redir_vector))
 				break ;
-			expanded = perform_expansions(tokenized[0]);
-			dequoted = remove_quotes(expanded);
-			free(expanded);
-			vector_append(redir_vector, current, 1);
-			vector_append(redir_vector, &dequoted, 1);
 			current++;
 		}
 		else
@@ -244,7 +259,7 @@ void
 		current++;
 	}
 	vector_append(redir_vector, current, 1);
-	free(*redir_ptr);
+	free_tokens(*redir_ptr);
 	*redir_ptr = redir_vector->bytes;
 	free(redir_vector);
 }
@@ -266,7 +281,7 @@ void
 	iter_argv(command->argv, (void *)clear_escaped_quotes);
 //	clean_argv_backslashes(command->argv);
 	command->cmd = get_command_path(command->argv[0]);
-	print_command(command);
+	//print_command(command);
 	free(v);
 	return ;
 }
@@ -276,18 +291,19 @@ void
 {
 	extern char		**environ;
 
-	expand_command(command);
-	redirect_command(command);
 	//if (!strcmp(command->cmd, ESCAPE))
-	if(!command->cmd)
-		exit(0);
 	if (is_cmd_parenthesis(command))
 		exit(exec_parenthesis(command));
+	expand_command(command);
+	redirect_command(command);
+	if(!command->cmd)
+		exit(0);
 	else if (is_builtin(command->argv[0]) != -1)
 		exit(exec_builtin(command->argv, environ));
 	else
 		execve(command->cmd, command->argv, environ);
 	pcmd_not_found(command);
+	free_cmd(command);
 	exit(127);
 }
 

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 07:10:18 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 20:52:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <signal.h>
 # include "libft.h"
 # define PROMPT "EVA-04$ "
+
+#define PARGV(argv) if (DEBUG) {printf("%s:%d:[%s]: ", __FILE__, __LINE__, #argv) ; print_argv(argv);}
 
 extern int	g_exit_status;
 
@@ -34,6 +37,9 @@ static const char	*g_seps[] = {"<<", ">>","<", ">", "||", "|", ";",
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
+
+sig_t			interrupt_blank(int a);
+int				interrupt_singleton(int value);
 int				get_term_line(char **buffer);
 char			**tokenize(char *line);
 char			**split_line(char *line);

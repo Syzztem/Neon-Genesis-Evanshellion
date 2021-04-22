@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 09:27:42 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 14:47:36 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,12 @@ char
 	while (*line)
 	{
 		index = next_sep(line, &sep);
-		out[i] = ft_strndup(line, index);
-	//	printf("out[%zu]: %s\n", i, out[i]);
+		if (ft_strncmp(line, " " , index))
+		{
+			out[i] = ft_strndup(line, index);
+			++i;
+		}
 		line += index;
-		++i;
 		if (!sep)
 			break ;
 		out[i] = ft_strdup(sep);

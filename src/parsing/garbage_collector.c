@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:27:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 02:14:16 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 22:41:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void
 }
 
 void
+	
 	free_ast(t_ast ast)
 {
 	ft_lstclear(&ast, (void *)free_ast_node);

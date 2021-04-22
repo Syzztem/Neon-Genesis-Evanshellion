@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 10:26:44 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 23:23:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char			**get_last_token(char **tokens);
 t_pipeline		parse_pipeline(char **pipeline);
 t_ast			parse_ast(char **tokens);
 char			**extract_redirects(char **tokens);
+char			**extract_redirects_ref(char **tokens);
 
 int				open_output(char **output_path_ptr);
 int				redirects_to_fds(char **redirects, int *input, int *output);
@@ -112,5 +113,7 @@ int				check_command(t_command *cmd);
 int				check_ast(t_ast ast);
 int				check_syntax(char **tokens);
 void			clear_one_backslash(char *command);
+
+size_t			parenthesis_len(char **tokens);
 
 #endif

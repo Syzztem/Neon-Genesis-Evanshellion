@@ -166,6 +166,9 @@ unit_pipes()
 	cmp_shell 'printf "bonjour\nsalut" | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut '
 	cmp_shell '/bin/echo \| | grep \|'
 	cmp_shell '/bin/echo \|\|\|\|\| | grep \|'
+	cmp_shell '/bin/echo hello|grep -o he'
+	cmp_shell '/bin/echo hello|grep -o he|grep -o e'
+	cmp_shell 'printf "bonjour\nsalut"|grep salut|grep salut|grep salut|grep salut|grep salut|grep salut|grep salut|grep salut|grep salut| grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut | grep salut '
 }
 
 unit_echo()
@@ -330,6 +333,23 @@ unit_tokenizer()
 	cmp_shell 'echo abc|grep abc'
 	cmp_shell 'echo abc;echo abc|grep abc'
 	cmp_shell "few';"
+}
+
+unit_parenthesis()
+{
+	cmp_shell '(/bin/echo hello)'
+	cmp_shell '(echo hello)'
+	cmp_shell '(echo hello | grep hello)'
+	cmp_shell '(echo hello | grep -o he)'
+	cmp_shell '(echo hello | grep -o hell | grep -p he)'
+	cmp_shell 'echo hello ; (echo arg | ls)'
+	cmp_shell 'printf "hello\nworld\m" | (grep -o hello | grep -o lo)'
+	cmp_shell 'printf "hello\nworld\m" | (grep -o hello | (grep -o lo | grep -o l))'
+	cmp_shell 'printf "hello\nworld\m" | ( grep -o hello | (grep -o lo | grep -o l) )'
+	cmp_shell 'printf "hello\nworld\m" | ( grep -o hello | ( grep -o lo | grep -o l ) )'
+	cmp_shell 'printf "hello\nworld\m"|( grep -o hello | (grep -o lo | grep -o l) )'
+	cmp_shell '(echo hello ; export DFG=fuckme); echo $DFG'
+	#cmp_shell 'ls(w)' #error case
 }
 
 main()
