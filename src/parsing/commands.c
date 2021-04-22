@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 19:47:18 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 21:55:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,8 @@ size_t
 	}
 	if (level)
 	{
-		ft_strlen(NULL);
-		ft_putendl_fd("%s: missing `)'\n", 2);
-		exit (1);
+		ft_putendl_fd(SHELL_NAME ": missing `)'\n", 2);
+		return (-1);
 	}
 	return (current - tokens);
 }
@@ -145,6 +144,8 @@ t_command
 
 	PARGV(current);
 	end = parenthesis_len(current);
+	if (end < 0)
+		return (NULL);
 	//printf("end: %d\n", end);
 	extracted = dup_n_tab(current, end);
 	command = new_command(ft_strdup(extracted[0]), dup_tab(extracted), NULL);
