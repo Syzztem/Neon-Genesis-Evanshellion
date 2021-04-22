@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 17:28:39 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:47:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_command
 	*init_command_from_tokens(char **tokens, char *sep)
 {
 	t_command	*cmd;
+	char		**extracted;
 
 	cmd = ft_calloc(1, sizeof(t_command));
 	if (!cmd)
@@ -44,7 +45,9 @@ t_command
 	else
 		cmd->sep = NULL;
 	cmd->tokens = dup_tab(tokens);
-	cmd->redirections = extract_redirects(tokens);
+	extracted = extract_redirects(tokens);
+	cmd->redirections = dup_tab(extracted);
+	free(extracted);
 	cmd->argv = get_pure_tokens(tokens);
 	if (cmd->argv[0] == NULL)
 		cmd->argv[0] = ft_strdup("");
@@ -96,8 +99,10 @@ t_command
 
 	end = get_command_len(current);
 	extracted = dup_n_tab(current, end);
+	PARGV(extracted);
 	command = command_from_tokens(extracted, *find_sep(current));
-	//free_tokens(extracted);
+	print_command(command);
+	free_tokens(extracted);
 	if (len_ptr)
 		*len_ptr = end;
 	return (command);
@@ -113,7 +118,7 @@ size_t
 		return (1);
 	current = tokens + 1;
 	level = 1;
-	printf("%s\n", *tokens);
+	//printf("%s\n", *tokens);
 	while (*current && level)
 	{
 		if (!ft_strcmp(*current, PARENTHESIS_OPEN))
@@ -138,8 +143,9 @@ t_command
 	char		**extracted;
 	t_command	*command;
 
+	PARGV(current);
 	end = parenthesis_len(current);
-	printf("end: %d\n", end);
+	//printf("end: %d\n", end);
 	extracted = dup_n_tab(current, end);
 	command = new_command(ft_strdup(extracted[0]), dup_tab(extracted), NULL);
 	//command->tokens = current;
@@ -162,6 +168,7 @@ t_command
 		tokens_start = tokens;
 		current = tokens;
 	}
+	PARGV(current);
 	if (current == NULL || *current == NULL)
 		return (NULL);
 	//printf("tokens: ");

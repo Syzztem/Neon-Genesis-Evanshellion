@@ -6,14 +6,16 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 09:26:04 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 20:55:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "termcaps.h"
 #include "exec.h"
 #include <limits.h>
 #include "global.h"
+#include <signal.h>
 
 int ft_isatty(int fd)
 {
@@ -27,9 +29,21 @@ int	is_shell_interactive(void)
 	return (ft_isatty(0) && ft_isatty(1) && ft_isatty(2));
 }
 
-sig_t blank(int a)
+int
+	interrupt_singleton(int value)
+{
+	static int	flag = 0;
+
+	if (value >= 0)
+		flag = value;
+	return (flag);
+}
+
+sig_t
+	interrupt_blank(int a)
 {
 	(void)a;
+	interrupt_singleton(1);
 	if (is_shell_interactive())
 		ft_putstr_fd("\n" PROMPT, 2);
 	else
@@ -72,7 +86,7 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-	signal(SIGINT, (void *)blank);
+	signal(SIGINT, (void *)interrupt_blank);
 	while ((ret = get_next_line(0, &line)) || ft_strlen(line))
 	{
 		if (!line)
@@ -106,7 +120,7 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-	signal(SIGINT, (void *)blank);
+	signal(SIGINT, (void *)interrupt_blank);
 	while ((prompt_shell(&line)))
 	{
 		if (!*line || !complete_line(&line))

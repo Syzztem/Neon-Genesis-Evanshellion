@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/16 10:35:19 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/22 21:25:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void
 	loop_hist(t_line *line, int hist_fd, t_line *hist_lines, size_t line_count)
 {
 	size_t	hist_size;
-	char	next_key[5];
+	char	next_key[50];
 	t_line	*current_line;
 
 	hist_size = LINE_ALLOC_SIZE;

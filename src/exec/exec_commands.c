@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 17:23:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 21:45:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,6 @@ void
 		exit(exec_parenthesis(command));
 	expand_command(command);
 	redirect_command(command);
-//	print_command(command);
 	if(!command->cmd)
 		exit(0);
 	else if (is_builtin(command->argv[0]) != -1)
@@ -292,6 +291,7 @@ void
 	else
 		execve(command->cmd, command->argv, environ);
 	pcmd_not_found(command);
+	free_cmd(command);
 	exit(127);
 }
 

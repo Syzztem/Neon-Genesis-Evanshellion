@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 09:28:23 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 20:07:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct	s_line
 
 typedef void	(*t_cap)(t_line *line);
 
+
+void			init_line(t_line *line);
 void			insert_char(t_line *line, char c);
 void			delete_char(t_line *line);
 void			go_home(t_line *line);
