@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 21:55:36 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 22:52:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_command
 	cmd->tokens = dup_tab(tokens);
 	extracted = extract_redirects(tokens);
 	cmd->redirections = dup_tab(extracted);
-	free(extracted);
+	free_tokens(extracted);
 	cmd->argv = get_pure_tokens(tokens);
 	if (cmd->argv[0] == NULL)
 		cmd->argv[0] = ft_strdup("");

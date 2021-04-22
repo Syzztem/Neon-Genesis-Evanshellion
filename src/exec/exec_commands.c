@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 21:45:53 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 22:43:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,13 +216,32 @@ char
 	
 }
 
+static int
+	parse_redirect(char **current, t_vector *argv_vect, t_vector *redir_vector)
+{
+	char		**tokenized;
+	char		*expanded;
+	char		*dequoted;
+	char		*copy;
+
+	tokenized = split_quotes(current[1]);
+	extract_redir_tokens(tokenized + 1, argv_vect);
+	if (!tokenized[0])
+		return (0);
+	expanded = perform_expansions(tokenized[0]);
+	free_tokens(tokenized);
+	dequoted = remove_quotes(expanded);
+	free(expanded);
+	copy = ft_strdup(*current);
+	vector_append(redir_vector, &copy, 1);
+	vector_append(redir_vector, &dequoted, 1);
+	return (1);
+}
+
 void
 	expand_redir(char ***redir_ptr, t_vector *argv_vect)
 {
 	char		**current;
-	char		**tokenized;
-	char		*expanded;
-	char		*dequoted;
 	t_vector	*redir_vector;
 
 	current = *redir_ptr;
@@ -231,15 +250,8 @@ void
 	{
 		if (is_redirect(*current))
 		{
-			tokenized = split_quotes(current[1]);
-			extract_redir_tokens(tokenized + 1, argv_vect);
-			if (!tokenized[0])
+			if (!parse_redirect(current, argv_vect, redir_vector))
 				break ;
-			expanded = perform_expansions(tokenized[0]);
-			dequoted = remove_quotes(expanded);
-			free(expanded);
-			vector_append(redir_vector, current, 1);
-			vector_append(redir_vector, &dequoted, 1);
 			current++;
 		}
 		else
@@ -247,7 +259,7 @@ void
 		current++;
 	}
 	vector_append(redir_vector, current, 1);
-	free(*redir_ptr);
+	free_tokens(*redir_ptr);
 	*redir_ptr = redir_vector->bytes;
 	free(redir_vector);
 }

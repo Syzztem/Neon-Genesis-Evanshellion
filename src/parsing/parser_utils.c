@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/24 16:30:05 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 23:02:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ size_t
 char
 	**ref_in_tokens(char *ref, char **tokens)
 {
+	if (!ref)
+		return (NULL);
 	while (*tokens)
 	{
 		if (ref == *tokens)

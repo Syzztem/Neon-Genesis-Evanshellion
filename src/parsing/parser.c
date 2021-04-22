@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 21:31:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 23:05:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,39 @@ char
 	{
 		if (is_redirect(*tokens))
 		{
-			extracted[i] = *tokens;
+			extracted[i] = ft_strdup(*tokens);
 			if (*(tokens + 1))
-				extracted[++i] = (*(++tokens));
+				extracted[++i] = ft_strdup((*(++tokens)));
 			i++;
 		}
 		tokens++;
 	}
+	extracted[i] = NULL;
+	return (extracted);
+}
+
+char
+	**extract_redirects_ref(char **tokens)
+{
+	char	**extracted;
+	size_t	i;
+
+	i = 0;
+	extracted = ft_calloc(count_avoided_tokens(tokens) + 2, sizeof(char *));
+	if (!extracted)
+		return (NULL);
+	while (*tokens)
+	{
+		if (is_redirect(*tokens))
+		{
+			extracted[i] = *tokens;
+			if (*(tokens + 1))
+				extracted[++i] = *(++tokens);
+			i++;
+		}
+		tokens++;
+	}
+	extracted[i] = NULL;
 	return (extracted);
 }
 
@@ -94,8 +120,9 @@ char
 	size_t	i;
 
 	i = 0;
+	PARGV(tokens);
 	current = tokens;
-	extracted = extract_redirects(tokens);
+	extracted = extract_redirects_ref(tokens);
 	pure_tokens = ft_calloc(pure_tokens_len(tokens, extracted) + 3,
 	sizeof(char *));
 	while (*current)
