@@ -3790,4 +3790,846 @@ clang -Wall -Wextra  -g3  -I ./libft -I./libft -I./includes -I./C_vectors/includ
 clang -Wall -Wextra  -g3  -I ./libft -I./libft -I./includes -I./C_vectors/includes -c src/list_utils.c -o obj/list_utils.o
 clang ./obj/parsing/parser.o ./obj/parsing/parser_utils.o ./obj/parsing/tree.o ./obj/parsing/finders.o ./obj/parsing/wrapped_finders.o ./obj/parsing/commands.o ./obj/parsing/commands_utils.o ./obj/parsing/fake_constants.o ./obj/exec/utils.o ./obj/parsing/checkers.o ./obj/exec/redirections_utils.o ./obj/exec/close.o ./obj/exec/exec_commands.o ./obj/exec/pipes.o ./obj/exec/redirections.o ./obj/exec/exec.o ./obj/exec/pipeline.o ./obj/parsing/garbage_collector.o ./obj/parenthesis.o ./obj/debug_utils.o ./obj/word_jump.o ./obj/errmgr.o ./obj/find_exec.o ./obj/tab_utils.o ./obj/builtin_manager.o ./obj/export.o ./obj/cd.o ./obj/cursor.o ./obj/echo.o ./obj/env.o ./obj/exit.o ./obj/ft_getenv.o ./obj/ft_setenv.o ./obj/get_term_line.o ./obj/hist_utils.o ./obj/history.o ./obj/minishell.o ./obj/pwd.o ./obj/termcaps.o ./obj/termcaps_utils.o ./obj/tokenizer.o ./obj/unset.o ./obj/split_line.o ./obj/wildcard.o ./obj/sub_env.o ./obj/multiline.o ./obj/remove_quotes.o ./obj/perform_expansions.o ./obj/list_utils.o  -L./libft -lft -lncurses C_vectors/vectlib.a -o minishell
 make[1]: Leaving directory '/root/Neon-Genesis-Evanshellion'
-[1m[7m#[27m[1m[0m                                                 
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hggit add *[?1l>[?2004l
+]2;git add *]1;gitThe following paths are ignored by one of your .gitignore files:
+minishell
+Use -f if you really want to add them.
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hggit commit -m é "added syntaxc  cge  hecking for parenthesis in wrong places [K"[?1l>[?2004l
+]2;git commit -m "added syntax checking for parenthesis in wrong places"]1;git[parenthesis_fix df19749] added syntax checking for parenthesis in wrong places
+ 10 files changed, 3844 insertions(+), 22 deletions(-)
+ rewrite scratch (100%)
+ create mode 100644 typescript
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshelliong[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hggit push[?1l>[?2004l
+]2;git push]1;gitEnumerating objects: 28, done.
+Counting objects:   3% (1/28)Counting objects:   7% (2/28)Counting objects:  10% (3/28)Counting objects:  14% (4/28)Counting objects:  17% (5/28)Counting objects:  21% (6/28)Counting objects:  25% (7/28)Counting objects:  28% (8/28)Counting objects:  32% (9/28)Counting objects:  35% (10/28)Counting objects:  39% (11/28)Counting objects:  42% (12/28)Counting objects:  46% (13/28)Counting objects:  50% (14/28)Counting objects:  53% (15/28)Counting objects:  57% (16/28)Counting objects:  60% (17/28)Counting objects:  64% (18/28)Counting objects:  67% (19/28)Counting objects:  71% (20/28)Counting objects:  75% (21/28)Counting objects:  78% (22/28)Counting objects:  82% (23/28)Counting objects:  85% (24/28)Counting objects:  89% (25/28)Counting objects:  92% (26/28)Counting objects:  96% (27/28)Counting objects: 100% (28/28)Counting objects: 100% (28/28), done.
+Delta compression using up to 12 threads
+Compressing objects:   6% (1/15)Compressing objects:  13% (2/15)Compressing objects:  20% (3/15)Compressing objects:  26% (4/15)Compressing objects:  33% (5/15)Compressing objects:  40% (6/15)Compressing objects:  46% (7/15)Compressing objects:  53% (8/15)Compressing objects:  60% (9/15)Compressing objects:  66% (10/15)Compressing objects:  73% (11/15)Compressing objects:  80% (12/15)Compressing objects:  86% (13/15)Compressing objects:  93% (14/15)Compressing objects: 100% (15/15)Compressing objects: 100% (15/15), done.
+Writing objects:   6% (1/15)Writing objects:  13% (2/15)Writing objects:  20% (3/15)Writing objects:  26% (4/15)Writing objects:  33% (5/15)Writing objects:  40% (6/15)Writing objects:  46% (7/15)Writing objects:  53% (8/15)Writing objects:  60% (9/15)Writing objects:  66% (10/15)Writing objects:  73% (11/15)Writing objects:  80% (12/15)Writing objects:  86% (13/15)Writing objects:  93% (14/15)Writing objects: 100% (15/15)Writing objects: 100% (15/15), 9.73 KiB | 2.43 MiB/s, done.
+Total 15 (delta 12), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/12)[Kremote: Resolving deltas:   8% (1/12)[Kremote: Resolving deltas:  16% (2/12)[Kremote: Resolving deltas:  25% (3/12)[Kremote: Resolving deltas:  33% (4/12)[Kremote: Resolving deltas:  41% (5/12)[Kremote: Resolving deltas:  50% (6/12)[Kremote: Resolving deltas:  58% (7/12)[Kremote: Resolving deltas:  66% (8/12)[Kremote: Resolving deltas:  75% (9/12)[Kremote: Resolving deltas:  83% (10/12)[Kremote: Resolving deltas:  91% (11/12)[Kremote: Resolving deltas: 100% (12/12)[Kremote: Resolving deltas: 100% (12/12), completed with 12 local objects.[K
+To github.com:Syzztem/Neon-Genesis-Evanshellion.git
+   cdc8c59..df19749  parenthesis_fix -> parenthesis_fix
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004heecho env | m 3/  ./ù minishell[1m [0m[0m [?1l>[?2004l
+]2;echo env | ./minishell]1;echoUSER=root
+SHLVL=2
+HOME=/root
+OLDPWD=/root/Neon-Genesis-Evanshellion
+WSL_DISTRO_NAME=Ubuntu-20.04
+LOGNAME=root
+NAME=nol-machine
+_=/root/Neon-Genesis-Evanshellion/./minishell
+TERM=xterm-256color
+PATH=/root/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/WireGuard/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files/OpenJDK/openjdk-11.0.10_9/bin:/mnt/c/Program Files/OpenJDK/jdk-15.0.2/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/slutymeme/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files (x86)/Nmap:/mnt/c/Program Files/VideoLAN/VLC:/mnt/c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/bin:/mnt/c/Program Files/Oracle/VirtualBox:/root/.local/bin:/root/.local/bin:/root/.local/bin:/root/.local/bin
+LANG=C.UTF-8
+SHELL=/usr/bin/zsh
+PWD=/root/Neon-Genesis-Evanshellion
+HOSTTYPE=x86_64
+WSLENV=VSCODE_WSL_EXT_LOCATION/up
+ZSH=/root/.oh-my-zsh
+PAGER=less
+LESS=-R
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+TERM_PROGRAM=vscode
+TERM_PROGRAM_VERSION=1.55.1
+COLORTERM=truecolor
+VSCODE_GIT_IPC_HANDLE=/tmp/vscode-git-154dc0b0da.sock
+GIT_ASKPASS=/root/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/extensions/git/dist/askpass.sh
+VSCODE_GIT_ASKPASS_NODE=/root/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/node
+VSCODE_GIT_ASKPASS_MAIN=/root/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/extensions/git/dist/askpass-main.js
+VSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-a6144325-28e7-4b21-9876-4870ffb358fc.sock
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hbbash   b  eecho env | bash --posix[?1l>[?2004l
+]2;echo env | bash --posix]1;echo[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hecho env | bash --posix[?1l>[?2004l
+]2;echo env | bash --posix]1;echo[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hecho env | bash --posixubash --posix[12Dnbash --posix[12D[1Cbash --posix[12Dubash --posix[12Dfbash --posix[12Dfbash --posix[12Debash --posix[12Drbash --posix[12D bash --posix[12D[?1l>[?2004l
+]2;echo env | unbuffer bash --posix]1;echobash-5.0# 
+
+ols
+ls
+^C
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hecho env | unbuffer bash --posix[?1l>[?2004l
+]2;echo env | unbuffer bash --posix]1;echobash-5.0# ^C
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hecho env | unbuffer bash --posix[P[12C [13D[P[12C [13D[P[12C [13D[P[12C [13D[P[12C [13D[P[12C [13D[P[11C [13D[P[12C [13D[P[12C [13D[?1l>[?2004l
+]2;echo env | bash --posix]1;echo[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hecho env | bash --posix[?2004l
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hbbash --posix[?1l>[?2004l
+]2;bash --posix]1;bashbash-5.0# envc[K
+bash-5.0# env
+bash-5.0# 
+bash-5.0# 
+bash-5.0# rnv[K[K[Kenv q
+bash-5.0# env q
+bash-5.0# env
+bash-5.0# exit
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004heenv[?1l>[?2004l
+]2;env]1;env[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hmman env[?1l>[?2004l
+]2;man env]1;man[?1049h[22;0;0t[?1h=ENV(1)                                                     User Commands                                                    ENV(1)[m
+[m
+[1mNAME[0m[m
+       env - run a program in a modified environment[m
+[m
+[1mSYNOPSIS[0m[m
+       [1menv[0m [[4mOPTION[24m]... [[4m-[24m] [[4mNAME=VALUE[24m]... [[4mCOMMAND[24m [[4mARG[24m]...][m
+[m
+[1mDESCRIPTION[0m[m
+       Set each NAME to VALUE in the environment and run COMMAND.[m
+[m
+       Mandatory arguments to long options are mandatory for short options too.[m
+[m
+       [1m-i[0m, [1m--ignore-environment[0m[m
+              start with an empty environment[m
+[m
+[7m Manual page env(1) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hman env2env env[?2004l
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hman env[?1l>[?2004l
+]2;man env]1;man[?1049h[22;0;0t[?1h=ENV(1)                                                     User Commands                                                    ENV(1)[m
+[m
+[1mNAME[0m[m
+       env - run a program in a modified environment[m
+[m
+[1mSYNOPSIS[0m[m
+       [1menv[0m [[4mOPTION[24m]... [[4m-[24m] [[4mNAME=VALUE[24m]... [[4mCOMMAND[24m [[4mARG[24m]...][m
+[m
+[1mDESCRIPTION[0m[m
+       Set each NAME to VALUE in the environment and run COMMAND.[m
+[m
+       Mandatory arguments to long options are mandatory for short options too.[m
+[m
+       [1m-i[0m, [1m--ignore-environment[0m[m
+              start with an empty environment[m
+[m
+[7m Manual page env(1) line 1 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-0[0m, [1m--null[0m[m
+[7m Manual page env(1) line 2 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              end each output line with NUL, not newline[m
+[7m Manual page env(1) line 3 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 4 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-u[0m, [1m--unset[0m=[4mNAME[24m[m
+[7m Manual page env(1) line 5 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              remove variable from the environment[m
+[7m Manual page env(1) line 6 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 7 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-C[0m, [1m--chdir[0m=[4mDIR[24m[m
+[7m Manual page env(1) line 8 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              change working directory to DIR[m
+[7m Manual page env(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 10 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mDESCRIPTION[0m[m
+[17;1H[K[7m Manual page env(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 8 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              change working directory to DIR[m
+[7m Manual page env(1) line 9 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 10 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-S[0m, [1m--split-string[0m=[4mS[24m[m
+[7m Manual page env(1) line 11 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              process and split S into separate arguments; used to pass multiple arguments on shebang lines[m
+[7m Manual page env(1) line 12 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 13 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-v[0m, [1m--debug[0m[m
+[7m Manual page env(1) line 14 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              print verbose information for each processing step[m
+[7m Manual page env(1) line 15 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 16 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m--help[0m display this help and exit[m
+[7m Manual page env(1) line 17 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 18 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m--version[0m[m
+[7m Manual page env(1) line 19 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              output version information and exit[m
+[7m Manual page env(1) line 20 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 21 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       A mere - implies [1m-i[0m.  If no COMMAND, print the resulting environment.[m
+[7m Manual page env(1) line 22 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 23 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mOPTIONS[0m[m
+[7m Manual page env(1) line 24 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K   [1m-S/--split-string[0m [1musage[0m [1min[0m [1mscripts[0m[m
+[7m Manual page env(1) line 25 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       The [1m-S[0m option allows specifing multiple parameters in a script.  Running a script named [1m1.pl[0m containing the following first[m
+[7m Manual page env(1) line 26 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       line:[m
+[7m Manual page env(1) line 27 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 28 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              #!/usr/bin/env -S perl -w -T[m
+[7m Manual page env(1) line 29 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 30 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Will execute [1mperl[0m [1m-w[0m [1m-T[0m [1m1.pl[0m [1m.[0m[m
+[7m Manual page env(1) line 31 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 32 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Without the [1m'-S'[0m parameter the script will likely fail with:[m
+[7m Manual page env(1) line 33 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 34 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              /usr/bin/env: 'perl -w -T': No such file or directory[m
+[7m Manual page env(1) line 35 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 36 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       See the full documentation for more details.[m
+[7m Manual page env(1) line 37 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 38 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mAUTHOR[0m[m
+[7m Manual page env(1) line 39 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Written by Richard Mlynarik, David MacKenzie, and Assaf Gordon.[m
+[7m Manual page env(1) line 40 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 41 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mREPORTING[0m [1mBUGS[0m[m
+[7m Manual page env(1) line 42 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>[m
+[7m Manual page env(1) line 43 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Report env translation bugs to <https://translationproject.org/team/>[m
+[7m Manual page env(1) line 44 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 45 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mCOPYRIGHT[0m[m
+[7m Manual page env(1) line 46 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Copyright © 2018 Free Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  <https://gnu.org/li‐[m
+[7m Manual page env(1) line 47 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       censes/gpl.html>.[m
+[7m Manual page env(1) line 48 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.[m
+[7m Manual page env(1) line 49 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 50 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mSEE[0m [1mALSO[0m[m
+[7m Manual page env(1) line 51 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Full documentation at: <https://www.gnu.org/software/coreutils/env>[m
+[7m Manual page env(1) line 52 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       or available locally via: info '(coreutils) env invocation'[m
+[7m Manual page env(1) line 53 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 54 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[KGNU coreutils 8.30                                        September 2019                                                    ENV(1)[m
+[7m Manual page env(1) line 55 (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mAUTHOR[0m[m
+[17;1H[K[7m Manual page env(1) line 54/70 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 53/70 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       See the full documentation for more details.[m
+[17;1H[K[7m Manual page env(1) line 52/70 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 51/70 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              /usr/bin/env: 'perl -w -T': No such file or directory[m
+[17;1H[K[7m Manual page env(1) line 50/70 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 49/70 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Without the [1m'-S'[0m parameter the script will likely fail with:[m
+[17;1H[K[7m Manual page env(1) line 48/70 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 47/70 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Will execute [1mperl[0m [1m-w[0m [1m-T[0m [1m1.pl[0m [1m.[0m[m
+[17;1H[K[7m Manual page env(1) line 46/70 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 45/70 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              #!/usr/bin/env -S perl -w -T[m
+[17;1H[K[7m Manual page env(1) line 44/70 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 43/70 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       line:[m
+[17;1H[K[7m Manual page env(1) line 42/70 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       The [1m-S[0m option allows specifing multiple parameters in a script.  Running a script named [1m1.pl[0m containing the following first[m
+[17;1H[K[7m Manual page env(1) line 41/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1m-S/--split-string[0m [1musage[0m [1min[0m [1mscripts[0m[m
+[17;1H[K[7m Manual page env(1) line 40/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mOPTIONS[0m[m
+[17;1H[K[7m Manual page env(1) line 39/70 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 38/70 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       A mere - implies [1m-i[0m.  If no COMMAND, print the resulting environment.[m
+[17;1H[K[7m Manual page env(1) line 37/70 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 36/70 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              output version information and exit[m
+[17;1H[K[7m Manual page env(1) line 35/70 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m--version[0m[m
+[17;1H[K[7m Manual page env(1) line 34/70 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 33/70 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m--help[0m display this help and exit[m
+[17;1H[K[7m Manual page env(1) line 32/70 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 31/70 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              print verbose information for each processing step[m
+[17;1H[K[7m Manual page env(1) line 30/70 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m-v[0m, [1m--debug[0m[m
+[17;1H[K[7m Manual page env(1) line 29/70 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 28/70 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              process and split S into separate arguments; used to pass multiple arguments on shebang lines[m
+[17;1H[K[7m Manual page env(1) line 27/70 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m-S[0m, [1m--split-string[0m=[4mS[24m[m
+[17;1H[K[7m Manual page env(1) line 26/70 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 25/70 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              change working directory to DIR[m
+[17;1H[K[7m Manual page env(1) line 24/70 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m-C[0m, [1m--chdir[0m=[4mDIR[24m[m
+[17;1H[K[7m Manual page env(1) line 23/70 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 22/70 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              remove variable from the environment[m
+[17;1H[K[7m Manual page env(1) line 21/70 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m-u[0m, [1m--unset[0m=[4mNAME[24m[m
+[17;1H[K[7m Manual page env(1) line 20/70 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 19/70 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              end each output line with NUL, not newline[m
+[17;1H[K[7m Manual page env(1) line 18/70 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m-0[0m, [1m--null[0m[m
+[17;1H[K[7m Manual page env(1) line 17/70 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 16/70 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM              start with an empty environment[m
+[17;1H[K[7m Manual page env(1) line 15/70 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1m-i[0m, [1m--ignore-environment[0m[m
+[17;1H[K[7m Manual page env(1) line 14/70 39% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 13/70 38% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Mandatory arguments to long options are mandatory for short options too.[m
+[17;1H[K[7m Manual page env(1) line 12/70 38% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 11/70 34% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       Set each NAME to VALUE in the environment and run COMMAND.[m
+[17;1H[K[7m Manual page env(1) line 10/70 32% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mDESCRIPTION[0m[m
+[17;1H[K[7m Manual page env(1) line 9/70 32% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 8/70 31% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       [1menv[0m [[4mOPTION[24m]... [[4m-[24m] [[4mNAME=VALUE[24m]... [[4mCOMMAND[24m [[4mARG[24m]...][m
+[17;1H[K[7m Manual page env(1) line 7/70 29% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mSYNOPSIS[0m[m
+[17;1H[K[7m Manual page env(1) line 6/70 29% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 5/70 27% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM       env - run a program in a modified environment[m
+[17;1H[K[7m Manual page env(1) line 4/70 25% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mNAME[0m[m
+[17;1H[K[7m Manual page env(1) line 3/70 25% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[m
+[17;1H[K[7m Manual page env(1) line 2/70 23% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HMENV(1)                                                     User Commands                                                    ENV(1)[m
+[17;1H[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[K[7m Manual page env(1) line 1/70 22% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-0[0m, [1m--null[0m[m
+[7m Manual page env(1) line 2/70 23% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              end each output line with NUL, not newline[m
+[7m Manual page env(1) line 3/70 25% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 4/70 25% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-u[0m, [1m--unset[0m=[4mNAME[24m[m
+[7m Manual page env(1) line 5/70 27% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              remove variable from the environment[m
+[7m Manual page env(1) line 6/70 29% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 7/70 29% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-C[0m, [1m--chdir[0m=[4mDIR[24m[m
+[7m Manual page env(1) line 8/70 31% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              change working directory to DIR[m
+[7m Manual page env(1) line 9/70 32% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 10/70 32% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-S[0m, [1m--split-string[0m=[4mS[24m[m
+[7m Manual page env(1) line 11/70 34% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              process and split S into separate arguments; used to pass multiple arguments on shebang lines[m
+[7m Manual page env(1) line 12/70 38% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 13/70 38% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m-v[0m, [1m--debug[0m[m
+[7m Manual page env(1) line 14/70 39% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              print verbose information for each processing step[m
+[7m Manual page env(1) line 15/70 41% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 16/70 42% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m--help[0m display this help and exit[m
+[7m Manual page env(1) line 17/70 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 18/70 43% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       [1m--version[0m[m
+[7m Manual page env(1) line 19/70 45% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              output version information and exit[m
+[7m Manual page env(1) line 20/70 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 21/70 46% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       A mere - implies [1m-i[0m.  If no COMMAND, print the resulting environment.[m
+[7m Manual page env(1) line 22/70 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 23/70 49% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mOPTIONS[0m[m
+[7m Manual page env(1) line 24/70 50% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K   [1m-S/--split-string[0m [1musage[0m [1min[0m [1mscripts[0m[m
+[7m Manual page env(1) line 25/70 53% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       The [1m-S[0m option allows specifing multiple parameters in a script.  Running a script named [1m1.pl[0m containing the following first[m
+[7m Manual page env(1) line 26/70 58% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       line:[m
+[7m Manual page env(1) line 27/70 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 28/70 59% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              #!/usr/bin/env -S perl -w -T[m
+[7m Manual page env(1) line 29/70 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 30/70 60% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Will execute [1mperl[0m [1m-w[0m [1m-T[0m [1m1.pl[0m [1m.[0m[m
+[7m Manual page env(1) line 31/70 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 32/70 62% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Without the [1m'-S'[0m parameter the script will likely fail with:[m
+[7m Manual page env(1) line 33/70 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 34/70 65% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K              /usr/bin/env: 'perl -w -T': No such file or directory[m
+[7m Manual page env(1) line 35/70 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 36/70 67% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       See the full documentation for more details.[m
+[7m Manual page env(1) line 37/70 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 38/70 69% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mAUTHOR[0m[m
+[7m Manual page env(1) line 39/70 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Written by Richard Mlynarik, David MacKenzie, and Assaf Gordon.[m
+[7m Manual page env(1) line 40/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 41/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM   [1m-S/--split-string[0m [1musage[0m [1min[0m [1mscripts[0m[m
+[17;1H[K[7m Manual page env(1) line 40/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KAA[K[HM[1mOPTIONS[0m[m
+[17;1H[K[7m Manual page env(1) line 39/70 70% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Written by Richard Mlynarik, David MacKenzie, and Assaf Gordon.[m
+[7m Manual page env(1) line 40/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 41/70 72% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mREPORTING[0m [1mBUGS[0m[m
+[7m Manual page env(1) line 42/70 74% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>[m
+[7m Manual page env(1) line 43/70 76% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Report env translation bugs to <https://translationproject.org/team/>[m
+[7m Manual page env(1) line 44/70 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 45/70 79% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mCOPYRIGHT[0m[m
+[7m Manual page env(1) line 46/70 80% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Copyright © 2018 Free Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later  <https://gnu.org/li‐[m
+[7m Manual page env(1) line 47/70 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       censes/gpl.html>.[m
+[7m Manual page env(1) line 48/70 85% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.[m
+[7m Manual page env(1) line 49/70 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 50/70 90% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[1mSEE[0m [1mALSO[0m[m
+[7m Manual page env(1) line 51/70 91% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       Full documentation at: <https://www.gnu.org/software/coreutils/env>[m
+[7m Manual page env(1) line 52/70 93% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K       or available locally via: info '(coreutils) env invocation'[m
+[7m Manual page env(1) line 53/70 95% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[m
+[7m Manual page env(1) line 54/70 96% (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[KGNU coreutils 8.30                                        September 2019                                                    ENV(1)[m
+[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K [KESCESC[KOO[KBB[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K[7m Manual page env(1) line 55/70 (END) (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004heenv[?1l>[?2004l
+]2;env]1;env[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004heenv[?1l>[?2004l
+]2;env]1;env[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hbbash[?1l>[?2004l
+]2;bash]1;bash]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# env
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# 
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# 
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# exit
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hsssh pi@192.168.1.20[?1l>[?2004l
+]2;ssh pi@192.168.1.20]1;pi@192.168.1.20Linux raspberrypi 5.10.17-v8+ #1403 SMP PREEMPT Mon Feb 22 11:37:54 GMT 2021 aarch64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have mail.
+Last login: Thu Apr 22 12:06:32 2021 from 62.210.32.13
+[1m[7m%[27m[1m[0m                                                                                                                                      ]2;pi@raspberrypi:~]1;~[0m[27m[24m[J[35mpi[00m[36m@[00m[33mraspberrypi[00m[31m:[00m[36m~[00m[31m|[00m[36m⇒[00m  [K[?1h=[?2004heenv[?1l>[?2004l
+]2;env]1;envLANG=en_GB.UTF-8
+USER=pi
+LOGNAME=pi
+HOME=/home/pi
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+MAIL=/var/mail/pi
+SHELL=/usr/bin/zsh
+TERM=xterm-256color
+XDG_SESSION_ID=2221
+XDG_RUNTIME_DIR=/run/user/1000
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+XDG_SESSION_TYPE=tty
+XDG_SESSION_CLASS=user
+SSH_CLIENT=192.168.1.14 37804 22
+SSH_CONNECTION=192.168.1.14 37804 192.168.1.20 22
+SSH_TTY=/dev/pts/0
+SHLVL=1
+PWD=/home/pi
+OLDPWD=/home/pi
+ZSH=/home/pi/.oh-my-zsh
+PAGER=less
+LESS=-R
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+_=/usr/bin/env
+[1m[7m%[27m[1m[0m                                                                                                                                      ]2;pi@raspberrypi:~]1;~[0m[27m[24m[J[35mpi[00m[36m@[00m[33mraspberrypi[00m[31m:[00m[36m~[00m[31m|[00m[36m⇒[00m  [K[?1h=[?2004hbbash --posix[?1l>[?2004l
+]2;bash --posix]1;bashbash-5.0$ env
+SHELL=/usr/bin/zsh
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LESS=-R
+PWD=/home/pi
+LOGNAME=pi
+XDG_SESSION_TYPE=tty
+_=/usr/bin/env
+HOME=/home/pi
+LANG=en_GB.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_CONNECTION=192.168.1.14 37804 192.168.1.20 22
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+ZSH=/home/pi/.oh-my-zsh
+USER=pi
+SHLVL=2
+PAGER=less
+XDG_SESSION_ID=2221
+XDG_RUNTIME_DIR=/run/user/1000
+SSH_CLIENT=192.168.1.14 37804 22
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+MAIL=/var/mail/pi
+SSH_TTY=/dev/pts/0
+OLDPWD=/home/pi
+bash-5.0$ exit
+[1m[7m%[27m[1m[0m                                                                                                                                      ]2;pi@raspberrypi:~]1;~[0m[27m[24m[J[35mpi[00m[36m@[00m[33mraspberrypi[00m[31m:[00m[36m~[00m[31m|[00m[36m⇒[00m  [K[?1h=[?2004h[?2004l
+Connection to 192.168.1.20 closed.
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hssh pi@192.168.1.20[19Dbash               [15Denv man envenv    bash --posix[12Decho env | bash --posix[12Dunbuffer bash --posix[21D[9P[12C         [9D[12Dunbuffer bash --posix[21D[9P[12C         [9D[12D./minishell [22Dgit push              [14Dcommit -m "added syntax checking for parenthesis in wrong places"[K[A[69Cadd *[K[1B[K[A[75C[9D./unit_test.sh unit_allrg [24Dmake re                [16Decho '/bin/echo Hello World' | ./minishell[42Dmake debug                                [32D[10Decho '/bin/echo Hello World' | ./minishell[42Dmake debug                                [32D[10Decho '/bin/echo Hello World' | ./minishell[?2004l[1B[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hlls[?1l>[?2004l
+]2;ls --color=tty]1;ls[0m[01;34mC_vectors[0m  TODO  foo    [01;34mincludes[0m       main.c     print.c           [01;34msrc[0m          [01;34mtests[0m       {,
+Makefile   e     fuck   [01;34mlibft[0m          [01;32mminishell[0m  [01;32mrun_all_tests.sh[0m  test_file    trace
+README.md  file  hello  lldb_commands  [01;34mobj[0m        scratch           test_output  typescript
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004h../unit_test.sh unit_allrg -v | less[9D         [9D[22Dminishell            [11D[?2004l
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hlsssh pi@192.168.1.20[19Dbash               [15D[?2004l
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004h../minishell[1m [0m[0m [?1l>[?2004l
+]2;./minishell]1;./minishell[?1h=EVA-04$ [6n[4hs[4l[P[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6n[4he[4l[4hc[4l[4hh[4l[4ho[4l[4h [4l[4he[4l
+e
+EVA-04$ [6n[4hl[4l[4hs[4l
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hd[4l[4he[4l[4hz[4l[4ha[4l
+minishell: command not found: deza
+EVA-04$ [6n
+EVA-04$ [6n[4hm[4l
+minishell: command not found: m
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l
+minishell: command not found: l
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6n
+EVA-04$ [6n[4he[4l[4hc[4l[4hh[4l[4ho[4l[4h [4l[4hh[4l[4he[4l[4hl[4l[4hl[4l[4ho[4l
+hello
+EVA-04$ [6n[4hl[4l[4hs[4l
+EVA-04$ [6n[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hd[4l[4he[4l[4hz[4l[P[P[P[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l
+minishell: command not found: l
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hl[4l
+minishell: command not found: ll
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n
+EVA-04$ [6n[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6n[4hc[4l[4ha[4l[4ht[4l[4h [4l
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hc[4l[4ha[4l[4ht[4l[4h [4l[4hM[4l[4ha[4l[4hk[4l[4he[4l[4hr[4l[P[4hf[4l[4hi[4l[4hl[4l[4he[4l
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
+#    Updated: 2021/04/20 22:22:40 by root             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+NAME	=	minishell
+CC		= 	clang
+CFLAGS	= 	-Wall -Wextra  -g3  $(INCLUDES)
+
+LIBFT_PATH = ./libft
+OBJ_PATH =	./obj/
+LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
+LIBFT_INC = -I $(LIBFT_PATH)
+LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses
+VECT_LIB = C_vectors/vectlib.a
+FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
+INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes -I./C_vectors/includes
+
+SRCS_PATH = src
+SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
+			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
+			parsing/commands_utils.c parsing/fake_constants.c \
+			\
+			exec/utils.c parsing/checkers.c \
+			exec/redirections_utils.c exec/close.c \
+			exec/exec_commands.c exec/pipes.c \
+			exec/redirections.c exec/exec.c exec/pipeline.c \
+			\
+			parsing/garbage_collector.c \
+			\
+			parenthesis.c \
+			\
+			debug_utils.c word_jump.c errmgr.c find_exec.c \
+			tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c \
+			exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c \
+			history.c minishell.c pwd.c termcaps.c \
+			termcaps_utils.c tokenizer.c unset.c split_line.c\
+			wildcard.c sub_env.c multiline.c remove_quotes.c perform_expansions.c \
+			list_utils.c
+SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
+OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
+
+CPOOP = 
+
+all :		libft
+			@mkdir -p ./obj
+			$(MAKE) $(NAME)
+
+$(NAME):	$(OBJS) $(VECT_LIB)
+			$(CC) $(OBJS) $(LIBS) $(LIBFT_LIB) $(VECT_LIB) -o $(NAME)
+
+libft:
+			$(LIBFT_MAKE)
+
+$(VECT_LIB):
+	make -C C_vectors
+
+$(OBJ_PATH)%.o:		$(SRCS_PATH)/%.c
+			@mkdir -p `dirname $@`
+			$(CC) $(CFLAGS) -c $< -o $@
+
+clean :
+	rm -f $(OBJS)
+
+fclean : clean
+	$(LIBFT_MAKE) fclean
+	rm -f $(NAME)
+	rm -rf $(OBJ_PATH)
+	
+re : 		fclean all
+
+debug_flags : 
+	$(eval CFLAGS += -D DEBUG=1  -fsanitize=address)
+	$(eval LIBFT_LIB += -fsanitize=address)
+	@mkdir -p ./obj
+
+
+debug:
+	$(MAKE) -C  ./libft debug all
+	$(MAKE) debug_flags $(NAME)
+
+
+.PHONY:		all clean fclean re libft debug debug_flags
+EVA-04$ [6n[4hl[4l[4hs[4l
+C_vectors  TODO  foo	includes       main.c	  print.c	    src		 tests	     {,
+Makefile   e	 fuck	libft	       minishell  run_all_tests.sh  test_file	 trace
+README.md  file  hello	lldb_commands  obj	  scratch	    test_output  typescript
+EVA-04$ [6n[4hw[4l[P[4hp[4l[4hw[4l[4hd[4l
+/root/Neon-Genesis-Evanshellion
+EVA-04$ [6nexit
+[1m[7m#[27m[1m[0m                                                                                                                                      ]2;root@nol-machine:~/Neon-Genesis-Evanshellion]1;..-Evanshellion[0m[27m[24m[J[35mroot[00m[36m@[00m[33mnol-machine[00m[31m:[00m[36m~/Neon-Genesis-Evanshellion[00m[31m|[00m[00m[32mparenthesis_fix[33m⚡[00m[00m [36m⇒[00m  [K[?1h=[?2004hbbash[?1l>[?2004l
+]2;bash]1;bash]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# env[1P&&ls (w)./minishell [5Pecho(1)[2Pls(1)./minishell cat $(find ../ ) | tee trace | ./minishell | tee fuck
+cat: ../: Is a directory
+minishell: syntax error near unexpected token `('
+minishell: syntax error near unexpected token `('
+cat: ../.cache: Is a directory
+cat: ../.cache/dconf: Is a directory
+cat: ../.cache/jedi: Is a directory
+cat: ../.cache/jedi/CPython-38-32: Is a directory
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: return
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: HISTCONTROL=ignoredups:ignorespace
+minishell: command not found: #
+minishell: command not found: shopt
+minishell: syntax error near unexpected token `('
+minishell: command not found: HISTSIZE=1000
+minishell: command not found: HISTFILESIZE=2000
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: shopt
+minishell: syntax error near unexpected token `('
+minishell: command not found: e
+minishell: syntax error near unexpected token `('
+minishell: command not found: if
+minishell: command not found: then
+minishell: syntax error near unexpected token `('
+minishell: command not found: fi
+minishell: syntax error near unexpected token `('
+minishell: command not found: case
+minishell: command not found: xterm-color
+minishell: command not found: esac
+minishell: command not found: #
+minishell: command not found: turned
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #force_color_prompt=yes
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: #
+minishell: command not found: assume
+minishell: syntax error near unexpected token `('
+minishell: command not found: #
+minishell: command not found: color_prompt=yes
+minishell: command not found: else
+minishell: command not found: color_prompt=
+minishell: command not found: fi
+minishell: command not found: fi
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: PS1=${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ 
+minishell: command not found: else
+minishell: command not found: PS1=${debian_chroot:+($debian_chroot)}\u@\h:\w\$ 
+minishell: command not found: fi
+minishell: command not found: #
+minishell: command not found: case
+minishell: command not found: xterm*
+minishell: command not found: rxvt*
+minishell: command not found: PS1=\[\e]0;{debian_chroot:+()}\u@\h: \w\a\]
+minishell: command not found: C_vectorsefilefoofuckhelloincludeslibftlldb_commandsmain.cMakefileminishellobjprint.cREADME.mdrun_all_tests.shscratchsrcteststest_filetest_outputTODOtracetypescript{,
+minishell: command not found: esac
+minishell: command not found: #
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: eval
+minishell: command not found: alias
+minishell: command not found: #alias
+minishell: command not found: #alias
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: fi
+minishell: command not found: #
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: .
+minishell: command not found: fi
+minishell: syntax error near unexpected token `('
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #if
+minishell: command not found: then
+minishell: command not found: #
+minishell: command not found: #fi
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+^C
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# cat $(find ../ ) | tee trace | ./minishell | tee fuck[K[K[K[K[K[K[K[K[K[K[K[1P ./minishell[1P./minishell[1P ./minishell[1P ./minishell[1P ./minishell[1P ./minishell[1P ./minishell[1P./minishell[1P ./minishell[1P ./minishell[1P ./minishell[1P./minishell
+cat: ../: Is a directory
+minishell: syntax error near unexpected token `('
+minishell: syntax error near unexpected token `('
+cat: ../.cache: Is a directory
+cat: ../.cache/dconf: Is a directory
+cat: ../.cache/jedi: Is a directory
+cat: ../.cache/jedi/CPython-38-32: Is a directory
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: return
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: HISTCONTROL=ignoredups:ignorespace
+minishell: command not found: #
+minishell: command not found: shopt
+minishell: syntax error near unexpected token `('
+minishell: command not found: HISTSIZE=1000
+minishell: command not found: HISTFILESIZE=2000
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: shopt
+minishell: syntax error near unexpected token `('
+minishell: command not found: e
+minishell: syntax error near unexpected token `('
+minishell: command not found: if
+minishell: command not found: then
+minishell: syntax error near unexpected token `('
+minishell: command not found: fi
+minishell: syntax error near unexpected token `('
+minishell: command not found: case
+minishell: command not found: xterm-color
+minishell: command not found: esac
+minishell: command not found: #
+minishell: command not found: turned
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #force_color_prompt=yes
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: #
+minishell: command not found: assume
+minishell: syntax error near unexpected token `('
+minishell: command not found: #
+minishell: command not found: color_prompt=yes
+minishell: command not found: else
+minishell: command not found: color_prompt=
+minishell: command not found: fi
+minishell: command not found: fi
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: PS1=${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ 
+minishell: command not found: else
+minishell: command not found: PS1=${debian_chroot:+($debian_chroot)}\u@\h:\w\$ 
+minishell: command not found: fi
+minishell: command not found: #
+minishell: command not found: case
+minishell: command not found: xterm*
+minishell: command not found: rxvt*
+minishell: command not found: PS1=\[\e]0;{debian_chroot:+()}\u@\h: \w\a\]
+minishell: command not found: C_vectorsefilefoofuckhelloincludeslibftlldb_commandsmain.cMakefileminishellobjprint.cREADME.mdrun_all_tests.shscratchsrcteststest_filetest_outputTODOtracetypescript{,
+minishell: command not found: esac
+minishell: command not found: #
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: eval
+minishell: command not found: alias
+minishell: command not found: #alias
+minishell: command not found: #alias
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: fi
+minishell: command not found: #
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: alias
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: if
+minishell: command not found: then
+minishell: command not found: .
+minishell: command not found: fi
+minishell: syntax error near unexpected token `('
+minishell: command not found: #
+minishell: command not found: #
+minishell: command not found: #if
+minishell: command not found: then
+minishell: command not found: #
+minishell: command not found: #fi
+[33m0% [Working][0m            Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease
+[33m0% [Waiting for headers] [Connecting to download.docker.com] [Connecting to packages.microsoft.com][0m                                                                                                   Get:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]
+                                                                                                   Get:3 http://security.ubuntu.com/ubuntu focal-security InRelease [109 kB]
+[33m0% [2 InRelease 114 kB/114 kB 100%] [Connected to download.docker.com (13.249.13.24)] [Connecting to packages.microsoft.com][0m[33m                                                                                                                            0% [Connected to download.docker.com (13.249.13.24)] [Connecting to packages.microsoft.com][0m                                                                                           Get:4 http://archive.ubuntu.com/ubuntu focal-backports InRelease [101 kB]
+[33m0% [4 InRelease 16.5 kB/101 kB 16%] [Connected to download.docker.com (13.249.13.24)] [Connecting to packages.microsoft.com (104.214.[0m[33m                                                                                                                                     0% [Connected to download.docker.com (13.249.13.24)] [Connecting to packages.microsoft.com (104.214.230.139)][0m                                                                                                             Get:5 https://download.docker.com/linux/ubuntu focal InRelease [36.2 kB]
+[33m                                                                                                             0% [5 InRelease 36.2 kB/36.2 kB 100%] [Connected to packages.microsoft.com (104.214.230.139)][0m[33m                                                                                             0% [Connected to packages.microsoft.com (104.214.230.139)][0m                                                          Get:6 https://packages.microsoft.com/repos/code stable InRelease [10.4 kB]
+[33m                                                          0% [6 InRelease 10.4 kB/10.4 kB 100%][0m[33m                                     0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m            Get:7 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [623 kB]
+[33m0% [7 Packages 21.3 kB/623 kB 3%][0m[33m                                 0% [Working][0m[33m0% [7 Packages store 0 B][0m                         Get:8 http://security.ubuntu.com/ubuntu focal-security/main Translation-en [127 kB]
+[33m0% [7 Packages store 0 B] [8 Translation-en 53.7 kB/127 kB 42%][0m                                                               Get:9 http://security.ubuntu.com/ubuntu focal-security/main amd64 c-n-f Metadata [7464 B]
+                                                               Get:10 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 Packages [183 kB]
+[33m                                                               0% [7 Packages store 0 B] [10 Packages 148 kB/183 kB 81%][0m                                                         Get:11 http://security.ubuntu.com/ubuntu focal-security/restricted Translation-en [27.0 kB]
+                                                         Get:12 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 c-n-f Metadata [396 B]
+                                                         Get:13 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [552 kB]
+[33m0% [7 Packages store 0 B] [13 Packages 64.9 kB/552 kB 12%][0m[33m                                                          0% [7 Packages store 0 B] [Waiting for headers][0m                                               Get:14 http://security.ubuntu.com/ubuntu focal-security/universe Translation-en [82.8 kB]
+[33m0% [7 Packages store 0 B] [14 Translation-en 6814 B/82.8 kB 8%][0m[33m                                                               0% [7 Packages store 0 B][0m                         Get:15 http://security.ubuntu.com/ubuntu focal-security/universe amd64 c-n-f Metadata [10.8 kB]
+[33m0% [7 Packages store 0 B] [15 Commands-amd64 7277 B/10.8 kB 67%][0m[33m                                                                0% [7 Packages store 3286 kB][0m                             Get:16 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 Packages [14.8 kB]
+[33m0% [7 Packages store 3286 kB] [16 Packages 4450 B/14.8 kB 30%][0m[33m                                                              0% [16 Packages 4450 B/14.8 kB 30%][0m[33m0% [8 Translation-en store 0 B] [16 Packages 14.8 kB/14.8 kB 100%][0m[33m                                                                  0% [8 Translation-en store 0 B] [Waiting for headers][0m                                                     Get:17 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 c-n-f Metadata [340 B]
+[33m0% [8 Translation-en store 0 B] [17 Commands-amd64 340 B/340 B 100%][0m[33m                                                                    0% [8 Translation-en store 0 B][0m[33m                               0% [Working][0m[33m0% [9 Commands-amd64 store 0 B][0m[33m                               0% [Working][0m[33m0% [10 Packages store 0 B][0m[33m                          0% [Working][0m[33m0% [11 Translation-en store 0 B][0m[33m                                0% [Working][0m[33m0% [12 Commands-amd64 store 0 B][0m[33m                                0% [Working][0m[33m0% [13 Packages store 0 B][0m[33m                          0% [Working][0m[33m0% [14 Translation-en store 0 B][0m[33m0% [14 Translation-en store 1042 kB][0m[33m                                    0% [Working][0m[33m0% [15 Commands-amd64 store 0 B][0m                                Get:18 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [947 kB]
+[33m0% [15 Commands-amd64 store 0 B] [18 Packages 36.7 kB/947 kB 4%][0m[33m                                                                0% [18 Packages 96.2 kB/947 kB 10%][0m[33m0% [16 Packages store 0 B] [18 Packages 96.2 kB/947 kB 10%][0m[33m                                                           0% [18 Packages 201 kB/947 kB 21%][0m[33m0% [17 Commands-amd64 store 0 B] [18 Packages 201 kB/947 kB 21%][0m[33m                                                                0% [18 Packages 276 kB/947 kB 29%][0m[33m                                  0% [Working][0m[33m0% [18 Packages store 0 B][0m                          Get:19 http://archive.ubuntu.com/ubuntu focal-updates/main Translation-en [216 kB]
+[33m0% [18 Packages store 0 B] [19 Translation-en 12.1 kB/216 kB 6%][0m[33m                                                                0% [18 Packages store 0 B] [Waiting for headers][0m                                                Get:20 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 c-n-f Metadata [13.2 kB]
+[33m0% [18 Packages store 0 B] [20 Commands-amd64 13.2 kB/13.2 kB 100%][0m[33m                                                                   0% [18 Packages store 0 B] [Waiting for headers][0m                                                Get:21 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [207 kB]
+[33m0% [18 Packages store 0 B] [21 Packages 13.4 kB/207 kB 7%][0m[33m                                                          0% [18 Packages store 0 B] [Waiting for headers][0m                                                Get:22 http://archive.ubuntu.com/ubuntu focal-updates/restricted Translation-en [30.7 kB]
+[33m0% [18 Packages store 0 B] [22 Translation-en 6276 B/30.7 kB 20%][0m[33m                                                                 0% [18 Packages store 0 B] [Waiting for headers][0m                                                Get:23 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 c-n-f Metadata [440 B]
+[33m0% [18 Packages store 0 B] [23 Commands-amd64 440 B/440 B 100%][0m[33m                                                               0% [18 Packages store 0 B][0m                          Get:24 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [760 kB]
+[33m0% [18 Packages store 0 B] [24 Packages 7417 B/760 kB 1%][0m[33m                                                         0% [24 Packages 524 kB/760 kB 69%][0m[33m0% [19 Translation-en store 0 B] [24 Packages 524 kB/760 kB 69%][0m[33m                                                                0% [19 Translation-en store 0 B][0m                                Get:25 http://archive.ubuntu.com/ubuntu focal-updates/universe Translation-en [163 kB]
+[33m0% [19 Translation-en store 0 B] [25 Translation-en 4846 B/163 kB 3%][0m[33m                                                                     0% [25 Translation-en 121 kB/163 kB 74%][0m[33m0% [20 Commands-amd64 store 0 B] [25 Translation-en 121 kB/163 kB 74%][0m[33m                                                                      0% [20 Commands-amd64 store 0 B][0m                                Get:26 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 c-n-f Metadata [17.2 kB]
+[33m0% [20 Commands-amd64 store 0 B] [26 Commands-amd64 941 B/17.2 kB 5%][0m[33m                                                                     0% [20 Commands-amd64 store 0 B][0m                                Get:27 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 Packages [21.6 kB]
+[33m0% [20 Commands-amd64 store 0 B] [27 Packages 5816 B/21.6 kB 27%][0m[33m                                                                 0% [20 Commands-amd64 store 0 B] [Waiting for headers][0m                                                      Get:28 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 c-n-f Metadata [600 B]
+[33m0% [20 Commands-amd64 store 0 B] [28 Commands-amd64 600 B/600 B 100%][0m[33m                                                                     0% [20 Commands-amd64 store 0 B][0m[33m                                0% [Working][0m[33m0% [21 Packages store 0 B][0m^C
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# ls
+[0m[01;34mC_vectors[0m  TODO  foo    [01;34mincludes[0m       main.c     print.c           [01;34msrc[0m          [01;34mtests[0m       {,
+Makefile   e     fuck   [01;34mlibft[0m          [01;32mminishell[0m  [01;32mrun_all_tests.sh[0m  test_file    trace
+README.md  file  hello  lldb_commands  [01;34mobj[0m        scratch           test_output  typescript
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# lscat $(find ../ ) | ./minishelltee trace | ./minishell | tee fuck[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cenv[K[1P&&ls (w)./minishell [6Pls (w)[4P&&ls (w)./minishell [5Pecho(1)./minishell 
+[?1h=EVA-04$ [6n[18;9H[Kpwd[18;12H[18;9H[Kls[18;11H[18;9H[Kcat Makefile[18;21H[18;9H[Kls[18;11H[18;9H[Kpwd[18;12H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kll[18;11H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kl[18;10H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kll[18;11H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kls[18;11H[18;9H[Kpwd[18;12H[18;9H[Kls[18;11H[18;9H[Kcat Makefile[18;21H[18;9H[Kls[18;11H[18;9H[Kpwd[18;12H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H[18;9H[K[18;9H
+EVA-04$ [6nexit
+]0;root@nol-machine: ~/Neon-Genesis-Evanshellionroot@nol-machine:~/Neon-Genesis-Evanshellion# exit
+[1m[7m#[27m[1m[0m                                                           
