@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 19:32:28 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 22:02:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ t_ast_node
 	sep = find_pipeline_separator(tokens);//find_token_in_tokens(tokens, pipeline_separators());
 	node->abstract_pipeline = dup_n_tab(tokens, sep - tokens);
 	node->pipeline = parse_pipeline(node->abstract_pipeline);
+	if (!node->pipeline)
+	{
+		free_ast_node(node);
+		return (NULL);
+	}
 	if (sep && *sep)
 		node->sep = ft_strdup(*sep);
 	return (node);
@@ -74,7 +79,15 @@ t_ast
 
 	lst = NULL;
 	while ((node = get_next_ast_node(tokens)))
+	{
+		if (!node)
+		{
+			free_ast(lst);
+			lst = NULL;
+			break ;
+		}
 		ft_lstadd_back(&lst, node);
+	}
 	get_next_ast_node(NULL);
 	return (lst);
 }
