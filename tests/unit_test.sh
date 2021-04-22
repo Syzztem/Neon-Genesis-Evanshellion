@@ -349,6 +349,7 @@ unit_parenthesis()
 	cmp_shell 'printf "hello\nworld\m" | ( grep -o hello | ( grep -o lo | grep -o l ) )'
 	cmp_shell 'printf "hello\nworld\m"|( grep -o hello | (grep -o lo | grep -o l) )'
 	cmp_shell '(echo hello ; export DFG=fuckme); echo $DFG'
+	#cmp_shell 'ls(w)' #error case
 }
 
 main()

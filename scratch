@@ -1,6 +1,1 @@
-"# To enable this hook, rename this file to "applypatch-msg"."src/parsing/tree.c:61:[current]: 0x60300000e0b0 -> {, NULL};
-"# To enable this hook, rename this file to "applypatch-msg"."src/parsing/commands.c:171:[current]: 0x602000022830 -> {, NULL};
-"# To enable this hook, rename this file to "applypatch-msg"."src/parsing/commands.c:102:[extracted]: 0x602000022850 -> {, NULL};
-
-
-src/parsing/tree.c:61:[current]: 0x60300000e0b0 -> {, NULL};
+# ~/.bashrc: executed by bash(1) for non-login shells.

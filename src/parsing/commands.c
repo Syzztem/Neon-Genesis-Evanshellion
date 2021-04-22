@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 22:52:56 by root             ###   ########.fr       */
+/*   Updated: 2021/04/22 23:28:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ t_command
 }
 
 t_command
-	*parse_simple_command(char **current, int *len_ptr)
+	*parse_simple_command(char **current, size_t *len_ptr)
 {
-	int			end;
+	size_t		end;
 	char		**extracted;
 	t_command	*command;
 
@@ -129,23 +129,27 @@ size_t
 	}
 	if (level)
 	{
-		ft_putendl_fd(SHELL_NAME ": missing `)'\n", 2);
-		return (-1);
+		ft_putendl_fd(SHELL_NAME ": missing matching `)'", 2);
+		PARGV(tokens);
+		return (0);
 	}
 	return (current - tokens);
 }
 
 t_command
-	*parse_parenthesis(char **current, int *len_ptr)
+	*parse_parenthesis(char **current, size_t *len_ptr)
 {
-	int			end;
+	size_t		end;
 	char		**extracted;
 	t_command	*command;
 
 	PARGV(current);
 	end = parenthesis_len(current);
-	if (end < 0)
+	if (end == 0)
+	{
+		printf("RETURNING NULL\n");
 		return (NULL);
+	}
 	//printf("end: %d\n", end);
 	extracted = dup_n_tab(current, end);
 	command = new_command(ft_strdup(extracted[0]), dup_tab(extracted), NULL);
@@ -161,7 +165,7 @@ t_command
 {
 	static char	**current = NULL;
 	static char **tokens_start = NULL;
-	int			end;
+	size_t		end;
 	t_command	*command;
 
 	if (tokens != tokens_start)

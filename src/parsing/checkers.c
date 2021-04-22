@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 16:00:45 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 23:48:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,29 @@ char
 	**get_last_token(char **tokens)
 {
 	return (tokens + tab_size(tokens) - 1);
+}
+
+int
+	check_parenthesis(char **tokens)
+{
+	char	**current;
+	int		is_first_command_token;
+
+	current = tokens;
+	is_first_command_token = 1;
+	while (*current)
+	{
+		if (!is_first_command_token && !ft_strcmp(*current, PARENTHESIS_OPEN))
+			return (1);
+		current++;
+		is_first_command_token = 0;
+		if (*current && find_token(*current, pipeline_separators()))
+		{
+			is_first_command_token = 1;
+			current++;
+		}
+	}
+	return (0);
 }
 
 int
@@ -40,6 +63,11 @@ int
 	if (is_connective(last))
 	{
 		psyntax_error(last);
+		return (1);
+	}
+	if (check_parenthesis(tokens))
+	{
+		psyntax_error(PARENTHESIS_OPEN);
 		return (1);
 	}
 	while (*last)
