@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 21:32:57 by root             ###   ########.fr       */
+/*   Updated: 2021/04/18 17:44:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,9 @@ void
 		return ;
 	printf("  node: %p\n", node);
 	printf("    - %-15s", "pipeline:");
-	pesc(node->abstract_pipeline, 1);
+	print_argv(node->abstract_pipeline);
 	puts("");
+	print_pipeline(node->pipeline);
 	printf("    - %-15s", "sep:");
 	pesc(node->sep, 1);
 	puts("");

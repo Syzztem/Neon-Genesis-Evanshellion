@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 12:41:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:25:14 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 05:33:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char
 	while (list)
 	{
 		ref = copy_and_epurate(ref, list->token);
-		*ref++ = ' ';
+		//*ref++ = ' ';
 		list = list->next;
 	}
 	*ref = '\0';

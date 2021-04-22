@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:14:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 22:27:05 by root             ###   ########.fr       */
+/*   Updated: 2021/04/18 16:56:21 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t
 	get_command_len(char **tokens)
 {
-	return (find_sep(tokens) - tokens);
+	return (find_pipe(tokens) - tokens);
 }
 
 int

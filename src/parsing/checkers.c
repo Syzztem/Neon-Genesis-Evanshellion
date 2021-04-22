@@ -6,11 +6,12 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/03 15:26:07 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:10:26 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "libft.h"
 
 char
 	**get_last_token(char **tokens)
@@ -21,6 +22,8 @@ char
 int
 	check_syntax(char **tokens)
 {
+	char	*last;
+
 	if (!tokens)
 	{
 		printf("error: TOKENS ARE NULL\n");
@@ -33,12 +36,20 @@ int
 		psyntax_error(*tokens);
 		return (1);
 	}
-	if (is_connective(*get_last_token(tokens)))
+	last = *get_last_token(tokens);
+	if (is_connective(last))
 	{
-		psyntax_error(*get_last_token(tokens));
+		psyntax_error(last);
 		return (1);
 	}
-	return (0);
+	while (*last)
+	{
+		if (!ft_isspace(*last))
+			return (0);
+		last++;
+	}
+	psyntax_error(get_last_token(tokens)[-1]);
+	return (1);
 }
 
 int
@@ -81,7 +92,7 @@ int
 	{
 		if (is_redirect(*current))
 		{
-			if (!current[1])
+			if (!current[1] || (!ft_strcmp(current[1], " ") && !current[2]))
 			{
 				psyntax_error(*current);
 				return (1);

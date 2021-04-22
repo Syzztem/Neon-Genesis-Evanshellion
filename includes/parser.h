@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 21:26:34 by root             ###   ########.fr       */
+/*   Updated: 2021/04/21 10:26:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@
 # include <limits.h>
 # include "libft.h"
 # include "structs.h"
-# include "global.h"
 # include "garbage_collector.h"
+
+extern int	g_exit_status;
 
 # define SHELL_NAME "minishell"
 # define CMD_NOT_FOUND_MSG "command not found"
 
 # define ESCAPE_CHAR 0x1b
-# define ESCAPE "\x1b"
+# define ESCAPE //"\x1b"
 # define REDIR_REPLACE ESCAPE ">"
 # define REDIR_APPEND ESCAPE ">>"
 # define REDIR_HERE_DOC ESCAPE "<<"
@@ -53,6 +54,7 @@
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
+char            *get_command_path(char *cmd);
 size_t			get_pipeline_len(char **tokens);
 size_t			tab_size(char **table);
 t_command		*new_command(char *cmd, char **argv, char *sep);
@@ -78,7 +80,7 @@ char			**ref_in_tokens(char *ref, char **tokens);
 char			**safe_find_token(char **tokens, char *find);
 char			**get_last_token(char **tokens);
 
-t_pipeline		parse_pipeline(char *pipeline);
+t_pipeline		parse_pipeline(char **pipeline);
 t_ast			parse_ast(char **tokens);
 char			**extract_redirects(char **tokens);
 
@@ -109,5 +111,6 @@ int				check_pipeline(t_pipeline pipeline);
 int				check_command(t_command *cmd);
 int				check_ast(t_ast ast);
 int				check_syntax(char **tokens);
+void			clear_one_backslash(char *command);
 
 #endif

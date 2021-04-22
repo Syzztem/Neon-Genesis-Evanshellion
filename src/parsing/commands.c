@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/03 17:47:11 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 08:36:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_command
 	cmd->redirections = extract_redirects(tokens);
 	cmd->argv = get_pure_tokens(tokens);
 	if (cmd->argv[0] == NULL)
-		cmd->argv[0] = ft_strdup(ESCAPE);
+		cmd->argv[0] = ft_strdup("");
 	cmd->cmd = cmd->argv[0];
 	cmd->fd_input = 0;
 	cmd->fd_output = 1;
@@ -55,26 +55,35 @@ t_command
 	return (cmd);
 }
 
-t_command
-	*command_from_tokens(char **tokens, char *sep)
+char
+	*get_command_path(char *cmd)
 {
 	char		*path_buf;
 	char		*found_exec;
-	t_command	*cmd;
 
-	cmd = init_command_from_tokens(tokens, sep);
 	if (!cmd)
-		return (cmd);
-	path_buf = alloc_path_buf(cmd->cmd);
-	found_exec = find_exec(path_buf, cmd->cmd);
+		return (NULL);
+	path_buf = alloc_path_buf(cmd);
+	found_exec = find_exec(path_buf, cmd);
 	if (!path_buf || !found_exec)
 	{
 		free(path_buf);
-		return (cmd);
+		return (ft_strdup(cmd));
 	}
-	if (found_exec == cmd->cmd)
-		ft_strlcpy(path_buf, cmd->cmd, PATH_MAX);
-	cmd->cmd = path_buf;
+	if (found_exec == cmd)
+		ft_strlcpy(path_buf, cmd, PATH_MAX);
+	return (path_buf);
+}
+
+t_command
+	*command_from_tokens(char **tokens, char *sep)
+{
+
+	t_command	*cmd;
+
+	cmd = init_command_from_tokens(tokens, sep);
+	/*if (cmd)
+		cmd->cmd = get_command_path(cmd->cmd);*/
 	return (cmd);
 }
 
@@ -88,6 +97,7 @@ t_command
 	end = get_command_len(current);
 	extracted = dup_n_tab(current, end);
 	command = command_from_tokens(extracted, *find_sep(current));
+	//free_tokens(extracted);
 	if (len_ptr)
 		*len_ptr = end;
 	return (command);

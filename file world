@@ -1,2 +1,0 @@
-echo hello > file world | grep hello && echo world | (grep world | grep -o wo) ; echo wesh > end
-echo hello "|" grep world

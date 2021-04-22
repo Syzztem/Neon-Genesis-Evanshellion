@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/12 11:17:25 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 03:30:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static size_t
 	return (count);
 }
 
-static void
+void
 	clean_backslashes(char **tokens)
 {
 	char	*line;
@@ -61,7 +61,7 @@ static void
 		while (*line)
 		{
 			if (*line == '\\' && ft_isspace(*(line + 1)))
-				ft_memmove(line, line + 1, ft_strlen(line) + 1);
+				ft_memmove(line, line + 1, ft_strlen(line));
 			++line;
 		}
 		++tokens;

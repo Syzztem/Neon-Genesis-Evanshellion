@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/09 14:06:11 by lothieve         ###   ########.fr        #
+#    Updated: 2021/04/20 22:22:40 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,10 @@ LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
 LIBFT_MAKE = @$(MAKE) -C $(LIBFT_PATH)
 LIBFT_INC = -I $(LIBFT_PATH)
-LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses 
+LIBFT_LIB = -L$(LIBFT_PATH) -lft -lncurses
+VECT_LIB = C_vectors/vectlib.a
 FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
-INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes
+INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes -I./C_vectors/includes
 
 SRCS_PATH = src
 SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
@@ -53,11 +54,14 @@ all :		libft
 			@mkdir -p ./obj
 			$(MAKE) $(NAME)
 
-$(NAME):	$(OBJS)
-			$(CC) $(OBJS) $(LIBS) $(LIBFT_LIB) -o $(NAME)
+$(NAME):	$(OBJS) $(VECT_LIB)
+			$(CC) $(OBJS) $(LIBS) $(LIBFT_LIB) $(VECT_LIB) -o $(NAME)
 
 libft:
 			$(LIBFT_MAKE)
+
+$(VECT_LIB):
+	make -C C_vectors
 
 $(OBJ_PATH)%.o:		$(SRCS_PATH)/%.c
 			@mkdir -p `dirname $@`

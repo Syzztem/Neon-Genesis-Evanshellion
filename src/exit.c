@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:54:02 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/26 10:55:23 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 10:54:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	builtin_exit(char **av, char **envp)
 		p_builtin_error("exit", NULL, "too many arguments");
 		return (1);
 	}
-	exit(0);
+	if (tab_size(av) == 1)
+		exit(0);
+	exit(atoi(av[1]));
 	return (1);
 }

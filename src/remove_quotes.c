@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 13:59:21 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:41:15 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 #define SQ_ESCAPES " \t\n\v\f\r;&|\"*<>()\\$"
 #define DQ_ESCAPES " \t\n\v\f\r;&|\'*<>()"
 
@@ -36,13 +37,19 @@ static size_t
 	char *outref;
 
 	ref = line + 1;
+	//printf("esc sq: %s\n", ref);
 	outref = *out;
 	while (*ref != '\'')
 	{
-		if (ft_indexof(SQ_ESCAPES, *ref) != -1)
+		/*if (!*ref)
+		{
+			ft_putendl_fd("minishell: missing matching \'", 2);
+			exit(1);
+		}*/
+		/*if (ft_indexof(SQ_ESCAPES, *ref) != -1)
 		{
 			*outref++ = '\\';
-		}
+		}*/
 		*outref++ = *ref++;
 	}
 	*out = outref;
@@ -59,10 +66,19 @@ static size_t
 	outref = *out;
 	while (*ref != '\"' || *(ref - 1) == '\\')
 	{
-		if (ft_indexof(DQ_ESCAPES, *ref) != -1)
-			*outref++ = '\\';
-		*outref++ = *ref++;
+		if (!*ref)
+		{
+			ref[-1] = 0;
+			ft_strcpy(*out, line + 1);
+		//	printf("out: %s\n", *out);
+			*out = ft_strchr(*out, 0);
+			return (ref - line + 1);
+		}
+		ref++;
 	}
+	ref = line + 1;
+	while (*ref != '\"' || *(ref - 1) == '\\')
+		*outref++ = *ref++;
 	*out = outref;
 	return ((ref - line) + 1);
 }
@@ -79,11 +95,15 @@ char
 	lref = line;
 	while (*line)
 	{
-		if (*line == '\'' || (line != lref && *(line - 1) == '\\'))
+		if (*line == '\'' && (line == lref || *(line - 1) != '\\'))
 			line += escape_sq(line, &ref);
-		if (*line == '\"' || (line != lref && *(line - 1) == '\\'))
+		else if (*line == '\"' && (line == lref || *(line - 1) != '\\'))
+		{
 			line += escape_dq(line, &ref);
-		if (*line)
+			//printf("outttt: %s\n", out);
+		//	printf("line: %s\n", line);
+		}
+		else if (*line)
 			*ref++ = *line++;
 	}
 	*ref = 0;

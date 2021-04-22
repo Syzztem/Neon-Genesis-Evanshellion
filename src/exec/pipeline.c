@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 12:31:56 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:59:03 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int
 	if (!lst || lst->next)
 		return (0);
 	cmd = lst->content;
-	return (cmd && cmd->argv && is_builtin(cmd->argv[0]) != -1
+	expand_command(cmd);
+	return (cmd && cmd->argv && cmd->argv[0] && is_builtin(cmd->argv[0]) != -1
 	&& ft_strcmp(cmd->argv[0], PARENTHESIS_OPEN));
 }
 
@@ -31,13 +32,13 @@ void
 }
 
 int
-	exec_pipeline(t_pipeline pipeline)
+	do_exec_pipeline(t_pipeline pipeline)
 {
 	pid_t	pid;
 	int		status;
 
 	pipe_nodes(pipeline);
-	print_pipeline(pipeline);
+	//print_pipeline(pipeline);
 	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
 	wait_pipeline(pipeline);
@@ -46,6 +47,7 @@ int
 	return (0);
 }
 
+/*
 int
 	exec_abstract_pipeline(char *tokens)
 {
@@ -68,6 +70,45 @@ int
 	else
 		exec_pipeline(pipeline);
 	free_pipeline(&pipeline);
+	return (g_exit_status);
+}
+*/
+
+int
+	exec_single_builtin(t_command *cmd)
+{
+	extern	char	**environ;
+	t_redirector	rdr;
+
+	dup2_check(cmd->fd_input, 0);
+	dup2_check(cmd->fd_output, 1);
+	do_redirector(&rdr, cmd->redirections);
+	exec_builtin(cmd->argv, environ);
+	restore_streams(&rdr);
+	g_exit_status = 0;
+	return (g_exit_status);
+}
+
+int
+	exec_pipeline(t_pipeline pipeline)
+{
+	pid_t			pid;
+	int				status;
+
+	if (check_pipeline(pipeline))
+	{
+		//printf("pipeline error\n");
+		return (1);
+	}
+	if (is_single_builtin(pipeline))
+		return (exec_single_builtin(pipeline->content));
+	pipe_nodes(pipeline);
+	//print_pipeline(pipeline);
+	pid = exec_command_list(pipeline);
+	waitpid(pid, &status, 0);
+	wait_pipeline(pipeline);
+	if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
 	return (g_exit_status);
 }
 

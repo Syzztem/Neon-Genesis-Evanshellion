@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/18 15:46:26 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/22 09:27:53 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ static size_t
 	return (0);
 }
 
-static size_t
-	raw_input_len(char *command)
-{
-	char *ref;
-
-	ref = command;
-	while (*ref && !wildcard_len(ref) &&
-			(*ref != '$' || (ref != command && *ref == '\\')))
-		++ref;
-	return (ref - command);
-}
+/*
+** static size_t
+** 	raw_input_len(char *command)
+** {
+** 	char *ref;
+** 
+** 	ref = command;
+** 	while (*ref && !wildcard_len(ref) &&
+** 			(*ref != '$' || (ref != command && *ref == '\\')))
+** 		++ref;
+** 	return (ref - command);
+** }
+*/
 
 static size_t
 	add_env(char *command, t_token **list)
@@ -78,19 +80,27 @@ char
 	char	*ref;
 	size_t	len;
 	char	*out;
+	char	*quote;
 
+	if (!command)
+		return (NULL);
 	ref = command;
 	list = NULL;
+	quote = "\0";
 	while (*ref)
 	{
+		if (!*quote && (ft_strchr("\"'", *ref) && ref != command && ref[-1] != '\\'))
+			quote = ref;
+		else if (*quote == *ref)
+			quote = "\0";
 		len = wildcard_len(ref);
-		if (len)
+		if (len && *quote != '\'')
 			ref += add_wildcard(ref, len, &list);
-		else if (*ref == '$' && (ref == command || *ref != '\\'))
+		else if (*quote != '\'' && *ref == '$' && (ref == command || ref[-1] != '\\'))
 			ref += add_env(ref, &list);
 		else
 		{
-			len = raw_input_len(ref);
+			len = 1;//raw_input_len(ref);
 			ft_lstadd_back((t_list **)&list, ft_strndup(ref, len));
 			ref += len;
 		}

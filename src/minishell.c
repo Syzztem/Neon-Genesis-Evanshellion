@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/18 15:43:52 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 09:26:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec.h"
 #include <limits.h>
+#include "global.h"
 
 int ft_isatty(int fd)
 {
@@ -63,8 +64,6 @@ int
 	minishell_non_interactive(void)
 {
 	char		*line;
-	char		*dequoted;
-//	char		**tokens;
 	char		**commands;
 	int			ret;
 
@@ -86,17 +85,9 @@ int
 			free(line);
 			continue ;
 		}
-		dequoted = remove_quotes(line);
-		puts(dequoted);
-		commands = split_line(dequoted);
-		print_argv(commands);
-		/*
-		tokens = tokenize(line);
-		exec_command_line(tokens);
-		free_tokens(tokens);
-		*/
+		commands = split_line(line);
+		exec_command_line(commands);
 		free_tokens(commands);
-		free(dequoted);
 		free(line);
 	}
 	free(line);
@@ -108,7 +99,6 @@ int
 	minishell(void)
 {
 	char		*line;
-	char		*dequote;
 	char		**commands;
 
 	if (!is_computer_on())
@@ -124,21 +114,11 @@ int
 			free(line);
 			continue ;
 		}
-		dequote = remove_quotes(line);
-		commands = split_line(dequote);
-		print_argv(commands);
-
-		//working single command tokenizer
-		char *command = perform_expansions(*commands);
-		puts(command);
-		char **tokens = tokenize(command);
-		print_argv(tokens);
-		free(command);
-		free_tokens(tokens);
-
-//		exec_line(commands);
+		commands = split_line(line);
+		if (DEBUG)
+			print_argv(commands);
+		exec_command_line(commands);
 		free_tokens(commands);
-		free(dequote);
 		free(line);
 	}
 	return (g_exit_status);

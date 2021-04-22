@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/09 10:13:35 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/21 06:42:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int
 	{
 		node = current->content;
 		if (check_pipeline_run(sep, ret))
-			exec_abstract_pipeline(node->abstract_pipeline);
-		ret = g_exit_status;
+			ret = exec_pipeline(node->pipeline);
 		sep = node->sep;
 		current = current->next;
 	}
@@ -44,6 +43,7 @@ int
 	if (check_syntax(tokens))
 		return (1);
 	ast = parse_ast(tokens);
+	print_ast(ast);
 	if (check_ast(ast))
 	{
 		free_ast(ast);

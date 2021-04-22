@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:27:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/02 11:37:33 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/21 02:14:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void
 void
 	free_ast_node(t_ast_node *node)
 {
-	free(node->abstract_pipeline);
+	free_tokens(node->abstract_pipeline);
 	node->abstract_pipeline = NULL;
+	free_pipeline(&(node->pipeline));
 	free_to_null((void **)&node->sep);
 	free(node);
 }
