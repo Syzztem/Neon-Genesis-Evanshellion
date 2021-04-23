@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 20:55:51 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 17:01:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int
 	interrupt_singleton(0);
 	while (1)
 	{
-		if ((get_key(key, 0) == 0 && line->len == 0))
+		if ((get_key(key, 0) == 0 && line->len == 0 && *key == 4))
 		{
 			free(line->line);
 			free(line);
@@ -156,7 +156,6 @@ int
 			return (1);
 		}
 		exec_key(line, key);
-
 	}
 	return (1);
 }
