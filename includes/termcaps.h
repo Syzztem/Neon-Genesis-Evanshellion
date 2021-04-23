@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 19:14:47 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 21:26:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <sys/ioctl.h>
+
 
 typedef struct	s_point
 {
@@ -78,5 +80,8 @@ void			move_cursor(int x, int y);
 char			*get_history_path(void);
 void			print_line(t_line *line);
 void			get_cursor(t_point *cursor);
-
+void			clear_line(t_line *line);
+void			get_term_size(int *width_ptr, int *height_ptr);
+int				get_term_width(void);
+int				get_term_height(void);
 #endif

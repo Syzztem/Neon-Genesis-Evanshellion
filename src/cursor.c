@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 20:05:45 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 21:29:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	move_left(t_line *line)
 	if (line->cursor_pos.x == 1)
 	{
 		line->cursor_pos.y -= 2;
-		line->cursor_pos.x = tgetnum("co");
+		line->cursor_pos.x = get_term_width();
 		line->r_cur_pos--;
 		move_cursor(line->cursor_pos.x, line->cursor_pos.y);
 		return;
@@ -36,7 +36,7 @@ void	move_right(t_line *line)
 	if (line->r_cur_pos == line->len)
 		return ;
 	get_cursor(&(line->cursor_pos));
-	if (line->cursor_pos.x == tgetnum("co"))
+	if (line->cursor_pos.x == get_term_width())
 	{
 		line->cursor_pos.y += 2;
 		line->cursor_pos.x = 0;
