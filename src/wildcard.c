@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:34:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/09 12:18:30 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/23 18:17:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int
 		if (*entry->d_name != '.' && entry->d_type == DT_DIR)
 			get_all_matches(expr, path, list);
 		if (*entry->d_name != '.' && all_matches(expr, path + 2))
-			ft_lstadd_back((t_list **)list, ft_strdup(path + 2));
+			ft_lstadd_back((t_list **)list, ft_strjoin(path + 2, " "));
 		path[path_len] = '\0';
 	}
 	closedir(dir);
