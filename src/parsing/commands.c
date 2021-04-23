@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 23:28:14 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 16:08:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ t_command
 	}
 	//printf("end: %d\n", end);
 	extracted = dup_n_tab(current, end);
-	command = new_command(ft_strdup(extracted[0]), dup_tab(extracted), NULL);
+	command = new_command(ft_strdup(extracted[0]), extracted, NULL);
 	//command->tokens = current;
 	command->redirections = extract_redirects(current + end);
 	if (len_ptr)
