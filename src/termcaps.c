@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 22:26:16 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:55:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,23 @@ void
 }
 
 int
-	get_start_column(t_line *line)
+	get_line_height(size_t len)
 {
 	int		term_width;
 	size_t	prompt_len;
 
-	term_width = get_term_width();
 	prompt_len = ft_strlen(PROMPT);
-	return (line->cursor_pos.y - ((prompt_len + line->r_cur_pos) / term_width));
+	term_width = get_term_width();
+	if (prompt_len > term_width)
+		return ((len + prompt_len) / term_width);
+	else
+		return ((len + prompt_len) / term_width + 1);
+}
+
+int
+	get_start_column(t_line *line)
+{
+	return (line->cursor_pos.y - get_line_height(line->r_cur_pos));
 }
 
 void
