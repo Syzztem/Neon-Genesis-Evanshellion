@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 16:50:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 00:43:24 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 01:24:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	prev_word(t_line *line)
 	while (ft_isalnum(line->line[pos]) && pos > 0)
 		pos--;
 	line->start_column = get_start_column(line);
-	line->cursor_pos.x = (pos + ft_strlen(PROMPT)) % get_term_width();
+	line->cursor_pos.x = (pos + ft_strlen(PROMPT)) % get_term_width() + !!pos;
 	line->r_cur_pos = pos;
 	line->cursor_pos.y = line->start_column + get_line_height(pos) - 1;
 	move_cursor(line->cursor_pos.x, line->cursor_pos.y);
