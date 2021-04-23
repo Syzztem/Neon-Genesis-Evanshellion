@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 21:29:13 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:24:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,26 @@ void	move_right(t_line *line)
 
 void	go_home(t_line *line)
 {
-	move_cursor(line->start_row, line->cursor_pos.y);
+	int	term_width;
+
+	get_cursor(&(line->cursor_pos));
+	term_width = get_term_width();
+	line->cursor_pos.x = ft_strlen(PROMPT) % term_width;
+	line->cursor_pos.y = get_start_column(line);
+	update_cursor(line);
 	line->r_cur_pos = 0;
-	line->cursor_pos.x = line->start_row;
 }
 
 void	go_end(t_line *line)
 {
-	move_cursor(line->start_row + line->len, line->cursor_pos.y);
-	line->r_cur_pos = line->len;
-	line->cursor_pos.x = line->start_row + line->len;
+	int		term_width;
+	t_point	relative_cursor;
+
+	get_cursor(&(line->cursor_pos));
+	term_width = get_term_width();
+	get_relative_pos(line->r_cur_pos, &relative_cursor);
+	line->cursor_pos.x = relative_cursor.x;
+	line->cursor_pos.y = get_start_column(line) + relative_cursor.y;
+	update_cursor(line);
+	line->r_cur_pos = 0;
 }
