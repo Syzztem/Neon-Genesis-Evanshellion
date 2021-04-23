@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 17:15:16 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 01:14:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void
 		get_key(next_key, '\n');
 		if (!(key_is(next_key, "ku") || key_is(next_key, "kd")))
 			break ;
+		clear_line(current_line);
 	}
 	ft_memmove(line, current_line, sizeof(t_line));
 	clear_unused_lines(hist_lines, current_line->line, line_count);

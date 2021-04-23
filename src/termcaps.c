@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 22:56:26 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 01:01:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void
 	prompt_len = ft_strlen(PROMPT);
 	get_cursor(&(line->cursor_pos));
 	get_relative_pos(line->r_cur_pos, &cursor);
-	line->start_column = line->cursor_pos.y - cursor.y;
+	line->start_column = get_start_column(line);//line->cursor_pos.y - cursor.y;
 	move_cursor(0, line->start_column);
 	cap("cd");
 	write(0, PROMPT, prompt_len);

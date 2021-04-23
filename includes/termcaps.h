@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 21:40:01 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 00:36:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ int				get_term_height(void);
 int				get_start_column(t_line *line);
 void			update_cursor(t_line *line);
 void			get_relative_pos(size_t r_pos, t_point *cursor);
+int				get_line_height(size_t len);
 #endif

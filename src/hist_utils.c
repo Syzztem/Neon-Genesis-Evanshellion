@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 23:03:40 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 01:19:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 void
 	set_line(t_line *line)
 {
-	clear_line(line);
-	ft_putstr_fd(line->line, 1);
-	go_end(line);
+	write(0, line->line, line->len);
+	line->r_cur_pos = line->len;
+	get_cursor(&(line->cursor_pos));
 }
 
 t_line
