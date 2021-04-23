@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 16:24:04 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 19:14:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_line
 	size_t	r_cur_pos;
 	size_t	len;
 	size_t	start_row;
+	size_t	start_column;
 	size_t	max_len;
 	t_point cursor_pos;
 }				t_line;
@@ -75,5 +76,7 @@ int				ft_putchar(int c);
 int				get_term_line(char **buffer);
 void			move_cursor(int x, int y);
 char			*get_history_path(void);
+void			print_line(t_line *line);
+void			get_cursor(t_point *cursor);
 
 #endif

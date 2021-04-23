@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 18:10:29 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 18:55:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,21 @@ void	insert_char(t_line *line, char c)
 	cap("ei");
 }
 
-/*
-** 
-**  void
-**  print_line(t_line *line)
-**  {
-** 	printf("line: %s\n", line->line);
-** 	printf("r_cur_pos: %zu\n", line->r_cur_pos);
-** 	printf("len: %zu\n", line->len);
-** 	printf("start_row: %zu\n", line->start_row);
-** 	printf("max_len: %zu\n", line->max_len);
-** 	printf("cursor_pos: .x=%zu .y=%zu\n", line->cursor_pos.x, line->cursor_pos.y);
-**  }
-*/
+
+ 
+void
+	print_line(t_line *line)
+{
+	printf("line: %s\n", line->line);
+	printf("r_cur_pos: %zu\n", line->r_cur_pos);
+	printf("len: %zu\n", line->len);
+	printf("start_row: %zu\n", line->start_row);
+	printf("start_row: %zu\n", line->start_column);
+	printf("max_len: %zu\n", line->max_len);
+	printf("cursor_pos: .x=%zu .y=%zu\n", line->cursor_pos.x,
+	line->cursor_pos.y);
+}
+
 
 
 void	delete_char(t_line *line)

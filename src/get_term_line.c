@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 17:01:49 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 19:11:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,13 @@ void
 }
 
 void
-	init_line(t_line *line)
+	get_cursor(t_point *cursor)
 {
 	char	cursor_pos[17];
-	int		rd;
 	size_t	i;
+	int		rd;
 
-	line->line = malloc(BUFF_SIZE);
-	ft_bzero(line->line, BUFF_SIZE);
-	line->r_cur_pos = 0;
-	line->len = 0;
-	line->max_len = BUFF_SIZE;
+
 	write(0, CURSOR_QUERY, 4);
 	rd = read(1, cursor_pos, 16);
 	if (rd < 0)
@@ -115,13 +111,26 @@ void
 	}
 	cursor_pos[rd] = '\0';
 	i = 2;
-	line->cursor_pos.y = ft_atoi(cursor_pos + i);
-	if (line->cursor_pos.y != (size_t)tgetnum("li"))
-		line->cursor_pos.y--;
+	cursor->y = ft_atoi(cursor_pos + i);
+	if (cursor->y != (size_t)tgetnum("li"))
+		cursor->y--;
 	while (ft_isdigit(cursor_pos[i]))
 		i++;
-	line->cursor_pos.x = ft_atoi(cursor_pos + i + 1);
+	cursor->x = ft_atoi(cursor_pos + i + 1);
+}
+
+void
+	init_line(t_line *line)
+{
+
+	line->line = malloc(BUFF_SIZE);
+	ft_bzero(line->line, BUFF_SIZE);
+	line->r_cur_pos = 0;
+	line->len = 0;
+	line->max_len = BUFF_SIZE;
+	get_cursor(&(line->cursor_pos));
 	line->start_row = line->cursor_pos.x - 1;
+	line->start_column = line->cursor_pos.y;
 }
 
 int
