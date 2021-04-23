@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 22:55:09 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:56:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int
 	term_width = get_term_width();
 	if (prompt_len > term_width)
 		return ((len + prompt_len) / term_width);
-	else
-		return ((len + prompt_len) / term_width + 1);
+	return ((len + prompt_len) / term_width + 1);
 }
 
 int

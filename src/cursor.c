@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 22:46:36 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 22:58:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ void	go_end(t_line *line)
 	line->cursor_pos.x = relative_cursor.x - 1;
 	line->cursor_pos.y = get_start_column(line) + relative_cursor.y;
 	update_cursor(line);
-	line->r_cur_pos = 0;
+	line->r_cur_pos = line->len;
 }
