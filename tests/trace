@@ -57,7 +57,7 @@ CMD: env eee
 [0m[31mHOSTTYPE=x86_64						      <
 [0m[31mOLDPWD=/root/Neon-Genesis-Evanshellion/tests		      <
 [0m[31mTERM_PROGRAM=vscode					      <
-[0m[31mVSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-7401fb71-3f79-4c48-96aa-9 <
+[0m[31mVSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-20dd0a05-9820-4789-b77b-7 <
 [0m[ERROR]: Output differs.
 CMD: env abc abc
 (/root/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
@@ -87,7 +87,7 @@ CMD: env abc abc
 [0m[31mHOSTTYPE=x86_64						      <
 [0m[31mOLDPWD=/root/Neon-Genesis-Evanshellion/tests		      <
 [0m[31mTERM_PROGRAM=vscode					      <
-[0m[31mVSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-7401fb71-3f79-4c48-96aa-9 <
+[0m[31mVSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-20dd0a05-9820-4789-b77b-7 <
 [0m
 unit_builtins_no_arg: [OK]
 unit_builtins_no_arg:

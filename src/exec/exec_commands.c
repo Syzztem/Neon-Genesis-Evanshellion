@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 22:43:05 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 18:12:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,6 @@ void
 	iter_argv(command->argv, (void *)clear_escaped_quotes);
 //	clean_argv_backslashes(command->argv);
 	command->cmd = get_command_path(command->argv[0]);
-	//print_command(command);
 	free(v);
 	return ;
 }
