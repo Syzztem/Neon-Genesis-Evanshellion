@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 18:55:26 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 20:12:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,20 @@ void	delete_char(t_line *line)
 	len = ft_strlen(src);
 	ft_memmove(dst, src, len);
 	dst[len] = 0;
-	line->r_cur_pos--;
+	//line->r_cur_pos--;
 	line->len--;
-	line->cursor_pos.x--;
-	cap("le");
+	//line->cursor_pos.x--;
+	//cap("le");
+	move_left(line);
 	cap("dc");
+	get_cursor(&(line->cursor_pos));
+	line->cursor_pos.y--;
+	line->start_column = line->cursor_pos.y - ((line->r_cur_pos + ft_strlen(PROMPT)) / tgetnum("co"));
+	move_cursor(0, line->start_column);
+	cap("cd");
+	ft_putstr_fd(PROMPT, 0);
+	ft_putstr_fd(line->line, 0);
+	move_cursor(line->cursor_pos.x - 1, line->cursor_pos.y);
 //	printf("current_line: %s\n", line->line);
 }
 
