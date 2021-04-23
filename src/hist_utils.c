@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hist_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/16 10:52:47 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/23 16:24:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ void
 
 	if (!*cmd)
 		return ;
-	path = ft_getenv(HIST_ENV);
-	if (!path)
-		path = DEFAULT_HIST_FILE;
+	path = get_history_path();
 	hist_fd = open(path, O_CREAT | O_RDWR, 0x1ff);
 	tmp_fd = open(TEMP_HIST_FILE, O_RDWR | O_CREAT, 0x1ff);
 	ft_putendl_fd(cmd, tmp_fd);
@@ -81,4 +79,5 @@ void
 	transfer_file(hist_fd, tmp_fd);
 	close(hist_fd);
 	close(tmp_fd);
+	free(path);
 }

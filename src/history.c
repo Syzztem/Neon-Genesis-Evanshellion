@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 21:25:07 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 16:23:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,46 @@ static void
 	get_next_line(hist_fd, NULL);
 }
 
+/*
+** void
+** 	retreive_hist(t_line *line)
+** {
+** 	char	*hist_file_path;
+** 	int		fd;
+** 	t_line	*hist_lines;
+** 	size_t	line_count;
+** 
+** 	hist_lines = ft_calloc(sizeof(t_line), LINE_ALLOC_SIZE);
+** 	line_count = 1;
+** 	*hist_lines = *line;
+** 	hist_file_path = ft_getenv(HIST_ENV);
+** 	if (!hist_file_path)
+** 		hist_file_path = DEFAULT_HIST_FILE;
+** 	fd = open(hist_file_path, O_RDONLY);
+** 	if (fd == -1)
+** 		return ;
+** 	loop_hist(line, fd, hist_lines, line_count);
+** 	close(fd);
+** }
+** 
+*/
+
+/*
+** returns malloced history path string. 
+*/
+char
+	*get_history_path(void)
+{
+	char	*hist_file_path;
+
+	hist_file_path = ft_getenv(HIST_ENV);
+	if (!hist_file_path)
+		hist_file_path = ft_strdup(DEFAULT_HIST_FILE);
+	else
+		hist_file_path = ft_strjoin(hist_file_path, "/" DEFAULT_HIST_FILE);
+	return (hist_file_path);
+}
+
 void
 	retreive_hist(t_line *line)
 {
@@ -92,12 +132,15 @@ void
 	hist_lines = ft_calloc(sizeof(t_line), LINE_ALLOC_SIZE);
 	line_count = 1;
 	*hist_lines = *line;
-	hist_file_path = ft_getenv(HIST_ENV);
+	hist_file_path = get_history_path();
 	if (!hist_file_path)
-		hist_file_path = DEFAULT_HIST_FILE;
-	fd = open(hist_file_path, O_RDONLY);
-	if (fd == -1)
 		return ;
-	loop_hist(line, fd, hist_lines, line_count);
-	close(fd);
+	fd = open(hist_file_path, O_RDONLY);
+	if (fd != -1)
+	{
+		loop_hist(line, fd, hist_lines, line_count);
+		close(fd);
+	}
+	free(hist_file_path);
 }
+

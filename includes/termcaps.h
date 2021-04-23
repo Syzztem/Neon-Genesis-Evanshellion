@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 20:07:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/23 16:24:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define CAP_COUNT 7
 # define ESC_LEN 3
 # define DEFAULT_HIST_FILE ".minishell_history"
-# define HIST_ENV "MINISHELL_HIST"
+# define HIST_ENV "HOME"
 # define LINE_ALLOC_SIZE 5
 # include "minishell.h"
 # include <curses.h>
@@ -74,5 +74,6 @@ int				key_is(char *key, char *cap);
 int				ft_putchar(int c);
 int				get_term_line(char **buffer);
 void			move_cursor(int x, int y);
+char			*get_history_path(void);
 
 #endif
