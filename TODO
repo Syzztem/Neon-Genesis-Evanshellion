@@ -1,1 +1,2 @@
-when line is empty and we go back in history, then come back on the empty typing line and press enter, shell will exit.
+wildcard returns everythin in a single token, without spaces?
+
