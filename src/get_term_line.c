@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 05:34:01 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 05:44:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,28 @@ void
 	line->cursor_pos.y -= 2;
 	line->cursor_pos.x--;
 	relative_cursor.y-=2;
-	line->r_cur_pos = (relative_cursor.y * get_term_width()) - ft_strlen(PROMPT) + line->cursor_pos.x;
+	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
+	- ft_strlen(PROMPT) + line->cursor_pos.x;
 	update_cursor(line);
 }
 
 void
 	move_down(t_line *line)
 {
+	t_point	relative_cursor;
+
 	get_cursor(&(line->cursor_pos));
-	if (line->cursor_pos.y >= get_line_height(line->len))
+	get_relative_pos(line->r_cur_pos, &relative_cursor);
+	if (relative_cursor.y > get_line_height(line->len))
 		return ;
-	line->cursor_pos.y++;
+	//line->cursor_pos.y += 1;
+	line->cursor_pos.x--;
+	//relative_cursor.y += 1;
+	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
+	- ft_strlen(PROMPT) + line->cursor_pos.x;
 	update_cursor(line);
-} 
+}
+
 
 static const t_cap	g_caps[CAP_COUNT] = {
 	move_left,
