@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 01:22:36 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 21:54:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	go_end(t_line *line)
 	term_width = get_term_width();
 	get_relative_pos(line->len, &relative_cursor);
 	line->cursor_pos.x = relative_cursor.x - 1;
-	line->cursor_pos.y = get_start_column(line) + relative_cursor.y;
+	line->cursor_pos.y = get_start_column(line) + relative_cursor.y - 1;
 	update_cursor(line);
 	line->r_cur_pos = line->len;
 }
