@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 00:06:14 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 01:09:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,16 @@ void
 	t_point	relative_cursor;
 
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
-	if (relative_cursor.y <= 1)
+	if (relative_cursor.y < 1)
 		return ;
-	line->cursor_pos.y -= 2;
-	line->cursor_pos.x--;
-	relative_cursor.y-=2;
+	relative_cursor.y--;
 	if (relative_cursor.y < 1
 	&& line->cursor_pos.x < ft_strlen(PROMPT) % get_term_width())
 	{
 		go_home(line);
 		return ;
 	}
+	line->cursor_pos.y--;
 	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
 	- ft_strlen(PROMPT) + line->cursor_pos.x;
 	update_cursor(line);
@@ -45,16 +44,16 @@ void
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
 	if (relative_cursor.y >= get_line_height(line->len))
 		return ;
-	//line->cursor_pos.y += 1;
-	line->cursor_pos.x--;
+//	line->cursor_pos.x--;
 	if (line->cursor_pos.x > (line->len + ft_strlen(PROMPT)) % get_term_width())
 	{
 	//	line->cursor_pos.x = (line->len + ft_strlen(PROMPT)) % get_term_width();
 		go_end(line);
 		return ;
 	}
-	//relative_cursor.y += 1;
-	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
+	line->cursor_pos.y++;
+	relative_cursor.y++;
+	line->r_cur_pos = (relative_cursor.y * (get_term_width() - 1)) 
 	- ft_strlen(PROMPT) + line->cursor_pos.x;
 	update_cursor(line);
 }
