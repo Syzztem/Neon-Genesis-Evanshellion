@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 21:29:13 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 03:00:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ static const t_cap	g_caps[CAP_COUNT] = {
 ** %i is the shift + right key
 ** Now I can die in peace for finding them
 ** And they both return the same value :)
+*/
+
+/*
+**  Yeah but subject asks for CTRL + left/right, not shift :/
 */
 
 static const char	*g_capstr[CAP_COUNT] = {
@@ -69,14 +73,17 @@ int
 static t_cap
 	exec_cap(char *key)
 {
-	int i;
+	int 	i;
+	char	*tstr;
 
 	i = -1;
 	while (++i < CAP_COUNT)
 	{
-		if (!ft_strncmp(key + 1, tgetstr((char *)g_capstr[i], NULL) + 1,
-			ESC_LEN))
+		tstr = tgetstr((char *)g_capstr[i], NULL);
+		if (!ft_strncmp(key + 1, tstr + 1, ESC_LEN))
 		{
+			if (i == 2 && key[5] == 'C')
+					i++;
 			return (g_caps[i]);
 		}
 	}

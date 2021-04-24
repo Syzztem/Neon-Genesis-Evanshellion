@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 01:14:35 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 03:06:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void
 
 	hist_size = LINE_ALLOC_SIZE;
 	current_line = hist_lines;
-	while (1)
-	{
+	while (!interrupt_singleton(-1))
+	{		
 		if (line_count == hist_size)
 			hist_lines = realloc_lines(hist_lines, &hist_size, &current_line);
 		if (key_is(next_key, "kd"))
@@ -78,6 +78,12 @@ static void
 	}
 	ft_memmove(line, current_line, sizeof(t_line));
 	clear_unused_lines(hist_lines, current_line->line, line_count);
+	if (interrupt_singleton(-1))
+	{
+		interrupt_singleton(0);
+		free(line->line);
+		init_line(line);
+	}
 	exec_key(line, next_key);
 	get_next_line(hist_fd, NULL);
 }
