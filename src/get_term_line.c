@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 05:57:32 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 06:14:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void
 	line->cursor_pos.y -= 2;
 	line->cursor_pos.x--;
 	relative_cursor.y-=2;
+	if (relative_cursor.y < 1
+	&& line->cursor_pos.x < ft_strlen(PROMPT) % get_term_width())
+	{
+		go_home(line);
+		return ;
+	}
 	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
 	- ft_strlen(PROMPT) + line->cursor_pos.x;
 	update_cursor(line);
@@ -43,6 +49,12 @@ void
 		return ;
 	//line->cursor_pos.y += 1;
 	line->cursor_pos.x--;
+	if (line->cursor_pos.x > (line->len + ft_strlen(PROMPT)) % get_term_width())
+	{
+	//	line->cursor_pos.x = (line->len + ft_strlen(PROMPT)) % get_term_width();
+		go_end(line);
+		return ;
+	}
 	//relative_cursor.y += 1;
 	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
 	- ft_strlen(PROMPT) + line->cursor_pos.x;
