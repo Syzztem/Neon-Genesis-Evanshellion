@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 22:45:45 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 00:06:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,10 @@ void
 	}
 	cursor_pos[rd] = '\0';
 	i = 2;
-	cursor->y = ft_atoi(cursor_pos + i);
+	cursor->y = ft_atoi(cursor_pos + i) - 1;
 	while (ft_isdigit(cursor_pos[i]))
 		i++;
-	cursor->x = ft_atoi(cursor_pos + i + 1);
+	cursor->x = ft_atoi(cursor_pos + i + 1) - 1;
 }
 
 void
@@ -180,9 +180,9 @@ void
 	line->len = 0;
 	line->max_len = BUFF_SIZE;
 	get_cursor(&(line->cursor_pos));
-	if (line->cursor_pos.y != (size_t)get_term_height())
-		line->cursor_pos.y--;
-	line->start_row = line->cursor_pos.x - 1;
+	/*if (line->cursor_pos.y != (size_t)get_term_height())
+		line->cursor_pos.y--;*/
+	line->start_row = line->cursor_pos.x;
 	line->start_column = line->cursor_pos.y;
 }
 

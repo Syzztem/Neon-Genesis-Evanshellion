@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 23:15:16 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 00:11:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ void	insert_char(t_line *line, char c)
 	line->r_cur_pos++;
 	line->len++;
 	line->cursor_pos.x++;
-	if (line->cursor_pos.x > get_term_width())
+	if (line->cursor_pos.x >= get_term_width())
 	{
 		line->cursor_pos.x = 0;
-		if (line->cursor_pos.y < get_term_height())
+		if (line->cursor_pos.y < get_term_height() - 1)
 			line->cursor_pos.y++;
 		else
 			line->start_column--;
+	//	print_line(line);
 	//	printf("here: %d\n", line->cursor_pos.y);
 	}
 	cap("im");
@@ -43,7 +44,7 @@ void
 	printf("r_cur_pos: %zu\n", line->r_cur_pos);
 	printf("len: %zu\n", line->len);
 	printf("start_row: %zu\n", line->start_row);
-	printf("start_row: %zu\n", line->start_column);
+	printf("start_col: %zu\n", line->start_column);
 	printf("max_len: %zu\n", line->max_len);
 	printf("cursor_pos: .x=%zu .y=%zu\n", line->cursor_pos.x,
 	line->cursor_pos.y);
@@ -56,8 +57,8 @@ void
 
 	term_width = get_term_width();
 	r_pos += ft_strlen(PROMPT);
-	cursor->x = (r_pos % term_width) + 1;
-	cursor->y = (r_pos / term_width) + 1;
+	cursor->x = (r_pos % term_width);
+	cursor->y = (r_pos / term_width);
 }
 
 int
@@ -70,16 +71,17 @@ int
 	term_width = get_term_width();
 	if (prompt_len > term_width)
 		return ((len + prompt_len) / term_width);
-	return ((len + prompt_len) / term_width + 1);
+	return ((len + prompt_len) / term_width);
 }
 
 int
 	get_start_column(t_line *line)
 {
-	int	column;
+	return (line->start_column);
+	/*int	column;
 
-	column = (line->cursor_pos.y - get_line_height(line->r_cur_pos));
-	return (-column * (column < 0) + column * (column > 0));
+	column = (line->cursor_pos.y - (get_line_height(line->r_cur_pos - 1)));
+	return (-column * (column < 0) + column * (column > 0));*/
 }
 
 void
@@ -91,7 +93,7 @@ void
 
 	term_width = get_term_width();
 	prompt_len = ft_strlen(PROMPT);
-	get_cursor(&(line->cursor_pos));
+	//get_cursor(&(line->cursor_pos));
 	get_relative_pos(line->r_cur_pos, &cursor);
 	line->start_column = get_start_column(line);//line->cursor_pos.y - cursor.y;
 	move_cursor(0, line->start_column);
@@ -155,7 +157,8 @@ void	delete_char(t_line *line)
 	clear_line(line);
 	write(0, line->line, line->len);
 	line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
-	line->cursor_pos.y += get_line_height(line->r_cur_pos) - 1; //(line->len + ft_strlen(PROMPT)) / get_term_width(); 
+	line->cursor_pos.y += get_line_height(line->r_cur_pos); 
+	//(line->len + ft_strlen(PROMPT)) / get_term_width(); 
 	update_cursor(line);
 	//line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
 	////printf("start:%d\n", get_start_column(line));
