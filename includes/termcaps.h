@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 01:41:22 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 04:44:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define ESC_CHAR '\x1b'
 # define BUFF_SIZE 255
 # define CURSOR_QUERY "\x1b[6n"
-# define CAP_COUNT 7
+# define CAP_COUNT 9
 # define ESC_LEN 3
 # define DEFAULT_HIST_FILE ".minishell_history"
 # define HIST_ENV "HOME"

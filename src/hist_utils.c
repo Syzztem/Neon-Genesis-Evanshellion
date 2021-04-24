@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 01:19:44 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 04:54:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void
 	int		tmp_fd;
 	char	*path;
 
-	if (!*cmd)
+	if (!cmd || !*cmd)
 		return ;
 	path = get_history_path();
 	hist_fd = open(path, O_CREAT | O_RDWR, 0x1ff);

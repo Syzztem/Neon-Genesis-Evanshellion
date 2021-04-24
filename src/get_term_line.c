@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 03:00:34 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 05:34:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,39 @@
 #include <string.h>
 #include <errno.h>
 
+void
+	move_up(t_line *line)
+{
+	t_point	relative_cursor;
+
+	get_cursor(&(line->cursor_pos));
+	get_relative_pos(line->r_cur_pos, &relative_cursor);
+	if (relative_cursor.y <= 1)
+		return ;
+	line->cursor_pos.y -= 2;
+	line->cursor_pos.x--;
+	relative_cursor.y-=2;
+	line->r_cur_pos = (relative_cursor.y * get_term_width()) - ft_strlen(PROMPT) + line->cursor_pos.x;
+	update_cursor(line);
+}
+
+void
+	move_down(t_line *line)
+{
+	get_cursor(&(line->cursor_pos));
+	if (line->cursor_pos.y >= get_line_height(line->len))
+		return ;
+	line->cursor_pos.y++;
+	update_cursor(line);
+} 
+
 static const t_cap	g_caps[CAP_COUNT] = {
 	move_left,
 	move_right,
 	prev_word,
 	next_word,
+	move_down,
+	move_up,
 	go_home,
 	go_end,
 	retreive_hist
@@ -33,15 +61,13 @@ static const t_cap	g_caps[CAP_COUNT] = {
 ** And they both return the same value :)
 */
 
-/*
-**  Yeah but subject asks for CTRL + left/right, not shift :/
-*/
-
 static const char	*g_capstr[CAP_COUNT] = {
 	"kl",
 	"kr",
 	"#4",
 	"%i",
+	"#4",
+	"#4",
 	"kh",
 	"@7",
 	"ku"
@@ -82,8 +108,9 @@ static t_cap
 		tstr = tgetstr((char *)g_capstr[i], NULL);
 		if (!ft_strncmp(key + 1, tstr + 1, ESC_LEN))
 		{
-			if (i == 2 && key[5] == 'C')
-					i++;
+		//	printf("key: %s\n", key+1);
+			if (i == 2)
+				i += ft_indexof("DCBA", key[5]);
 			return (g_caps[i]);
 		}
 	}

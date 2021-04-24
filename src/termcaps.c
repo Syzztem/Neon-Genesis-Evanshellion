@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 01:01:04 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 04:17:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void
 
 	term_width = get_term_width();
 	r_pos += ft_strlen(PROMPT);
-	cursor->x = r_pos % term_width + 1;
-	cursor->y = r_pos / term_width + 1;
+	cursor->x = (r_pos % term_width) + 1;
+	cursor->y = (r_pos / term_width) + 1;
 }
 
 int
@@ -67,7 +67,10 @@ int
 int
 	get_start_column(t_line *line)
 {
-	return (line->cursor_pos.y - get_line_height(line->r_cur_pos));
+	int	column;
+
+	column = (line->cursor_pos.y - get_line_height(line->r_cur_pos));
+	return (-column * (column < 0) + column * (column > 0));
 }
 
 void
@@ -95,6 +98,8 @@ void
 	move_cursor(line->cursor_pos.x, line->cursor_pos.y);
 }
 
+
+/*
 void	delete_char(t_line *line)
 {
 	char	*dst;
@@ -118,7 +123,61 @@ void	delete_char(t_line *line)
 	line->cursor_pos.x += relative_cursor.x;
 	line->cursor_pos.y += relative_cursor.y;
 }
+*/
 
+
+void	delete_char(t_line *line)
+{
+	char	*dst;
+	char	*src;
+	size_t	len;
+	t_point	tmp;
+	
+	if (line->r_cur_pos == 0)
+		return ;
+	//print_line(line);
+	src = line->line + line->r_cur_pos;
+	dst = src - 1;
+	len = ft_strlen(src);
+	ft_memmove(dst, src, len);
+	dst[len] = 0;
+	line->len--;
+	move_left(line);
+	clear_line(line);
+	write(0, line->line, line->len);
+	line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
+	line->cursor_pos.y += get_line_height(line->r_cur_pos) - 1; //(line->len + ft_strlen(PROMPT)) / get_term_width(); 
+	update_cursor(line);
+	//line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
+	////printf("start:%d\n", get_start_column(line));
+	//line->cursor_pos.y = get_start_column(line) + get_line_height(line->len);
+	//update_cursor(line);
+//	printf("current_line: %s\n", line->line);
+}
+
+/*
+void	delete_char(t_line *line)
+{
+	char	*dst;
+	char	*src;
+	size_t	len;
+	
+	if (line->r_cur_pos == 0)
+		return ;
+	//print_line(line);
+	src = line->line + line->r_cur_pos;
+	dst = src - 1;
+	len = ft_strlen(src);
+	ft_memmove(dst, src, len);
+	dst[len] = 0;
+	line->r_cur_pos--;
+	line->len--;
+	line->cursor_pos.x--;
+	cap("le");
+	cap("dc");
+//	printf("current_line: %s\n", line->line);
+}
+*/
 void	do_nothing(t_line *line)
 {
 	(void)line;
