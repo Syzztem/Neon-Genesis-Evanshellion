@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 06:14:11 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 22:45:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void
 {
 	t_point	relative_cursor;
 
-	get_cursor(&(line->cursor_pos));
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
 	if (relative_cursor.y <= 1)
 		return ;
@@ -43,7 +42,6 @@ void
 {
 	t_point	relative_cursor;
 
-	get_cursor(&(line->cursor_pos));
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
 	if (relative_cursor.y >= get_line_height(line->len))
 		return ;
@@ -106,13 +104,13 @@ int
 		bfrd = 0;
 		return (0);
 	}
-	rd = read(0, key, 1);
+	rd = read(0, key, 7);
 	if (*key == '\4')
 		return (0);
 	if (*key == do_buf)
 		bfrd = *key;
-	if (*key == ESC_CHAR)
-		rd += read(0, key + 1, 6);
+	/*if (*key == ESC_CHAR)
+		rd += read(0, key + 1, 6);*/
 	key[rd] = '\0';
 	return (rd);
 }

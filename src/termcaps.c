@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 04:17:15 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 23:15:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	insert_char(t_line *line, char c)
 	line->r_cur_pos++;
 	line->len++;
 	line->cursor_pos.x++;
+	if (line->cursor_pos.x > get_term_width())
+	{
+		line->cursor_pos.x = 0;
+		if (line->cursor_pos.y < get_term_height())
+			line->cursor_pos.y++;
+		else
+			line->start_column--;
+	//	printf("here: %d\n", line->cursor_pos.y);
+	}
 	cap("im");
 	ft_putchar(c);
 	cap("ei");
