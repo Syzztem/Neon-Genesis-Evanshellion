@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 03:06:50 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 05:56:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void
 	char	next_key[50];
 	t_line	*current_line;
 
+	clear_line(line);
 	hist_size = LINE_ALLOC_SIZE;
 	current_line = hist_lines;
 	while (!interrupt_singleton(-1))

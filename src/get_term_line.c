@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 05:44:03 by root             ###   ########.fr       */
+/*   Updated: 2021/04/24 05:57:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void
 
 	get_cursor(&(line->cursor_pos));
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
-	if (relative_cursor.y > get_line_height(line->len))
+	if (relative_cursor.y >= get_line_height(line->len))
 		return ;
 	//line->cursor_pos.y += 1;
 	line->cursor_pos.x--;
