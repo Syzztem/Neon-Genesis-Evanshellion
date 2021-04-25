@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:14:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 23:02:40 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 08:58:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char
 	*alloc_path_buf(char *cmd)
 {
 	(void)cmd;
-	return (ft_calloc(PATH_MAX + 1, 1));
+	return (ft_calloc(ft_strlen(cmd) + PATH_MAX + 1, 1));
 }
 
 size_t

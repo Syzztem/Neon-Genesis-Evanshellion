@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:53:37 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 08:54:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,85 @@ static t_cap
 	return (do_nothing);
 }
 
+char
+	*pastebin_manager(char *input, int mode)
+{
+	static char	*pastebin = NULL;
+
+	if (mode)
+	{
+		free(pastebin);
+		pastebin = input;
+	}
+	return (pastebin);
+}
+
+void
+	cut_line(t_line *line)
+{
+	if (!line->len)
+		return ;
+	pastebin_manager(ft_strndup(line->line, line->r_cur_pos), 1);
+	line->len -= line->r_cur_pos;
+	ft_memmove(line->line, line->line + line->r_cur_pos, line->len);
+	line->line[line->len] = 0;
+	clear_line(line);
+	write(0, line->line, line->len);
+	line->r_cur_pos = 0;
+	update_cursor(line);
+}
+
+void
+	locate_cursor(t_line *line)
+{
+	int		term_width;
+	size_t	prompt_len;
+
+	prompt_len = ft_strlen(PROMPT);
+	term_width = get_term_width();
+	line->cursor_pos.x = (line->r_cur_pos + prompt_len) % (term_width - 1);
+	line->cursor_pos.y += line->r_cur_pos / (term_width - 1);
+}
+
+void
+	paste_line(t_line *line)
+{
+	char		*paste;
+	char		*new;
+	char		*head;
+	size_t		paste_len;
+	size_t		new_len;
+
+	paste = pastebin_manager(NULL, 0);
+	if (!paste)
+		return ;
+	paste_len = ft_strlen(paste);
+	new_len = line->len + paste_len;
+	new = ft_calloc(new_len + 1, 1);
+	head = ft_memmove(new, line->line, line->r_cur_pos);
+	head += line->r_cur_pos;
+	ft_memmove(head, paste, paste_len);
+	head += paste_len;
+	ft_memmove(head, line->line + line->r_cur_pos,
+					 line->len - line->r_cur_pos);
+	line->len = new_len;
+	line->max_len = new_len;
+	line->r_cur_pos += paste_len;
+	free(line->line);
+	line->line = new;
+	clear_line(line);
+	write(0, line->line, line->len);
+	locate_cursor(line);
+	update_cursor(line);
+}
+
 void
 	exec_key(t_line *line, char *key)
 {
+	if (*key == 0x15)
+		return (cut_line(line));
+	if (*key == 0x19)
+		return (paste_line(line));
 	if (*key >= 32 && *key < 127)
 		return (insert_char(line, *key));
 	if (*key == 127)
