@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 08:22:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 09:34:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,35 @@ void
 	}
 }
 
+void
+	wrap_line(t_line *line)
+{
+	int	term_width;
+	int	term_height;
+
+	term_width = get_term_width();
+	term_height = get_term_height();
+	if (line->cursor_pos.x == (size_t)term_width)
+	{
+		line->cursor_pos.x = 0;
+		if (line->cursor_pos.y < term_height - 1)
+			line->cursor_pos.y++;
+	}
+	if ((line->len + ft_strlen(PROMPT)) % term_width == 0)
+	{
+		if (get_last_column(line) > term_height - 1)
+		{
+			line->start_column--;
+			line->cursor_pos.y -= line->len != line->r_cur_pos;
+		}
+		if (line->cursor_pos.x)
+			scroll_up_n(term_height - line->cursor_pos.y - 1);
+		else
+			scroll_up_n(1);
+		update_cursor(line);
+	}
+}
+
 void	insert_char(t_line *line, char c)
 {
 	t_point	tmp;
@@ -34,25 +63,7 @@ void	insert_char(t_line *line, char c)
 	line->r_cur_pos++;
 	line->len++;
 	line->cursor_pos.x++;
-	if (line->cursor_pos.x == (size_t)get_term_width())
-	{
-		line->cursor_pos.x = 0;
-		if (line->cursor_pos.y < get_term_height() - 1)
-			line->cursor_pos.y++;
-	}
-	if (((line->len + ft_strlen(PROMPT)) % (get_term_width())) == 0)
-	{
-		if (get_last_column(line) > get_term_height() - 1)
-		{
-			line->start_column--;
-			line->cursor_pos.y -= line->len != line->r_cur_pos;
-		}
-		if (line->cursor_pos.x)
-			scroll_up_n(get_term_height() - line->cursor_pos.y - 1);
-		else
-			scroll_up_n(1);
-		update_cursor(line);
-	}
+	wrap_line(line);
 	tmp = line->cursor_pos;
 	clear_line(line);
 	cap("im");
