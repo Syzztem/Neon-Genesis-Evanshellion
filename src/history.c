@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 05:56:39 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 06:37:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ static t_line
 static t_line
 	*prev_line(t_line *hist_lines, t_line *current)
 {
+
 	if (current == hist_lines)
 		return (current);
-	return (current - 1);
+	return (create_line(current - 1, current));
 }
 
 static void
@@ -58,6 +59,7 @@ static void
 	size_t	hist_size;
 	char	next_key[50];
 	t_line	*current_line;
+	t_line	tmp;
 
 	clear_line(line);
 	hist_size = LINE_ALLOC_SIZE;
@@ -76,6 +78,7 @@ static void
 		if (!(key_is(next_key, "ku") || key_is(next_key, "kd")))
 			break ;
 		clear_line(current_line);
+		//sleep(2);
 	}
 	ft_memmove(line, current_line, sizeof(t_line));
 	clear_unused_lines(hist_lines, current_line->line, line_count);

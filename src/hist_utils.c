@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 04:54:13 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 06:26:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,25 @@ void
 {
 	write(0, line->line, line->len);
 	line->r_cur_pos = line->len;
-	get_cursor(&(line->cursor_pos));
+	//get_cursor(&(line->cursor_pos));
 }
 
 t_line
 	*create_line(t_line *buf, t_line *origin)
 {
+	t_point	relative;
+
 	buf->r_cur_pos = ft_strlen(buf->line);
 	buf->len = buf->r_cur_pos;
 	buf->start_row = origin->start_row;
 	buf->max_len = buf->len;
-	buf->cursor_pos.x = origin->start_row + buf->len;
-	buf->cursor_pos.y = origin->cursor_pos.y;
+	get_relative_pos(buf->len, &relative);
+	buf->cursor_pos.x = relative.x;
+	buf->start_column = origin->start_column;
+	buf->cursor_pos.y = buf->start_column + relative.y;
+	if (buf->cursor_pos.y > get_term_height() - 1)
+		buf->start_column -= buf->cursor_pos.y - (get_term_height() - 1);
+	buf->cursor_pos.y = buf->start_column + relative.y;
 	return (buf);
 }
 

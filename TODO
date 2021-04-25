@@ -1,4 +1,3 @@
-insert_char doesn't wrap correctly
 
 History on multilines is broken, we need to clear the lines properly
 
