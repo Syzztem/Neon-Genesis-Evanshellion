@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:58:18 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 09:25:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ static void
 		free(line->line);
 		init_line(line);
 	}
-	exec_key(line, next_key);
 	get_next_line(hist_fd, NULL);
+	close(hist_fd);
+	exec_key(line, next_key);
 }
 
 /*
@@ -136,7 +137,6 @@ void
 	if (fd != -1)
 	{
 		loop_hist(line, fd, hist_lines, line_count);
-		close(fd);
 	}
 	free(hist_file_path);
 }

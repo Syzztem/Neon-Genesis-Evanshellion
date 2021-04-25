@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:49:50 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/27 16:22:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 09:21:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include "get_next_line.h"
+#include "libft.h"
 #include <stdio.h>
 
 static long long	is_newline(char *str)
@@ -108,12 +109,17 @@ static	void		del_rest(int fd, t_gnl_list **storage)
 
 int					get_next_line(int fd, char **line)
 {
-	char			**rest;
-	char			*tmp;
+	char				**rest;
+	char				*tmp;
 	static t_gnl_list	*storage = NULL;
 
 	if (!line || BUFFER_SIZE <= 0)
+	{
+		free(storage->rest);
+		free(storage);
+		storage = NULL;
 		return (-1);
+	}
 	rest = get_rest(fd, &storage);
 	*rest = (*rest) ? *rest : gnl_ft_strdup("");
 	if (!line || readline(rest, line, fd) != 1)
