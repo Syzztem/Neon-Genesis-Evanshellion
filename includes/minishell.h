@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 06:48:57 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 15:35:50 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static const char	*g_seps[] = {"<<", ">>","<", ">", "||", "|", ";",
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
-
+char			*prompt(void);
+char			*set_prompt(char *prompt);
 sig_t			interrupt_blank(int a);
 int				interrupt_singleton(int value);
 int				get_term_line(char **buffer);
@@ -50,7 +51,7 @@ int				complete_line(char **line);
 
 
 int				ft_igetenv(char *name);
-char			*ft_getenv(char *name);
+char			*ft_getenv(char *name) ;
 char			*ft_lgetenv(char *line);
 void			ft_unsetenv(char *name);
 char			*ft_setenv(char *name, char *value);

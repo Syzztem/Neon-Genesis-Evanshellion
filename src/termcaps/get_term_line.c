@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 13:47:51 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:03:20 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void
 		return ;
 	relative_cursor.y--;
 	if (relative_cursor.y < 1
-	&& line->cursor_pos.x < ft_strlen(PROMPT) % get_term_width())
+	&& line->cursor_pos.x < ft_strlen(prompt()) % get_term_width())
 	{
 		go_home(line);
 		return ;
 	}
 	line->cursor_pos.y--;
 	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
-	- ft_strlen(PROMPT) + line->cursor_pos.x;
+	- ft_strlen(prompt()) + line->cursor_pos.x;
 	update_cursor(line);
 }
 
@@ -44,7 +44,7 @@ void
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
 	if (relative_cursor.y >= get_line_height(line->len))
 		return ;
-	if (line->cursor_pos.x > (line->len + ft_strlen(PROMPT)) % get_term_width())
+	if (line->cursor_pos.x > (line->len + ft_strlen(prompt())) % get_term_width())
 	{
 		go_end(line);
 		return ;
@@ -52,7 +52,7 @@ void
 	line->cursor_pos.y++;
 	relative_cursor.y++;
 	line->r_cur_pos = (relative_cursor.y * (get_term_width() - 1)) 
-	- ft_strlen(PROMPT) + line->cursor_pos.x;
+	- ft_strlen(prompt()) + line->cursor_pos.x;
 	update_cursor(line);
 }
 
@@ -164,7 +164,7 @@ void
 	int		term_width;
 	size_t	prompt_len;
 
-	prompt_len = ft_strlen(PROMPT);
+	prompt_len = ft_strlen(prompt());
 	term_width = get_term_width();
 	line->cursor_pos.x = (line->r_cur_pos + prompt_len) % (term_width - 1);
 	line->cursor_pos.y += (line->r_cur_pos + prompt_len) / (term_width - 1);

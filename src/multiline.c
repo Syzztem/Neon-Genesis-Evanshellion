@@ -6,12 +6,28 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 11:24:53 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:00:24 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #define ML_PROMPT "> "
+
+char
+	*set_prompt(char *prompt)
+{
+	static char	*stored = NULL;
+
+	if (prompt)
+		stored = prompt;
+	return (stored);
+}
+
+char
+	*prompt(void)
+{
+	return (set_prompt(NULL));
+}
 
 static int
 	prompt_shell(char **line)
@@ -20,6 +36,7 @@ static int
 	t_term	term;
 	t_term	backup;
 
+	set_prompt(ML_PROMPT);
 	ft_putstr_fd(ML_PROMPT, 2);
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
@@ -97,30 +114,36 @@ static int
 	verify_line(char *line)
 {
 	char		*begin;
+	char		*quote;
+	int			escaped;
 
 	begin = line;
+	escaped = 0;
+	quote = "\0";
 	while (*line)
 	{
-		if (*line == '\'' && (line == begin || *(line - 1) != '\\'))
-			while (*++line != '\'')
-				if (!*line)
-					return (0);
-		if (*line == '\"' && (line == begin || *(line - 1) != '\\'))
-			while (*++line != '\"' || (*(line - 1) == '\\' && (line - begin < 2 || line[-2] != '\\')))
-				if (!*line)
-					return (0);
-		if (*line == '(' && (line == begin || *(line - 1) != '\\'))
+		if (*quote != '\'' && *line == '\\' && !escaped)
+		{
+			escaped = 1;
+			line++;
+			continue ;
+		}
+		if (!*quote && ft_strchr("\"'", *line) && !escaped)
+			quote = line;
+		else if (!escaped && *quote == *line)
+			return (1);
+		if (!*quote && *line == '(' && !escaped)
 		{
 			if (!handle_parenthesis(&line))
 				return (0);
 			continue ;
 		}
-		if (*line == ')')
+		if (!*quote && *line == ')' && !escaped)
 			return (-1);
 		++line;
+		escaped = 0;
 	}
-	if (line != begin && *(line - 1) == '\\'
-	&& (line - 2 < begin || line[-2] != '\\'))
+	if (escaped || *quote)
 		return (0);
 	return (1);
 }

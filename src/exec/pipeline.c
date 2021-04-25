@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 19:40:21 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 16:19:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "parser.h"
+#include "minishell.h"
 
 int
 	is_single_builtin(t_pipeline lst)

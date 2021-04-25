@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/23 18:12:51 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 16:25:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,7 @@ int
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			close_all_cmds(commands, cmd);
 			exec_command(cmd);
 		}

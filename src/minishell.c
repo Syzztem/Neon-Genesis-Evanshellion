@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 13:32:52 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 16:26:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ sig_t
 	return (NULL);
 }
 
+sig_t
+	blank_fork(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	return (0);
+}
+
 static int
 	prompt_shell(char **line)
 {
@@ -67,6 +75,11 @@ static int
 	t_term	term;
 	t_term	backup;
 
+	signal(SIGINT, (void *)interrupt_blank);
+		signal(SIGINT, (void *)interrupt_blank);
+
+	//signal(SIGTSTP, SIG_IGN);
+	set_prompt(PROMPT);
 	ft_putstr_fd(PROMPT, 2);
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
@@ -131,8 +144,6 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-	signal(SIGINT, (void *)interrupt_blank);
-	signal(SIGTSTP, SIG_IGN);
 	while ((prompt_shell(&line)))
 	{
 		if (!*line || !complete_line(&line))
@@ -143,6 +154,8 @@ int
 		commands = split_line(line);
 		if (DEBUG)
 			print_argv(commands);
+		//signal(SIGINT, SIG_IGN);
+		signal(SIGINT, (void *)blank_fork);
 		exec_command_line(commands);
 		free_tokens(commands);
 		free(line);
