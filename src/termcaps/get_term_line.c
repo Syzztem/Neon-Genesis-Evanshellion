@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 08:54:36 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 10:27:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,54 @@ void
 	prompt_len = ft_strlen(PROMPT);
 	term_width = get_term_width();
 	line->cursor_pos.x = (line->r_cur_pos + prompt_len) % (term_width - 1);
-	line->cursor_pos.y += line->r_cur_pos / (term_width - 1);
+	line->cursor_pos.y += (line->r_cur_pos + prompt_len) / (term_width - 1);
+}
+
+void
+	wrap_paste(t_line *line)
+{
+	int	term_width;
+	int	term_height;
+	int	offset;
+
+	term_width = get_term_width();
+	term_height = get_term_height();
+	/*if (line->cursor_pos.x == (size_t)term_width)
+	{
+		line->cursor_pos.x = 0;
+		if (line->cursor_pos.y < term_height - 1)
+			line->cursor_pos.y++;
+	}*/
+	offset = 1;
+	if (get_last_column(line) > term_height - 1)
+	{
+		line->start_column--;
+		line->cursor_pos.y -= line->len != line->r_cur_pos;
+		if (line->r_cur_pos == line->len)
+			offset = 0;
+	}
+	scroll_up_n(term_height - line->cursor_pos.y - offset);
+	//else
+	//	scroll_up_n(1);
+//	locate_cursor(line);
+	update_cursor(line);
+	//sleep(1);
+}
+
+char
+	*join_paste(t_line *line, char *paste, size_t paste_len, size_t new_len)
+{
+	char		*new;
+	char		*head;
+
+	new = ft_calloc(new_len + 1, 1);
+	head = ft_memmove(new, line->line, line->r_cur_pos);
+	head += line->r_cur_pos;
+	ft_memmove(head, paste, paste_len);
+	head += paste_len;
+	ft_memmove(head, line->line + line->r_cur_pos,
+					 line->len - line->r_cur_pos);
+	return (new);
 }
 
 void
@@ -175,7 +222,6 @@ void
 {
 	char		*paste;
 	char		*new;
-	char		*head;
 	size_t		paste_len;
 	size_t		new_len;
 
@@ -184,22 +230,20 @@ void
 		return ;
 	paste_len = ft_strlen(paste);
 	new_len = line->len + paste_len;
-	new = ft_calloc(new_len + 1, 1);
-	head = ft_memmove(new, line->line, line->r_cur_pos);
-	head += line->r_cur_pos;
-	ft_memmove(head, paste, paste_len);
-	head += paste_len;
-	ft_memmove(head, line->line + line->r_cur_pos,
-					 line->len - line->r_cur_pos);
+	new = join_paste(line, paste, paste_len, new_len);
 	line->len = new_len;
 	line->max_len = new_len;
 	line->r_cur_pos += paste_len;
 	free(line->line);
 	line->line = new;
+	wrap_paste(line);
 	clear_line(line);
 	write(0, line->line, line->len);
 	locate_cursor(line);
-	update_cursor(line);
+	if (line->r_cur_pos == line->len)
+		go_end(line);
+	else
+		update_cursor(line);
 }
 
 void

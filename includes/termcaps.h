@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:20:29 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 09:45:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct	s_line
 
 typedef void	(*t_cap)(t_line *line);
 
-
+void			scroll_up_n(int n);
+void			wrap_line(t_line *line);
 t_line			*singleton_line(t_line *line, int mode);
 void			init_line(t_line *line);
 void			insert_char(t_line *line, char c);
