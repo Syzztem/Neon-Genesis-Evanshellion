@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 16:24:04 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:20:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define ESC_CHAR '\x1b'
 # define BUFF_SIZE 255
 # define CURSOR_QUERY "\x1b[6n"
-# define CAP_COUNT 7
+# define CAP_COUNT 9
 # define ESC_LEN 3
 # define DEFAULT_HIST_FILE ".minishell_history"
 # define HIST_ENV "HOME"
@@ -31,11 +31,13 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <sys/ioctl.h>
+
 
 typedef struct	s_point
 {
-	size_t x;
-	size_t y;
+	size_t		x;
+	ssize_t 	y;
 }				t_point;
 
 typedef struct	s_line
@@ -44,6 +46,7 @@ typedef struct	s_line
 	size_t	r_cur_pos;
 	size_t	len;
 	size_t	start_row;
+	size_t	start_column;
 	size_t	max_len;
 	t_point cursor_pos;
 }				t_line;
@@ -51,6 +54,7 @@ typedef struct	s_line
 typedef void	(*t_cap)(t_line *line);
 
 
+t_line			*singleton_line(t_line *line, int mode);
 void			init_line(t_line *line);
 void			insert_char(t_line *line, char c);
 void			delete_char(t_line *line);
@@ -75,5 +79,15 @@ int				ft_putchar(int c);
 int				get_term_line(char **buffer);
 void			move_cursor(int x, int y);
 char			*get_history_path(void);
-
+void			print_line(t_line *line);
+void			get_cursor(t_point *cursor);
+void			clear_line(t_line *line);
+void			get_term_size(int *width_ptr, int *height_ptr);
+int				get_term_width(void);
+int				get_term_height(void);
+int				get_start_column(t_line *line);
+void			update_cursor(t_line *line);
+void			get_relative_pos(size_t r_pos, t_point *cursor);
+int				get_line_height(size_t len);
+int				get_last_column(t_line *line);
 #endif

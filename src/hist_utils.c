@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 17:40:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:53:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,26 @@
 void
 	set_line(t_line *line)
 {
-	go_home(line);
-	cap("ce");
-	ft_putstr_fd(line->line, 1);
-	go_end(line);
+	write(0, line->line, line->len);
+	line->r_cur_pos = line->len;
 }
 
 t_line
 	*create_line(t_line *buf, t_line *origin)
 {
+	t_point	relative;
+
 	buf->r_cur_pos = ft_strlen(buf->line);
 	buf->len = buf->r_cur_pos;
 	buf->start_row = origin->start_row;
 	buf->max_len = buf->len;
-	buf->cursor_pos.x = origin->start_row + buf->len;
-	buf->cursor_pos.y = origin->cursor_pos.y;
+	get_relative_pos(buf->len, &relative);
+	buf->cursor_pos.x = relative.x;
+	buf->start_column = origin->start_column;
+	buf->cursor_pos.y = buf->start_column + relative.y;
+	if (buf->cursor_pos.y > get_term_height() - 1)
+		buf->start_column -= buf->cursor_pos.y - (get_term_height() - 1);
+	buf->cursor_pos.y = buf->start_column + relative.y;
 	return (buf);
 }
 
@@ -65,7 +70,7 @@ void
 	int		tmp_fd;
 	char	*path;
 
-	if (!*cmd)
+	if (!cmd || !*cmd)
 		return ;
 	path = get_history_path();
 	hist_fd = open(path, O_CREAT | O_RDWR, 0x1ff);

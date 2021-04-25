@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 17:15:16 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:53:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ static t_line
 static t_line
 	*prev_line(t_line *hist_lines, t_line *current)
 {
+
 	if (current == hist_lines)
 		return (current);
-	return (current - 1);
+	return (create_line(current - 1, current));
 }
 
 static void
@@ -58,11 +59,13 @@ static void
 	size_t	hist_size;
 	char	next_key[50];
 	t_line	*current_line;
+	t_line	tmp;
 
+	clear_line(line);
 	hist_size = LINE_ALLOC_SIZE;
 	current_line = hist_lines;
-	while (1)
-	{
+	while (!interrupt_singleton(-1))
+	{		
 		if (line_count == hist_size)
 			hist_lines = realloc_lines(hist_lines, &hist_size, &current_line);
 		if (key_is(next_key, "kd"))
@@ -71,39 +74,24 @@ static void
 			current_line = next_line(current_line, hist_lines, &line_count,
 				hist_fd);
 		set_line(current_line);
+		singleton_line(current_line, 1);
 		get_key(next_key, '\n');
-		if (!(key_is(next_key, "ku") || key_is(next_key, "kd")))
+		if (!(key_is(next_key, "ku") || key_is(next_key, "kd"))
+		|| interrupt_singleton(-1))
 			break ;
+		clear_line(current_line);
 	}
 	ft_memmove(line, current_line, sizeof(t_line));
 	clear_unused_lines(hist_lines, current_line->line, line_count);
+	if (interrupt_singleton(-1))
+	{
+		interrupt_singleton(0);
+		free(line->line);
+		init_line(line);
+	}
 	exec_key(line, next_key);
 	get_next_line(hist_fd, NULL);
 }
-
-/*
-** void
-** 	retreive_hist(t_line *line)
-** {
-** 	char	*hist_file_path;
-** 	int		fd;
-** 	t_line	*hist_lines;
-** 	size_t	line_count;
-** 
-** 	hist_lines = ft_calloc(sizeof(t_line), LINE_ALLOC_SIZE);
-** 	line_count = 1;
-** 	*hist_lines = *line;
-** 	hist_file_path = ft_getenv(HIST_ENV);
-** 	if (!hist_file_path)
-** 		hist_file_path = DEFAULT_HIST_FILE;
-** 	fd = open(hist_file_path, O_RDONLY);
-** 	if (fd == -1)
-** 		return ;
-** 	loop_hist(line, fd, hist_lines, line_count);
-** 	close(fd);
-** }
-** 
-*/
 
 /*
 ** returns malloced history path string. 
@@ -119,6 +107,16 @@ char
 	else
 		hist_file_path = ft_strjoin(hist_file_path, "/" DEFAULT_HIST_FILE);
 	return (hist_file_path);
+}
+
+t_line
+	*singleton_line(t_line *line, int mode)
+{
+	static t_line	*stored = NULL;
+
+	if (mode)
+		stored = line;
+	return (stored);
 }
 
 void

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/23 17:01:49 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:53:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,55 @@
 #include <string.h>
 #include <errno.h>
 
+void
+	move_up(t_line *line)
+{
+	t_point	relative_cursor;
+
+	get_relative_pos(line->r_cur_pos, &relative_cursor);
+	if (relative_cursor.y < 1)
+		return ;
+	relative_cursor.y--;
+	if (relative_cursor.y < 1
+	&& line->cursor_pos.x < ft_strlen(PROMPT) % get_term_width())
+	{
+		go_home(line);
+		return ;
+	}
+	line->cursor_pos.y--;
+	line->r_cur_pos = (relative_cursor.y * get_term_width()) 
+	- ft_strlen(PROMPT) + line->cursor_pos.x;
+	update_cursor(line);
+}
+
+void
+	move_down(t_line *line)
+{
+	t_point	relative_cursor;
+
+	get_relative_pos(line->r_cur_pos, &relative_cursor);
+	if (relative_cursor.y >= get_line_height(line->len))
+		return ;
+	if (line->cursor_pos.x > (line->len + ft_strlen(PROMPT)) % get_term_width())
+	{
+		go_end(line);
+		return ;
+	}
+	line->cursor_pos.y++;
+	relative_cursor.y++;
+	line->r_cur_pos = (relative_cursor.y * (get_term_width() - 1)) 
+	- ft_strlen(PROMPT) + line->cursor_pos.x;
+	update_cursor(line);
+}
+
+
 static const t_cap	g_caps[CAP_COUNT] = {
 	move_left,
 	move_right,
 	prev_word,
 	next_word,
+	move_down,
+	move_up,
 	go_home,
 	go_end,
 	retreive_hist
@@ -38,6 +82,8 @@ static const char	*g_capstr[CAP_COUNT] = {
 	"kr",
 	"#4",
 	"%i",
+	"#4",
+	"#4",
 	"kh",
 	"@7",
 	"ku"
@@ -55,13 +101,11 @@ int
 		bfrd = 0;
 		return (0);
 	}
-	rd = read(0, key, 1);
+	rd = read(0, key, 7);
 	if (*key == '\4')
 		return (0);
 	if (*key == do_buf)
 		bfrd = *key;
-	if (*key == ESC_CHAR)
-		rd += read(0, key + 1, 6);
 	key[rd] = '\0';
 	return (rd);
 }
@@ -69,14 +113,17 @@ int
 static t_cap
 	exec_cap(char *key)
 {
-	int i;
+	int 	i;
+	char	*tstr;
 
 	i = -1;
 	while (++i < CAP_COUNT)
 	{
-		if (!ft_strncmp(key + 1, tgetstr((char *)g_capstr[i], NULL) + 1,
-			ESC_LEN))
+		tstr = tgetstr((char *)g_capstr[i], NULL);
+		if (!ft_strncmp(key + 1, tstr + 1, ESC_LEN))
 		{
+			if (i == 2)
+				i += ft_indexof("DCBA", key[5]);
 			return (g_caps[i]);
 		}
 	}
@@ -95,17 +142,13 @@ void
 }
 
 void
-	init_line(t_line *line)
+	get_cursor(t_point *cursor)
 {
 	char	cursor_pos[17];
-	int		rd;
 	size_t	i;
+	int		rd;
 
-	line->line = malloc(BUFF_SIZE);
-	ft_bzero(line->line, BUFF_SIZE);
-	line->r_cur_pos = 0;
-	line->len = 0;
-	line->max_len = BUFF_SIZE;
+
 	write(0, CURSOR_QUERY, 4);
 	rd = read(1, cursor_pos, 16);
 	if (rd < 0)
@@ -115,13 +158,24 @@ void
 	}
 	cursor_pos[rd] = '\0';
 	i = 2;
-	line->cursor_pos.y = ft_atoi(cursor_pos + i);
-	if (line->cursor_pos.y != (size_t)tgetnum("li"))
-		line->cursor_pos.y--;
+	cursor->y = ft_atoi(cursor_pos + i) - 1;
 	while (ft_isdigit(cursor_pos[i]))
 		i++;
-	line->cursor_pos.x = ft_atoi(cursor_pos + i + 1);
-	line->start_row = line->cursor_pos.x - 1;
+	cursor->x = ft_atoi(cursor_pos + i + 1) - 1;
+}
+
+void
+	init_line(t_line *line)
+{
+
+	line->line = malloc(BUFF_SIZE);
+	ft_bzero(line->line, BUFF_SIZE);
+	line->r_cur_pos = 0;
+	line->len = 0;
+	line->max_len = BUFF_SIZE;
+	get_cursor(&(line->cursor_pos));
+	line->start_row = line->cursor_pos.x;
+	line->start_column = line->cursor_pos.y;
 }
 
 int
@@ -133,6 +187,7 @@ int
 	line = malloc(sizeof(t_line));
 	init_line(line);
 	interrupt_singleton(0);
+	singleton_line(line, 1);
 	while (1)
 	{
 		if ((get_key(key, 0) == 0 && line->len == 0 && *key == 4))
