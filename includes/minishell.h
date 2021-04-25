@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 00:33:16 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 06:48:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <termios.h>
 # include <signal.h>
+# include "termcaps.h"
 # include "libft.h"
 # define PROMPT "EVA-04$ "
 

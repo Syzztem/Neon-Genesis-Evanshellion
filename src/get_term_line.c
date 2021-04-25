@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 01:09:35 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:05:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ int
 	line = malloc(sizeof(t_line));
 	init_line(line);
 	interrupt_singleton(0);
+	singleton_line(line, 1);
 	while (1)
 	{
 		if ((get_key(key, 0) == 0 && line->len == 0 && *key == 4))

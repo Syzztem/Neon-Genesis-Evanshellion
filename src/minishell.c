@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 06:22:33 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:06:10 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <limits.h>
 #include "global.h"
 #include <signal.h>
+#include <time.h>
 
 int ft_isatty(int fd)
 {
@@ -42,11 +43,16 @@ int
 sig_t
 	interrupt_blank(int a)
 {
+	t_line	*line;
+
 	(void)a;
 	interrupt_singleton(1);
 	if (is_shell_interactive())
 	{
-		move_cursor(get_term_width(), get_term_height());
+		line = singleton_line(NULL, 0);
+		if (line)
+			move_cursor(get_term_width(), get_last_column(line));
+		singleton_line(NULL, 1);
 		ft_putstr_fd("\n" PROMPT, 2);
 	}
 	else
@@ -68,6 +74,7 @@ static int
 	tcsetattr(0, 0, &term);
 	ret = get_term_line(line);
 	tcsetattr(0, 0, &backup);
+	singleton_line(NULL, 1);
 	return (ret);
 }
 
