@@ -1,6 +1,8 @@
 
 history adding doesn't work well
 
+sometimes when we hit up arrow and enter the terminal clears.
+
 split_line is broken on multiline reading
 
 insert not working well when line is bigger than the terminal

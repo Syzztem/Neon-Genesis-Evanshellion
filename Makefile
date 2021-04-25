@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/20 22:22:40 by root             ###   ########.fr        #
+#    Updated: 2021/04/25 09:12:57 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,15 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			\
 			parenthesis.c \
 			\
-			debug_utils.c word_jump.c errmgr.c find_exec.c \
-			tab_utils.c builtin_manager.c export.c cd.c cursor.c echo.c env.c \
-			exit.c ft_getenv.c ft_setenv.c get_term_line.c hist_utils.c \
-			history.c minishell.c pwd.c termcaps.c \
-			termcaps_utils.c tokenizer.c unset.c split_line.c\
+			termcaps/termcaps.c termcaps/termcaps_utils.c termcaps/cursor.c\
+			termcaps/word_jump.c termcaps/get_term_line.c\
+			termcaps/hist_utils.c termcaps/history.c\
+			\
+			debug_utils.c errmgr.c find_exec.c \
+			tab_utils.c builtin_manager.c export.c cd.c  echo.c env.c \
+			exit.c ft_getenv.c ft_setenv.c \
+			 minishell.c pwd.c \
+			tokenizer.c unset.c split_line.c\
 			wildcard.c sub_env.c multiline.c remove_quotes.c perform_expansions.c \
 			list_utils.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
