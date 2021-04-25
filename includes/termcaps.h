@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:05:04 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:20:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 
 typedef struct	s_point
 {
-	size_t x;
-	size_t y;
+	size_t		x;
+	ssize_t 	y;
 }				t_point;
 
 typedef struct	s_line

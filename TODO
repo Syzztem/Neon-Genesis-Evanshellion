@@ -1,4 +1,7 @@
 
-insert not working well when line is bigger than the terminal
 
 copy and paste bonus
+
+split_line is broken on multiline reading
+
+insert not working well when line is bigger than the terminal

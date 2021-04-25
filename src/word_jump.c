@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 16:50:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 00:21:00 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:52:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,4 @@ void	next_word(t_line *line)
 	line->r_cur_pos = pos;
 	line->cursor_pos.y = line->start_column + get_line_height(pos);
 	move_cursor(line->cursor_pos.x, line->cursor_pos.y);
-	//printf("HERE\n");
 }

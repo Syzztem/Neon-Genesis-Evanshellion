@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:22:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 06:26:27 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:53:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void
 {
 	write(0, line->line, line->len);
 	line->r_cur_pos = line->len;
-	//get_cursor(&(line->cursor_pos));
 }
 
 t_line

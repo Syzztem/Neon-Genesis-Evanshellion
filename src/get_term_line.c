@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:05:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:53:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void
 	get_relative_pos(line->r_cur_pos, &relative_cursor);
 	if (relative_cursor.y >= get_line_height(line->len))
 		return ;
-//	line->cursor_pos.x--;
 	if (line->cursor_pos.x > (line->len + ft_strlen(PROMPT)) % get_term_width())
 	{
-	//	line->cursor_pos.x = (line->len + ft_strlen(PROMPT)) % get_term_width();
 		go_end(line);
 		return ;
 	}
@@ -108,8 +106,6 @@ int
 		return (0);
 	if (*key == do_buf)
 		bfrd = *key;
-	/*if (*key == ESC_CHAR)
-		rd += read(0, key + 1, 6);*/
 	key[rd] = '\0';
 	return (rd);
 }
@@ -126,7 +122,6 @@ static t_cap
 		tstr = tgetstr((char *)g_capstr[i], NULL);
 		if (!ft_strncmp(key + 1, tstr + 1, ESC_LEN))
 		{
-		//	printf("key: %s\n", key+1);
 			if (i == 2)
 				i += ft_indexof("DCBA", key[5]);
 			return (g_caps[i]);
@@ -179,8 +174,6 @@ void
 	line->len = 0;
 	line->max_len = BUFF_SIZE;
 	get_cursor(&(line->cursor_pos));
-	/*if (line->cursor_pos.y != (size_t)get_term_height())
-		line->cursor_pos.y--;*/
 	line->start_row = line->cursor_pos.x;
 	line->start_column = line->cursor_pos.y;
 }

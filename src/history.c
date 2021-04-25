@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:10:34 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:53:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void
 		|| interrupt_singleton(-1))
 			break ;
 		clear_line(current_line);
-		//sleep(2);
 	}
 	ft_memmove(line, current_line, sizeof(t_line));
 	clear_unused_lines(hist_lines, current_line->line, line_count);
@@ -93,30 +92,6 @@ static void
 	exec_key(line, next_key);
 	get_next_line(hist_fd, NULL);
 }
-
-/*
-** void
-** 	retreive_hist(t_line *line)
-** {
-** 	char	*hist_file_path;
-** 	int		fd;
-** 	t_line	*hist_lines;
-** 	size_t	line_count;
-** 
-** 	hist_lines = ft_calloc(sizeof(t_line), LINE_ALLOC_SIZE);
-** 	line_count = 1;
-** 	*hist_lines = *line;
-** 	hist_file_path = ft_getenv(HIST_ENV);
-** 	if (!hist_file_path)
-** 		hist_file_path = DEFAULT_HIST_FILE;
-** 	fd = open(hist_file_path, O_RDONLY);
-** 	if (fd == -1)
-** 		return ;
-** 	loop_hist(line, fd, hist_lines, line_count);
-** 	close(fd);
-** }
-** 
-*/
 
 /*
 ** returns malloced history path string. 
