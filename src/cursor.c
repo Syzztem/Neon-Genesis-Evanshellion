@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 01:29:12 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 03:37:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ void	go_end(t_line *line)
 	int		term_width;
 	t_point	relative_cursor;
 
+		cap("ll");
+		cap("sf");
+		cap("ll");
+		cap("sf");
+		//update_cursor(line);
+	return ;
 	term_width = get_term_width();
 	get_relative_pos(line->len, &relative_cursor);
 	line->cursor_pos.x = relative_cursor.x;
