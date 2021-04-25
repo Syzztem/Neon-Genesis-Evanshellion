@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 04:34:58 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:55:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	move_right(t_line *line)
 {
 	if (line->r_cur_pos == line->len)
 		return ;
-	if (line->cursor_pos.x == get_term_width())
+	if (line->cursor_pos.x == (size_t)get_term_width())
 	{
 		line->cursor_pos.y++;
 		line->cursor_pos.x = 0;

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:53:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 07:55:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	insert_char(t_line *line, char c)
 	line->r_cur_pos++;
 	line->len++;
 	line->cursor_pos.x++;
-	if (line->cursor_pos.x == get_term_width())
+	if (line->cursor_pos.x == (size_t)get_term_width())
 	{
 		line->cursor_pos.x = 0;
 		if (line->cursor_pos.y < get_term_height() - 1)
@@ -94,7 +94,7 @@ int
 
 	prompt_len = ft_strlen(PROMPT);
 	term_width = get_term_width();
-	if (prompt_len > term_width)
+	if (prompt_len > (size_t)term_width)
 		return ((len + prompt_len) / term_width);
 	return ((len + prompt_len) / term_width);
 }
@@ -135,7 +135,6 @@ void	delete_char(t_line *line)
 	char	*dst;
 	char	*src;
 	size_t	len;
-	t_point	tmp;
 	
 	if (line->r_cur_pos == 0)
 		return ;
