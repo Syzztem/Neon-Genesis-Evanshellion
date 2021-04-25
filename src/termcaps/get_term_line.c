@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 10:27:44 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 13:42:23 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,9 +249,10 @@ void
 void
 	exec_key(t_line *line, char *key)
 {
+	//printf("key:%d\n", *key);
 	if (*key == 0x15)
 		return (cut_line(line));
-	if (*key == 0x19)
+	if (*key == 0x19 || *key == -62)
 		return (paste_line(line));
 	if (*key >= 32 && *key < 127)
 		return (insert_char(line, *key));
