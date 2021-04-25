@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:06:10 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 13:32:52 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int
 		exit (1);
 	}
 	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGTSTP, SIG_IGN);
 	while ((prompt_shell(&line)))
 	{
 		if (!*line || !complete_line(&line))
