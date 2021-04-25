@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 16:26:55 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:51:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "global.h"
 #include <signal.h>
 #include <time.h>
+#include <unistd.h>
 
 int ft_isatty(int fd)
 {
@@ -76,7 +77,7 @@ static int
 	t_term	backup;
 
 	signal(SIGINT, (void *)interrupt_blank);
-		signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGINT, (void *)interrupt_blank);
 
 	//signal(SIGTSTP, SIG_IGN);
 	set_prompt(PROMPT);
@@ -144,6 +145,7 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
+	signal(SIGTSTP, SIG_IGN);
 	while ((prompt_shell(&line)))
 	{
 		if (!*line || !complete_line(&line))
@@ -169,6 +171,7 @@ int
 	copy_env();
 	if (is_shell_interactive())
 	{
+		setpgid(getpid(), 0);
 		tgetent(NULL, ft_getenv("TERM"));
 		setbuf(stdout, NULL);
 		cap("ks");

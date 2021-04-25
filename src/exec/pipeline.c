@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/25 16:19:38 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:03:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ int
 		return (exec_single_builtin(pipeline->content));
 	pipe_nodes(pipeline);
 	print_pipeline(pipeline);
+	signal(SIGINT, SIG_IGN);
 	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
 	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
+	signal(SIGINT, (void *)interrupt_blank);
 	return (g_exit_status);
 }
 

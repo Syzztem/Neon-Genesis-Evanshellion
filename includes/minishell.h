@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 15:35:50 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 16:58:25 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct termios	t_term;
 
 char			*prompt(void);
 char			*set_prompt(char *prompt);
+sig_t			blank_fork(int sig);
 sig_t			interrupt_blank(int a);
 int				interrupt_singleton(int value);
 int				get_term_line(char **buffer);
