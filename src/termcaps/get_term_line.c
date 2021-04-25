@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 13:42:23 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:47:51 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,6 @@ void
 void
 	exec_key(t_line *line, char *key)
 {
-	//printf("key:%d\n", *key);
 	if (*key == 0x15)
 		return (cut_line(line));
 	if (*key == 0x19 || *key == -62)
