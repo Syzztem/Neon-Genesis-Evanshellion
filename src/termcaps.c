@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 03:50:10 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 05:52:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ void	insert_char(t_line *line, char c)
 	if (line->cursor_pos.x == get_term_width())
 	{
 		line->cursor_pos.x = 0;
-		line->cursor_pos.y++;
+		if (line->cursor_pos.y < get_term_height() - 1)
+			line->cursor_pos.y++;
 	}
-	if (((line->len + ft_strlen(PROMPT)) % get_term_width()) == 0)
+	if (((line->len + ft_strlen(PROMPT)) % (get_term_width())) == 0)
 	{
 		//line->cursor_pos.x = 0;
-		if (line->start_column + get_line_height(line->len) < get_term_height() - 1)
-			line->cursor_pos.y++;
+		if (get_last_column(line) > get_term_height() - 1)
+		{
+			line->start_column--;
+			line->cursor_pos.y -= line->len != line->r_cur_pos;
+		}
+		if (line->cursor_pos.x)
+			scroll_up_n(get_term_height() - line->cursor_pos.y - 1);
 		else
-			line->cursor_pos.y--;
-		line->start_column--;
-		scroll_up_n(get_line_height(line->len));
+			scroll_up_n(1);
 		update_cursor(line);
 	//	print_line(line);
 	//	printf("here: %d\n", line->cursor_pos.y);
@@ -127,7 +131,7 @@ void
 	prompt_len = ft_strlen(PROMPT);
 	//get_cursor(&(line->cursor_pos));
 	get_relative_pos(line->r_cur_pos, &cursor);
-	line->start_column = get_start_column(line);//line->cursor_pos.y - cursor.y;
+	line->start_column = get_start_column(line);
 	move_cursor(0, line->start_column);
 	cap("cd");
 	move_cursor(0, line->start_column);
