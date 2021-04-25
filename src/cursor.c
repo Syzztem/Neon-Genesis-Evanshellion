@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 00:41:08 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 01:29:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ void	move_right(t_line *line)
 	cap("nd");
 	line->r_cur_pos++;
 	line->cursor_pos.x++;
+}
+
+int
+	get_last_column(t_line *line)
+{
+	t_point	relative_cursor;
+	
+	get_relative_pos(line->len, &relative_cursor);
+	return (get_start_column(line) + relative_cursor.y);
 }
 
 void	go_home(t_line *line)

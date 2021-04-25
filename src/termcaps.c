@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 00:11:47 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 02:41:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	insert_char(t_line *line, char c)
 {
+	t_point	tmp;
 	if (line->len >= line->max_len - 1)
 		realloc_line(line);
 	ft_memmove(line->line + line->r_cur_pos + 1, line->line + line->r_cur_pos,
@@ -22,19 +23,40 @@ void	insert_char(t_line *line, char c)
 	line->r_cur_pos++;
 	line->len++;
 	line->cursor_pos.x++;
-	if (line->cursor_pos.x >= get_term_width())
+	if (line->cursor_pos.x == get_term_width())
 	{
 		line->cursor_pos.x = 0;
-		if (line->cursor_pos.y < get_term_height() - 1)
+		line->cursor_pos.y++;
+	}
+	if (((line->len + ft_strlen(PROMPT)) % get_term_width()) == 0)
+	{
+		//line->cursor_pos.x = 0;
+		if (line->start_column + get_line_height(line->len) < get_term_height() - 1)
 			line->cursor_pos.y++;
 		else
-			line->start_column--;
+			line->cursor_pos.y--;
+		line->start_column--;
+		cap("sf");
+		update_cursor(line);
 	//	print_line(line);
 	//	printf("here: %d\n", line->cursor_pos.y);
 	}
-	cap("im");
-	ft_putchar(c);
-	cap("ei");
+	/*if (line->cursor_pos.y == get_last_column(line))
+	{
+		cap("im");
+		ft_putchar(c);
+		cap("ei");
+	}
+	else*/
+	{
+		tmp = line->cursor_pos;
+		clear_line(line);
+		cap("im");
+		write(0, line->line, line->len);
+		cap("ei");
+		line->cursor_pos = tmp;
+		update_cursor(line);
+	}
 }
 
 void
@@ -158,7 +180,6 @@ void	delete_char(t_line *line)
 	write(0, line->line, line->len);
 	line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
 	line->cursor_pos.y += get_line_height(line->r_cur_pos); 
-	//(line->len + ft_strlen(PROMPT)) / get_term_width(); 
 	update_cursor(line);
 	//line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
 	////printf("start:%d\n", get_start_column(line));

@@ -1,11 +1,7 @@
+insert_char doesn't wrap correctly
+
 History on multilines is broken, we need to clear the lines properly
 
-moving up and down with CTRL + arrow
-
 CTRL+C broken when terminal isnt on last line
-
-ctrl left right broken
-
-go_end broken
 
 copy and paste bonus
