@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/25 17:52:06 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:02:37 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,9 @@ void
 	exit(127);
 }
 
+extern g_pid;
+extern g_gpid;
+
 int
 	exec_command_list(t_list *commands)
 {
@@ -316,8 +319,6 @@ int
 	while (current)
 	{
 		cmd = current->content;
-
-			signal(SIGINT, SIG_IGN);
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
@@ -329,7 +330,7 @@ int
 		current = current->next;
 	}
 	close_all_cmds(commands, NULL);
-	signal(SIGINT, (void *)blank_fork);
+	//signal(SIGINT, blank_fork);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 17:51:33 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:36:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int ft_isatty(int fd)
 	struct termios	term;
 	
   	return (tcgetattr(fd, &term) == 0);
+}
+
+int
+	front_singlton(int value)
+{
+	static int	front;
+
+	if (value != -1)
+		front = value;
+	return (front);
 }
 
 int	is_shell_interactive(void)
@@ -75,17 +85,21 @@ static int
 	int		ret;
 	t_term	term;
 	t_term	backup;
+	t_point	cursor;
 
 	signal(SIGINT, (void *)interrupt_blank);
 	signal(SIGINT, (void *)interrupt_blank);
 
-	//signal(SIGTSTP, SIG_IGN);
-	set_prompt(PROMPT);
-	ft_putstr_fd(PROMPT, 2);
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, 0, &term);
+	set_prompt(PROMPT);
+	get_cursor(&cursor);
+	interrupt_singleton(0);
+	if (cursor.x != 0)
+		write(2, "\n", 1);
+	ft_putstr_fd(PROMPT, 2);
 	ret = get_term_line(line);
 	tcsetattr(0, 0, &backup);
 	singleton_line(NULL, 1);
@@ -145,7 +159,7 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTSTP, blank_fork);
 	while ((prompt_shell(&line)))
 	{
 		if (!*line || !complete_line(&line))
@@ -156,8 +170,6 @@ int
 		commands = split_line(line);
 		if (DEBUG)
 			print_argv(commands);
-		//signal(SIGINT, SIG_IGN);
-		signal(SIGINT, (void *)blank_fork);
 		exec_command_line(commands);
 		free_tokens(commands);
 		free(line);
@@ -171,7 +183,6 @@ int
 	copy_env();
 	if (is_shell_interactive())
 	{
-		setpgid(getpid(), 0);
 		tgetent(NULL, ft_getenv("TERM"));
 		setbuf(stdout, NULL);
 		cap("ks");
