@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 09:52:19 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 12:20:48 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@
 ** }
 */
 
-#define TO_ESCAPE "|;&<>$"
-
 /*
 ** char
 ** 	*remove_quotes(char *line)
@@ -119,37 +117,31 @@
 ** 	escaped = 0;
 ** 	new = ft_calloc(ft_strlen(line) + 1, 1);
 ** 	i = 0;
+** 
 ** 	while (*current)
 ** 	{
 ** 		copy = 1;
-** 		if (*quote != '\'' && *current == '\\' && !escaped)
-** 		{
-** 			escaped = 1;
-** 			copy = *quote;
-** 		}
-** 		else if (escaped && *current == '\\')
-** 		{
-** 			escaped = 0;
+** 		if ((*quote != '\'' && *current == '\\' && !escaped))
+** 			copy = *quote && current[1] != *quote;
+** 		if (escaped && *current == '\\')
 ** 			copy = !*quote;
-** 		}
-** 		else if ((!escaped && !*quote && ft_strchr("\"'", *current)))
+** 		if (!escaped && !*quote && ft_strchr("\"'", *current))
 ** 		{
 ** 			quote = current;
 ** 			copy = 0;
 ** 		}
-** 		else if (!escaped && *quote && *current == *quote)
+** 		if (!escaped && *current == *quote)
 ** 		{
-** 			copy = 0;
 ** 			quote = "\0";
-** 			escaped = 0;
+** 			copy = 0;
 ** 		}
+** 		escaped = (*quote != '\'' && *current == '\\' && !escaped);
 ** 		if (copy)
 ** 		{
 ** 			new[i] = *current;
 ** 			i++;
 ** 		}
 ** 		++current;
-** 		escaped = 0;
 ** 	}
 ** 	return (new);
 ** }
