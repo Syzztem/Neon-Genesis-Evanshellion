@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 13:32:52 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/27 02:47:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,23 @@
 #include "global.h"
 #include <signal.h>
 #include <time.h>
+#include <unistd.h>
 
 int ft_isatty(int fd)
 {
 	struct termios	term;
 	
   	return (tcgetattr(fd, &term) == 0);
+}
+
+int
+	front_singlton(int value)
+{
+	static int	front;
+
+	if (value != -1)
+		front = value;
+	return (front);
 }
 
 int	is_shell_interactive(void)
@@ -60,19 +71,69 @@ sig_t
 	return (NULL);
 }
 
+sig_t
+	blank_fork(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	return (0);
+}
+
 static int
 	prompt_shell(char **line)
 {
 	int		ret;
+	char	*tmp;
+	char	*new;
 	t_term	term;
 	t_term	backup;
+	t_point	cursor;
 
-	ft_putstr_fd(PROMPT, 2);
+	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
+	set_prompt(PROMPT);
+	interrupt_singleton(0);
 	tcgetattr(0, &term);
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, 0, &term);
-	ret = get_term_line(line);
+	get_cursor(&cursor);
+	if (cursor.x != 0)
+		write(2, "\n", 1);
+	ft_putstr_fd(PROMPT, 2);
+	ret = get_term_line(line, 0);
+	set_prompt("> ");
+	while (ret && (!*line || !verify_line(*line)))
+	{
+		tmp = NULL;
+		ft_putstr_fd(prompt(), 2);
+		if (*line)
+			tmp = *line;
+		ret = get_term_line(line, 1); 
+		if (!ret)
+		{
+			free(tmp);
+			*line = NULL;
+			return (1);
+		}
+		if (!ft_strcmp(prompt(), PROMPT))
+		{
+			free(tmp);
+			break ;
+		}
+		if (*line && tmp && *line != tmp)
+		{
+			new = ft_strjoin(tmp, "\n");
+			free(tmp);
+			tmp = ft_strjoin(new, *line);
+			free(*line);
+			free(new);
+			new = NULL;
+			*line = tmp;
+		}
+		else if (!*line)
+			*line = tmp;
+	}
 	tcsetattr(0, 0, &backup);
 	singleton_line(NULL, 1);
 	return (ret);
@@ -97,6 +158,8 @@ int
 		exit (1);
 	}
 	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	while ((ret = get_next_line(0, &line)) || ft_strlen(line))
 	{
 		if (!line)
@@ -132,12 +195,14 @@ int
 		exit (1);
 	}
 	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	while ((prompt_shell(&line)))
 	{
-		if (!*line || !complete_line(&line))
+		if (!line || !*line)
 		{
 			free(line);
+			line = NULL;
 			continue ;
 		}
 		commands = split_line(line);
@@ -146,6 +211,7 @@ int
 		exec_command_line(commands);
 		free_tokens(commands);
 		free(line);
+		line = NULL;
 	}
 	return (g_exit_status);
 }

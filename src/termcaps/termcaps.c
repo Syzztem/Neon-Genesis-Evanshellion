@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 10:29:33 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 15:03:20 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void
 		if (line->cursor_pos.y < term_height - 1)
 			line->cursor_pos.y++;
 	}
-	if ((line->len + ft_strlen(PROMPT)) % term_width == 0)
+	if ((line->len + ft_strlen(prompt())) % term_width == 0)
 	{
 		if (get_last_column(line) > term_height - 1)
 		{
@@ -93,7 +93,7 @@ void
 	int		term_width;
 
 	term_width = get_term_width();
-	r_pos += ft_strlen(PROMPT);
+	r_pos += ft_strlen(prompt());
 	cursor->x = (r_pos % term_width);
 	cursor->y = (r_pos / term_width);
 }
@@ -104,7 +104,7 @@ int
 	int		term_width;
 	size_t	prompt_len;
 
-	prompt_len = ft_strlen(PROMPT);
+	prompt_len = ft_strlen(prompt());
 	term_width = get_term_width();
 	if (prompt_len > (size_t)term_width)
 		return ((len + prompt_len) / term_width);
@@ -125,13 +125,13 @@ void
 	t_point	cursor;	
 
 	term_width = get_term_width();
-	prompt_len = ft_strlen(PROMPT);
+	prompt_len = ft_strlen(prompt());
 	get_relative_pos(line->r_cur_pos, &cursor);
 	line->start_column = get_start_column(line);
 	move_cursor(0, line->start_column);
 	cap("cd");
 	move_cursor(0, line->start_column);
-	write(0, PROMPT, prompt_len);
+	write(0, prompt(), prompt_len);
 	line->cursor_pos.x = prompt_len % (term_width - 1);
 	line->cursor_pos.y = line->start_column;
 }
@@ -159,7 +159,7 @@ void	delete_char(t_line *line)
 	move_left(line);
 	clear_line(line);
 	write(0, line->line, line->len);
-	line->cursor_pos.x = (line->r_cur_pos + ft_strlen(PROMPT)) % get_term_width();
+	line->cursor_pos.x = (line->r_cur_pos + ft_strlen(prompt())) % get_term_width();
 	line->cursor_pos.y += get_line_height(line->r_cur_pos); 
 	update_cursor(line);
 }

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/23 18:12:51 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:45:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,12 +159,12 @@ char
 	}
 //	printf("str: %s\n", str);
 	skip = 0;
-	while (ft_isspace(*current) || (*current == '\\' && ft_isspace(current[1])))
+	while (*current == SPACE || (*current == '\\' && current[1] == SPACE))
 		current++;
 	if (!*current)
 		return (NULL);
 	begin = current;
-	while (*current && !ft_isspace(*current))
+	while (*current && *current != SPACE)
 	{
 		if (ft_strchr("\"'", *current))
 		{
@@ -319,6 +319,8 @@ int
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGINT, SIG_DFL);	
 			close_all_cmds(commands, cmd);
 			exec_command(cmd);
 		}

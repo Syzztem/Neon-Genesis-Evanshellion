@@ -6,12 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 19:40:21 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:45:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "parser.h"
+#include "minishell.h"
 
 int
 	is_single_builtin(t_pipeline lst)
@@ -77,11 +78,15 @@ int
 		return (exec_single_builtin(pipeline->content));
 	pipe_nodes(pipeline);
 	print_pipeline(pipeline);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
 	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
+	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
 	return (g_exit_status);
 }
 

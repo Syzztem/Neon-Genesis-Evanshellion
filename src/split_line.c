@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 14:47:36 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:27:07 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static size_t
 	return (count);
 }
 
+
 static size_t
 	next_sep(char *line, char **sep)
 {
@@ -69,7 +70,6 @@ static size_t
 			++ref;
 		if (*quote && *ref == *quote)
 		{
-		//	printf("quote: %s\n", ref);
 			ref++;
 			quote = "\0";
 		}

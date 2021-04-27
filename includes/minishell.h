@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 06:48:57 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 01:59:14 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include "libft.h"
 # define PROMPT "EVA-04$ "
 
+# define SPACE ' '
+
 #define PARGV(argv) if (DEBUG) {printf("%s:%d:[%s]: ", __FILE__, __LINE__, #argv) ; print_argv(argv);}
 
 extern int	g_exit_status;
@@ -38,10 +40,13 @@ static const char	*g_seps[] = {"<<", ">>","<", ">", "||", "|", ";",
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
-
+int				verify_line(char *line);
+char			*prompt(void);
+char			*set_prompt(char *prompt);
+sig_t			blank_fork(int sig);
 sig_t			interrupt_blank(int a);
 int				interrupt_singleton(int value);
-int				get_term_line(char **buffer);
+int				get_term_line(char **buffer, int cancel);
 char			**tokenize(char *line);
 char			**split_line(char *line);
 char			*remove_quotes(char *line);
@@ -50,7 +55,7 @@ int				complete_line(char **line);
 
 
 int				ft_igetenv(char *name);
-char			*ft_getenv(char *name);
+char			*ft_getenv(char *name) ;
 char			*ft_lgetenv(char *line);
 void			ft_unsetenv(char *name);
 char			*ft_setenv(char *name, char *value);

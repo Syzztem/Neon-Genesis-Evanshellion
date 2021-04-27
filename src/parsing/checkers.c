@@ -6,12 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 23:48:25 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:02:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+#include "minishell.h"
 
 char
 	**get_last_token(char **tokens)
@@ -72,7 +73,7 @@ int
 	}
 	while (*last)
 	{
-		if (!ft_isspace(*last))
+		if (*last != SPACE)
 			return (0);
 		last++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 07:55:29 by root             ###   ########.fr       */
+/*   Updated: 2021/04/25 15:03:20 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	go_home(t_line *line)
 
 	//print_line(line);
 	term_width = get_term_width();
-	line->cursor_pos.x = ft_strlen(PROMPT) % term_width;
+	line->cursor_pos.x = ft_strlen(prompt()) % term_width;
 	line->start_column = get_start_column(line);
 	line->cursor_pos.y = line->start_column;
 	update_cursor(line);

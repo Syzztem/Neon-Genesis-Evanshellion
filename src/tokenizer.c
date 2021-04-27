@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 03:30:00 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:38:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static size_t
 	char *ref;
 
 	ref = command;
-	while (*ref && (!ft_isspace(*ref)
-			|| (ref != command && *(ref - 1) == '\\')))
+	while ((*ref && *ref != SPACE)
+			|| (ref != command && *(ref - 1) == '\\'))
 		++ref;
 	return (ref - command);
 }
@@ -30,7 +30,7 @@ static size_t
 	char *ref;
 
 	ref = command;
-	while (ft_isspace(*ref) && (ref == command || *(ref - 1) != '\\'))
+	while (*ref != SPACE && (ref == command || *(ref - 1) != '\\'))
 		++ref;
 	return (ref - command);
 }
@@ -60,7 +60,7 @@ void
 		line = *tokens;
 		while (*line)
 		{
-			if (*line == '\\' && ft_isspace(*(line + 1)))
+			if (*line == '\\' && *(line + 1) != SPACE)
 				ft_memmove(line, line + 1, ft_strlen(line));
 			++line;
 		}
