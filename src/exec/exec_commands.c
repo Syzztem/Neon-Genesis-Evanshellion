@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/27 02:01:36 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:45:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,6 @@ int
 		current = current->next;
 	}
 	close_all_cmds(commands, NULL);
-	//signal(SIGINT, blank_fork);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 02:10:34 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:47:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int
 	t_point	cursor;
 
 	signal(SIGINT, (void *)interrupt_blank);
-	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
 	set_prompt(PROMPT);
 	interrupt_singleton(0);
 	tcgetattr(0, &term);
@@ -158,6 +158,8 @@ int
 		exit (1);
 	}
 	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	while ((ret = get_next_line(0, &line)) || ft_strlen(line))
 	{
 		if (!line)
@@ -192,7 +194,9 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-	signal(SIGTSTP, (void *)blank_fork);
+	signal(SIGINT, (void *)interrupt_blank);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	while ((prompt_shell(&line)))
 	{
 		if (!line || !*line)
