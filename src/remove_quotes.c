@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 08:24:37 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 08:40:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,33 +156,32 @@ static size_t
 char
 	*remove_quotes(char *line)
 {
-	char	*current;
 	char	*quote;
 	int		escaped;
 	char	*new;
+	unsigned int		flag;
 	size_t	i;
-	int		copy;
 
-	current = line;
 	quote = "\0";
 	escaped = 0;
 	new = ft_calloc(ft_strlen(line) + 1, 1);
 	i = 0;
 	int a,b,c,d;
-	while (*current)
+	while (*line)
 	{
-		a = (*quote != '\'' && *current == '\\' && !escaped);
-		b = escaped && *current == '\\';
-		c = !escaped && !*quote && ft_strchr("\"'", *current);
-		d = !escaped && *current == *quote;
-		copy = (!c * !d) * (!b || !*quote)
-		* (!a || (*quote && current[1] != *quote));
-		quote = (char *)((size_t)quote * (!c && !d)
-		+ (size_t)current * c  + (size_t)"\0" * d);
-		escaped = (*quote != '\'' && *current == '\\' && !escaped);
-		if (copy)
-			new[i++] = *current;
-		++current;
+		flag = 0;
+		a = (*quote != '\'' && *line == '\\' && !escaped);
+		b = escaped && *line == '\\';
+		c = !escaped && !*quote && ft_strchr("\"'", *line);
+		d = !escaped && *line == *quote;
+		flag = a | b << 1 | c << 2 | d << 3;
+		quote = (char *)((size_t)quote * (!(flag & 0b100) && !(flag & 0b1000))
+		+ (size_t)line * !!(flag & 0b100)  + (size_t)"\0" * !!(flag & 0b1000));
+		escaped = (*quote != '\'' && *line == '\\' && !escaped);
+		if ((!(flag & 0b100) * !(flag & 0b1000)) * (!(flag & 0b10) || !*quote)
+		* (!(flag & 0b1) || (*quote && line[1] != *quote)))
+			new[i++] = *line;
+		++line;
 	}
 	return (new);
 }
