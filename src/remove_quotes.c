@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 06:06:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 07:46:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,19 +168,28 @@ char
 	escaped = 0;
 	new = ft_calloc(ft_strlen(line) + 1, 1);
 	i = 0;
+
+	int a,b,c,d;
 	while (*current)
 	{
 		copy = 1;
-		if (*quote != '\'' && *current == '\\' && !escaped)
+		a = (*quote != '\'' && *current == '\\' && !escaped);
+		//b = (*quote == '\'' || *current != '\\' || escaped) && escaped && *current == '\\';
+		b = escaped && *current == '\\';
+		//c = !b &&  (!escaped && !*quote && ft_strchr("\"'", *current));
+		c = !escaped && !*quote && ft_strchr("\"'", *current);
+		//d = !c && (!escaped && *quote && *current == *quote);
+		d = !escaped && *current == *quote;
+		if (a)
 			copy = *quote && current[1] != *quote;
-		else if (escaped && *current == '\\')
+		if (b)
 			copy = !*quote;
-		else if ((!escaped && !*quote && ft_strchr("\"'", *current)))
+		if (c)
 		{
 			quote = current;
 			copy = 0;
 		}
-		else if (!escaped && *quote && *current == *quote)
+		if (d)
 		{
 			quote = "\0";
 			copy = 0;
