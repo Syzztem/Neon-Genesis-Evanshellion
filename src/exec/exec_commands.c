@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/27 02:45:59 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 03:03:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,34 @@ void
 {
 	char	*line;
 	char	*quote;
+	int		escaped;
 
 	line = command;
 	quote = "\0";
+	escaped = 0;
 	while (*line)
 	{
-		if (!*quote && ft_strchr("\"'", *line))
+		if (*quote != '\'' && *line == '\\' && !escaped)
+		{
+			escaped = 1;
+			line++;
+			continue ;
+		}
+		if (!escaped && !*quote && ft_strchr("\"'", *line))
 			quote = line;
 		if ((!*quote || *quote == '"') && line[0] == '\\')
 		{
-			if (line[1] == '\\')
+			if (escaped)
 			{
 				ft_memmove(line, line + 1, ft_strlen(line));
-				++line;
+				--line;
+			//	++line;
 			}
 			else if (!*quote && !ft_strchr("\"'", line[1]))
 				ft_memmove(line, line + 1, ft_strlen(line));
 		}
 		++line;
+		escaped = 0;
 		if (*line == *quote)
 			quote = "\0";
 	}

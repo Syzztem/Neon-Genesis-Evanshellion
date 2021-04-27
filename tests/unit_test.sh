@@ -352,6 +352,18 @@ unit_parenthesis()
 	#cmp_shell 'ls(w)' #error case
 }
 
+unit_backslashs()
+{
+	cmp_shell '/bin/echo \\'
+	cmp_shell "/bin/echo '\\\\'"
+	cmp_shell "/bin/echo '\\\\\\'"
+	cmp_shell '/bin/echo "\\"'
+	cmp_shell '/bin.echo "\\\\"'
+	cmp_shell '/bin/echo "\""'
+	cmp_shell "/bin/echo '\\'"
+	cmp_shell '/bin/echo a\ \ b'
+}
+
 main()
 {
 	MY_SHELL=$(abspath ../minishell)
