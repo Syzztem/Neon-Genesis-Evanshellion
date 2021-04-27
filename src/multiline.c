@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 02:59:48 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 09:53:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, 0, &term);
-	ret = get_term_line(line, 1);
+	ret = get_term_line(line);
 	tcsetattr(0, 0, &backup);
 	return (ret);
 }

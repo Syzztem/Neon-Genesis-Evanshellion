@@ -6,69 +6,72 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 08:46:39 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 09:52:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
-#define SQ_ESCAPES " \t\n\v\f\r;&|\"*<>()\\$"
-#define DQ_ESCAPES " \t\n\v\f\r;&|\'*<>()"
 
-static size_t
-	size_escaped(char *line)
-{
-	size_t len;
-
-	len = ft_strlen(line);
-	while (*line)
-	{
-		if (ft_indexof(SQ_ESCAPES, *line) != -1 || *line == '\'')
-			++len;
-		++line;
-	}
-	return (len);
-}
-
-static size_t
-	escape_sq(char *line, char **out)
-{
-	char *ref;
-	char *outref;
-
-	ref = line + 1;
-	outref = *out;
-	while (*ref != '\'')
-		*outref++ = *ref++;
-	*out = outref;
-	return ((ref - line) + 1);
-}
-
-static size_t
-	escape_dq(char *line, char **out)
-{
-	char *ref;
-	char *outref;
-
-	ref = line + 1;
-	outref = *out;
-	while (*ref != '\"' )
-	{
-		if (!*ref)
-		{
-			ref[-1] = 0;
-			ft_strcpy(*out, line + 1);
-			*out = ft_strchr(*out, 0);
-			return (ref - line + 1);
-		}
-		ref++;
-	}
-	ref = line + 1;
-	while (*ref != '\"')
-		*outref++ = *ref++;
-	*out = outref;
-	return ((ref - line) + 1);
-}
+/*
+** #define SQ_ESCAPES " \t\n\v\f\r;&|\"*<>()\\$"
+** #define DQ_ESCAPES " \t\n\v\f\r;&|\'*<>()"
+** 
+** static size_t
+** 	size_escaped(char *line)
+** {
+** 	size_t len;
+** 
+** 	len = ft_strlen(line);
+** 	while (*line)
+** 	{
+** 		if (ft_indexof(SQ_ESCAPES, *line) != -1 || *line == '\'')
+** 			++len;
+** 		++line;
+** 	}
+** 	return (len);
+** }
+** 
+** static size_t
+** 	escape_sq(char *line, char **out)
+** {
+** 	char *ref;
+** 	char *outref;
+** 
+** 	ref = line + 1;
+** 	outref = *out;
+** 	while (*ref != '\'')
+** 		*outref++ = *ref++;
+** 	*out = outref;
+** 	return ((ref - line) + 1);
+** }
+** 
+** static size_t
+** 	escape_dq(char *line, char **out)
+** {
+** 	char *ref;
+** 	char *outref;
+** 
+** 	ref = line + 1;
+** 	outref = *out;
+** 	while (*ref != '\"' )
+** 	{
+** 		if (!*ref)
+** 		{
+** 			ref[-1] = 0;
+** 			ft_strcpy(*out, line + 1);
+** 			*out = ft_strchr(*out, 0);
+** 			return (ref - line + 1);
+** 		}
+** 		ref++;
+** 	}
+** 	ref = line + 1;
+** 	while (*ref != '\"')
+** 		*outref++ = *ref++;
+** 	*out = outref;
+** 	return ((ref - line) + 1);
+** }
+*/
 
 /*
 ** char
@@ -152,9 +155,42 @@ static size_t
 ** }
 */
 
-
 /*
 ** remove quotes and backslashes from a string 
+*/
+
+/*									ASSERT DOMINANCE
+** .                                       ....--.                           ``
+** .                                 ``....-/++++/-...                        `
+** .                                 ``.://+++++-.....                        `
+** .                                 :++++++++++:...--                        .
+** .                              ``:++++++++++++-.../.                       .
+** .                              `../+::::/+:++:++//+-                       .
+** .                                 :+:/:.-:-//.+++++/`.                     `
+** .                           `...-.-+///:---/+/+++++++++++++++++/.....      `
+** .               `.....://+++o+++++++++++////+o++o++++/::::-----.           .
+** .               ......----:::-----//:++o+//+o++++/++++:.                  ``
+** .                                 /:`/+++::+o+++:./+++++/-.               ``
+** .                                 ::..-/++ooooo+/``-/++++/.-               `
+** .                                    ``.+oooo+oo+/-.`.-/++..               `
+** .                                    ``-ooooooooooos/.`-::                 `
+** .                                    `/hysooyooooshdds-`.                  `
+** .                                 ``.sddddddddhdddddddy/.                  `
+** .                                 -ohdddddddddddddddddddh/                 `
+** .                                 `:yhhddddddddddddddss+:                  `
+** .                                    ``-+++syy+:::-::                     ``
+** .                                       ohhhhy.yhdhh/                     ``
+** .                                       `shhhy`/hhhh-                     ``
+** .                                       `:hhhh:.hhhh:                     ``
+** .                     ``.:://++oooo++/.``.hhhh-`yhhhs                     ``
+** .               ...::/+oosssssssssssssys/.hhhh-`+hhhy                     ``
+** .            .::+ooooo++ossssssssssssssyh/shhh.`:hhho                     ``
+** .         ``/sso/----:/sssssssssssssssssys/hhh.`.yhh-                     ``
+** .         .oss+........osssssssssssysssshy-yhy.``shh.                     ``
+**          .osss/.......-ssssssssssssssssyhhyyhy-..oyy.                     ``
+**          -ossss:......+sssssssssssssssssys+/--...........                  `
+**          ``-::--......osssssss/++osssssssos:...`........                  ``
+**									ASSERT DOMINANCE
 */
 
 char
@@ -176,7 +212,7 @@ char
 		*line == '\\') << 1 | (!escaped && !*quote && ft_strchr("\"'", *line))
 		<< 2 | (!escaped && *line == *quote) << 3;
 		quote = (char *)((size_t)quote * (!(flag & 0b100) && !(flag & 0b1000))
-		+ (size_t)line * !!(flag & 0b100)  + (size_t)"\0" * !!(flag & 0b1000));
+		+ (size_t)line * !!(flag & 0b100) + (size_t)"\0" * !!(flag & 0b1000));
 		escaped = (*quote != '\'' && *line == '\\' && !escaped);
 		if ((!(flag & 0b100) * !(flag & 0b1000)) * (!(flag & 0b10) || !*quote)
 		* (!(flag & 0b1) || (*quote && line[1] != *quote)))
