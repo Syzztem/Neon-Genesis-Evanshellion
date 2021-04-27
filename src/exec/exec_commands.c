@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/26 15:02:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/27 02:01:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,12 +159,12 @@ char
 	}
 //	printf("str: %s\n", str);
 	skip = 0;
-	while (ft_isspace(*current) || (*current == '\\' && ft_isspace(current[1])))
+	while (*current == SPACE || (*current == '\\' && current[1] == SPACE))
 		current++;
 	if (!*current)
 		return (NULL);
 	begin = current;
-	while (*current && !ft_isspace(*current))
+	while (*current && *current != SPACE)
 	{
 		if (ft_strchr("\"'", *current))
 		{
@@ -305,9 +305,6 @@ void
 	free_cmd(command);
 	exit(127);
 }
-
-extern g_pid;
-extern g_gpid;
 
 int
 	exec_command_list(t_list *commands)

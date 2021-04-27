@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/22 09:27:53 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/27 01:59:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t
 
 	ref = command;
 	is = 0;
-	while (*ref && !ft_isspace(*ref))
+	while (*ref && *ref != SPACE)
 	{
 		if (*ref == '*' && (ref == command || *(ref - 1) != '\\'))
 			is = 1;

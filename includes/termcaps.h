@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 09:45:56 by root             ###   ########.fr       */
+/*   Updated: 2021/04/26 23:39:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_line			*create_line(t_line *buf, t_line *origin);
 void			set_line(t_line	*line);
 int				key_is(char *key, char *cap);
 int				ft_putchar(int c);
-int				get_term_line(char **buffer);
+int				get_term_line(char **buffer, int cancel);
 void			move_cursor(int x, int y);
 char			*get_history_path(void);
 void			print_line(t_line *line);

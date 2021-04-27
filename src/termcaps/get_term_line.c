@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/26 15:35:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/27 01:19:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ void
 	//	scroll_up_n(1);
 //	locate_cursor(line);
 	update_cursor(line);
-	//sleep(1);
 }
 
 char
@@ -299,7 +298,7 @@ void
 }
 
 int
-	get_term_line(char **buffer)
+	get_term_line(char **buffer, int cancel)
 {
 	char	key[10];
 	t_line	*line;
@@ -318,6 +317,7 @@ int
 		}
 		if (interrupt_singleton(-1))
 		{
+			set_prompt(PROMPT);
 			interrupt_singleton(0);
 			free(line->line);
 			init_line(line);
