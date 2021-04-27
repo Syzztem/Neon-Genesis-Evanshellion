@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 07:46:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 08:24:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,38 +168,20 @@ char
 	escaped = 0;
 	new = ft_calloc(ft_strlen(line) + 1, 1);
 	i = 0;
-
 	int a,b,c,d;
 	while (*current)
 	{
-		copy = 1;
 		a = (*quote != '\'' && *current == '\\' && !escaped);
-		//b = (*quote == '\'' || *current != '\\' || escaped) && escaped && *current == '\\';
 		b = escaped && *current == '\\';
-		//c = !b &&  (!escaped && !*quote && ft_strchr("\"'", *current));
 		c = !escaped && !*quote && ft_strchr("\"'", *current);
-		//d = !c && (!escaped && *quote && *current == *quote);
 		d = !escaped && *current == *quote;
-		if (a)
-			copy = *quote && current[1] != *quote;
-		if (b)
-			copy = !*quote;
-		if (c)
-		{
-			quote = current;
-			copy = 0;
-		}
-		if (d)
-		{
-			quote = "\0";
-			copy = 0;
-		}
+		copy = (!c * !d) * (!b || !*quote)
+		* (!a || (*quote && current[1] != *quote));
+		quote = (char *)((size_t)quote * (!c && !d)
+		+ (size_t)current * c  + (size_t)"\0" * d);
 		escaped = (*quote != '\'' && *current == '\\' && !escaped);
 		if (copy)
-		{
-			new[i] = *current;
-			i++;
-		}
+			new[i++] = *current;
 		++current;
 	}
 	return (new);
