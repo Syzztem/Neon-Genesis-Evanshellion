@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 08:40:22 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 08:43:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,25 +156,21 @@ static size_t
 char
 	*remove_quotes(char *line)
 {
-	char	*quote;
-	int		escaped;
-	char	*new;
+	char				*quote;
+	int					escaped;
+	char				*new;
 	unsigned int		flag;
-	size_t	i;
+	size_t				i;
 
 	quote = "\0";
 	escaped = 0;
 	new = ft_calloc(ft_strlen(line) + 1, 1);
 	i = 0;
-	int a,b,c,d;
 	while (*line)
 	{
-		flag = 0;
-		a = (*quote != '\'' && *line == '\\' && !escaped);
-		b = escaped && *line == '\\';
-		c = !escaped && !*quote && ft_strchr("\"'", *line);
-		d = !escaped && *line == *quote;
-		flag = a | b << 1 | c << 2 | d << 3;
+		flag = 0 | (*quote != '\'' && *line == '\\' && !escaped) | (escaped &&
+		*line == '\\') << 1 | (!escaped && !*quote && ft_strchr("\"'", *line))
+		<< 2 | (!escaped && *line == *quote) << 3;
 		quote = (char *)((size_t)quote * (!(flag & 0b100) && !(flag & 0b1000))
 		+ (size_t)line * !!(flag & 0b100)  + (size_t)"\0" * !!(flag & 0b1000));
 		escaped = (*quote != '\'' && *line == '\\' && !escaped);
