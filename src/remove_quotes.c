@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 02:59:20 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 05:22:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,9 @@ static size_t
 	char *outref;
 
 	ref = line + 1;
-	//printf("esc sq: %s\n", ref);
 	outref = *out;
 	while (*ref != '\'')
-	{
-		/*if (!*ref)
-		{
-			ft_putendl_fd("minishell: missing matching \'", 2);
-			exit(1);
-		}*/
-		/*if (ft_indexof(SQ_ESCAPES, *ref) != -1)
-		{
-			*outref++ = '\\';
-		}*/
 		*outref++ = *ref++;
-	}
 	*out = outref;
 	return ((ref - line) + 1);
 }
@@ -64,48 +52,111 @@ static size_t
 
 	ref = line + 1;
 	outref = *out;
-	while (*ref != '\"' || *(ref - 1) == '\\')
+	while (*ref != '\"' )
 	{
 		if (!*ref)
 		{
 			ref[-1] = 0;
 			ft_strcpy(*out, line + 1);
-		//	printf("out: %s\n", *out);
 			*out = ft_strchr(*out, 0);
 			return (ref - line + 1);
 		}
 		ref++;
 	}
 	ref = line + 1;
-	while (*ref != '\"' || *(ref - 1) == '\\')
+	while (*ref != '\"')
 		*outref++ = *ref++;
 	*out = outref;
 	return ((ref - line) + 1);
 }
 
+/*
+** char
+** 	*remove_quotes(char *line)
+** {
+** 	char	*out;
+** 	char	*ref;
+** 	char	*lref;
+** 
+** 	out = malloc(sizeof(char) * (size_escaped(line) * 2 + 1));
+** 	ref = out;
+** 	lref = line;
+** 	while (*line)
+** 	{
+** 		if (*line == '\'' && (line == lref || *(line - 1) != '\\'))
+** 			line += escape_sq(line, &ref);
+** 		else if (*line == '\"' && (line == lref || *(line - 1) != '\\'))
+** 		{
+** 			line += escape_dq(line, &ref);
+** 
+** 		}
+** 		else if (*line)
+** 			*ref++ = *line++;
+** 	}
+** 	*ref = 0;
+** 	return (out);
+** }
+*/
+
+#define TO_ESCAPE "|;&<>$"
+
+
 char
 	*remove_quotes(char *line)
 {
-	char	*out;
-	char	*ref;
-	char	*lref;
+	char	*current;
+	char	*quote;
+	int		escaped;
+	char	*new;
+	size_t	i;
 
-	out = malloc(sizeof(char) * (size_escaped(line) * 2 + 1));
-	ref = out;
-	lref = line;
-	while (*line)
+	current = line;
+	quote = "\0";
+	escaped = 0;
+	new = ft_calloc(ft_strlen(line) + 1, 1);
+	i = 0;
+	while (*current)
 	{
-		if (*line == '\'' && (line == lref || *(line - 1) != '\\'))
-			line += escape_sq(line, &ref);
-		else if (*line == '\"' && (line == lref || *(line - 1) != '\\'))
+		if (*quote != '\'' && *current == '\\' && !escaped)
 		{
-			line += escape_dq(line, &ref);
-			//printf("outttt: %s\n", out);
-		//	printf("line: %s\n", line);
+			escaped = 1;
+			if (*quote)
+			{
+				new[i] = *current;
+				i++;
+			}
+			current++;
+			continue ;
 		}
-		else if (*line)
-			*ref++ = *line++;
+		if (escaped && *current == '\\')
+		{
+			escaped = 0;
+			if (!*quote)
+			{
+				new[i] = *current;
+				i++;
+			}
+			current++;
+			continue;
+		}
+		if ((!escaped && !*quote && ft_strchr("\"'", *current)))
+		{
+			quote = current;
+			current++;
+			continue;
+		}
+		if (!escaped && *quote && *current == *quote)
+		{
+			current++;
+			quote = "\0";
+			escaped = 0;
+			continue;
+		}
+		new[i] = *current;
+		i++;
+		++current;
+		escaped = 0;
+
 	}
-	*ref = 0;
-	return (out);
+	return (new);
 }
