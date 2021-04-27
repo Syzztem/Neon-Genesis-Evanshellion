@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 02:04:31 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 02:10:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
 		exit (1);
 	}
-	signal(SIGTSTP, blank_fork);
+	signal(SIGTSTP, (void *)blank_fork);
 	while ((prompt_shell(&line)))
 	{
 		if (!line || !*line)
