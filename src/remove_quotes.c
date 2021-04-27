@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 08:43:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 08:46:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,10 @@ static size_t
 ** }
 */
 
+
+/*
+** remove quotes and backslashes from a string 
+*/
 
 char
 	*remove_quotes(char *line)
