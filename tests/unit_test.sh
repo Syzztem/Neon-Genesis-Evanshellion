@@ -397,7 +397,7 @@ main()
 		for test in $ALL_ARGS;do
 			if ! [ "$test" = "-v" ];then
 				OUTPUT="$($test)";
-				if [ $? == 0 ] && [ -z "$(echo "$OUTPUT" | grep [ERROR])" ];then
+				if [ $? == 0 ] && [ -z "$(echo "$OUTPUT" | grep '\[ERROR\]')" ];then
 					printf '%-15s [OK]\n' "$test:" | tee -a $TRACE_FILE
 				else
 					printf '%-15s [KO]\n' "$test:" | tee -a $TRACE_FILE
