@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 05:22:07 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 06:06:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,58 @@ static size_t
 
 #define TO_ESCAPE "|;&<>$"
 
+/*
+** char
+** 	*remove_quotes(char *line)
+** {
+** 	char	*current;
+** 	char	*quote;
+** 	int		escaped;
+** 	char	*new;
+** 	size_t	i;
+** 	int		copy;
+** 
+** 	current = line;
+** 	quote = "\0";
+** 	escaped = 0;
+** 	new = ft_calloc(ft_strlen(line) + 1, 1);
+** 	i = 0;
+** 	while (*current)
+** 	{
+** 		copy = 1;
+** 		if (*quote != '\'' && *current == '\\' && !escaped)
+** 		{
+** 			escaped = 1;
+** 			copy = *quote;
+** 		}
+** 		else if (escaped && *current == '\\')
+** 		{
+** 			escaped = 0;
+** 			copy = !*quote;
+** 		}
+** 		else if ((!escaped && !*quote && ft_strchr("\"'", *current)))
+** 		{
+** 			quote = current;
+** 			copy = 0;
+** 		}
+** 		else if (!escaped && *quote && *current == *quote)
+** 		{
+** 			copy = 0;
+** 			quote = "\0";
+** 			escaped = 0;
+** 		}
+** 		if (copy)
+** 		{
+** 			new[i] = *current;
+** 			i++;
+** 		}
+** 		++current;
+** 		escaped = 0;
+** 	}
+** 	return (new);
+** }
+*/
+
 
 char
 	*remove_quotes(char *line)
@@ -109,6 +161,7 @@ char
 	int		escaped;
 	char	*new;
 	size_t	i;
+	int		copy;
 
 	current = line;
 	quote = "\0";
@@ -117,46 +170,28 @@ char
 	i = 0;
 	while (*current)
 	{
+		copy = 1;
 		if (*quote != '\'' && *current == '\\' && !escaped)
-		{
-			escaped = 1;
-			if (*quote)
-			{
-				new[i] = *current;
-				i++;
-			}
-			current++;
-			continue ;
-		}
-		if (escaped && *current == '\\')
-		{
-			escaped = 0;
-			if (!*quote)
-			{
-				new[i] = *current;
-				i++;
-			}
-			current++;
-			continue;
-		}
-		if ((!escaped && !*quote && ft_strchr("\"'", *current)))
+			copy = *quote && current[1] != *quote;
+		else if (escaped && *current == '\\')
+			copy = !*quote;
+		else if ((!escaped && !*quote && ft_strchr("\"'", *current)))
 		{
 			quote = current;
-			current++;
-			continue;
+			copy = 0;
 		}
-		if (!escaped && *quote && *current == *quote)
+		else if (!escaped && *quote && *current == *quote)
 		{
-			current++;
 			quote = "\0";
-			escaped = 0;
-			continue;
+			copy = 0;
 		}
-		new[i] = *current;
-		i++;
+		escaped = (*quote != '\'' && *current == '\\' && !escaped);
+		if (copy)
+		{
+			new[i] = *current;
+			i++;
+		}
 		++current;
-		escaped = 0;
-
 	}
 	return (new);
 }
