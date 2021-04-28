@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 19:29:38 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 23:29:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int
 			perror("minishell: ");
 			exit (errno);
 		}
-		if (!*line)
+		if (!*line || verify_line(line) <= 0)
 		{
 			free(line);
 			continue ;
