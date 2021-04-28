@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 22:03:52 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 19:01:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ int
 	if (check_syntax(tokens))
 		return (1);
 	ast = parse_ast(tokens);
-	//print_ast(ast);
-//	exit (0);
 	if (check_ast(ast))
 	{
 		free_ast(ast);
 		return (1);
 	}
+	print_ast(ast);
 	exec_from_ast(ast);
 	free_ast(ast);
 	return (g_exit_status);
