@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:09:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 15:39:54 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 00:10:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,17 @@ int
 		return (fd);
 	}
 	return (here_doc(input_path_ptr[1]));
+}
+
+int
+	open_redir(char	**redir)
+{
+	char	type;
+	
+	type = redir[0][0];
+	if (type == '>')
+		return (open_output(redir));
+	else if (type == '<')
+		return (open_input(redir));
+	return (-1);
 }

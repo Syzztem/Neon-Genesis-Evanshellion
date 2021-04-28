@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 18:55:15 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 23:16:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int
 	char	**current;
 	int		is_first_command_token;
 
+	return (0);
 	current = tokens;
 	is_first_command_token = 1;
 	while (*current)
@@ -66,11 +67,12 @@ int
 		psyntax_error(last);
 		return (1);
 	}
-	if (check_parenthesis(tokens))
+	/*if (check_parenthesis(tokens))
 	{
+		printf("here\n");
 		psyntax_error(PARENTHESIS_OPEN);
 		return (1);
-	}
+	}*/
 	while (*last)
 	{
 		if (*last != SPACE)

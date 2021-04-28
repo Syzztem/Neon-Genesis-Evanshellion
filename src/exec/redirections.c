@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/29 15:28:36 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 00:11:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,25 @@ void
 }
 
 void
+	create_files(char **redirections)
+{
+	char	**current;
+	int		fd;
+
+	current = redirections;
+	while (*current)
+	{
+		if (tab_find_last_token(redirections, redirects()))
+		{
+			fd = open_redir(current);
+			if (fd > 0)
+				close(fd);
+		}
+		current++;
+	}
+}
+
+void
 	do_redirector(t_redirector *rdr, char **redirections)
 {
 	rdr->in_fd = 0;
@@ -31,6 +50,7 @@ void
 	rdr->stdout_dup = -1;
 	if (!redirections || !*redirections)
 		return ;
+	create_files(redirections);
 	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
 	rdr->stdin_dup = dup(0);
 	rdr->stdout_dup = dup(1);
