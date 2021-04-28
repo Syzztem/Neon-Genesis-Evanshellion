@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 09:53:53 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 17:14:24 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,13 @@ static int
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, 0, &term);
-	get_cursor(&cursor);
-	if (cursor.x != 0)
-		write(2, "\n", 1);
+	if (line && *line)
+	{
+		get_cursor(&cursor);
+		if (cursor.x != 0)
+			write(2, "\n", 1);
+	}
+
 	ft_putstr_fd(PROMPT, 2);
 	ret = get_term_line(line);
 	set_prompt("> ");
