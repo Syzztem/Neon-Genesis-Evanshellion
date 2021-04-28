@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 09:53:56 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 12:04:19 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int
 		if (!*quote && ft_strchr("\"'", *line) && !escaped)
 			quote = line;
 		else if (!escaped && *quote == *line)
-			return (1);
+			quote = "\0";
 		if (!*quote && *line == '(' && !escaped)
 		{
 			if (!handle_parenthesis(&line))

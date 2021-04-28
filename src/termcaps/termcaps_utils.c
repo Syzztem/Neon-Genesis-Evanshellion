@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:29:58 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/24 23:57:07 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 14:59:42 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ void	realloc_line(t_line *line)
 	char *cpy;
 
 	cpy = malloc(line->max_len + BUFF_SIZE);
-	ft_memmove(cpy, line->line, line->max_len + 1);
+	if (!cpy)
+	{
+		free(line);
+		exit(1);
+	}
+	ft_memmove(cpy, line->line, line->max_len);
 	free(line->line);
 	line->line = cpy;
 	line->max_len += BUFF_SIZE;
@@ -84,6 +89,7 @@ void	move_cursor(int x, int y)
 
 int		key_is(char *key, char *cap)
 {
+
 	if (ft_strncmp(key, tgetstr(cap, NULL), ESC_LEN))
 		return (0);
 	return (1);

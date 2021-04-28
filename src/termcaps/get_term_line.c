@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 01:19:03 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 15:00:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,13 @@ int
 		bfrd = 0;
 		return (0);
 	}
-	rd = read(0, key, 7);
+	rd = read(0, key, 1);
 	if (*key == '\4')
 		return (0);
 	if (*key == do_buf)
 		bfrd = *key;
+	if (*key == ESC_CHAR)
+		rd  = read(0, key + 1, 5) + 1;
 	key[rd] = '\0';
 	return (rd);
 }
@@ -123,7 +125,9 @@ static t_cap
 		if (!ft_strncmp(key + 1, tstr + 1, ESC_LEN))
 		{
 			if (i == 2)
+			{
 				i += ft_indexof("DCBA", key[5]);
+			}
 			return (g_caps[i]);
 		}
 	}
@@ -298,7 +302,7 @@ void
 }
 
 int
-	get_term_line(char **buffer, int cancel)
+	get_term_line(char **buffer)
 {
 	char	key[10];
 	t_line	*line;
