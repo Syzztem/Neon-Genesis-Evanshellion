@@ -1,6 +1,7 @@
 
 bad backslash clearing 
 
+
 sometimes when we hit up arrow and enter the terminal clears.
 
 split_line is broken on multiline reading

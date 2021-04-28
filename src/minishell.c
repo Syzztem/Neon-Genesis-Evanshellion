@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 02:47:15 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 09:53:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int
 	if (cursor.x != 0)
 		write(2, "\n", 1);
 	ft_putstr_fd(PROMPT, 2);
-	ret = get_term_line(line, 0);
+	ret = get_term_line(line);
 	set_prompt("> ");
 	while (ret && (!*line || !verify_line(*line)))
 	{
@@ -109,7 +109,7 @@ static int
 		ft_putstr_fd(prompt(), 2);
 		if (*line)
 			tmp = *line;
-		ret = get_term_line(line, 1); 
+		ret = get_term_line(line); 
 		if (!ret)
 		{
 			free(tmp);

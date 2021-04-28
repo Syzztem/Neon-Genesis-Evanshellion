@@ -1,0 +1,29 @@
+char
+	*remove_quotes(char *line)
+{
+	char	*quote;
+	int		escaped;
+	char	*new;
+	size_t	i;
+
+	quote = "\0";
+	escaped = 0;
+	new = ft_calloc(ft_strlen(line) + 1, 1);
+	i = 0;
+	int a,b,c,d;
+	while (*line)
+	{
+		a = (*quote != '\'' && *line == '\\' && !escaped);
+		b = escaped && *line == '\\';
+		c = !escaped && !*quote && ft_strchr("\"'", *line);
+		d = !escaped && *line == *quote;
+		quote = (char *)((size_t)quote * (!c && !d)
+		+ (size_t)line * c  + (size_t)"\0" * d);
+		escaped = (*quote != '\'' && *line == '\\' && !escaped);
+		if ((!c * !d) * (!b || !*quote)
+		* (!a || (*quote && line[1] != *quote)))
+			new[i++] = *line;
+		++line;
+	}
+	return (new);
+}

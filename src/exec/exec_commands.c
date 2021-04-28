@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/27 02:45:59 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 05:01:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,66 @@ void
 }
 */
 
+/*
+** void
+** 	clear_one_backslash(char *command)
+** {
+** 	char	*line;
+** 	char	*quote;
+** 
+** 	line = command;
+** 	quote = "\0";
+** 	while (*line)
+** 	{
+** 		if (!*quote && ft_strchr("\"'", *line))
+** 			quote = line;
+** 		if ((!*quote || *quote == '"') && line[0] == '\\')
+** 		{
+** 			if (line[1] == '\\')
+** 			{
+** 				ft_memmove(line, line + 1, ft_strlen(line));
+** 				++line;
+** 			}
+** 			else if (!*quote && !ft_strchr("\"'", line[1]))
+** 				ft_memmove(line, line + 1, ft_strlen(line));
+** 		}
+** 		++line;
+** 		if (*line == *quote)
+** 			quote = "\0";
+** 	}
+** }
+*/
+
+#define TO_ESCAPE "|;&<>$"
+
 void
 	clear_one_backslash(char *command)
 {
 	char	*line;
 	char	*quote;
+	int		escaped;
 
 	line = command;
 	quote = "\0";
+	escaped = 0;
 	while (*line)
 	{
-		if (!*quote && ft_strchr("\"'", *line))
-			quote = line;
-		if ((!*quote || *quote == '"') && line[0] == '\\')
+		if (*quote != '\'' && *line == '\\' && !escaped)
 		{
-			if (line[1] == '\\')
-			{
-				ft_memmove(line, line + 1, ft_strlen(line));
-				++line;
-			}
-			else if (!*quote && !ft_strchr("\"'", line[1]))
-				ft_memmove(line, line + 1, ft_strlen(line));
+			escaped = 1;
+			line++;
+			continue ;
+		}
+		if (!escaped && !*quote && ft_strchr("\"'", *line))
+			quote = line;
+		if ((!*quote || *quote == '"') && escaped && 
+		(line[0] == '\\' || line[0] == '"' || (!*quote && ft_strchr(TO_ESCAPE, line[0]))))
+		{
+			line--;
+			ft_memmove(line, line + 1, ft_strlen(line));
 		}
 		++line;
+		escaped = 0;
 		if (*line == *quote)
 			quote = "\0";
 	}
@@ -98,6 +135,47 @@ int
 	return (!ft_strcmp(PARENTHESIS_OPEN, cmd->cmd));
 }
 
+/*
+** char
+** 	*rm_quotes(char *str)
+** {
+** 	char	*new;
+** 	char	*quote;
+** 	char	*current;
+** 	size_t	i;
+** 
+** 	new = ft_calloc(ft_strlen(str) + 1, 1);
+** 	if (!new)
+** 		return (NULL);
+** 	current = str;
+** 	quote = "\0";
+** 	i = 0;
+** 	while (*current)
+** 	{
+** 		if (!*quote && ft_strchr("\"'", *current))
+** 		{
+** 			quote = current;
+** 			current++;
+** 			continue;
+** 		}
+** 		if (*current == *quote && current == ft_strrchr(current, *quote))
+** 		{
+** 			ft_strcpy(new + i, current + 1);
+** 			break ;
+** 		}
+** 		new[i] = *current;
+** 		current++;
+** 		i++;
+** 	}
+** 	quote = ft_strchr(new, '"');
+** 	if (!quote || ft_strchr(new, '\'') < quote || ft_strrchr(new, '"') == quote)
+** 		return (new);
+** 	current = rm_quotes(new),
+** 	free(new);
+** 	return (current);
+** }
+*/
+
 void
 	expand_argv(char *argv, t_vector *new)
 {
@@ -111,7 +189,7 @@ void
 	//printf("expanded: %s\n", expanded);
 	splitted = split_quotes(expanded);
 //	print_argv(splitted);
-	clean_argv_backslashes(splitted);
+//	clean_argv_backslashes(splitted);
 //	print_argv(splitted);
 	free(expanded);
 	current = splitted;

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 01:59:14 by root             ###   ########.fr       */
+/*   Updated: 2021/04/27 09:54:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char			*set_prompt(char *prompt);
 sig_t			blank_fork(int sig);
 sig_t			interrupt_blank(int a);
 int				interrupt_singleton(int value);
-int				get_term_line(char **buffer, int cancel);
+int				get_term_line(char **buffer);
 char			**tokenize(char *line);
 char			**split_line(char *line);
 char			*remove_quotes(char *line);
