@@ -1,29 +1,14 @@
-char
-	*remove_quotes(char *line)
+t_line
+	*change_line(t_line *new, int current_column)
 {
-	char	*quote;
-	int		escaped;
-	char	*new;
-	size_t	i;
+	t_point	relative;
 
-	quote = "\0";
-	escaped = 0;
-	new = ft_calloc(ft_strlen(line) + 1, 1);
-	i = 0;
-	int a,b,c,d;
-	while (*line)
-	{
-		a = (*quote != '\'' && *line == '\\' && !escaped);
-		b = escaped && *line == '\\';
-		c = !escaped && !*quote && ft_strchr("\"'", *line);
-		d = !escaped && *line == *quote;
-		quote = (char *)((size_t)quote * (!c && !d)
-		+ (size_t)line * c  + (size_t)"\0" * d);
-		escaped = (*quote != '\'' && *line == '\\' && !escaped);
-		if ((!c * !d) * (!b || !*quote)
-		* (!a || (*quote && line[1] != *quote)))
-			new[i++] = *line;
-		++line;
-	}
-	return (new);
+	new->r_cur_pos = new->len;
+	get_relative_pos(new->len, &relative);
+	new->cursor_pos.x = relative.x;
+	new->start_column = current_column;
+	new->cursor_pos.y = new->start_column + relative.y;
+	if (new->cursor_pos.y > get_term_height() - 1)
+		new->start_column -= new->cursor_pos.y - (get_term_height() - 1);
+	new->cursor_pos.y = new->start_column + relative.y;
 }

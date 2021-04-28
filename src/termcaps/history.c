@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 16:40:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/28 20:55:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,29 @@ static t_line
 	return (out);
 }
 
+t_line
+	*change_line(t_line *new, size_t current_column)
+{
+	t_point	relative;
+
+	new->r_cur_pos = new->len;
+	get_relative_pos(new->len, &relative);
+	new->cursor_pos.x = relative.x;
+	new->start_column = current_column;
+	new->cursor_pos.y = new->start_column + relative.y;
+	if (new->cursor_pos.y > get_term_height() - 1)
+		new->start_column -= new->cursor_pos.y - (get_term_height() - 1);
+	new->cursor_pos.y = new->start_column + relative.y;
+	return (new);
+}
+
 static t_line
 	*next_line(t_line *origin, t_line *hist_lines,
 			size_t *line_count, int hist_fd)
 {
 	hist_lines += *line_count;
 	if ((hist_lines - 1) != origin)
-		return (origin + 1);
+		return (change_line(origin + 1, origin->start_column));
 	if (!get_next_line(hist_fd, &hist_lines->line))
 		return (origin);
 	create_line(hist_lines, origin);
@@ -47,10 +63,9 @@ static t_line
 static t_line
 	*prev_line(t_line *hist_lines, t_line *current)
 {
-
 	if (current == hist_lines)
 		return (current);
-	return (create_line(current - 1, current));
+	return (change_line(current - 1, current->start_column));
 }
 
 static void

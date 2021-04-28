@@ -1,8 +1,8 @@
 
-echo he + ENTER + ls +ENTER not working
-
 up arrow + down arrow + anything = segfault
 
 split_line is broken on multiline reading
 
 insert not working well when line is bigger than the terminal
+
+enlever setbuf

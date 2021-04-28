@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:29:58 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 14:59:42 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/28 20:58:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	realloc_line(t_line *line)
 {
 	char *cpy;
 
-	cpy = malloc(line->max_len + BUFF_SIZE);
+	cpy = ft_calloc(line->max_len + BUFF_SIZE, 1);
 	if (!cpy)
 	{
 		free(line);
