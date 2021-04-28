@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 17:14:24 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/28 18:21:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static int
 		if (cursor.x != 0)
 			write(2, "\n", 1);
 	}
-
 	ft_putstr_fd(PROMPT, 2);
 	ret = get_term_line(line);
 	set_prompt("> ");

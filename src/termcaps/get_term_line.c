@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 17:00:11 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/28 18:42:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int
 	if (*key == do_buf)
 		bfrd = *key;
 	if (*key == ESC_CHAR)
-		rd  = read(0, key + 1, 5) + 1;
+		rd  = read(0, key + 1, 10) + 1;
 	key[rd] = '\0';
 	return (rd);
 }
@@ -304,7 +304,7 @@ void
 int
 	get_term_line(char **buffer)
 {
-	char	key[10];
+	char	key[12];
 	t_line	*line;
 
 	line = malloc(sizeof(t_line));
