@@ -1,9 +1,8 @@
 
-bad backslash clearing 
-
-
-sometimes when we hit up arrow and enter the terminal clears.
+parenthesis parsing is broken -> ((echo hello))
 
 split_line is broken on multiline reading
 
 insert not working well when line is bigger than the terminal
+
+enlever setbuf

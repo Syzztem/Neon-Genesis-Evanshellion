@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 15:00:38 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/28 19:59:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int
 	if (*key == do_buf)
 		bfrd = *key;
 	if (*key == ESC_CHAR)
-		rd  = read(0, key + 1, 5) + 1;
+		rd  = read(0, key + 1, 10) + 1;
 	key[rd] = '\0';
 	return (rd);
 }
@@ -271,7 +271,6 @@ void
 	size_t	i;
 	int		rd;
 
-
 	write(0, CURSOR_QUERY, 4);
 	rd = read(1, cursor_pos, 16);
 	if (rd < 0)
@@ -291,8 +290,7 @@ void
 	init_line(t_line *line)
 {
 
-	line->line = malloc(BUFF_SIZE);
-	ft_bzero(line->line, BUFF_SIZE);
+	line->line = ft_calloc(BUFF_SIZE, 1);
 	line->r_cur_pos = 0;
 	line->len = 0;
 	line->max_len = BUFF_SIZE;
@@ -304,7 +302,7 @@ void
 int
 	get_term_line(char **buffer)
 {
-	char	key[10];
+	char	key[12];
 	t_line	*line;
 
 	line = malloc(sizeof(t_line));

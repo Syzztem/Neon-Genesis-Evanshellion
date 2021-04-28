@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/27 05:01:47 by root             ###   ########.fr       */
+/*   Updated: 2021/04/28 19:15:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,12 +188,12 @@ void
 	expanded = perform_expansions(argv);
 	//printf("expanded: %s\n", expanded);
 	splitted = split_quotes(expanded);
-//	print_argv(splitted);
+	//printf("splitted: ");
+	//print_argv(splitted);
 //	clean_argv_backslashes(splitted);
 //	print_argv(splitted);
 	free(expanded);
 	current = splitted;
-//	print_argv(splitted);
 	while (*current)
 	{
 		//printf("current: %s\n", *current);
@@ -218,7 +218,6 @@ void
 		expand_argv(*current, argv_vect);
 		current++;
 	}
-	
 }
 
 char
@@ -235,7 +234,8 @@ char
 		start = str;
 		current = str;
 	}
-//	printf("str: %s\n", str);
+	if (!str)
+		return (NULL);
 	skip = 0;
 	while (*current == SPACE || (*current == '\\' && current[1] == SPACE))
 		current++;
@@ -285,10 +285,8 @@ char
 	v = new_vector(10, sizeof(char **));
 	while ((new_token = get_next_token(str)))
 		vector_append(v, &new_token, 1);
+	get_next_token(NULL);
 	splitted = v->bytes;
-	//print_argv(splitted);
-	//clean_argv_backslashes(splitted);
-	//print_argv(splitted);
 	free(v);
 	return (splitted);
 	
@@ -398,7 +396,7 @@ int
 		if (cmd->pid == 0)
 		{
 			signal(SIGQUIT, SIG_DFL);
-			signal(SIGINT, SIG_DFL);	
+			signal(SIGINT, SIG_DFL);
 			close_all_cmds(commands, cmd);
 			exec_command(cmd);
 		}
