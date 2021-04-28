@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 19:15:07 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 00:00:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ void
 	free_tokens(*redir_ptr);
 	*redir_ptr = redir_vector->bytes;
 	free(redir_vector);
+	//print_argv(*redir_ptr);
 }
 
 void

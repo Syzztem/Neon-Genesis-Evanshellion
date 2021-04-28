@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/21 07:08:39 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 00:10:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	close_all_cmds(t_list *commands, t_command *avoid);
 void	switch_stdout(void);
 void	pcmd_not_found(t_command *cmd);
 int	    is_shell_interactive(void);
+
+int		open_redir(char	**redir);
 int     open_input(char	**input_path_ptr);
 char	**split_line(char *line);
 char	**split_quotes(char	*str);
