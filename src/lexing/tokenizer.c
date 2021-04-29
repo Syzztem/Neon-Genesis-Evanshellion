@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:07:44 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 21:08:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 00:08:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,83 @@
 #include "parser.h"
 #include "vector.h"
 
+static char
+	*init_tokenizing(char *str, char **current, char **start, int *skip)
+{
+	if (*start != str)
+	{
+		*start = str;
+		*current = str;
+	}
+	if (!str)
+		return (NULL);
+	*skip = 0;
+	while (**current == SPACE || (**current == '\\' && (*current)[1] == SPACE))
+		(*current)++;
+	if (!**current)
+		return (NULL);
+	return (*current);
+}
+
+void
+	move_to_next_quote(char **current, int *skip)
+{
+	while (**current && (*skip || !ft_strchr("\"' ", **current)))
+	{
+		*skip = (**current == '\\' && ft_strchr("\"' ", (*current)[1]));
+		(*current)++;
+	}
+}
+
+int
+	move_to_quote_end(char **current, int *skip)
+{
+	char	*quote;
+
+	if (ft_strchr("\"'", *(*current)))
+	{
+		quote = (*current);
+		(*current)++;
+		while (*(*current) != *quote || *skip)
+		{
+			*skip = 0;
+			if (*(*current) == 0)
+				return (0);
+			if ((*current)[0] == '\\' && (*current)[1] == '\\')
+				(*current) += 2;
+			else
+			{
+				*skip = (*quote != '\'' && *(*current) == '\\'
+						&& (*current)[1] == *quote);
+				(*current)++;
+			}
+		}
+		(*current)++;
+	}
+	return (1);
+}
+
 char
 	*get_next_token(char *str)
 {
 	static char	*current = NULL;
 	static char	*start = NULL;
 	char		*begin;
-	char		*quote;
 	int			skip;
 
-	if (start != str)
-	{
-		start = str;
-		current = str;
-	}
-	if (!str)
+	if (!(begin = init_tokenizing(str, &current, &start, &skip)))
 		return (NULL);
-	skip = 0;
-	while (*current == SPACE || (*current == '\\' && current[1] == SPACE))
-		current++;
-	if (!*current)
-		return (NULL);
-	begin = current;
 	while (*current && *current != SPACE)
 	{
-		if (ft_strchr("\"'", *current))
-		{
-			quote = current;
-			current++;
-			while (*current != *quote || skip)
-			{
-				skip = 0;
-				if (*current == 0)
-					return (NULL);
-				if (current[0] == '\\' && current[1] == '\\')
-					current += 2;
-				else
-				{
-					skip = (*quote != '\'' && *current == '\\'
-							&& current[1] == *quote);
-					current++;				
-				}
-			}
-			current++;
-		}
-		while (*current && (skip || !ft_strchr("\"' ", *current)))
-		{
-			skip = (*current == '\\' && ft_strchr("\"' ", current[1]));
-			current++;
-		}
+		if (!move_to_quote_end(&current, &skip))
+			return (NULL);
+		move_to_next_quote(&current, &skip);
 	}
 	return (ft_strndup(begin, current - begin));
 }
 
 char
-	**split_quotes(char	*str)
+	**split_quotes(char *str)
 {
 	t_vector	*v;
 	char		*current;
@@ -84,5 +106,4 @@ char
 	splitted = v->bytes;
 	free(v);
 	return (splitted);
-	
 }

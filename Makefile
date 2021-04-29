@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/29 22:07:22 by user42           ###   ########.fr        #
+#    Updated: 2021/04/29 23:18:41 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			termcaps/hist_utils.c termcaps/history.c termcaps/interactive.c\
 			termcaps/copy_paste.c termcaps/history_lines.c termcaps/insert.c\
 			termcaps/delete.c termcaps/term_size.c termcaps/move.c\
-			termcaps/line_utils.c termcaps/cursor_utils.c\
+			termcaps/line_utils.c termcaps/cursor_utils.c termcaps/keys.c\
 			\
 			expansions/wildcard.c expansions/sub_env.c \
 			expansions/remove_quotes.c expansions/perform_expansions.c\

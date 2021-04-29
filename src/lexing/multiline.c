@@ -6,27 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 20:13:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 23:42:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char
-	*set_prompt(char *prompt)
-{
-	static char	*stored = NULL;
-
-	if (prompt)
-		stored = prompt;
-	return (stored);
-}
-
-char
-	*prompt(void)
-{
-	return (set_prompt(NULL));
-}
 
 static int
 	prompt_shell(char **line)
@@ -70,76 +54,43 @@ static size_t
 	return (1);
 }
 
+static void
+	set_quote(char **quote, char *line, int escaped)
+{
+	static char	*zero = "\0";
+
+	if (!**quote && ft_strchr("\"'", *line) && !escaped)
+		*quote = line;
+	else if (!escaped && **quote == *line)
+		*quote = zero;
+}
+
 int
 	verify_line(char *line)
 {
-	char		*begin;
 	char		*quote;
 	int			escaped;
 
-	begin = line;
 	escaped = 0;
 	quote = "\0";
 	while (*line)
 	{
 		if (*quote != '\'' && *line == '\\' && !escaped)
-		{
 			escaped = 1;
-			line++;
-			continue ;
-		}
-		if (!*quote && ft_strchr("\"'", *line) && !escaped)
-			quote = line;
-		else if (!escaped && *quote == *line)
-			quote = "\0";
-		if (!*quote && *line == '(' && !escaped)
+		else
 		{
-			if (!handle_parenthesis(&line))
-				return (0);
-			continue ;
+			set_quote(&quote, line, escaped);
+			if (!*quote && *line == '(' && !escaped)
+			{
+				if (!handle_parenthesis(&line))
+					return (0);
+				continue ;
+			}
+			if (!*quote && *line == ')' && !escaped)
+				return (-1);
+			escaped = 0;
 		}
-		if (!*quote && *line == ')' && !escaped)
-			return (-1);
 		++line;
-		escaped = 0;
 	}
-	if (escaped || *quote)
-		return (0);
-	return (1);
+	return (!(escaped || *quote));
 }
-
-/*
-** int
-** 	complete_line(char **line)
-** {
-** 	char	*buf;
-** 	char	*new;
-** 	int		code;
-** 	int		ret;
-** 
-** 	code = verify_line(*line);
-** 	while (!code || code == -1)
-** 	{
-** 		ret = prompt_shell(&buf);
-** 		if (code == -1 || ret <= 0)
-** 		{
-** 			if (code == -1)
-** 				ft_putendl_fd(
-** 					"minishell: syntax error near unexpected token `)'", 2);
-** 			else if (ret >= 0)
-** 				ft_putendl_fd("minishell: unexpected EOF", 2);
-** 			return (ret);
-** 		}
-** 		new = ft_strjoin(*line, "\n");
-** 		free(*line);
-** 		*line = new;
-** 		new = ft_strjoin(*line, buf);
-** 		free(*line);
-** 		free(buf);
-** 		*line = new;
-** 		code = verify_line(*line);
-** 	}
-** 	return (1);
-** }
-** 
-*/

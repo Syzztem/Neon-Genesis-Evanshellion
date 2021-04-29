@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:21:28 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 22:53:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 23:41:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,20 @@ t_line
 	if (mode)
 		stored = line;
 	return (stored);
+}
+
+char
+	*set_prompt(char *prompt)
+{
+	static char	*stored = NULL;
+
+	if (prompt)
+		stored = prompt;
+	return (stored);
+}
+
+char
+	*prompt(void)
+{
+	return (set_prompt(NULL));
 }
