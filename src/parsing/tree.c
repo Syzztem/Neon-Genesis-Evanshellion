@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 23:26:01 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 14:34:35 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char
 	while (*current && !find_token(*current, pipeline_separators()))
 	{
 		if (!ft_strcmp(*current, PARENTHESIS_OPEN))
-			current += parenthesis_len(tokens);
+			current += parenthesis_len(current);
 		else
 			current++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 00:00:04 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 14:48:45 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,11 +188,14 @@ void
 	expanded = perform_expansions(argv);
 	//printf("expanded: %s\n", expanded);
 	splitted = split_quotes(expanded);
+
 	//printf("splitted: ");
 	//print_argv(splitted);
 //	clean_argv_backslashes(splitted);
 //	print_argv(splitted);
 	free(expanded);
+	if (!splitted)
+		return ;
 	current = splitted;
 	while (*current)
 	{
@@ -286,6 +289,7 @@ char
 	while ((new_token = get_next_token(str)))
 		vector_append(v, &new_token, 1);
 	get_next_token(NULL);
+	vector_append(v, &new_token, 1);
 	splitted = v->bytes;
 	free(v);
 	return (splitted);

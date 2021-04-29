@@ -349,6 +349,8 @@ unit_parenthesis()
 	cmp_shell 'printf "hello\nworld\m" | ( grep -o hello | ( grep -o lo | grep -o l ) )'
 	cmp_shell 'printf "hello\nworld\m"|( grep -o hello | (grep -o lo | grep -o l) )'
 	cmp_shell '(echo hello ; export DFG=fuckme); echo $DFG'
+	cmp_shell '                   (echo hello; echo world)'
+	cmp_shell '                     (echo hello ; echo world)                                '
 	#cmp_shell 'ls(w)' #error case
 }
 
@@ -390,7 +392,7 @@ main()
 			VERBOSE="on";
 		fi
 		if [ "$arg" = 'unit_all' ];then
-			ALL_ARGS="unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_argv_zero unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
+			ALL_ARGS="unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_argv_zero unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
 		fi
 	done
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 20:55:49 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 14:30:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void
 		clear_line(current_line);
 	}
 	ft_memmove(line, current_line, sizeof(t_line));
-	clear_unused_lines(hist_lines, current_line->line, line_count);
+	//clear_unused_lines(hist_lines, current_line->line, line_count);
 	if (interrupt_singleton(-1))
 	{
 		interrupt_singleton(0);

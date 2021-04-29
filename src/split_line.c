@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 13:45:10 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:45:05 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char
 
 	out = malloc(sizeof(char *) * (nblines(line) + 2));
 	i = 0;
+	while (ft_isspace(*line))
+		line++;
 	while (*line)
 	{
 		index = next_sep(line, &sep);

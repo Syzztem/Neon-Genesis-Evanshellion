@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 23:24:48 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 14:44:45 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ size_t
 	if (level)
 	{
 		ft_putendl_fd(SHELL_NAME ": missing matching `)'", 2);
+		print_argv(tokens);
+		exit(1);
 		PARGV(tokens);
 		return (0);
 	}
@@ -150,7 +152,6 @@ t_command
 		printf("RETURNING NULL\n");
 		return (NULL);
 	}
-	//printf("end: %d\n", end);
 	extracted = dup_n_tab(current, end);
 	command = new_command(ft_strdup(extracted[0]), extracted, NULL);
 	//command->tokens = current;

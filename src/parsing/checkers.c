@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 23:16:26 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 14:23:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ int
 		psyntax_error(PARENTHESIS_OPEN);
 		return (1);
 	}*/
-	while (*last)
+	/*while (last)
 	{
 		if (*last != SPACE)
 			return (0);
 		last++;
 	}
-	psyntax_error(get_last_token(tokens)[-1]);
-	return (1);
+	psyntax_error(*get_last_token(tokens));*/
+	return (0);
 }
 
 int
