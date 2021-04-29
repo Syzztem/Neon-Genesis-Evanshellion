@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/30 00:26:30 by user42           ###   ########.fr        #
+#    Updated: 2021/04/30 00:33:32 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,10 @@ INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes -I./C_vectors/includes
 SRCS_PATH = src
 SRC_LIST =	constants/redirects.c constants/separators.c\
 			\
+			parsing/parse_parenthesis.c parsing/check_pipeline.c\
 			parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
-			parsing/commands_utils.c \
-			parsing/check_pipeline.c parsing/parse_parenthesis.c\
-			parsing/wrapped_finders_2.c
+			parsing/commands_utils.c parsing/wrapped_finders_2.c\
 			\
 			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c\
 			lexing/clear_quotes.c\
