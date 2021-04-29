@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 00:10:26 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 20:58:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # include <sys/wait.h>
 # include "vector.h"
 
-int     minishell(void);
+
+int		here_doc(char *end_mark);
+int		exec_single_builtin(t_command *cmd);
+int		minishell(void);
 int		exec_pipeline(t_pipeline pipeline);
 void	exec_command(t_command *command);
 int		exec_command_list(t_list *commands);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 20:30:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 20:59:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
 
+int				minishell(void);
+int				minishell_non_interactive(void);
 void			init_signals(void);
 char			*strjoin_newline(char *s1, char *s2);
 void			free_env(void);

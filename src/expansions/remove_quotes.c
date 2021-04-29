@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:36:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 21:22:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** 	char	*new;
 ** 	size_t	i;
 ** 	int		copy;
-** 
+**
 ** 	current = line;
 ** 	quote = "\0";
 ** 	escaped = 0;
@@ -59,40 +59,41 @@
 */
 
 /*
-** remove quotes and backslashes from a string 
+** remove quotes and backslashes from a string
 */
 
-/*									ASSERT DOMINANCE
-** .                                       ....--.                           ``
-** .                                 ``....-/++++/-...                        `
-** .                                 ``.://+++++-.....                        `
-** .                                 :++++++++++:...--                        .
-** .                              ``:++++++++++++-.../.                       .
-** .                              `../+::::/+:++:++//+-                       .
-** .                                 :+:/:.-:-//.+++++/`.                     `
-** .                           `...-.-+///:---/+/+++++++++++++++++/.....      `
-** .               `.....://+++o+++++++++++////+o++o++++/::::-----.           .
-** .               ......----:::-----//:++o+//+o++++/++++:.                  ``
-** .                                 /:`/+++::+o+++:./+++++/-.               ``
-** .                                 ::..-/++ooooo+/``-/++++/.-               `
-** .                                    ``.+oooo+oo+/-.`.-/++..               `
-** .                                    ``-ooooooooooos/.`-::                 `
-** .                                    `/hysooyooooshdds-`.                  `
-** .                                 ``.sddddddddhdddddddy/.                  `
-** .                                 -ohdddddddddddddddddddh/                 `
-** .                                 `:yhhddddddddddddddss+:                  `
-** .                                    ``-+++syy+:::-::                     ``
-** .                                       ohhhhy.yhdhh/                     ``
-** .                                       `shhhy`/hhhh-                     ``
-** .                                       `:hhhh:.hhhh:                     ``
-** .                     ``.:://++oooo++/.``.hhhh-`yhhhs                     ``
-** .               ...::/+oosssssssssssssys/.hhhh-`+hhhy                     ``
-** .            .::+ooooo++ossssssssssssssyh/shhh.`:hhho                     ``
-** .         ``/sso/----:/sssssssssssssssssys/hhh.`.yhh-                     ``
-** .         .oss+........osssssssssssysssshy-yhy.``shh.                     ``
-**          .osss/.......-ssssssssssssssssyhhyyhy-..oyy.                     ``
-**          -ossss:......+sssssssssssssssssys+/--...........                  `
-**          ``-::--......osssssss/++osssssssos:...`........                  ``
+/*
+**									ASSERT DOMINANCE
+**                                         ....--.
+**                                   ``....-/++++/-...
+**                                   ``.://+++++-.....
+**                                   :++++++++++:...--
+**                                ``:++++++++++++-.../.
+**                                `../+::::/+:++:++//+-
+**                                   :+:/:.-:-//.+++++/`.
+**                             `...-.-+///:---/+/+++++++++++++++++/.....
+**                 `.....://+++o+++++++++++////+o++o++++/::::-----.
+**                 ......----:::-----//:++o+//+o++++/++++:.
+**                                   /:`/+++::+o+++:./+++++/-.
+**                                   ::..-/++ooooo+/``-/++++/.-
+**                                      ``.+oooo+oo+/-.`.-/++..
+**                                      ``-ooooooooooos/.`-::
+**                                      `/hysooyooooshdds-`.
+**                                   ``.sddddddddhdddddddy/.
+**                                   -ohdddddddddddddddddddh/
+**                                   `:yhhddddddddddddddss+:
+**                                      ``-+++syy+:::-::
+**                                         ohhhhy.yhdhh/
+**                                         `shhhy`/hhhh-
+**                                         `:hhhh:.hhhh:
+**                       ``.:://++oooo++/.``.hhhh-`yhhhs
+**                 ...::/+oosssssssssssssys/.hhhh-`+hhhy
+**              .::+ooooo++ossssssssssssssyh/shhh.`:hhh
+**           ``/sso/----:/sssssssssssssssssys/hhh.`.yhh-
+**           .oss+........osssssssssssysssshy-yhy.``shh.
+**          .osss/.......-ssssssssssssssssyhhyyhy-..oyy.
+**          -ossss:......+sssssssssssssssssys+/--...........
+**          ``-::--......osssssss/++osssssssos:...`........
 **									ASSERT DOMINANCE
 */
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:35:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 21:37:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,31 @@ static size_t
 	return (len);
 }
 
+void
+	do_expansions(char **quote, char **ref, char *command, t_token **alst)
+{
+	size_t	len;
+
+	if (!*(*quote) && (ft_strchr("\"'", *(*ref))
+	&& (*ref) != command && (*ref)[-1] != '\\'))
+		(*quote) = (*ref);
+	else if (*(*quote) == *(*ref))
+		(*quote) = "\0";
+	len = wildcard_len((*ref));
+	if (len && *(*quote) != '\'')
+		(*ref) += add_wildcard((*ref), len, alst);
+	else if (*(*quote) != '\'' && *(*ref) == '$'
+	&& ((*ref) == command || (*ref)[-1] != '\\'))
+		(*ref) += add_env((*ref), alst);
+	else
+		ft_lstadd_back((t_list **)alst, ft_strndup((*ref)++, 1));
+}
+
 char
 	*perform_expansions(char *command)
 {
 	t_token *list;
 	char	*ref;
-	size_t	len;
 	char	*out;
 	char	*quote;
 
@@ -74,24 +93,45 @@ char
 	list = NULL;
 	quote = "\0";
 	while (*ref)
-	{
-		if (!*quote && (ft_strchr("\"'", *ref) && ref != command && ref[-1] != '\\'))
-			quote = ref;
-		else if (*quote == *ref)
-			quote = "\0";
-		len = wildcard_len(ref);
-		if (len && *quote != '\'')
-			ref += add_wildcard(ref, len, &list);
-		else if (*quote != '\'' && *ref == '$' && (ref == command || ref[-1] != '\\'))
-			ref += add_env(ref, &list);
-		else
-		{
-			len = 1;
-			ft_lstadd_back((t_list **)&list, ft_strndup(ref, len));
-			ref += len;
-		}
-	}
+		do_expansions(&quote, &ref, command, &list);
 	out = list_to_pure_string(list);
 	free_list(list);
 	return (out);
 }
+
+/*
+** char
+** 	*perform_expansions(char *command)
+** {
+** 	t_token *list;
+** 	char	*ref;
+** 	size_t	len;
+** 	char	*out;
+** 	char	*quote;
+**
+** 	if (!command)
+** 		return (NULL);
+** 	ref = command;
+** 	list = NULL;
+** 	quote = "\0";
+** 	while (*ref)
+** 	{
+** 		if (!*quote && (ft_strchr("\"'", *ref)
+** 		&& ref != command && ref[-1] != '\\'))
+** 			quote = ref;
+** 		else if (*quote == *ref)
+** 			quote = "\0";
+** 		len = wildcard_len(ref);
+** 		if (len && *quote != '\'')
+** 			ref += add_wildcard(ref, len, &list);
+** 		else if (*quote != '\'' && *ref == '$'
+** 		&& (ref == command || ref[-1] != '\\'))
+** 			ref += add_env(ref, &list);
+** 		else
+** 			ft_lstadd_back((t_list **)&list, ft_strndup(ref++, 1));
+** 	}
+** 	out = list_to_pure_string(list);
+** 	free_list(list);
+** 	return (out);
+** }
+*/

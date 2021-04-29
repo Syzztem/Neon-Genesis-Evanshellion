@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/29 20:34:58 by user42           ###   ########.fr        #
+#    Updated: 2021/04/29 21:14:18 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,13 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			parsing/commands_utils.c parsing/fake_constants.c \
 			\
 			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c\
+			lexing/clear_quotes.c\
 			\
 			exec/utils.c parsing/checkers.c \
 			exec/redirections_utils.c exec/close.c \
 			exec/exec_commands.c exec/pipes.c \
 			exec/redirections.c exec/exec.c exec/pipeline.c \
+			exec/here_doc.c exec/exec_builtins.c\
 			\
 			garbage_collector/garbage_collector.c garbage_collector/free_ast.c\
 			garbage_collector/free_env.c\
@@ -55,6 +57,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			\
 			expansions/wildcard.c expansions/sub_env.c \
 			expansions/remove_quotes.c expansions/perform_expansions.c\
+			expansions/expand_command.c\
 			\
 			env/find_exec.c env/ft_getenv.c env/ft_setenv.c\
 			\

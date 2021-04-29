@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 03:30:13 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 21:14:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "minishell.h"
 # define SEPS "|;<>\"\'&()"
 # define TOKEN_SPLITTERS "|;<>& \t\n\v\f\r"
+# define TO_ESCAPE "|;&<>$"
 
 
 typedef struct	s_token
@@ -31,5 +32,5 @@ void			free_list(t_token *list);
 char			*list_to_pure_string(t_token *list);
 void			print_list(t_token *list);
 void			clean_backslashes(char **tokens);
-
+void			clear_escaped_quotes(char *command);
 #endif

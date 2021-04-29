@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 19:14:24 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 21:04:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ extern int	g_exit_status;
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
-char            *get_command_path(char *cmd);
+int				is_single_builtin(t_pipeline lst);
+char			*get_command_path(char *cmd);
 size_t			get_pipeline_len(char **tokens);
 size_t			tab_size(char **table);
 t_command		*new_command(char *cmd, char **argv, char *sep);
@@ -112,7 +113,6 @@ int				check_pipeline(t_pipeline pipeline);
 int				check_command(t_command *cmd);
 int				check_ast(t_ast ast);
 int				check_syntax(char **tokens);
-void			clear_one_backslash(char *command);
 
 size_t			parenthesis_len(char **tokens);
 
