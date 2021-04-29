@@ -6,57 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:25:12 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:30:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 21:55:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void	move_left(t_line *line)
-{
-	if (line->r_cur_pos == 0)
-		return ;
-	if (line->cursor_pos.x == 0)
-	{
-		line->cursor_pos.y--;
-		line->cursor_pos.x = get_term_width();
-		line->r_cur_pos--;
-		move_cursor(line->cursor_pos.x, line->cursor_pos.y);
-		return;
-	}
-	else
-		cap("le");
-	line->r_cur_pos--;
-	line->cursor_pos.x--;
-}
-
-void	move_right(t_line *line)
-{
-	if (line->r_cur_pos == line->len)
-		return ;
-	if (line->cursor_pos.x == (size_t)get_term_width())
-	{
-		line->cursor_pos.y++;
-		line->cursor_pos.x = 0;
-		line->r_cur_pos++;
-		move_cursor(line->cursor_pos.x, line->cursor_pos.y);
-		return;
-	}
-	cap("nd");
-	line->r_cur_pos++;
-	line->cursor_pos.x++;
-}
-
-int
-	get_last_column(t_line *line)
-{
-	t_point	relative_cursor;
-	
-	get_relative_pos(line->len, &relative_cursor);
-	return (get_start_column(line) + relative_cursor.y);
-}
-
-void	go_home(t_line *line)
+void
+	go_home(t_line *line)
 {
 	int	term_width;
 
@@ -68,7 +25,8 @@ void	go_home(t_line *line)
 	line->r_cur_pos = 0;
 }
 
-void	go_end(t_line *line)
+void
+	go_end(t_line *line)
 {
 	int		term_width;
 	t_point	relative_cursor;
@@ -79,4 +37,10 @@ void	go_end(t_line *line)
 	line->cursor_pos.y = get_start_column(line) + relative_cursor.y;
 	update_cursor(line);
 	line->r_cur_pos = line->len;
+}
+
+void
+	move_cursor(int x, int y)
+{
+	tputs(tgoto(tgetstr("cm", NULL), x, y), 1, ft_putchar);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_jump.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 16:50:49 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/25 15:03:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 21:50:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	next_word(t_line *line)
 	while (*line->line && !ft_isalnum(line->line[pos]) && pos < line->len)
 		pos++;
 	line->start_column = get_start_column(line);
-	line->cursor_pos.x = (pos + ft_strlen(prompt())) % get_term_width() - (pos != line->len);
+	line->cursor_pos.x = (pos + ft_strlen(prompt())) % get_term_width()
+	- (pos != line->len);
 	line->r_cur_pos = pos;
 	line->cursor_pos.y = line->start_column + get_line_height(pos);
 	move_cursor(line->cursor_pos.x, line->cursor_pos.y);

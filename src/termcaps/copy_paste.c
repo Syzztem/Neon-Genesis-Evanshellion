@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:28:09 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 19:29:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 21:50:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void
 	line->r_cur_pos = 0;
 	update_cursor(line);
 }
-
 
 void
 	wrap_paste(t_line *line)
@@ -74,7 +73,7 @@ char
 	ft_memmove(head, paste, paste_len);
 	head += paste_len;
 	ft_memmove(head, line->line + line->r_cur_pos,
-					 line->len - line->r_cur_pos);
+					line->len - line->r_cur_pos);
 	return (new);
 }
 

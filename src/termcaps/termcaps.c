@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 10:42:38 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:29:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 21:46:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,77 +51,12 @@ void
 	}
 }
 
-void	insert_char(t_line *line, char c)
-{
-	t_point	tmp;
-
-	if (line->len >= line->max_len - 1)
-		realloc_line(line);
-	ft_memmove(line->line + line->r_cur_pos + 1, line->line + line->r_cur_pos,
-			(line->max_len - line->r_cur_pos) - 1);
-	line->line[line->r_cur_pos] = c;
-	line->r_cur_pos++;
-	line->len++;
-	line->cursor_pos.x++;
-	wrap_line(line);
-	tmp = line->cursor_pos;
-	clear_line(line);
-	cap("im");
-	write(0, line->line, line->len);
-	cap("ei");
-	line->cursor_pos = tmp;
-	update_cursor(line);
-}
-
-void
-	print_line(t_line *line)
-{
-	printf("line: %s\n", line->line);
-	printf("r_cur_pos: %zu\n", line->r_cur_pos);
-	printf("len: %zu\n", line->len);
-	printf("start_row: %zu\n", line->start_row);
-	printf("start_col: %zu\n", line->start_column);
-	printf("max_len: %zu\n", line->max_len);
-	printf("cursor_pos: .x=%zu .y=%zu\n", line->cursor_pos.x,
-	line->cursor_pos.y);
-}
-
-void
-	get_relative_pos(size_t r_pos, t_point *cursor)
-{
-	int		term_width;
-
-	term_width = get_term_width();
-	r_pos += ft_strlen(prompt());
-	cursor->x = (r_pos % term_width);
-	cursor->y = (r_pos / term_width);
-}
-
-int
-	get_line_height(size_t len)
-{
-	int		term_width;
-	size_t	prompt_len;
-
-	prompt_len = ft_strlen(prompt());
-	term_width = get_term_width();
-	if (prompt_len > (size_t)term_width)
-		return ((len + prompt_len) / term_width);
-	return ((len + prompt_len) / term_width);
-}
-
-int
-	get_start_column(t_line *line)
-{
-	return (line->start_column);
-}
-
 void
 	clear_line(t_line *line)
 {
 	int		term_width;
 	size_t	prompt_len;
-	t_point	cursor;	
+	t_point	cursor;
 
 	term_width = get_term_width();
 	prompt_len = ft_strlen(prompt());
@@ -136,34 +71,7 @@ void
 }
 
 void
-	update_cursor(t_line *line)
-{
-	move_cursor(line->cursor_pos.x, line->cursor_pos.y);
-}
-
-void	delete_char(t_line *line)
-{
-	char	*dst;
-	char	*src;
-	size_t	len;
-	
-	if (line->r_cur_pos == 0)
-		return ;
-	src = line->line + line->r_cur_pos;
-	dst = src - 1;
-	len = ft_strlen(src);
-	ft_memmove(dst, src, len);
-	dst[len] = 0;
-	line->len--;
-	move_left(line);
-	clear_line(line);
-	write(0, line->line, line->len);
-	line->cursor_pos.x = (line->r_cur_pos + ft_strlen(prompt())) % get_term_width();
-	line->cursor_pos.y += get_line_height(line->r_cur_pos); 
-	update_cursor(line);
-}
-
-void	do_nothing(t_line *line)
+	do_nothing(t_line *line)
 {
 	(void)line;
 }

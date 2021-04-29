@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 13:22:07 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:30:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 22:59:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,23 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static t_line
-	*realloc_lines(t_line *hist_lines, size_t *size, t_line **current_line)
+static void
+	end_hist(t_line *line, t_line *current_line,
+				int hist_fd)
 {
-	t_line	*out;
-	size_t	current_line_pos;
-
-	current_line_pos = *current_line - hist_lines;
-	out = ft_calloc(sizeof(t_line), *size + LINE_ALLOC_SIZE);
-	ft_memmove(out, hist_lines, sizeof(t_line) * *size);
-	*current_line = out + current_line_pos;
-	(*size) += LINE_ALLOC_SIZE;
-	free(hist_lines);
-	return (out);
+	ft_memmove(line, current_line, sizeof(t_line));
+	singleton_line(line, 1);
+	interrupt_line(line);
+	get_next_line(hist_fd, NULL);
+	close(hist_fd);
 }
 
-t_line
-	*change_line(t_line *new, size_t current_column)
+static void
+	check_lines(t_line **hist_lines, t_line **current_line, size_t *hist_size,
+	size_t line_count)
 {
-	t_point	relative;
-
-	new->r_cur_pos = new->len;
-	get_relative_pos(new->len, &relative);
-	new->cursor_pos.x = relative.x;
-	new->start_column = current_column;
-	new->cursor_pos.y = new->start_column + relative.y;
-	if (new->cursor_pos.y > get_term_height() - 1)
-		new->start_column -= new->cursor_pos.y - (get_term_height() - 1);
-	new->cursor_pos.y = new->start_column + relative.y;
-	return (new);
-}
-
-static t_line
-	*next_line(t_line *origin, t_line *hist_lines,
-			size_t *line_count, int hist_fd)
-{
-	hist_lines += *line_count;
-	if ((hist_lines - 1) != origin)
-		return (change_line(origin + 1, origin->start_column));
-	if (!get_next_line(hist_fd, &hist_lines->line))
-		return (origin);
-	create_line(hist_lines, origin);
-	(*line_count)++;
-	return (hist_lines);
-}
-
-static t_line
-	*prev_line(t_line *hist_lines, t_line *current)
-{
-	if (current == hist_lines)
-		return (current);
-	return (change_line(current - 1, current->start_column));
+	if (line_count == *hist_size)
+		*hist_lines = realloc_lines(*hist_lines, hist_size, current_line);
 }
 
 static void
@@ -75,13 +41,11 @@ static void
 	char	next_key[50];
 	t_line	*current_line;
 
-	clear_line(line);
 	hist_size = LINE_ALLOC_SIZE;
 	current_line = hist_lines;
 	while (!interrupt_singleton(-1))
-	{		
-		if (line_count == hist_size)
-			hist_lines = realloc_lines(hist_lines, &hist_size, &current_line);
+	{
+		check_lines(&hist_lines, &current_line, &hist_size, line_count);
 		if (key_is(next_key, "kd"))
 			current_line = prev_line(hist_lines, current_line);
 		else
@@ -95,23 +59,15 @@ static void
 			break ;
 		clear_line(current_line);
 	}
-	ft_memmove(line, current_line, sizeof(t_line));
-	singleton_line(line, 1);
+	end_hist(line, current_line, hist_fd);
 	clear_unused_lines(hist_lines, current_line->line, line_count);
-	if (interrupt_singleton(-1))
-	{
-		interrupt_singleton(0);
-		free(line->line);
-		init_line(line);
-	}
-	get_next_line(hist_fd, NULL);
-	close(hist_fd);
 	exec_key(line, next_key);
 }
 
 /*
-** returns malloced history path string. 
+** returns malloced history path string.
 */
+
 char
 	*get_history_path(void)
 {
@@ -142,8 +98,8 @@ void
 	fd = open(hist_file_path, O_RDONLY);
 	if (fd != -1)
 	{
+		clear_line(line);
 		loop_hist(line, fd, hist_lines, line_count);
 	}
 	free(hist_file_path);
 }
-

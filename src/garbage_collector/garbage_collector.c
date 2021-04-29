@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:27:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 19:32:33 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 23:06:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ void
 	free_pipeline(t_pipeline *pipeline)
 {
 	ft_lstclear(pipeline, (void *)free_cmd);
+}
+
+void
+	free_line(t_line *line)
+{
+	free(line->line);
+	free(line);
 }
