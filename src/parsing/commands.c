@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 14:44:45 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 00:20:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_command
 }
 
 t_command
-	*init_command_from_tokens(char **tokens, char *sep)
+	*command_from_tokens(char **tokens, char *sep)
 {
 	t_command	*cmd;
 	char		**extracted;
@@ -79,18 +79,6 @@ char
 }
 
 t_command
-	*command_from_tokens(char **tokens, char *sep)
-{
-
-	t_command	*cmd;
-
-	cmd = init_command_from_tokens(tokens, sep);
-	/*if (cmd)
-		cmd->cmd = get_command_path(cmd->cmd);*/
-	return (cmd);
-}
-
-t_command
 	*parse_simple_command(char **current, size_t *len_ptr)
 {
 	size_t		end;
@@ -103,59 +91,6 @@ t_command
 	command = command_from_tokens(extracted, *find_sep(current));
 	print_command(command);
 	free_tokens(extracted);
-	if (len_ptr)
-		*len_ptr = end;
-	return (command);
-}
-
-size_t
-	parenthesis_len(char **tokens)
-{
-	char		**current;
-	unsigned	level;
-
-	if (!tokens || !*tokens)
-		return (1);
-	current = tokens + 1;
-	level = 1;
-	//printf("%s\n", *tokens);
-	while (*current && level)
-	{
-		if (!ft_strcmp(*current, PARENTHESIS_OPEN))
-			++level;
-		if (!ft_strcmp(*current, PARENTHESIS_CLOSE))
-			--level;
-		current++;
-	}
-	if (level)
-	{
-		ft_putendl_fd(SHELL_NAME ": missing matching `)'", 2);
-		print_argv(tokens);
-		exit(1);
-		PARGV(tokens);
-		return (0);
-	}
-	return (current - tokens);
-}
-
-t_command
-	*parse_parenthesis(char **current, size_t *len_ptr)
-{
-	size_t		end;
-	char		**extracted;
-	t_command	*command;
-
-	PARGV(current);
-	end = parenthesis_len(current);
-	if (end == 0)
-	{
-		printf("RETURNING NULL\n");
-		return (NULL);
-	}
-	extracted = dup_n_tab(current, end);
-	command = new_command(ft_strdup(extracted[0]), extracted, NULL);
-	//command->tokens = current;
-	command->redirections = extract_redirects(current + end);
 	if (len_ptr)
 		*len_ptr = end;
 	return (command);
@@ -177,21 +112,12 @@ t_command
 	PARGV(current);
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	//printf("tokens: ");
-	//print_argv(tokens);
 	if (!strcmp(*current, PARENTHESIS_OPEN))
-	{
-		//printf("hello: ");
-		//print_argv(current);
-		//printf("\n");
 		command = parse_parenthesis(current, &end);
-	}
 	else
 		command = parse_simple_command(current, &end);
 	current += end;
 	if (*current)
 		current++;
-	//printf("end next\n");
-	//print_argv(current);
 	return (command);
 }

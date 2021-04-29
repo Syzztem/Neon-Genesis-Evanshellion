@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wrapped_finders.c                                  :+:      :+:    :+:   */
+/*   wrapped_finders_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 14:06:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:23:08 by user42           ###   ########.fr       */
+/*   Created: 2021/04/30 00:22:36 by user42            #+#    #+#             */
+/*   Updated: 2021/04/30 00:23:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char
-	**find_sep(char **tokens)
+int
+	is_redirect(char *token)
 {
-	return (find_token_in_tokens(tokens, separators()));
+	return ((int)find_token(token, redirects()));
 }
 
-char
-	**find_pipe(char **tokens)
+int
+	is_connective(char *token)
 {
-	return (safe_find_token(tokens, PIPE));
+	return ((int)find_token(token, connectives()));
 }
 
-size_t
-	get_pipeline_len(char **tokens)
+int
+	is_sep(char *token)
 {
-	return (find_token_in_tokens(tokens, pipeline_separators()) - tokens);
+	return ((int)find_token(token, separators()));
 }

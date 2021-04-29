@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/22 23:05:05 by root             ###   ########.fr       */
+/*   Updated: 2021/04/30 00:27:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ t_pipeline
 
 	lst = NULL;
 	tokens = pipeline;
-	//tokens = tokenize(pipeline);
-//	print_argv(pipeline);
 	while ((command = get_next_command(tokens)))
 	{
 		if (!command)
 		{
 			free_pipeline(&lst);
 			break ;
-		}		
+		}
 		ft_lstadd_back(&lst, command);
 	}
 	get_next_command(NULL);

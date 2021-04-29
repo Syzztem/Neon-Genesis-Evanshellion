@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_constants.c                                   :+:      :+:    :+:   */
+/*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 15:16:52 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/18 17:10:23 by smaccary         ###   ########.fr       */
+/*   Created: 2021/04/30 00:24:39 by user42            #+#    #+#             */
+/*   Updated: 2021/04/30 00:25:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-char
-	**separators(void)
-{
-	static char *arr[] = (char *[]){PIPE, SEMICOLON, NULL};
-
-	return (arr);
-}
 
 char
 	**redirects(void)
@@ -41,23 +33,6 @@ char
 	**input_redirects(void)
 {
 	static char *arr[] = {REDIR_INPUT, REDIR_HERE_DOC, NULL};
-
-	return (arr);
-}
-
-char
-	**pipeline_separators(void)
-{
-	static char *arr[] = {SEMICOLON, AND, OR, NULL};
-
-	return (arr);
-}
-
-char
-	**connectives(void)
-{
-	static char *arr[] = {PIPE, AND, OR, REDIR_APPEND, REDIR_REPLACE,
-	REDIR_INPUT, REDIR_HERE_DOC, NULL};
 
 	return (arr);
 }

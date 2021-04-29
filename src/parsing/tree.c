@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 14:34:35 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 00:27:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_ast_node
 	char		**sep;
 
 	node = ft_calloc(1, sizeof(t_ast_node));
-	sep = find_pipeline_separator(tokens);//find_token_in_tokens(tokens, pipeline_separators());
+	sep = find_pipeline_separator(tokens);
 	node->abstract_pipeline = dup_n_tab(tokens, sep - tokens);
 	node->pipeline = parse_pipeline(node->abstract_pipeline);
 	if (!node->pipeline)
@@ -65,7 +65,7 @@ t_ast_node
 		return (NULL);
 	PARGV(current);
 	node = node_from_line(current);
-	current = find_pipeline_separator(current);//find_token_in_tokens(current, pipeline_separators());
+	current = find_pipeline_separator(current);
 	if (*current)
 		current++;
 	return (node);

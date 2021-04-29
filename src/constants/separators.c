@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wrapped_finders.c                                  :+:      :+:    :+:   */
+/*   fake_constants.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 14:06:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:23:08 by user42           ###   ########.fr       */
+/*   Created: 2021/03/22 15:16:52 by smaccary          #+#    #+#             */
+/*   Updated: 2021/04/30 00:25:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 char
-	**find_sep(char **tokens)
+	**separators(void)
 {
-	return (find_token_in_tokens(tokens, separators()));
+	static char *arr[] = (char *[]){PIPE, SEMICOLON, NULL};
+
+	return (arr);
 }
 
 char
-	**find_pipe(char **tokens)
+	**pipeline_separators(void)
 {
-	return (safe_find_token(tokens, PIPE));
+	static char *arr[] = {SEMICOLON, AND, OR, NULL};
+
+	return (arr);
 }
 
-size_t
-	get_pipeline_len(char **tokens)
+char
+	**connectives(void)
 {
-	return (find_token_in_tokens(tokens, pipeline_separators()) - tokens);
+	static char *arr[] = {PIPE, AND, OR, REDIR_APPEND, REDIR_REPLACE,
+	REDIR_INPUT, REDIR_HERE_DOC, NULL};
+
+	return (arr);
 }

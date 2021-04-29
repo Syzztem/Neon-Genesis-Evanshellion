@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 21:04:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 00:17:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ extern int	g_exit_status;
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
+size_t          parenthesis_len(char **tokens);
+t_command       *parse_parenthesis(char **current, size_t *len_ptr);
 int				is_single_builtin(t_pipeline lst);
 char			*get_command_path(char *cmd);
 size_t			get_pipeline_len(char **tokens);
