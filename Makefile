@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/29 23:18:41 by user42           ###   ########.fr        #
+#    Updated: 2021/04/30 00:14:05 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS_PATH = src
 SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
 			parsing/commands_utils.c parsing/fake_constants.c \
+			parsing/check_pipeline.c\
 			\
 			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c\
 			lexing/clear_quotes.c\
