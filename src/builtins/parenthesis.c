@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:02:33 by root              #+#    #+#             */
-/*   Updated: 2021/04/28 23:23:02 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 19:48:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int
 
     (void)envp;
     last = get_last_token(av);
-    //printf("parenthesis: %s ");
-    //print_argv(av);
-    //printf("\n");
     if (strcmp(*last, PARENTHESIS_CLOSE))
     {
         ft_putstr_fd(SHELL_NAME ": syntax error: missing `)'\n", 2);

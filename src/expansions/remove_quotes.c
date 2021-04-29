@@ -3,103 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 14:02:13 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 19:36:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
-
-/*
-** #define SQ_ESCAPES " \t\n\v\f\r;&|\"*<>()\\$"
-** #define DQ_ESCAPES " \t\n\v\f\r;&|\'*<>()"
-** 
-** static size_t
-** 	size_escaped(char *line)
-** {
-** 	size_t len;
-** 
-** 	len = ft_strlen(line);
-** 	while (*line)
-** 	{
-** 		if (ft_indexof(SQ_ESCAPES, *line) != -1 || *line == '\'')
-** 			++len;
-** 		++line;
-** 	}
-** 	return (len);
-** }
-** 
-** static size_t
-** 	escape_sq(char *line, char **out)
-** {
-** 	char *ref;
-** 	char *outref;
-** 
-** 	ref = line + 1;
-** 	outref = *out;
-** 	while (*ref != '\'')
-** 		*outref++ = *ref++;
-** 	*out = outref;
-** 	return ((ref - line) + 1);
-** }
-** 
-** static size_t
-** 	escape_dq(char *line, char **out)
-** {
-** 	char *ref;
-** 	char *outref;
-** 
-** 	ref = line + 1;
-** 	outref = *out;
-** 	while (*ref != '\"' )
-** 	{
-** 		if (!*ref)
-** 		{
-** 			ref[-1] = 0;
-** 			ft_strcpy(*out, line + 1);
-** 			*out = ft_strchr(*out, 0);
-** 			return (ref - line + 1);
-** 		}
-** 		ref++;
-** 	}
-** 	ref = line + 1;
-** 	while (*ref != '\"')
-** 		*outref++ = *ref++;
-** 	*out = outref;
-** 	return ((ref - line) + 1);
-** }
-*/
-
-/*
-** char
-** 	*remove_quotes(char *line)
-** {
-** 	char	*out;
-** 	char	*ref;
-** 	char	*lref;
-** 
-** 	out = malloc(sizeof(char) * (size_escaped(line) * 2 + 1));
-** 	ref = out;
-** 	lref = line;
-** 	while (*line)
-** 	{
-** 		if (*line == '\'' && (line == lref || *(line - 1) != '\\'))
-** 			line += escape_sq(line, &ref);
-** 		else if (*line == '\"' && (line == lref || *(line - 1) != '\\'))
-** 		{
-** 			line += escape_dq(line, &ref);
-** 
-** 		}
-** 		else if (*line)
-** 			*ref++ = *line++;
-** 	}
-** 	*ref = 0;
-** 	return (out);
-** }
-*/
 
 /*
 ** char

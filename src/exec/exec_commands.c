@@ -370,20 +370,31 @@ void
 	exec_command(t_command *command)
 {
 	extern char		**environ;
+	int				ret;
 
-	//if (!strcmp(command->cmd, ESCAPE))
 	if (is_cmd_parenthesis(command))
-		exit(exec_parenthesis(command));
+	{
+		ret = exec_parenthesis(command);
+		free_env();
+		free_cmd(command);
+		exit(ret);
+	}
 	expand_command(command);
 	redirect_command(command);
 	if(!command->cmd)
 		exit(0);
 	else if (is_builtin(command->argv[0]) != -1)
-		exit(exec_builtin(command->argv, environ));
+	{
+		ret = exec_builtin(command->argv, environ);
+		free_env();
+		free_cmd(command);
+		exit(ret);
+	}
 	else
 		execve(command->cmd, command->argv, environ);
 	pcmd_not_found(command);
 	free_cmd(command);
+	free_env();
 	exit(127);
 }
 

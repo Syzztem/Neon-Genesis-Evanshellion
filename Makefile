@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/25 09:12:57 by root             ###   ########.fr        #
+#    Updated: 2021/04/29 20:05:14 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,25 +29,38 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
 			parsing/commands_utils.c parsing/fake_constants.c \
 			\
+			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c\
+			\
 			exec/utils.c parsing/checkers.c \
 			exec/redirections_utils.c exec/close.c \
 			exec/exec_commands.c exec/pipes.c \
 			exec/redirections.c exec/exec.c exec/pipeline.c \
 			\
-			parsing/garbage_collector.c \
+			garbage_collector/garbage_collector.c garbage_collector/free_ast.c\
+			garbage_collector/free_env.c\
 			\
-			parenthesis.c \
+			builtins/parenthesis.c builtins/unset.c\
+			builtins/pwd.c builtins/builtin_manager.c builtins/export.c\
+			builtins/cd.c builtins/echo.c builtins/env.c\
+			builtins/exit.c\
+			\
+			signals/handlers.c signals/singletons.c\
+			\
+			utils/strjoin_newline.c\
 			\
 			termcaps/termcaps.c termcaps/termcaps_utils.c termcaps/cursor.c\
 			termcaps/word_jump.c termcaps/get_term_line.c\
-			termcaps/hist_utils.c termcaps/history.c\
+			termcaps/hist_utils.c termcaps/history.c termcaps/interactive.c\
+			termcaps/copy_paste.c\
 			\
-			debug_utils.c errmgr.c find_exec.c \
-			tab_utils.c builtin_manager.c export.c cd.c  echo.c env.c \
-			exit.c ft_getenv.c ft_setenv.c \
-			 minishell.c pwd.c \
-			tokenizer.c unset.c split_line.c\
-			wildcard.c sub_env.c multiline.c remove_quotes.c perform_expansions.c \
+			expansions/wildcard.c expansions/sub_env.c \
+			expansions/remove_quotes.c expansions/perform_expansions.c\
+			\
+			env/find_exec.c env/ft_getenv.c env/ft_setenv.c\
+			\
+			debug_utils.c errmgr.c\
+			tab_utils.c \
+			minishell.c  \
 			list_utils.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 13:15:42 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 19:31:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "termcaps.h"
 # include "libft.h"
 # define PROMPT "EVA-04$ "
+# define ML_PROMPT "> "
 
 # define SPACE ' '
 
@@ -40,6 +41,9 @@ static const char	*g_seps[] = {"<<", ">>","<", ">", "||", "|", ";",
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
+
+char			*strjoin_newline(char *s1, char *s2);
+void			free_env(void);
 int				verify_line(char *line);
 char			*prompt(void);
 char			*set_prompt(char *prompt);

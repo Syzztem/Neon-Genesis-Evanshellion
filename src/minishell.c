@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 14:54:38 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 19:25:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,65 +19,6 @@
 #include <time.h>
 #include <unistd.h>
 
-int ft_isatty(int fd)
-{
-	struct termios	term;
-	
-  	return (tcgetattr(fd, &term) == 0);
-}
-
-int
-	front_singlton(int value)
-{
-	static int	front;
-
-	if (value != -1)
-		front = value;
-	return (front);
-}
-
-int	is_shell_interactive(void)
-{
-	return (ft_isatty(0) && ft_isatty(1) && ft_isatty(2));
-}
-
-int
-	interrupt_singleton(int value)
-{
-	static int	flag = 0;
-
-	if (value >= 0)
-		flag = value;
-	return (flag);
-}
-
-sig_t
-	interrupt_blank(int a)
-{
-	t_line	*line;
-
-	(void)a;
-	interrupt_singleton(1);
-	if (is_shell_interactive())
-	{
-		line = singleton_line(NULL, 0);
-		if (line)
-			move_cursor(get_term_width(), get_last_column(line));
-		singleton_line(NULL, 1);
-		ft_putstr_fd("\n" PROMPT, 2);
-	}
-	else
-		exit(130);
-	return (NULL);
-}
-
-sig_t
-	blank_fork(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	return (0);
-}
 
 static int
 	prompt_shell(char **line)
@@ -109,6 +50,7 @@ static int
 	while (ret && (!*line || !verify_line(*line)))
 	{
 		tmp = NULL;
+		new = NULL;
 		ft_putstr_fd(prompt(), 2);
 		if (*line)
 			tmp = *line;
@@ -126,20 +68,16 @@ static int
 		}
 		if (*line && tmp && *line != tmp)
 		{
-			new = ft_strjoin(tmp, "\n");
+			new = strjoin_newline(tmp, *line);
 			free(tmp);
-			tmp = ft_strjoin(new, *line);
 			free(*line);
-			free(new);
-			new = NULL;
-			*line = tmp;
+			*line = new;
 		}
 		else if (!*line)
 			*line = tmp;
 	}
 	tcsetattr(0, 0, &backup);
 	singleton_line(NULL, 1);
-//	printf("here:%s|%d\n", *line, ret);
 	return (ret);
 }
 
@@ -216,6 +154,7 @@ int
 		free(line);
 		line = NULL;
 	}
+	free(line);
 	return (g_exit_status);
 }
 
@@ -233,5 +172,6 @@ int
 	}
 	else
 		minishell_non_interactive();
+	free_env();
 	return (g_exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 01:59:30 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 19:35:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,6 @@ static size_t
 		return (ref - command);
 	return (0);
 }
-
-/*
-** static size_t
-** 	raw_input_len(char *command)
-** {
-** 	char *ref;
-** 
-** 	ref = command;
-** 	while (*ref && !wildcard_len(ref) &&
-** 			(*ref != '$' || (ref != command && *ref == '\\')))
-** 		++ref;
-** 	return (ref - command);
-** }
-*/
 
 static size_t
 	add_env(char *command, t_token **list)
@@ -100,7 +86,7 @@ char
 			ref += add_env(ref, &list);
 		else
 		{
-			len = 1;//raw_input_len(ref);
+			len = 1;
 			ft_lstadd_back((t_list **)&list, ft_strndup(ref, len));
 			ref += len;
 		}

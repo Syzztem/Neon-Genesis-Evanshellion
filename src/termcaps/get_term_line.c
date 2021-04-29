@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/28 19:59:30 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 19:28:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,34 +134,6 @@ static t_cap
 	return (do_nothing);
 }
 
-char
-	*pastebin_manager(char *input, int mode)
-{
-	static char	*pastebin = NULL;
-
-	if (mode)
-	{
-		free(pastebin);
-		pastebin = input;
-	}
-	return (pastebin);
-}
-
-void
-	cut_line(t_line *line)
-{
-	if (!line->len)
-		return ;
-	pastebin_manager(ft_strndup(line->line, line->r_cur_pos), 1);
-	line->len -= line->r_cur_pos;
-	ft_memmove(line->line, line->line + line->r_cur_pos, line->len);
-	line->line[line->len] = 0;
-	clear_line(line);
-	write(0, line->line, line->len);
-	line->r_cur_pos = 0;
-	update_cursor(line);
-}
-
 void
 	locate_cursor(t_line *line)
 {
@@ -174,80 +146,6 @@ void
 	line->cursor_pos.y += (line->r_cur_pos + prompt_len) / (term_width - 1);
 }
 
-void
-	wrap_paste(t_line *line)
-{
-	int	term_width;
-	int	term_height;
-	int	offset;
-
-	term_width = get_term_width();
-	term_height = get_term_height();
-	/*if (line->cursor_pos.x == (size_t)term_width)
-	{
-		line->cursor_pos.x = 0;
-		if (line->cursor_pos.y < term_height - 1)
-			line->cursor_pos.y++;
-	}*/
-	offset = 1;
-	if (get_last_column(line) > term_height - 1)
-	{
-		line->start_column--;
-		line->cursor_pos.y -= line->len != line->r_cur_pos;
-		if (line->r_cur_pos == line->len)
-			offset = 0;
-	}
-	scroll_up_n(term_height - line->cursor_pos.y - offset);
-	//else
-	//	scroll_up_n(1);
-//	locate_cursor(line);
-	update_cursor(line);
-}
-
-char
-	*join_paste(t_line *line, char *paste, size_t paste_len, size_t new_len)
-{
-	char		*new;
-	char		*head;
-
-	new = ft_calloc(new_len + 1, 1);
-	head = ft_memmove(new, line->line, line->r_cur_pos);
-	head += line->r_cur_pos;
-	ft_memmove(head, paste, paste_len);
-	head += paste_len;
-	ft_memmove(head, line->line + line->r_cur_pos,
-					 line->len - line->r_cur_pos);
-	return (new);
-}
-
-void
-	paste_line(t_line *line)
-{
-	char		*paste;
-	char		*new;
-	size_t		paste_len;
-	size_t		new_len;
-
-	paste = pastebin_manager(NULL, 0);
-	if (!paste)
-		return ;
-	paste_len = ft_strlen(paste);
-	new_len = line->len + paste_len;
-	new = join_paste(line, paste, paste_len, new_len);
-	line->len = new_len;
-	line->max_len = new_len;
-	line->r_cur_pos += paste_len;
-	free(line->line);
-	line->line = new;
-	wrap_paste(line);
-	clear_line(line);
-	write(0, line->line, line->len);
-	locate_cursor(line);
-	if (line->r_cur_pos == line->len)
-		go_end(line);
-	else
-		update_cursor(line);
-}
 
 void
 	exec_key(t_line *line, char *key)

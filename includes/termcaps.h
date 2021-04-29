@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 09:53:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 19:42:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct	s_line
 
 typedef void	(*t_cap)(t_line *line);
 
+void			locate_cursor(t_line *line);
+char			*pastebin_manager(char *input, int mode);
+void			cut_line(t_line *line);
+void			wrap_paste(t_line *line);
+char			*join_paste(t_line *line, char *paste, size_t paste_len, size_t new_len);
+void			paste_line(t_line *line);
 void			scroll_up_n(int n);
 void			wrap_line(t_line *line);
 t_line			*singleton_line(t_line *line, int mode);
