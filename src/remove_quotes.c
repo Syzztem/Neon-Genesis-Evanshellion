@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 12:20:48 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:02:13 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,20 +117,19 @@
 ** 	escaped = 0;
 ** 	new = ft_calloc(ft_strlen(line) + 1, 1);
 ** 	i = 0;
-** 
 ** 	while (*current)
 ** 	{
 ** 		copy = 1;
-** 		if ((*quote != '\'' && *current == '\\' && !escaped))
-** 			copy = *quote && current[1] != *quote;
-** 		if (escaped && *current == '\\')
+** 		if (*quote != '\'' && *current == '\\' && !escaped)
+** 			copy = *quote && !ft_strchr("\"$`", current[1]);
+** 		else if (escaped && *current == '\\')
 ** 			copy = !*quote;
-** 		if (!escaped && !*quote && ft_strchr("\"'", *current))
+** 		else if (!escaped && !*quote && ft_strchr("\"'", *current))
 ** 		{
 ** 			quote = current;
 ** 			copy = 0;
 ** 		}
-** 		if (!escaped && *current == *quote)
+** 		else if (!escaped && *current == *quote)
 ** 		{
 ** 			quote = "\0";
 ** 			copy = 0;
@@ -207,7 +206,7 @@ char
 		+ (size_t)line * !!(flag & 0b100) + (size_t)"\0" * !!(flag & 0b1000));
 		escaped = (*quote != '\'' && *line == '\\' && !escaped);
 		if ((!(flag & 0b100) * !(flag & 0b1000)) * (!(flag & 0b10) || !*quote)
-		* (!(flag & 0b1) || (*quote && line[1] != *quote)))
+		* (!(flag & 0b1) || (*quote && !ft_strchr("\"$`", line[1]))))
 			new[i++] = *line;
 		++line;
 	}
