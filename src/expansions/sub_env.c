@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sub_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 10:36:17 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/15 14:08:42 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/29 21:03:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define TO_ESCAPE "\"\'*"
+#define TO_ESCAPE_ENV "\"\'*"
 #include "tokenizer.h"
 
 static size_t
@@ -25,7 +25,7 @@ static size_t
 		return (0);
 	while (*env)
 	{
-		if (ft_indexof(TO_ESCAPE, *env) != -1)
+		if (ft_indexof(TO_ESCAPE_ENV, *env) != -1)
 			len++;
 		len++;
 		env++;
@@ -48,7 +48,7 @@ static size_t
 		return (0);
 	while (*var)
 	{
-		if (ft_indexof(TO_ESCAPE, *var) != -1)
+		if (ft_indexof(TO_ESCAPE_ENV, *var) != -1)
 			*dst++ = '\\';
 		*dst++ = *var++;
 	}

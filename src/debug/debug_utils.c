@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 19:00:10 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 20:48:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void
 	}
 	ft_putstr_fd("\"", fd);
 }
-
 
 int
 	print_argv(char **argv)
@@ -78,7 +77,7 @@ void
 		print_argv(command->tokens);
 		printf("  - %-15s", "redirections:");
 		print_argv(command->redirections);
-		printf("  - %-15s" , "sep:");
+		printf("  - %-15s", "sep:");
 		pesc(command->sep, 1);
 		write(1, "\n", 1);
 		printf("  - %-15s%d\n  - %-15s%d\n", "input:", command->fd_input,

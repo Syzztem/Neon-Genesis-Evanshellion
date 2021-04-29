@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:21:31 by smaccary          #+#    #+#             */
-/*   Updated: 2021/03/25 21:50:30 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 21:00:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void
 	ft_putstr_fd("'\n", 2);
 }
 
-void	pcmd_not_found(t_command *cmd)
+void
+	pcmd_not_found(t_command *cmd)
 {
 	ft_putstr_fd(SHELL_NAME ": ", 2);
 	ft_putstr_fd("command not found: ", 2);

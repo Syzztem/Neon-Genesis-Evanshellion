@@ -3,91 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 16:50:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/27 02:38:17 by root             ###   ########.fr       */
+/*   Created: 2021/04/29 21:07:44 by user42            #+#    #+#             */
+/*   Updated: 2021/04/29 21:08:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "parser.h"
+#include "vector.h"
 
-static size_t
-	next_space(char *command)
+char
+	*get_next_token(char *str)
 {
-	char *ref;
+	static char	*current = NULL;
+	static char	*start = NULL;
+	char		*begin;
+	char		*quote;
+	int			skip;
 
-	ref = command;
-	while ((*ref && *ref != SPACE)
-			|| (ref != command && *(ref - 1) == '\\'))
-		++ref;
-	return (ref - command);
-}
-
-static size_t
-	next_token(char *command)
-{
-	char *ref;
-
-	ref = command;
-	while (*ref != SPACE && (ref == command || *(ref - 1) != '\\'))
-		++ref;
-	return (ref - command);
-}
-
-static size_t
-	tok_count(char *command)
-{
-	size_t	count;
-
-	count = 1;
-	while (*command)
+	if (start != str)
 	{
-		command += next_token(command);
-		command += next_space(command);
-		++count;
+		start = str;
+		current = str;
 	}
-	return (count);
-}
-
-void
-	clean_backslashes(char **tokens)
-{
-	char	*line;
-
-	while (*tokens)
+	if (!str)
+		return (NULL);
+	skip = 0;
+	while (*current == SPACE || (*current == '\\' && current[1] == SPACE))
+		current++;
+	if (!*current)
+		return (NULL);
+	begin = current;
+	while (*current && *current != SPACE)
 	{
-		line = *tokens;
-		while (*line)
+		if (ft_strchr("\"'", *current))
 		{
-			if (*line == '\\' && *(line + 1) != SPACE)
-				ft_memmove(line, line + 1, ft_strlen(line));
-			++line;
+			quote = current;
+			current++;
+			while (*current != *quote || skip)
+			{
+				skip = 0;
+				if (*current == 0)
+					return (NULL);
+				if (current[0] == '\\' && current[1] == '\\')
+					current += 2;
+				else
+				{
+					skip = (*quote != '\'' && *current == '\\'
+							&& current[1] == *quote);
+					current++;				
+				}
+			}
+			current++;
 		}
-		++tokens;
+		while (*current && (skip || !ft_strchr("\"' ", *current)))
+		{
+			skip = (*current == '\\' && ft_strchr("\"' ", current[1]));
+			current++;
+		}
 	}
+	return (ft_strndup(begin, current - begin));
 }
 
 char
-	**tokenize(char *command)
+	**split_quotes(char	*str)
 {
-	char	**out;
-	size_t	i;
-	size_t	next;
+	t_vector	*v;
+	char		*current;
+	char		*new_token;
+	char		**splitted;
 
-	out = malloc(sizeof(char *) * (tok_count(command) + 1));
-	i = 0;
-	while (*command)
-	{
-		command += next_token(command);
-		next = next_space(command);
-		if (!next)
-			continue ;
-		out[i] = ft_strndup(command, next);
-		command += next;
-		++i;
-	}
-	out[i] = NULL;
-	clean_backslashes(out);
-	return (out);
+	current = str;
+	v = new_vector(10, sizeof(char **));
+	while ((new_token = get_next_token(str)))
+		vector_append(v, &new_token, 1);
+	get_next_token(NULL);
+	vector_append(v, &new_token, 1);
+	splitted = v->bytes;
+	free(v);
+	return (splitted);
+	
 }

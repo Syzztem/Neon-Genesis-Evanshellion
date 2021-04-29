@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 19:01:43 by root             ###   ########.fr       */
+/*   Updated: 2021/04/29 20:49:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int
 	{
 		node = current->content;
 		if (check_pipeline_run(sep, ret))
-		{
-		//	print_pipeline(node->pipeline);
 			ret = exec_pipeline(node->pipeline);
-		}
 		sep = node->sep;
 		current = current->next;
 	}
@@ -42,10 +39,7 @@ int
 	exec_command_line(char **tokens)
 {
 	t_ast	ast;
-	//char buffer[10];
-//
-	//printf("EXEC COMMAND LINE\n");
-	//fgets(buffer, 50, stdin);
+
 	if (check_syntax(tokens))
 		return (1);
 	ast = parse_ast(tokens);
