@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/29 20:05:14 by user42           ###   ########.fr        #
+#    Updated: 2021/04/29 20:34:58 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			builtins/cd.c builtins/echo.c builtins/env.c\
 			builtins/exit.c\
 			\
-			signals/handlers.c signals/singletons.c\
+			signals/handlers.c signals/singletons.c signals/init_signals.c\
 			\
 			utils/strjoin_newline.c\
 			\
@@ -58,10 +58,10 @@ SRC_LIST =	parsing/parser.c parsing/parser_utils.c parsing/tree.c \
 			\
 			env/find_exec.c env/ft_getenv.c env/ft_setenv.c\
 			\
-			debug_utils.c errmgr.c\
+			debug/debug_utils.c errmgr.c\
 			tab_utils.c \
 			minishell.c  \
-			list_utils.c
+			list_utils.c complete_line.c main.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 

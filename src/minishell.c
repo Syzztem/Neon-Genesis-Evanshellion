@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:25:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 20:34:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@
 #include <time.h>
 #include <unistd.h>
 
-
 static int
 	prompt_shell(char **line)
 {
 	int		ret;
-	char	*tmp;
-	char	*new;
 	t_term	term;
 	t_term	backup;
 	t_point	cursor;
@@ -46,43 +43,14 @@ static int
 	}
 	ft_putstr_fd(PROMPT, 2);
 	ret = get_term_line(line);
-	set_prompt("> ");
-	while (ret && (!*line || !verify_line(*line)))
-	{
-		tmp = NULL;
-		new = NULL;
-		ft_putstr_fd(prompt(), 2);
-		if (*line)
-			tmp = *line;
-		ret = get_term_line(line); 
-		if (!ret)
-		{
-			free(tmp);
-			*line = NULL;
-			return (1);
-		}
-		if (!ft_strcmp(prompt(), PROMPT))
-		{
-			free(tmp);
-			break ;
-		}
-		if (*line && tmp && *line != tmp)
-		{
-			new = strjoin_newline(tmp, *line);
-			free(tmp);
-			free(*line);
-			*line = new;
-		}
-		else if (!*line)
-			*line = tmp;
-	}
+	ret = complete_line(line, ret);
 	tcsetattr(0, 0, &backup);
 	singleton_line(NULL, 1);
 	return (ret);
 }
 
-
-int is_computer_on(void)
+int
+	is_computer_on(void)
 {
 	return (1);
 }
@@ -97,32 +65,27 @@ int
 	if (!is_computer_on())
 	{
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
-		exit (1);
+		exit(1);
 	}
-	signal(SIGINT, (void *)interrupt_blank);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+	init_signals();
 	while ((ret = get_next_line(0, &line)) || ft_strlen(line))
 	{
 		if (!line)
 		{
 			perror("minishell: ");
-			exit (errno);
+			exit(errno);
 		}
-		if (!*line || verify_line(line) <= 0)
+		if (line && verify_line(line) > 0)
 		{
-			free(line);
-			continue ;
+			commands = split_line(line);
+			exec_command_line(commands);
+			free_tokens(commands);
 		}
-		commands = split_line(line);
-		exec_command_line(commands);
-		free_tokens(commands);
 		free(line);
 	}
 	free(line);
 	return (g_exit_status);
 }
-
 
 int
 	minishell(void)
@@ -133,45 +96,22 @@ int
 	if (!is_computer_on())
 	{
 		ft_putstr_fd("Computer is off, please turn it on.\n", 2);
-		exit (1);
+		exit(1);
 	}
-	signal(SIGINT, (void *)interrupt_blank);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+	init_signals();
 	while ((prompt_shell(&line)))
 	{
-		if (!line || !*line)
+		if (line && *line)
 		{
-			free(line);
-			line = NULL;
-			continue ;
+			commands = split_line(line);
+			if (DEBUG)
+				print_argv(commands);
+			exec_command_line(commands);
+			free_tokens(commands);
 		}
-		commands = split_line(line);
-		if (DEBUG)
-			print_argv(commands);
-		exec_command_line(commands);
-		free_tokens(commands);
 		free(line);
 		line = NULL;
 	}
 	free(line);
-	return (g_exit_status);
-}
-
-int
-	main(void)
-{
-	copy_env();
-	if (is_shell_interactive())
-	{
-		tgetent(NULL, ft_getenv("TERM"));
-		setbuf(stdout, NULL);
-		cap("ks");
-		minishell();
-		print_exit();
-	}
-	else
-		minishell_non_interactive();
-	free_env();
 	return (g_exit_status);
 }

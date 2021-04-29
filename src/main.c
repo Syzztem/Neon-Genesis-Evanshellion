@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parenthesis.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 22:02:33 by root              #+#    #+#             */
-/*   Updated: 2021/04/29 20:08:08 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 20:11:05 by user42            #+#    #+#             */
+/*   Updated: 2021/04/29 20:11:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
-#include "exec.h"
 
 int
-	builtin_parenthesis(char **av, char **envp)
+	main(void)
 {
-	char	**last;
-	size_t	len;
-	char	**sub_argv;
-	int		ret;
-
-	(void)envp;
-	last = get_last_token(av);
-	if (strcmp(*last, PARENTHESIS_CLOSE))
+	copy_env();
+	if (is_shell_interactive())
 	{
-		ft_putstr_fd(SHELL_NAME ": syntax error: missing `)'\n", 2);
-		PARGV(av);
-		return (1);
+		tgetent(NULL, ft_getenv("TERM"));
+		setbuf(stdout, NULL);
+		cap("ks");
+		minishell();
+		print_exit();
 	}
-	len = last - av;
-	sub_argv = dup_n_tab(av + 1, len - 1);
-	ret = exec_command_line(sub_argv);
-	free_tokens(sub_argv);
-	return (ret);
+	else
+		minishell_non_interactive();
+	free_env();
+	return (g_exit_status);
 }

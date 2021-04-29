@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 19:31:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/29 20:13:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,35 +108,38 @@ int
 	return (1);
 }
 
-int
-	complete_line(char **line)
-{
-	char	*buf;
-	char	*new;
-	int		code;
-	int		ret;
-
-	code = verify_line(*line);
-	while (!code || code == -1)
-	{
-		ret = prompt_shell(&buf);
-		if (code == -1 || ret <= 0)
-		{
-			if (code == -1)
-				ft_putendl_fd(
-					"minishell: syntax error near unexpected token `)'", 2);
-			else if (ret >= 0)
-				ft_putendl_fd("minishell: unexpected EOF", 2);
-			return (ret);
-		}
-		new = ft_strjoin(*line, "\n");
-		free(*line);
-		*line = new;
-		new = ft_strjoin(*line, buf);
-		free(*line);
-		free(buf);
-		*line = new;
-		code = verify_line(*line);
-	}
-	return (1);
-}
+/*
+** int
+** 	complete_line(char **line)
+** {
+** 	char	*buf;
+** 	char	*new;
+** 	int		code;
+** 	int		ret;
+** 
+** 	code = verify_line(*line);
+** 	while (!code || code == -1)
+** 	{
+** 		ret = prompt_shell(&buf);
+** 		if (code == -1 || ret <= 0)
+** 		{
+** 			if (code == -1)
+** 				ft_putendl_fd(
+** 					"minishell: syntax error near unexpected token `)'", 2);
+** 			else if (ret >= 0)
+** 				ft_putendl_fd("minishell: unexpected EOF", 2);
+** 			return (ret);
+** 		}
+** 		new = ft_strjoin(*line, "\n");
+** 		free(*line);
+** 		*line = new;
+** 		new = ft_strjoin(*line, buf);
+** 		free(*line);
+** 		free(buf);
+** 		*line = new;
+** 		code = verify_line(*line);
+** 	}
+** 	return (1);
+** }
+** 
+*/
