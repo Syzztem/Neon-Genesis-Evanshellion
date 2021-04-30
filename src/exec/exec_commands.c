@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 21:17:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 14:48:35 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ void
 		else if (is_builtin(command->argv[0]) != -1)
 			ret = exec_builtin(command->argv, environ);
 		else
+		{
 			execve(command->cmd, command->argv, environ);
+			pcmd_not_found(command);
+		}
 	}
-	pcmd_not_found(command);
 	free_cmd(command);
 	free_env();
 	exit(ret);
@@ -76,7 +78,7 @@ int
 		current = current->next;
 	}
 	close_all_cmds(commands, NULL);
-	return (0);
+	return (cmd->pid);
 }
 
 void
