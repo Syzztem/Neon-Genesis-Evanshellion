@@ -1,10 +1,10 @@
 
-unit_parenthesis: [KO]
+unit_multiline: [OK]
+unit_multiline:
+
+unit_parenthesis: [OK]
 unit_parenthesis:
-[ERROR]: Return values differs.
-CMD: (echo hello | grep -o hell | grep -p he)
-	0 <- /home/user42/Neon-Genesis-Evanshellion/minishell (echo hello | grep -o hell | grep -p he)
-	2 <- bash --posix (echo hello | grep -o hell | grep -p he)
+
 unit_backslashs: [OK]
 unit_backslashs:
 
@@ -39,131 +39,74 @@ unit_env:       [KO]
 unit_env:
 [ERROR]: Return values differs.
 CMD: env eee
-	0 <- /home/user42/Neon-Genesis-Evanshellion/minishell env eee
+	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell env eee
 	127 <- bash --posix env eee
 [ERROR]: Output differs.
 CMD: env eee
-(/home/user42/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-[31mLS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=0 <
-[0m[31mTERMINATOR_UUID=urn:uuid:2a77bb65-f474-42c9-83f8-7f985f9bfc2c <
-[0m[31mXDG_MENU_PREFIX=xfce-					      <
-[0m[31mLANG=fr_FR.UTF-8					      <
-[0m[31mGDM_LANG=fr_FR						      <
-[0m[31mLESS=-R							      <
-[0m[31mDISPLAY=:0.0						      <
-[0m[31mOLDPWD=/home/user42/Neon-Genesis-Evanshellion/tests	      <
-[0m[31mGTK_OVERLAY_SCROLLING=0					      <
-[0m[31mCOLORTERM=truecolor					      <
-[0m[31mCHROME_DESKTOP=code-url-handler.desktop			      <
-[0m[31mXDG_VTNR=7						      <
-[0m[31mZSH=/home/user42/.oh-my-zsh				      <
-[0m[31mSSH_AUTH_SOCK=/run/user/1001/keyring/ssh		      <
-[0m[31mS_COLORS=auto						      <
-[0m[31mAPPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL=true		      <
-[0m[31mGLADE_CATALOG_PATH=:					      <
-[0m[31mXDG_SESSION_ID=c2					      <
-[0m[31mXDG_GREETER_DATA_DIR=/var/lib/lightdm-data/user42	      <
-[0m[31mUSER=user42						      <
-[0m[31mGLADE_MODULE_PATH=:					      <
-[0m[31mPAGER=less						      <
-[0m[31mLSCOLORS=Gxfxcxdxbxegedabagacad				      <
-[0m[31mDESKTOP_SESSION=xubuntu					      <
-[0m[31mQT_QPA_PLATFORMTHEME=gtk2				      <
-[0m[31mPWD=/home/user42/Neon-Genesis-Evanshellion/tests/testfolder   <
-[0m[31mHOME=/home/user42					      <
-[0m[31mSSH_AGENT_PID=2529					      <
-[0m[31mTERM_PROGRAM=vscode					      <
-[0m[31mTERM_PROGRAM_VERSION=1.43.2				      <
-[0m[31mQT_ACCESSIBILITY=1					      <
-[0m[31mXDG_SESSION_TYPE=x11					      <
-[0m[31mXDG_DATA_DIRS=/usr/share/xubuntu:/usr/share/xfce4:/usr/local/ <
-[0m[31mTERMINATOR_DBUS_NAME=net.tenshu.Terminator20x1a6021154d881c   <
-[0m[31mXDG_SESSION_DESKTOP=xubuntu				      <
-[0m[31mGLADE_PIXMAP_PATH=:					      <
-[0m[31mTERMINATOR_DBUS_PATH=/net/tenshu/Terminator2		      <
-[0m[31mCLUTTER_BACKEND=x11					      <
-[0m[31mTERM=xterm-256color					      <
-[0m[31mVTE_VERSION=5202					      <
-[0m[31mSHELL=/usr/bin/zsh					      <
-[0m[31mXDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0	      <
-[0m[31mXDG_CURRENT_DESKTOP=XFCE				      <
-[0m[31mGPG_AGENT_INFO=/run/user/1001/gnupg/S.gpg-agent:0:1	      <
-[0m[31mSHLVL=3							      <
-[0m[31mXDG_SEAT=seat0						      <
-[0m[31mLANGUAGE=fr_FR						      <
-[0m[31mGDMSESSION=xubuntu					      <
-[0m[31mLOGNAME=user42						      <
-[0m[31mDBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus	      <
-[0m[31mXDG_RUNTIME_DIR=/run/user/1001				      <
-[0m[31mXAUTHORITY=/home/user42/.Xauthority			      <
-[0m[31mXDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0     <
-[0m[31mXDG_CONFIG_DIRS=/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg	      <
-[0m[31mPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin: <
-[0m[31mSESSION_MANAGER=local/salty-VirtualBox:@/tmp/.ICE-unix/2547,u <
-[0m[ERROR]: Return values differs.
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+TERM_PROGRAM=vscode					      <
+TERM=xterm-256color					      <
+SHELL=/bin/zsh						      <
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz40013zs/T/      <
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.95F <
+TERM_PROGRAM_VERSION=1.51.1				      <
+OLDPWD=/Users/smaccary/Neon-Genesis-Evanshellion/tests	      <
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined			      <
+ZSH=/Users/smaccary/.oh-my-zsh				      <
+USER=smaccary						      <
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.9hlRScLDMG/Liste <
+__CF_USER_TEXT_ENCODING=0x8FF9:0x0:0x1			      <
+PAGER=less						      <
+LSCOLORS=Gxfxcxdxbxegedabagacad				      <
+PATH=/Users/smaccary/.brew/bin:/goinfre/miniconda3/bin:/Users <
+PWD=/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolde <
+LANG=en_US.UTF-8					      <
+XPC_FLAGS=0x0						      <
+XPC_SERVICE_NAME=0					      <
+SHLVL=1							      <
+HOME=/Users/smaccary					      <
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/ <
+LESS=-R							      <
+LOGNAME=smaccary					      <
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz <
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/ <
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Res <
+COLORTERM=truecolor					      <
+[ERROR]: Return values differs.
 CMD: env abc abc
-	0 <- /home/user42/Neon-Genesis-Evanshellion/minishell env abc abc
+	0 <- /Users/smaccary/Neon-Genesis-Evanshellion/minishell env abc abc
 	127 <- bash --posix env abc abc
 [ERROR]: Output differs.
 CMD: env abc abc
-(/home/user42/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
-[31mLS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=0 <
-[0m[31mTERMINATOR_UUID=urn:uuid:2a77bb65-f474-42c9-83f8-7f985f9bfc2c <
-[0m[31mXDG_MENU_PREFIX=xfce-					      <
-[0m[31mLANG=fr_FR.UTF-8					      <
-[0m[31mGDM_LANG=fr_FR						      <
-[0m[31mLESS=-R							      <
-[0m[31mDISPLAY=:0.0						      <
-[0m[31mOLDPWD=/home/user42/Neon-Genesis-Evanshellion/tests	      <
-[0m[31mGTK_OVERLAY_SCROLLING=0					      <
-[0m[31mCOLORTERM=truecolor					      <
-[0m[31mCHROME_DESKTOP=code-url-handler.desktop			      <
-[0m[31mXDG_VTNR=7						      <
-[0m[31mZSH=/home/user42/.oh-my-zsh				      <
-[0m[31mSSH_AUTH_SOCK=/run/user/1001/keyring/ssh		      <
-[0m[31mS_COLORS=auto						      <
-[0m[31mAPPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL=true		      <
-[0m[31mGLADE_CATALOG_PATH=:					      <
-[0m[31mXDG_SESSION_ID=c2					      <
-[0m[31mXDG_GREETER_DATA_DIR=/var/lib/lightdm-data/user42	      <
-[0m[31mUSER=user42						      <
-[0m[31mGLADE_MODULE_PATH=:					      <
-[0m[31mPAGER=less						      <
-[0m[31mLSCOLORS=Gxfxcxdxbxegedabagacad				      <
-[0m[31mDESKTOP_SESSION=xubuntu					      <
-[0m[31mQT_QPA_PLATFORMTHEME=gtk2				      <
-[0m[31mPWD=/home/user42/Neon-Genesis-Evanshellion/tests/testfolder   <
-[0m[31mHOME=/home/user42					      <
-[0m[31mSSH_AGENT_PID=2529					      <
-[0m[31mTERM_PROGRAM=vscode					      <
-[0m[31mTERM_PROGRAM_VERSION=1.43.2				      <
-[0m[31mQT_ACCESSIBILITY=1					      <
-[0m[31mXDG_SESSION_TYPE=x11					      <
-[0m[31mXDG_DATA_DIRS=/usr/share/xubuntu:/usr/share/xfce4:/usr/local/ <
-[0m[31mTERMINATOR_DBUS_NAME=net.tenshu.Terminator20x1a6021154d881c   <
-[0m[31mXDG_SESSION_DESKTOP=xubuntu				      <
-[0m[31mGLADE_PIXMAP_PATH=:					      <
-[0m[31mTERMINATOR_DBUS_PATH=/net/tenshu/Terminator2		      <
-[0m[31mCLUTTER_BACKEND=x11					      <
-[0m[31mTERM=xterm-256color					      <
-[0m[31mVTE_VERSION=5202					      <
-[0m[31mSHELL=/usr/bin/zsh					      <
-[0m[31mXDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0	      <
-[0m[31mXDG_CURRENT_DESKTOP=XFCE				      <
-[0m[31mGPG_AGENT_INFO=/run/user/1001/gnupg/S.gpg-agent:0:1	      <
-[0m[31mSHLVL=3							      <
-[0m[31mXDG_SEAT=seat0						      <
-[0m[31mLANGUAGE=fr_FR						      <
-[0m[31mGDMSESSION=xubuntu					      <
-[0m[31mLOGNAME=user42						      <
-[0m[31mDBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus	      <
-[0m[31mXDG_RUNTIME_DIR=/run/user/1001				      <
-[0m[31mXAUTHORITY=/home/user42/.Xauthority			      <
-[0m[31mXDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0     <
-[0m[31mXDG_CONFIG_DIRS=/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg	      <
-[0m[31mPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin: <
-[0m[31mSESSION_MANAGER=local/salty-VirtualBox:@/tmp/.ICE-unix/2547,u <
-[0m
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+TERM_PROGRAM=vscode					      <
+TERM=xterm-256color					      <
+SHELL=/bin/zsh						      <
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz40013zs/T/      <
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.95F <
+TERM_PROGRAM_VERSION=1.51.1				      <
+OLDPWD=/Users/smaccary/Neon-Genesis-Evanshellion/tests	      <
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined			      <
+ZSH=/Users/smaccary/.oh-my-zsh				      <
+USER=smaccary						      <
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.9hlRScLDMG/Liste <
+__CF_USER_TEXT_ENCODING=0x8FF9:0x0:0x1			      <
+PAGER=less						      <
+LSCOLORS=Gxfxcxdxbxegedabagacad				      <
+PATH=/Users/smaccary/.brew/bin:/goinfre/miniconda3/bin:/Users <
+PWD=/Users/smaccary/Neon-Genesis-Evanshellion/tests/testfolde <
+LANG=en_US.UTF-8					      <
+XPC_FLAGS=0x0						      <
+XPC_SERVICE_NAME=0					      <
+SHLVL=1							      <
+HOME=/Users/smaccary					      <
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/ <
+LESS=-R							      <
+LOGNAME=smaccary					      <
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n0004gz <
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/ <
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Res <
+COLORTERM=truecolor					      <
 unit_builtins_no_arg: [OK]
 unit_builtins_no_arg:
 
@@ -174,7 +117,7 @@ unit_argv_zero: [KO]
 unit_argv_zero:
 [ERROR]: Output differs.
 CMD: /bin/echo $0
-(/home/user42/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
+(/Users/smaccary/Neon-Genesis-Evanshellion/minishell)                                                          | (bash --posix)
 							      |	myshell
 unit_semicolons: [OK]
 unit_semicolons:

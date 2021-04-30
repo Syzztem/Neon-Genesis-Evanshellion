@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 14:29:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 14:38:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,29 @@ int
 }
 
 int
+	get_full_line(char **line)
+{
+	int		ret;
+	char	*tmp;
+
+	ret = get_next_line(0, line);
+	while (ret && *line && !verify_line(*line))
+	{
+		ret = get_next_line(0, &tmp);
+		if (ret < 0 || !tmp)
+		{
+			free(*line);
+			*line = NULL;
+			return (ret);
+		}
+		*line = strjoin_newline_free(*line, tmp);
+	}
+	if (!*line)
+		return (-1);
+	return (ret);
+}
+
+int
 	minishell_non_interactive(void)
 {
 	char		*line;
@@ -68,7 +91,7 @@ int
 		exit(1);
 	}
 	init_signals();
-	while ((ret = get_next_line(0, &line)) || ft_strlen(line))
+	while ((ret = get_full_line(&line)) || ft_strlen(line))
 	{
 		if (!line)
 		{

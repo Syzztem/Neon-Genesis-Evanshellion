@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   complete_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 20:34:16 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 20:43:49 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 14:35:56 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int
 	return (1);
 }
 
-static char
+char
 	*strjoin_newline_free(char *s1, char *s2)
 {
 	char	*new;
