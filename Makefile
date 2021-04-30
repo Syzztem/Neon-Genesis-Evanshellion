@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/30 15:53:32 by smaccary         ###   ########.fr        #
+#    Updated: 2021/04/30 20:23:33 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_LIST =	constants/redirects.c constants/separators.c constants/termcaps_const
 			parsing/commands_utils.c parsing/wrapped_finders_2.c\
 			\
 			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c\
-			lexing/clear_quotes.c\
+			\
 			\
 			exec/utils.c parsing/checkers.c \
 			exec/redirections_utils.c exec/close.c \

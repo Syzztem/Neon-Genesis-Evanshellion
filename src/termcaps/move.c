@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:53:44 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 21:56:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 20:22:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void
 	if (line->cursor_pos.x > (line->len + ft_strlen(prompt()))
 	% get_term_width())
 	{
+	
 		go_end(line);
 		return ;
 	}
