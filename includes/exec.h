@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 20:58:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 15:04:10 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "vector.h"
 
 
+int     exec_line(char *line);
 int		here_doc(char *end_mark);
 int		exec_single_builtin(t_command *cmd);
 int		minishell(void);
@@ -26,7 +27,6 @@ void	exec_command(t_command *command);
 int		exec_command_list(t_list *commands);
 int		exec_abstract_pipeline(char *tokens);
 int		exec_command_line(char **tokens);
-int		exec_line(char **commands);
 int		exec_builtin(char **av, char **envp);
 int		exec_from_ast(t_ast ast);
 int		is_builtin(char *command);

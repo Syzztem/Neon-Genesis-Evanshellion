@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 20:48:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 15:10:15 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,12 @@ int
 		{
 			pesc(*argv, 1);
 			printf("%s", ", ");
-			fflush(stdout);
 			argv++;
 		}
 		printf("%s", "NULL};\n");
 	}
 	else
 		printf("%s\n", "(null)");
-	fflush(stdout);
 	return (0);
 }
 
@@ -84,7 +82,6 @@ void
 				"output:", command->fd_output);
 		printf("  - %-15s%d\n\n", "pid:", command->pid);
 	}
-	fflush(stdout);
 }
 
 void
@@ -139,27 +136,3 @@ void
 	}
 }
 
-void
-	print_ast_node(t_ast_node *node)
-{
-	if (!DEBUG && !DEBUG_AST)
-		return ;
-	printf("  node: %p\n", node);
-	printf("    - %-15s", "pipeline:");
-	print_argv(node->abstract_pipeline);
-	puts("");
-	print_pipeline(node->pipeline);
-	printf("    - %-15s", "sep:");
-	pesc(node->sep, 1);
-	puts("");
-}
-
-void
-	print_ast(t_ast ast)
-{
-	if (!DEBUG && !DEBUG_AST)
-		return ;
-	printf("ast: %p\n", ast);
-	ft_lstiter(ast, (void *)print_ast_node);
-	puts("");
-}

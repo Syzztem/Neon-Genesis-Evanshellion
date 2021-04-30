@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 14:46:50 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:07:28 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int
 	minishell_non_interactive(void)
 {
 	char		*line;
-	char		**commands;
 	int			ret;
 
 	if (!is_computer_on())
@@ -93,17 +92,12 @@ int
 	init_signals();
 	while ((ret = get_full_line(&line)) || ft_strlen(line))
 	{
-		if (!line)
+		if (!line || ret < 0)
 		{
 			perror("minishell: ");
 			exit(errno);
 		}
-		if (line && verify_line(line) > 0)
-		{
-			commands = split_line(line);
-			exec_command_line(commands);
-			free_tokens(commands);
-		}
+		exec_line(line);
 		free(line);
 	}
 	free(line);
@@ -114,7 +108,6 @@ int
 	minishell(void)
 {
 	char		*line;
-	char		**commands;
 
 	if (!is_computer_on())
 	{
@@ -125,13 +118,7 @@ int
 	while ((prompt_shell(&line)))
 	{
 		if (line && *line)
-		{
-			commands = split_line(line);
-			if (DEBUG)
-				print_argv(commands);
-			exec_command_line(commands);
-			free_tokens(commands);
-		}
+			exec_line(line);
 		free(line);
 		line = NULL;
 	}

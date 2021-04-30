@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 14:36:08 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:03:55 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ int				handle_error(char *command, char *arg, char *errmsg);
 void			cap(char *tc);
 int				ft_isatty(int fd);
 int				is_shell_interactive(void);
-int				exec_line(char **commands);
+int				exec_line(char *line);
 #endif

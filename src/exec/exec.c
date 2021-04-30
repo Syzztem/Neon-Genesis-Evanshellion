@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 20:49:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 15:06:32 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ int
 }
 
 int
-	exec_line(char **commands)
+	exec_line(char *line)
 {
-	int			ret;
+	char	**commands;
+	int		ret;
 
+	commands = split_line(line);
+	if (!commands)
+		return (-1);
 	ret = exec_command_line(commands);
+	free_tokens(commands);
 	return (ret);
 }
