@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:51:35 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 22:08:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 15:29:54 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void
 	rd = read(1, cursor_pos, 16);
 	if (rd < 0)
 	{
-		perror(strerror(errno));
+		printf("%s: %s\n", "minishell:", strerror(errno));
 		exit(errno);
 	}
 	cursor_pos[rd] = '\0';

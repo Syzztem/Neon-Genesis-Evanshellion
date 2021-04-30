@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:17:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 15:22:44 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ extern int	g_exit_status;
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
+void            pesc(char *token, int fd);
 size_t          parenthesis_len(char **tokens);
 t_command       *parse_parenthesis(char **current, size_t *len_ptr);
 int				is_single_builtin(t_pipeline lst);

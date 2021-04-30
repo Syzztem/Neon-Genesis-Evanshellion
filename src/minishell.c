@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 15:07:28 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:24:29 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int
 	{
 		if (!line || ret < 0)
 		{
-			perror("minishell: ");
+			printf("minishell: %s", strerror(errno));
 			exit(errno);
 		}
 		exec_line(line);

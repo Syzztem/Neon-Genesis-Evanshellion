@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/30 00:33:32 by user42           ###   ########.fr        #
+#    Updated: 2021/04/30 15:21:39 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC_LIST =	constants/redirects.c constants/separators.c\
 			\
 			signals/handlers.c signals/singletons.c signals/init_signals.c\
 			\
-			utils/strjoin_newline.c\
+			utils/strjoin_newline.c utils/tab_utils.c utils/list_utils.c \
 			\
 			termcaps/termcaps.c termcaps/termcaps_utils.c termcaps/cursor.c\
 			termcaps/word_jump.c termcaps/get_term_line.c\
@@ -66,10 +66,9 @@ SRC_LIST =	constants/redirects.c constants/separators.c\
 			\
 			env/find_exec.c env/ft_getenv.c env/ft_setenv.c\
 			\
-			debug/debug_utils.c errmgr.c\
-			tab_utils.c \
+			debug/debug_utils.c debug/print_ast.c debug/print_pipeline.c errmgr.c\
 			minishell.c  \
-			list_utils.c complete_line.c main.c
+			complete_line.c main.c
 SRCS =		$(addprefix $(SRCS_PATH), $(SRC_LIST))
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRC_LIST:.c=.o))
 
