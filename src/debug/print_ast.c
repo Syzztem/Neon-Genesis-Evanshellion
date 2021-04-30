@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:08:13 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 15:09:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:11:12 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void
 		return ;
 	printf("ast: %p\n", ast);
 	ft_lstiter(ast, (void *)print_ast_node);
-    write(1, "\n", 1);
+	write(1, "\n", 1);
 }

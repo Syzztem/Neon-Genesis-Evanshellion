@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 15:10:15 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:17:33 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,40 +58,6 @@ int
 	return (0);
 }
 
-void
-	print_command(t_command *command)
-{
-	if (!DEBUG)
-		return ;
-	printf("%p:\n", command);
-	if (command)
-	{
-		printf("  - %-15s", "cmd:");
-		pesc(command->cmd, 1);
-		ft_putstr_fd("\n", 1);
-		printf("  - %-15s", "argv:");
-		print_argv(command->argv);
-		printf("  - %-15s", "tokens:");
-		print_argv(command->tokens);
-		printf("  - %-15s", "redirections:");
-		print_argv(command->redirections);
-		printf("  - %-15s", "sep:");
-		pesc(command->sep, 1);
-		write(1, "\n", 1);
-		printf("  - %-15s%d\n  - %-15s%d\n", "input:", command->fd_input,
-				"output:", command->fd_output);
-		printf("  - %-15s%d\n\n", "pid:", command->pid);
-	}
-}
-
-void
-	print_pipeline(t_pipeline lst)
-{
-	if (!DEBUG)
-		return ;
-	ft_lstiter(lst, (void *)print_command);
-}
-
 /*
 **	For testing purposes only
 */
@@ -135,4 +101,3 @@ void
 		current++;
 	}
 }
-
