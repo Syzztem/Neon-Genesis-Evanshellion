@@ -367,6 +367,7 @@ unit_backslashs()
 	cmp_shell '/bin/echo "\$"'
 	cmp_shell '/bin/echo \$'
 	cmp_shell "/bin/echo '\\$'"
+	cmp_shell "/bin/echo \"\\\\\'\\\"\\$\""
 }
 
 main()
