@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 15:24:29 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:13:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int
 		exit(1);
 	}
 	init_signals();
+	line = NULL;
 	while ((ret = get_full_line(&line)) || ft_strlen(line))
 	{
 		if (!line || ret < 0)
@@ -115,6 +116,7 @@ int
 		exit(1);
 	}
 	init_signals();
+	line = NULL;
 	while ((prompt_shell(&line)))
 	{
 		if (line && *line)
