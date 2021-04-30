@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 15:59:32 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:21:54 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cap
 	while (++i < CAP_COUNT)
 	{
 		tstr = tgetstr((char *)(g_capstr()[i]), NULL);
-		if (!ft_strncmp(key + 1, tstr + 1, ESC_LEN))
+		if (!ft_strncmp(key + 2, tstr + 2, ESC_LEN))
 		{
 			if (i == 2)
 			{
