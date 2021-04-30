@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 20:34:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 21:33:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_command
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	if (!strcmp(*current, PARENTHESIS_OPEN))
+	if (!ft_strcmp(*current, PARENTHESIS_OPEN))
 		command = parse_parenthesis(current, &end);
 	else
 		command = parse_simple_command(current, &end);

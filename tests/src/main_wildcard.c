@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_wildcard.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:58:03 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/31 14:58:16 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:34:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_list(t_token *list)
 	if (list)
 	{
 		print_list(list->next);
-		puts(list->token);
+		ft_putendl_fd(list->token, 1);
 		free(list->token);
 		free(list);
 	}

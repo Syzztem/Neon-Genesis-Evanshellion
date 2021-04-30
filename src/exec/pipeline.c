@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 14:49:35 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:33:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int
 int
 	check_pipeline_run(char *condition, int last_return)
 {
-	if (condition == NULL || !strcmp(condition, SEMICOLON))
+	if (condition == NULL || !ft_strcmp(condition, SEMICOLON))
 		return (1);
-	if (!strcmp(condition, AND) && last_return == 0)
+	if (!ft_strcmp(condition, AND) && last_return == 0)
 		return (1);
-	if (!strcmp(condition, OR) && last_return != 0)
+	if (!ft_strcmp(condition, OR) && last_return != 0)
 		return (1);
 	return (0);
 }

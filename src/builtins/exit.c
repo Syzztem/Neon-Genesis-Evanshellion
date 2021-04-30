@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:54:02 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/21 10:54:05 by root             ###   ########.fr       */
+/*   Updated: 2021/04/30 21:40:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	builtin_exit(char **av, char **envp)
 	}
 	if (tab_size(av) == 1)
 		exit(0);
-	exit(atoi(av[1]));
+	exit(ft_atoi(av[1]));
 	return (1);
 }

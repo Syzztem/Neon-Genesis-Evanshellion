@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:02:33 by root              #+#    #+#             */
-/*   Updated: 2021/04/30 20:34:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 21:33:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int
 
 	(void)envp;
 	last = get_last_token(av);
-	if (strcmp(*last, PARENTHESIS_CLOSE))
+	if (ft_strcmp(*last, PARENTHESIS_CLOSE))
 	{
 		ft_putstr_fd(SHELL_NAME ": syntax error: missing `)'\n", 2);
 		return (1);
