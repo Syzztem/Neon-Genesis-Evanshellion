@@ -6,7 +6,7 @@
 #    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/30 15:21:39 by smaccary         ###   ########.fr        #
+#    Updated: 2021/04/30 15:53:32 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FT_PRINTF_LIB = -L$(LIBFT_PATH)/ft_printf -lftprintf
 INCLUDES =  $(LIBFT_INC) -I$(LIBFT_PATH) -I./includes -I./C_vectors/includes
 
 SRCS_PATH = src
-SRC_LIST =	constants/redirects.c constants/separators.c\
+SRC_LIST =	constants/redirects.c constants/separators.c constants/termcaps_constants.c\
 			\
 			parsing/parse_parenthesis.c parsing/check_pipeline.c\
 			parsing/parser.c parsing/parser_utils.c parsing/tree.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 23:08:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 15:57:05 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct	s_line
 
 typedef void	(*t_cap)(t_line *line);
 
+t_cap			*g_caps(void);
+char			**g_capstr(void);
 t_cap			exec_cap(char *key);
 void			interrupt_line(t_line *line);
 t_line			*realloc_lines(t_line *h, size_t *size, t_line **current_line);

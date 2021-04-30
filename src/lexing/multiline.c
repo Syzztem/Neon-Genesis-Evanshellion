@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   multiline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 10:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 23:42:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 16:01:38 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int
-	prompt_shell(char **line)
-{
-	int		ret;
-	t_term	term;
-	t_term	backup;
-
-	set_prompt(ML_PROMPT);
-	ft_putstr_fd(ML_PROMPT, 2);
-	tcgetattr(0, &term);
-	tcgetattr(0, &backup);
-	term.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr(0, 0, &term);
-	ret = get_term_line(line);
-	tcsetattr(0, 0, &backup);
-	return (ret);
-}
 
 static size_t
 	handle_parenthesis(char **line)
