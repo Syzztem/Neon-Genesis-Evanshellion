@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 17:56:47 by lothieve          #+#    #+#             */
-/*   Updated: 2021/01/29 14:14:24 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:04:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/*
-** J'ai modifié la fonction de sorte à ce qu'elle renvoie forcément une chaîne terminée par 0. 
-*/
 
 char
 	*ft_strndup(const char *str, size_t n)

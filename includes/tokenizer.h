@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 16:45:45 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:52:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define SEPS "|;<>\"\'&()"
 # define TOKEN_SPLITTERS "|;<>& \t\n\v\f\r"
 # define TO_ESCAPE "|;&<>$"
-
 
 typedef struct	s_token
 {

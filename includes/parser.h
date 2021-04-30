@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 15:22:44 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:43:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ extern int	g_exit_status;
 # define CMD_NOT_FOUND_MSG "command not found"
 
 # define ESCAPE_CHAR 0x1b
-# define ESCAPE //"\x1b"
-# define REDIR_REPLACE ESCAPE ">"
-# define REDIR_APPEND ESCAPE ">>"
-# define REDIR_HERE_DOC ESCAPE "<<"
-# define REDIR_INPUT ESCAPE "<"
-# define PIPE ESCAPE "|"
-# define SEMICOLON  ";"
-# define AND  "&&"
-# define OR  "||"
-# define PARENTHESIS_OPEN ESCAPE "("
-# define PARENTHESIS_CLOSE ESCAPE ")"
+# define REDIR_REPLACE ">"
+# define REDIR_APPEND ">>"
+# define REDIR_HERE_DOC "<<"
+# define REDIR_INPUT "<"
+# define PIPE "|"
+# define SEMICOLON ";"
+# define AND "&&"
+# define OR "||"
+# define PARENTHESIS_OPEN "("
+# define PARENTHESIS_CLOSE ")"
+# define AMPERSAND "&"
 
 # define OUTPUT_REPLACE_MASK 1
 # define OUTPUT_APPEND_MASK  2
@@ -54,9 +54,9 @@ extern int	g_exit_status;
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
-void            pesc(char *token, int fd);
-size_t          parenthesis_len(char **tokens);
-t_command       *parse_parenthesis(char **current, size_t *len_ptr);
+void			pesc(char *token, int fd);
+size_t			parenthesis_len(char **tokens);
+t_command		*parse_parenthesis(char **current, size_t *len_ptr);
 int				is_single_builtin(t_pipeline lst);
 char			*get_command_path(char *cmd);
 size_t			get_pipeline_len(char **tokens);

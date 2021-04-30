@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 15:04:10 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:28:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include <sys/wait.h>
 # include "vector.h"
 
-
-int     exec_line(char *line);
+int		exec_line(char *line);
 int		here_doc(char *end_mark);
 int		exec_single_builtin(t_command *cmd);
 int		minishell(void);
@@ -45,10 +44,10 @@ void	close_cmd(t_command *cmd);
 void	close_all_cmds(t_list *commands, t_command *avoid);
 void	switch_stdout(void);
 void	pcmd_not_found(t_command *cmd);
-int	    is_shell_interactive(void);
+int		is_shell_interactive(void);
 
 int		open_redir(char	**redir);
-int     open_input(char	**input_path_ptr);
+int		open_input(char	**input_path_ptr);
 char	**split_line(char *line);
 char	**split_quotes(char	*str);
 void	expand_command(t_command *command);

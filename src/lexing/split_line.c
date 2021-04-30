@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:41:19 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 23:50:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 20:45:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int
 	uint8_t i;
 
 	i = 0;
-	while (g_seps[i])
+	while (token_separators()[i])
 	{
-		if (ft_strbegin(str, g_seps[i]))
+		if (ft_strbegin(str, token_separators()[i]))
 			return (i);
 		++i;
 	}
@@ -60,7 +60,7 @@ static size_t
 			i = is_sep(ref);
 			if (i != -1 && (ref == line || *(ref - 1) != '\\'))
 			{
-				*sep = (char *)g_seps[i];
+				*sep = (char *)token_separators()[i];
 				return (ref - line);
 			}
 		}

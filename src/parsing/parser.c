@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:16:41 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:27:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 20:36:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ char
 	size_t	i;
 
 	i = 0;
-	PARGV(tokens);
 	current = tokens;
 	extracted = extract_redirects_ref(tokens);
 	pure_tokens = ft_calloc(pure_tokens_len(tokens, extracted) + 3,

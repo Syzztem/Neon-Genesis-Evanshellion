@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:37:22 by smaccary          #+#    #+#             */
-/*   Updated: 2021/01/29 15:32:58 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:04:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 size_t	gnl_ft_strlen(const char *str)
 {
@@ -59,8 +60,6 @@ size_t	gnl_ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	}
 	return (srclen);
 }
-	#include <stdio.h>
-
 
 char	*gnl_ft_strndup(const char *s1, long long n)
 {

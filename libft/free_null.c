@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   free_null.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 17:21:57 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 21:02:58 by user42           ###   ########.fr       */
+/*   Created: 2021/04/30 20:58:09 by user42            #+#    #+#             */
+/*   Updated: 2021/04/30 21:03:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
-int	ft_free_tab(char **tab)
+void
+	free_null(void **ptr)
 {
-	int i;
-
-	i = 0;
-	while (tab[i])
+	if (ptr)
 	{
-		free(tab[i]);
-		i++;
+		free(*ptr);
+		*ptr = NULL;
 	}
-	free(tab);
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:49:50 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/28 15:04:50 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:00:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ int					get_next_line(int fd, char **line)
 	if (!line || BUFFER_SIZE <= 0)
 	{
 		free(storage ? storage->rest : NULL);
-		free(storage);
-		storage = NULL;
+		free_null((void **)&storage);
 		return (-1);
 	}
 	rest = get_rest(fd, &storage);

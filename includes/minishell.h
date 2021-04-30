@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 15:03:55 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:51:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,10 @@
 
 # define SPACE ' '
 
-#define PARGV(argv) if (DEBUG) {printf("%s:%d:[%s]: ", __FILE__, __LINE__, #argv) ; print_argv(argv);}
-
 extern int	g_exit_status;
-
-static const char	*g_seps[] = {"<<", ">>","<", ">", "||", "|", ";",
-	"&&", "&", "(", ")", NULL};
 
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
-
 
 int				minishell(void);
 int				minishell_non_interactive(void);
@@ -61,9 +55,9 @@ char			*remove_quotes(char *line);
 char			*perform_expansions(char *command);
 int				complete_line(char **line, int ret);
 
-
+char			**token_separators(void);
 int				ft_igetenv(char *name);
-char			*ft_getenv(char *name) ;
+char			*ft_getenv(char *name);
 char			*ft_lgetenv(char *line);
 void			ft_unsetenv(char *name);
 char			*ft_setenv(char *name, char *value);
@@ -83,7 +77,7 @@ int				builtin_echo(char **av, char **envp);
 int				builtin_exit(char **av, char **envp);
 int				builtin_unset(char **av, char **envp);
 int				builtin_export(char **av, char **envp);
-int             builtin_parenthesis(char **av, char **envp);
+int				builtin_parenthesis(char **av, char **envp);
 int				print_exit(void);
 void			p_builtin_error(char *name, char *arg, char *error_msg);
 

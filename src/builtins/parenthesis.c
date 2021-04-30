@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:02:33 by root              #+#    #+#             */
-/*   Updated: 2021/04/30 14:44:36 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:34:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int
 	if (strcmp(*last, PARENTHESIS_CLOSE))
 	{
 		ft_putstr_fd(SHELL_NAME ": syntax error: missing `)'\n", 2);
-		PARGV(av);
 		return (1);
 	}
 	len = last - av;

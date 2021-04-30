@@ -393,7 +393,7 @@ main()
 			VERBOSE="on";
 		fi
 		if [ "$arg" = 'unit_all' ];then
-			ALL_ARGS="unit_multiline unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_argv_zero unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
+			ALL_ARGS="unit_multiline unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_env unit_builtins_no_arg unit_quotes unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
 		fi
 	done
 
@@ -404,9 +404,9 @@ main()
 			if ! [ "$test" = "-v" ];then
 				OUTPUT="$($test)";
 				if [ $? == 0 ] && [ -z "$(echo "$OUTPUT" | grep '\[ERROR\]')" ];then
-					printf '%-15s [OK]\n' "$test:" | tee -a $TRACE_FILE
+					printf '%-25s [OK]\n' "$test:" | tee -a $TRACE_FILE
 				else
-					printf '%-15s [KO]\n' "$test:" | tee -a $TRACE_FILE
+					printf '%-25s [KO]\n' "$test:" | tee -a $TRACE_FILE
 				fi
 				if [ "$VERBOSE" = "on" ];then
 					printf "$test:\n%s\n" "$OUTPUT" | tee -a $TRACE_FILE

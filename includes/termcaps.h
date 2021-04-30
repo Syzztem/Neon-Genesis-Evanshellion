@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:48:36 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 15:57:05 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:29:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 
-
 typedef struct	s_point
 {
 	size_t		x;
-	ssize_t 	y;
+	ssize_t		y;
 }				t_point;
 
 typedef struct	s_line

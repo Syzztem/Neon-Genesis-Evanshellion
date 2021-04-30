@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:27:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 20:34:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_ast_node
 	}
 	if (current == NULL || *current == NULL)
 		return (NULL);
-	PARGV(current);
 	node = node_from_line(current);
 	current = find_pipeline_separator(current);
 	if (*current)

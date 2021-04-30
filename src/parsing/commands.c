@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:01:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:20:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/30 20:34:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ t_command
 
 	end = get_command_len(current);
 	extracted = dup_n_tab(current, end);
-	PARGV(extracted);
 	command = command_from_tokens(extracted, *find_sep(current));
 	print_command(command);
 	free_tokens(extracted);
@@ -109,7 +108,6 @@ t_command
 		tokens_start = tokens;
 		current = tokens;
 	}
-	PARGV(current);
 	if (current == NULL || *current == NULL)
 		return (NULL);
 	if (!strcmp(*current, PARENTHESIS_OPEN))
