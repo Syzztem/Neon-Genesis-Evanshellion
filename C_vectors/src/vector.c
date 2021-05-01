@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:28:09 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 21:20:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/01 12:16:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_vector
 	char	*new;
 	size_t	ncpy;
 
-	new = vect_ft_calloc(new_size, vector->obj_size);
+	if (!(new = vect_ft_calloc(new_size, vector->obj_size)))
+		return (NULL);
 	if (vector->len > new_size)
 	{
 		ncpy = new_size;
@@ -42,7 +43,10 @@ t_vector
 	*vector_append(t_vector *vector, void *add, size_t count)
 {
 	if (count > vector->available)
-		vector_resize(vector, (vector->size + count) * 2);
+	{
+		if (!vector_resize(vector, (vector->size + count) * 2))
+			return (NULL);
+	}
 	vect_ft_memcpy(vector->bytes + vector->len * vector->obj_size, add,
 				count * vector->obj_size);
 	vector->len += count;
@@ -56,7 +60,14 @@ t_vector
 	t_vector	*vector;
 
 	vector = malloc(sizeof(t_vector));
+	if (!vector)
+		return (NULL);
 	vector->bytes = vect_ft_calloc(count, size);
+	if (!vector->bytes)
+	{
+		free(vector);
+		return (NULL);
+	}
 	vector->size = count;
 	vector->available = count;
 	vector->len = 0;
