@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_term_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:25:51 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 16:21:54 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/01 12:25:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ t_cap
 	while (++i < CAP_COUNT)
 	{
 		tstr = tgetstr((char *)(g_capstr()[i]), NULL);
-		if (!ft_strncmp(key + 2, tstr + 2, ESC_LEN))
+		if (!ft_strncmp(key + 2, tstr + 2, ESC_LEN - 1))
 		{
 			if (i == 2)
-			{
 				i += ft_indexof("DCBA", key[5]);
-			}
 			return ((g_caps())[i]);
 		}
 	}
