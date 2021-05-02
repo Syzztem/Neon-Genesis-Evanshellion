@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/02 20:40:46 by root             ###   ########.fr       */
+/*   Updated: 2021/05/03 01:39:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void			cap(char *tc);
 int				ft_isatty(int fd);
 int				is_shell_interactive(void);
 int				exec_line(char *line);
+void			ft_append_env(char *name, char *value);
 #endif

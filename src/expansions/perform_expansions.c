@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/02 20:14:12 by root             ###   ########.fr       */
+/*   Updated: 2021/05/03 01:36:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,13 @@ static size_t
 	char *env;
 	char *ref;
 
-	ref = command;
-	env = ft_lgetenv(++ref);
+	ref = command + 1;
+	if (!ft_isalnum(*ref) && *ref != '_' && *ref != '?')
+		env = "$";
+	else
+		env = ft_lgetenv(ref);
 	if (env)
-	{
 		ft_lstadd_back((t_list **)list, ft_strdup_escape(env, *quote));
-	}
 	else if (*ref == '?')
 	{
 		ft_lstadd_back((t_list **)list, ft_itoa(g_exit_status));

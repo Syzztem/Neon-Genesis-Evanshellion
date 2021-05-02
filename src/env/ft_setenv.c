@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:04:08 by lothieve          #+#    #+#             */
-/*   Updated: 2021/03/26 11:00:21 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/05/03 00:56:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ char
 	int				env_index;
 	static size_t	max_size = 0;
 
+	if (!ft_strlen(name))
+	{
+		p_builtin_error("export", value, "not a valid identifier");
+		return (NULL);
+	}
 	if (!max_size)
 		max_size = env_size();
 	env_index = ft_igetenv(name);

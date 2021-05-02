@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:17:00 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/04 14:56:19 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/05/03 01:37:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int
 	i = 0;
 	while (assign[i] && assign[i] != '=')
 	{
-		if (!ft_isalnum(assign[i]) && assign[i] != '_')
+		if (!ft_isalnum(assign[i]) && assign[i] != '_'
+		&& !(assign[i] == '+' && assign[i + 1] == '='))
 			return (-1);
 		i++;
 	}
@@ -41,7 +42,10 @@ static int
 		handle_error("minishell: export: ", assign, "not a valid identifier");
 		return (1);
 	}
-	ft_setenv(assign, assign + split_index);
+	if (assign[split_index - 2] == '+')
+		ft_append_env(assign, assign + split_index);
+	else
+		ft_setenv(assign, assign + split_index);
 	return (0);
 }
 

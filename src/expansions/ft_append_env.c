@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_append_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/29 20:11:05 by user42            #+#    #+#             */
-/*   Updated: 2021/05/02 20:52:49 by root             ###   ########.fr       */
+/*   Created: 2021/05/03 01:37:48 by root              #+#    #+#             */
+/*   Updated: 2021/05/03 01:37:55 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int
-	main(void)
+void
+	ft_append_env(char *name, char *value)
 {
-	copy_env();
-	if (is_shell_interactive())
+	int		split_index;
+	char	*var;
+	char	*new;
+
+	split_index = value - name;
+	name[split_index - 2] = 0;
+	var = ft_getenv(name);
+	new = ft_strjoin(var, value);
+	if (!new)
 	{
-		tgetent(NULL, ft_getenv("TERM"));
-		cap("ks");
-		minishell();
-		print_exit();
+		ft_setenv(name, value);
+		return ;
 	}
-	else
-		minishell_non_interactive();
-	free_env();
-	return (g_exit_status);
+	ft_setenv(name, new);
+	free(new);
 }

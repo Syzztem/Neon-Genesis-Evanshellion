@@ -6,14 +6,14 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/05/02 20:41:19 by root             ###   ########.fr        #
+#    Updated: 2021/05/03 01:39:10 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	minishell
 CC		= 	clang
-CFLAGS	= 	-Wall -Wextra  -g3  $(INCLUDES)
+CFLAGS	= 	-Wall -Wextra -Werror -g3  $(INCLUDES)
 
 LIBFT_PATH = ./libft
 OBJ_PATH =	./obj/
@@ -64,6 +64,7 @@ SRC_LIST =	constants/redirects.c constants/separators.c constants/termcaps_const
 			expansions/remove_quotes.c expansions/perform_expansions.c\
 			expansions/expand_command.c expansions/remove_quotes_and_do_escape.c\
 			expansions/check_escape.c expansions/wildcard_utils.c expansions/multi_free.c\
+			expansions/ft_append_env.c\
 			\
 			env/find_exec.c env/ft_getenv.c env/ft_setenv.c\
 			\

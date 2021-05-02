@@ -417,6 +417,18 @@ unit_escape_var()
 	cmp_shell 'echo "$X"'
 	cmp_shell 'echo "$X""$X"'
 	cmp_shell "echo '\$X\"\"\$X\"'"
+
+	cmp_shell 'echo $'
+	cmp_shell 'echo \$'
+	cmp_shell 'echo \\$'
+	cmp_shell 'echo "$"'
+	cmp_shell 'echo "$ "'
+	cmp_shell 'echo " $ "'
+	cmp_shell 'echo "    $    "'
+	cmp_shell 'echo $\"'
+	cmp_shell 'echo $\\'
+	cmp_shell 'echo $%'
+	cmp_shell 'echo $/'
 }
 
 main()
