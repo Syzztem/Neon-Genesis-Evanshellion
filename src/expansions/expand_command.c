@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:08:43 by user42            #+#    #+#             */
-/*   Updated: 2021/05/02 16:36:35 by root             ###   ########.fr       */
+/*   Updated: 2021/05/02 18:09:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ static void
 		line = *tokens;
 		while (*line)
 		{
+			if (*line == '\x1b')
+			{
+				ft_memmove(line, line + 1, ft_strlen(line));
+				continue;
+			}
 			found = ft_strchr(SQ_ESCAPES "'", line[1]);
 			if (*line == '\\' && found && *found)
 				ft_memmove(line, line + 1, ft_strlen(line));
@@ -83,7 +88,7 @@ static void
 }
 
 char
-	**tokenize(char *command)
+	**tokenize(char *command, char *end)
 {
 	char	**out;
 	size_t	i;
@@ -91,7 +96,7 @@ char
 
 	out = ft_calloc((tok_count(command) + 1), sizeof(char *));
 	i = 0;
-	while (*command)
+	while (command < end)
 	{
 		command += next_token(command);
 		next = next_space(command);
@@ -158,7 +163,7 @@ char
 
 
  char
- 	*remove_quotes_a(char *line)
+ 	*remove_quotes_a(char *line, char **end)
  {
  	char	*current;
  	char	*quote;
@@ -186,6 +191,7 @@ char
  		{
  			quote = current;
  			copy = 0;
+			new[i++] = '\x1b';
  		}
  		else if (!escaped && *current == *quote)
  		{
@@ -204,6 +210,7 @@ char
  		}
  		++current;
  	}
+	*end = new + i;
  	return (new);
  }
 
@@ -215,15 +222,17 @@ void
 	char	*expanded;
 	char	*dequoted;
 	char	**splitted;
+	char	*end;
 
 	current = argv;
 	while (*current)
 	{
+		//printf("curr: [%s]\n", *current);
 		expanded = perform_expansions(*current);
-	//	printf("exp: [%s]\n", expanded);
-		dequoted = remove_quotes_a(expanded);
-	//	printf("deq: [%s]\n", dequoted);
-		splitted = tokenize(dequoted);
+		//printf("exp: [%s]\n", expanded);
+		dequoted = remove_quotes_a(expanded, &end);
+		//printf("deq: [%s]\n", dequoted);
+		splitted = tokenize(dequoted, end);
 		vector_append(new, splitted, argv_len(splitted));
 		free(dequoted);
 		free(splitted);

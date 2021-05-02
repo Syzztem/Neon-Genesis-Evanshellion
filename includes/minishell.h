@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 20:51:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 17:01:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ sig_t			blank_fork(int sig);
 sig_t			interrupt_blank(int a);
 int				interrupt_singleton(int value);
 int				get_term_line(char **buffer);
-char			**tokenize(char *line);
+//char			**tokenize(char *line);
 char			**split_line(char *line);
 char			*remove_quotes(char *line);
 char			*perform_expansions(char *command);
