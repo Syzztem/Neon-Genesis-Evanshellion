@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:07:44 by user42            #+#    #+#             */
-/*   Updated: 2021/04/30 00:08:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 12:07:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static char
 void
 	move_to_next_quote(char **current, int *skip)
 {
-	while (**current && (*skip || !ft_strchr("\"' ", **current)))
+	while (**current && (*skip || !ft_strchr("\"' <>", **current)))
 	{
-		*skip = (**current == '\\' && ft_strchr("\"' ", (*current)[1]));
+		*skip = (**current == '\\' && ft_strchr("\"' <>", (*current)[1]));
 		(*current)++;
 	}
 }
@@ -80,11 +80,19 @@ char
 
 	if (!(begin = init_tokenizing(str, &current, &start, &skip)))
 		return (NULL);
+	if (ft_strchr("<>", *current))
+	{
+		while (ft_strchr("<>", *current))
+			current++;
+		return (ft_strndup(begin, current - begin));
+	}
 	while (*current && *current != SPACE)
 	{
 		if (!move_to_quote_end(&current, &skip))
 			return (NULL);
 		move_to_next_quote(&current, &skip);
+		if (ft_strchr("<>", *current))
+			break ;
 	}
 	return (ft_strndup(begin, current - begin));
 }
