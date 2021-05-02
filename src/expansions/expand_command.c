@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:08:43 by user42            #+#    #+#             */
-/*   Updated: 2021/05/02 18:09:12 by root             ###   ########.fr       */
+/*   Updated: 2021/05/02 18:24:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,9 @@ void
 	command->expanded = 1;
 	argv_vector = new_vector(20, sizeof(char **));
 	free_tokens(command->redirections);
+	//printf("command: [%s]\n", command->cmd);
 	splitted = split_quotes(command->cmd);
+	//print_argv(splitted);
 	command->redirections = extract_redirects(splitted);
 	free_tokens(command->argv);
 	command->argv = get_pure_tokens(splitted);

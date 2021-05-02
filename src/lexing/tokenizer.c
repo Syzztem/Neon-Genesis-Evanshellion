@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:07:44 by user42            #+#    #+#             */
-/*   Updated: 2021/05/02 12:07:36 by root             ###   ########.fr       */
+/*   Updated: 2021/05/02 18:23:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void
 {
 	while (**current && (*skip || !ft_strchr("\"' <>", **current)))
 	{
-		*skip = (**current == '\\' && ft_strchr("\"' <>", (*current)[1]));
+		*skip = (**current == '\\' && ft_strchr("\"'\\ <>", (*current)[1]));
 		(*current)++;
 	}
 }
@@ -55,7 +55,7 @@ int
 		{
 			*skip = 0;
 			if (*(*current) == 0)
-				return (0);
+				return (1);
 			if ((*current)[0] == '\\' && (*current)[1] == '\\')
 				(*current) += 2;
 			else

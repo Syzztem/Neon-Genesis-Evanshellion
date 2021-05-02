@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/02 13:46:54 by root             ###   ########.fr       */
+/*   Updated: 2021/05/02 19:21:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,26 @@ size_t
 	return (count);
 }
 
-#define TO_ESC  "$\\\"'" 
+#define TO_ESC_NO_QUOTE  "$\\\"'"
+#define TO_ESC_DB_QUOTE  "$\\\""
 
 char
-	*ft_strdup_escape(char *str)
+	*ft_strdup_escape(char *str, char quote)
 {
 	char	*new;
 	size_t	i;
+	char	*to_esc;
 
-	new = ft_calloc(ft_strlen(str) + count_chars(str, TO_ESC) + 1, 1);
+	to_esc = "";
+	if (quote == '"')
+		to_esc = TO_ESC_DB_QUOTE;
+	else if (!quote)
+		to_esc = TO_ESC_NO_QUOTE;
+	new = ft_calloc(ft_strlen(str) + count_chars(str, to_esc) + 1, 1);
 	i = 0;
 	while (*str)
 	{
-		if (ft_strchr(TO_ESC, *str))
+		if (ft_strchr(to_esc, *str))
 			new[i++] = '\\';
 		new[i] = *str;
 		i++;
@@ -77,10 +84,7 @@ static size_t
 	env = ft_lgetenv(++ref);
 	if (env)
 	{
-		if (*quote)
-			ft_lstadd_back((t_list **)list, ft_strdup(env));
-		else
-			ft_lstadd_back((t_list **)list, ft_strdup_escape(env));
+		ft_lstadd_back((t_list **)list, ft_strdup_escape(env, *quote));
 	}
 	else if (*ref == '?')
 	{
