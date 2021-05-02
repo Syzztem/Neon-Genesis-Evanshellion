@@ -290,6 +290,18 @@ unit_redirect_replace()
 	cmp_shell 'rm -f test_output; cat test_file; grep world < test_file > test_output; grep world < test_file > test_output  ; cat test_file'
 	popd > /dev/null
 	rm -rf $TST_DIR
+
+	mkdir -p $TST_DIR
+	pushd . > /dev/null
+	cd $TST_DIR
+
+	cmp_shell '/bin/echo hello world > 1; ls ; cat 1'
+	cmp_shell '> 2 printf h; ls ; cat 2'
+	printf "hello\nworld\ngood\nmorning\nworld" > test_file
+	cmp_shell 'rm -f test_output; cat test_file; < test_file grep world> test_output   ; cat test_file'
+	cmp_shell 'rm -f test_output; cat test_file; < test_file grep world> test_output; grep world < test_file > test_output  ; cat test_file'
+	popd > /dev/null
+	rm -rf $TST_DIR
 }
 
 unit_redirect_append()
@@ -302,6 +314,24 @@ unit_redirect_append()
 	cmp_shell '/bin/echo hello world >> 1 ; ls ; cat 1 ; rm 1'
 	cmp_shell 'printf a >> 2 ; ls ; cat 2 ; rm 2'
 	cmp_shell 'printf b > 3 ; ls >> 3 ; cat 3'
+	cmp_shell 'printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4'
+	cmp_shell 'printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5'
+
+
+	printf "hello\nworld\ngood\nmorning\nworld" > test_file
+	cmp_shell 'rm -f test_output; cat test_file; grep world < test_file >> test_output   ; cat test_file'
+	printf "hello\nworld\ngood\nmorning\nworld" > test_file
+	cmp_shell 'rm -f test_output; cat test_file; grep world < test_file >> test_output; grep world < test_file > test_output  ; cat test_file'
+	popd > /dev/null
+	rm -rf $TST_DIR
+	
+	mkdir -p $TST_DIR
+	pushd . > /dev/null
+	cd $TST_DIR
+
+	cmp_shell '/bin/echo hello world >> 1 ; ls ; cat 1 ; rm 1'
+	cmp_shell '>> 2 printf; ls ; cat 2 ; rm 2'
+	cmp_shell '> 3 printf b; ls >> 3 ; cat 3'
 	cmp_shell 'printf c > 4 ; ls >> 4 ; printf eee >> 4 ; echo ";" >> 4 ; cat 4'
 	cmp_shell 'printf d > 5 ; ls >> 5 ; printf eee >> 5 ; echo ";" > 5 ; cat 5'
 
@@ -368,6 +398,25 @@ unit_backslashs()
 	cmp_shell '/bin/echo \$'
 	cmp_shell "/bin/echo '\\$'"
 	cmp_shell "/bin/echo \"\\\\\'\\\"\\$\""
+	cmp_shell 'echo \\\\\\""'
+}
+
+unit_escape_var()
+{
+	export X='\"\"'
+	cmp_shell 'echo $X'
+	cmp_shell 'echo "$X"'
+	export X="\'\'"
+	cmp_shell 'echo $X'
+	cmp_shell 'echo "$X"'
+	export X="\\"
+	cmp_shell 'echo $X'
+	cmp_shell 'echo "$X"'
+	export X='\\\\"'
+	cmp_shell 'echo $X'
+	cmp_shell 'echo "$X"'
+	cmp_shell 'echo "$X""$X"'
+	cmp_shell "echo '\$X\"\"\$X\"'"
 }
 
 main()
@@ -393,7 +442,7 @@ main()
 			VERBOSE="on";
 		fi
 		if [ "$arg" = 'unit_all' ];then
-			ALL_ARGS="unit_multiline unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_builtins_no_arg unit_quotes unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
+			ALL_ARGS="unit_escape_var unit_multiline unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_builtins_no_arg unit_quotes unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
 		fi
 	done
 

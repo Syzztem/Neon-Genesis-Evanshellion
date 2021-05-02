@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 15:17:33 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/02 10:25:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,16 @@ int
 		printf("%s", "{");
 		while (0[argv])
 		{
-			pesc(*argv, 1);
+			printf("\"%s\"", *argv);
 			printf("%s", ", ");
 			argv++;
 		}
 		printf("%s", "NULL};\n");
+		fflush(stdout);
 	}
 	else
 		printf("%s\n", "(null)");
+	fflush(stdout);
 	return (0);
 }
 

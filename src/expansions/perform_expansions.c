@@ -3,36 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 21:37:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 20:14:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static size_t
-	wildcard_len(char *command)
+size_t
+	count_chars(char *str, char *to_count)
 {
-	int		is;
-	char	*ref;
+	size_t	count;
 
-	ref = command;
-	is = 0;
-	while (*ref && *ref != SPACE)
+	count = 0;
+	while (*str)
 	{
-		if (*ref == '*' && (ref == command || *(ref - 1) != '\\'))
-			is = 1;
-		++ref;
+		if (ft_strchr(to_count, *str))
+			count++;
+		str++;
 	}
-	if (is)
-		return (ref - command);
-	return (0);
+	return (count);
+}
+
+char
+	*ft_strdup_escape(char *str, char quote)
+{
+	char	*new;
+	size_t	i;
+	char	*to_esc;
+
+	to_esc = "";
+	if (quote == '"')
+		to_esc = TO_ESC_DB_QUOTE;
+	else if (!quote)
+		to_esc = TO_ESC_NO_QUOTE;
+	new = ft_calloc(ft_strlen(str) + count_chars(str, to_esc) + 1, 1);
+	i = 0;
+	while (*str)
+	{
+		if (ft_strchr(to_esc, *str))
+			new[i++] = '\\';
+		new[i] = *str;
+		i++;
+		str++;
+	}
+	return (new);
 }
 
 static size_t
-	add_env(char *command, t_token **list)
+	add_env(char *command, char *quote, t_token **list)
 {
 	char *env;
 	char *ref;
@@ -40,7 +61,9 @@ static size_t
 	ref = command;
 	env = ft_lgetenv(++ref);
 	if (env)
-		ft_lstadd_back((t_list **)list, ft_strdup(env));
+	{
+		ft_lstadd_back((t_list **)list, ft_strdup_escape(env, *quote));
+	}
 	else if (*ref == '?')
 	{
 		ft_lstadd_back((t_list **)list, ft_itoa(g_exit_status));
@@ -51,21 +74,13 @@ static size_t
 	return (ref - command);
 }
 
-static size_t
-	add_wildcard(char *command, size_t len, t_token **list)
-{
-	ft_lstmerge((t_list **)list, (t_list *)
-			expand_wildcard(ft_strndup(command, len)));
-	return (len);
-}
-
 void
 	do_expansions(char **quote, char **ref, char *command, t_token **alst)
 {
 	size_t	len;
 
 	if (!*(*quote) && (ft_strchr("\"'", *(*ref))
-	&& (*ref) != command && (*ref)[-1] != '\\'))
+	&& ((*ref) == command || (*ref)[-1] != '\\')))
 		(*quote) = (*ref);
 	else if (*(*quote) == *(*ref))
 		(*quote) = "\0";
@@ -73,8 +88,8 @@ void
 	if (len && *(*quote) != '\'')
 		(*ref) += add_wildcard((*ref), len, alst);
 	else if (*(*quote) != '\'' && *(*ref) == '$'
-	&& ((*ref) == command || (*ref)[-1] != '\\'))
-		(*ref) += add_env((*ref), alst);
+	&& ((*ref) == command || (*ref)[-1] != '\\') && **quote != '\'')
+		(*ref) += add_env((*ref), *quote, alst);
 	else
 		ft_lstadd_back((t_list **)alst, ft_strndup((*ref)++, 1));
 }

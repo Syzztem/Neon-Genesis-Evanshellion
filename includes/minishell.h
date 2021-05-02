@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 20:51:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 20:40:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ extern int	g_exit_status;
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
+size_t			argv_len(char **argv);
 int				minishell(void);
 int				minishell_non_interactive(void);
 void			init_signals(void);
@@ -49,7 +50,8 @@ sig_t			blank_fork(int sig);
 sig_t			interrupt_blank(int a);
 int				interrupt_singleton(int value);
 int				get_term_line(char **buffer);
-char			**tokenize(char *line);
+char			**tokenize(char *line, char *end);
+char			*remove_quotes_and_do_escape(char *line, char **end);
 char			**split_line(char *line);
 char			*remove_quotes(char *line);
 char			*perform_expansions(char *command);
@@ -62,6 +64,8 @@ char			*ft_lgetenv(char *line);
 void			ft_unsetenv(char *name);
 char			*ft_setenv(char *name, char *value);
 void			copy_env(void);
+
+void			multi_free(void **arr, size_t nb);
 
 int				is_builtin(char *command);
 int				exec_builtin(char **av, char **envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:51:29 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 20:52:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 20:14:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # define SEPS "|;<>\"\'&()"
 # define TOKEN_SPLITTERS "|;<>& \t\n\v\f\r"
 # define TO_ESCAPE "|;&<>$"
+
+# define SQ_ESCAPES " \t\n\v\f\r;&|\"*<>()\\$"
+# define DQ_ESCAPES " \t\n\v\f\r;&|\'*<>()"
+# define DQ_ESCAPES_2 " \t\n\v\f\r;&|*<>()"
+# define TO_ESC_NO_QUOTE  "$\\\"'"
+# define TO_ESC_DB_QUOTE  "$\\\""
 
 typedef struct	s_token
 {
@@ -30,4 +36,7 @@ char			*parse_variables(char *line);
 void			free_list(t_token *list);
 char			*list_to_pure_string(t_token *list);
 void			print_list(t_token *list);
+int				check_escape(char *current, char *quote);
+size_t			wildcard_len(char *command);
+size_t			add_wildcard(char *command, size_t len, t_token **list);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 20:28:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 11:24:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int		open_input(char	**input_path_ptr);
 char	**split_line(char *line);
 char	**split_quotes(char	*str);
 void	expand_command(t_command *command);
-void	expand_redir(char ***redir_ptr, t_vector *argv_vect);
+void	expand_redir(char ***redir_ptr);
 #endif
