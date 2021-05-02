@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/04/30 20:23:33 by user42           ###   ########.fr        #
+#    Updated: 2021/05/02 20:41:19 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC_LIST =	constants/redirects.c constants/separators.c constants/termcaps_const
 			parsing/finders.c parsing/wrapped_finders.c parsing/commands.c \
 			parsing/commands_utils.c parsing/wrapped_finders_2.c\
 			\
-			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c\
+			lexing/multiline.c lexing/split_line.c lexing/tokenizer.c lexing/split_quotes.c\
 			\
 			\
 			exec/utils.c parsing/checkers.c \
@@ -62,7 +62,8 @@ SRC_LIST =	constants/redirects.c constants/separators.c constants/termcaps_const
 			\
 			expansions/wildcard.c expansions/sub_env.c \
 			expansions/remove_quotes.c expansions/perform_expansions.c\
-			expansions/expand_command.c\
+			expansions/expand_command.c expansions/remove_quotes_and_do_escape.c\
+			expansions/check_escape.c expansions/wildcard_utils.c expansions/multi_free.c\
 			\
 			env/find_exec.c env/ft_getenv.c env/ft_setenv.c\
 			\

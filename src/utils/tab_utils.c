@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lothieve <lothieve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:22:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/02/02 14:31:57 by lothieve         ###   ########.fr       */
+/*   Updated: 2021/05/02 19:29:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,15 @@ void
 		i++;
 	}
 	free(table);
+}
+
+size_t
+	argv_len(char **argv)
+{
+	char	**current;
+
+	current = argv;
+	while (*current)
+		current++;
+	return (current - argv);
 }

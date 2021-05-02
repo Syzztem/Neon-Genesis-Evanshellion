@@ -6,30 +6,11 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/02 19:21:12 by root             ###   ########.fr       */
+/*   Updated: 2021/05/02 20:14:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-static size_t
-	wildcard_len(char *command)
-{
-	int		is;
-	char	*ref;
-
-	ref = command;
-	is = 0;
-	while (*ref && *ref != SPACE)
-	{
-		if (*ref == '*' && (ref == command || *(ref - 1) != '\\'))
-			is = 1;
-		++ref;
-	}
-	if (is)
-		return (ref - command);
-	return (0);
-}
 
 size_t
 	count_chars(char *str, char *to_count)
@@ -45,9 +26,6 @@ size_t
 	}
 	return (count);
 }
-
-#define TO_ESC_NO_QUOTE  "$\\\"'"
-#define TO_ESC_DB_QUOTE  "$\\\""
 
 char
 	*ft_strdup_escape(char *str, char quote)
@@ -94,14 +72,6 @@ static size_t
 	while (ft_isalnum(*ref) || *ref == '_')
 		++ref;
 	return (ref - command);
-}
-
-static size_t
-	add_wildcard(char *command, size_t len, t_token **list)
-{
-	ft_lstmerge((t_list **)list, (t_list *)
-			expand_wildcard(ft_strndup(command, len)));
-	return (len);
 }
 
 void

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 15:24:50 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/29 21:22:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/02 20:26:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ char
 
 	quote = "\0";
 	escaped = 0;
-	new = ft_calloc(ft_strlen(line) + 1, 1);
+	if (!(new = ft_calloc(ft_strlen(line) + 1, 1)))
+		return (NULL);
 	i = 0;
 	while (*line)
 	{
