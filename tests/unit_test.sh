@@ -12,9 +12,9 @@ cmp_shell()
 	MY_OUTFILE=/tmp/my_outfile;
 	TST_OUTFILE=/tmp/tst_outfile;
 	
-	echo "$@" | exec -a "$SHELL_TEST_NAME" $MY_SHELL > $MY_OUTFILE  2>/dev/null;
+	echo "$@" | exec -a "$SHELL_TEST_NAME" $MY_SHELL > $MY_OUTFILE  2> /dev/null;
 	MY_RET=$?;
-	echo "$@" | exec -a "$SHELL_TEST_NAME" $TST_SHELL > $TST_OUTFILE 2>/dev/null;
+	echo "$@" | exec -a "$SHELL_TEST_NAME" $TST_SHELL > $TST_OUTFILE 2> /dev/null;
 	TST_RET=$?;
 	
 	if [ "$(uname)" = "Linux" ];then
@@ -390,7 +390,7 @@ unit_backslashs()
 	cmp_shell "/bin/echo '\\\\'"
 	cmp_shell "/bin/echo '\\\\\\'"
 	cmp_shell '/bin/echo "\\"'
-	cmp_shell '/bin.echo "\\\\"'
+	cmp_shell '/bin/echo "\\\\"'
 	cmp_shell '/bin/echo "\""'
 	cmp_shell "/bin/echo '\\'"
 	cmp_shell '/bin/echo a\ \ b'
@@ -429,6 +429,39 @@ unit_escape_var()
 	cmp_shell 'echo $\\'
 	cmp_shell 'echo $%'
 	cmp_shell 'echo $/'
+}
+
+unit_here_doc()
+{
+	cmp_shell 'cat <<EOF
+hello
+world
+!
+EOF'
+	cmp_shell 'cat<<EOF
+hello
+my
+world
+!
+EOF
+'
+	cmp_shell '<<EOF cat
+hello
+my
+world
+!
+EOF
+'
+	cmp_shell "<<'EOF' cat
+hello
+myyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+woooooooooooooooooooooooooooooooooooooooooorlllllllld
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+EOF
+"
+	cmp_shell '<<EOF cat
+EOF
+'
 }
 
 main()

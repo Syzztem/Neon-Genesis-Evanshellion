@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/04 13:55:05 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/04 18:48:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void
 	if (!redirections || !*redirections)
 		return ;
 	create_files(redirections, &rdr->in_fd, &rdr->out_fd);
-	//redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
 	rdr->stdin_dup = dup(0);
 	rdr->stdout_dup = dup(1);
 	dup2_check(rdr->in_fd, 0);
