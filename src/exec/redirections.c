@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 00:11:27 by root             ###   ########.fr       */
+/*   Updated: 2021/05/04 13:55:05 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void
 }
 
 void
-	create_files(char **redirections)
+	create_files(char **redirections, int *in_fd, int *out_fd)
 {
 	char	**current;
 	int		fd;
@@ -30,11 +30,19 @@ void
 	current = redirections;
 	while (*current)
 	{
-		if (tab_find_last_token(redirections, redirects()))
+		if (tab_find_last_token(current, redirects()))
 		{
 			fd = open_redir(current);
-			if (fd > 0)
-				close(fd);
+			if (**current == '<')
+			{
+				close_checked(*in_fd);
+				*in_fd = fd;
+			}
+			else
+			{
+				close_checked(*out_fd);
+				*out_fd = fd;
+			}
 		}
 		current++;
 	}
@@ -50,8 +58,8 @@ void
 	rdr->stdout_dup = -1;
 	if (!redirections || !*redirections)
 		return ;
-	create_files(redirections);
-	redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
+	create_files(redirections, &rdr->in_fd, &rdr->out_fd);
+	//redirects_to_fds(rdr->rtokens, &rdr->in_fd, &rdr->out_fd);
 	rdr->stdin_dup = dup(0);
 	rdr->stdout_dup = dup(1);
 	dup2_check(rdr->in_fd, 0);

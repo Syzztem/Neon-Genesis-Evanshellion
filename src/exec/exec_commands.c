@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 14:48:35 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/04 13:35:26 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void
 	else
 	{
 		expand_command(command);
+		print_command(command);
 		redirect_command(command);
 		if (!command->cmd)
 			exit(0);

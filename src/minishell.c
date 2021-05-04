@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/04/30 22:13:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/04 13:32:57 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int
 	tcgetattr(0, &backup);
 	term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, 0, &term);
-	if (line && *line)
+	if (line)
 	{
 		get_cursor(&cursor);
 		if (cursor.x != 0)
