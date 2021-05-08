@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 20:43:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 00:31:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ char			**extract_redirects(char **tokens);
 char			**extract_redirects_ref(char **tokens);
 
 int				open_output(char **output_path_ptr);
-int				redirects_to_fds(char **redirects, int *input, int *output);
 int				check_path_ptr(char **path_ptr);
 
 void			print_pipeline(t_pipeline lst);

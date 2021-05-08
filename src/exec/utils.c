@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:21:31 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/29 21:00:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 00:34:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ void
 	pcmd_not_found(t_command *cmd)
 {
 	ft_putstr_fd(SHELL_NAME ": ", 2);
-	ft_putstr_fd("command not found: ", 2);
+	if (!ft_strncmp("./", cmd->cmd, 2))
+	{
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(": ", 2);
+	}
+	else
+		ft_putstr_fd("command not found: ", 2);
 	pescaped_token(cmd->argv[0], 2);
 	ft_putstr_fd("\n", 2);
 }

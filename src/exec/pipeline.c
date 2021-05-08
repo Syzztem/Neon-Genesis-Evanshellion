@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 21:05:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/08 23:45:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int
 		return (1);
 	if (is_single_builtin(pipeline))
 		return (exec_single_builtin(pipeline->content));
-//	pipe_nodes(pipeline);
 	print_pipeline(pipeline);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, fork_sigquit);

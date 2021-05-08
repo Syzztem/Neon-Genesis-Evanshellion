@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:09:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 23:19:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 00:17:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int
 		open_mode |= O_APPEND;
 	fd = open(output_path_ptr[1], open_mode, open_flags);
 	if (fd < 0)
-		printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
-			output_path_ptr[1]);
+		print_file_error(output_path_ptr[1]);
 	return (fd);
 }
 
@@ -65,8 +64,7 @@ int
 	{
 		fd = open(input_path_ptr[1], O_RDONLY);
 		if (fd < 0)
-			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
-			input_path_ptr[1]);
+			print_file_error(input_path_ptr[1]);
 		return (fd);
 	}
 	return (here_doc(input_path_ptr[1]));

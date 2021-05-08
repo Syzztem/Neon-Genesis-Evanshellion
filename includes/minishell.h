@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:08:31 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/03 01:39:28 by root             ###   ########.fr       */
+/*   Updated: 2021/05/09 00:18:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ extern int	g_exit_status;
 typedef int	(*t_builtin)(char **av, char **envp);
 typedef struct termios	t_term;
 
+void            print_file_error(char *filename);
 size_t			argv_len(char **argv);
 int				minishell(void);
 int				minishell_non_interactive(void);

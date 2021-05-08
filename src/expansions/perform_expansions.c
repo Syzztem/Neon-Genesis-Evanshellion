@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_expansions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:47:34 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/08 15:26:22 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/09 00:16:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char
 		do_expansions(&quote, &ref, command, &list);
 	out = list_to_pure_string(list);
 	free_list(list);
-	//printf("out: [%s]\n", out);
 	return (out);
 }
 

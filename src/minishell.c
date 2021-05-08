@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:00:48 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/04 13:32:57 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/09 00:09:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int
 	{
 		if (!line || ret < 0)
 		{
-			printf("minishell: %s", strerror(errno));
+			ft_perror(SHELL_NAME);
 			exit(errno);
 		}
 		exec_line(line);
