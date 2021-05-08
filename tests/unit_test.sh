@@ -429,6 +429,10 @@ unit_escape_var()
 	cmp_shell 'echo $\\'
 	cmp_shell 'echo $%'
 	cmp_shell 'echo $/'
+
+	export A="hello   world"
+	cmp_shell 'echo $A'
+	cmp_shell 'echo "$A"'
 }
 
 unit_here_doc()

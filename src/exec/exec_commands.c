@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/04 13:35:26 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 15:11:43 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int
 {
 	extern char	**environ;
 
-	redirect_command(cmd);
+	if (redirect_command(cmd) < 0)
+		return (-1);
 	return (builtin_parenthesis(cmd->argv, environ));
 }
 
@@ -42,7 +43,8 @@ void
 	{
 		expand_command(command);
 		print_command(command);
-		redirect_command(command);
+		if (redirect_command(command) < 0)
+			exit(errno);
 		if (!command->cmd)
 			exit(0);
 		else if (is_builtin(command->argv[0]) != -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 20:55:13 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 21:00:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/08 15:12:31 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int
 
 	dup2_check(cmd->fd_input, 0);
 	dup2_check(cmd->fd_output, 1);
-	do_redirector(&rdr, cmd->redirections);
+	if (do_redirector(&rdr, cmd->redirections) < 0)
+		return (errno);
 	exec_builtin(cmd->argv, environ);
 	restore_streams(&rdr);
 	g_exit_status = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/02 11:24:22 by root             ###   ########.fr       */
+/*   Updated: 2021/05/08 15:10:53 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	wait_command(t_command *cmd);
 int		check_pipeline_run(char *condition, int last_return);
 
 void	restore_streams(t_redirector *rdr);
-void	redirect_command(t_command *cmd);
-void	do_redirector(t_redirector *rdr, char **redirections);
+int	    redirect_command(t_command *cmd);
+int	    do_redirector(t_redirector *rdr, char **redirections);
 void	dup2_check(int fd_src, int fd_dst);
 void	close_checked(int fd);
 int		pipe_nodes(t_list *commands);

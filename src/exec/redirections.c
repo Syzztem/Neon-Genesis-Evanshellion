@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/04 18:48:54 by root             ###   ########.fr       */
+/*   Updated: 2021/05/08 15:13:18 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void
 	}
 }
 
-void
+int
 	do_redirector(t_redirector *rdr, char **redirections)
 {
 	rdr->in_fd = 0;
@@ -57,22 +57,25 @@ void
 	rdr->stdin_dup = -1;
 	rdr->stdout_dup = -1;
 	if (!redirections || !*redirections)
-		return ;
+		return (0);
 	create_files(redirections, &rdr->in_fd, &rdr->out_fd);
+	if (rdr->in_fd < 0 || rdr->out_fd < 0)
+		return (-1);
 	rdr->stdin_dup = dup(0);
 	rdr->stdout_dup = dup(1);
 	dup2_check(rdr->in_fd, 0);
 	dup2_check(rdr->out_fd, 1);
+	return (0);
 }
 
-void
+int
 	redirect_command(t_command *cmd)
 {
 	t_redirector	rdr;
 
 	dup2_check(cmd->fd_input, 0);
 	dup2_check(cmd->fd_output, 1);
-	do_redirector(&rdr, cmd->redirections);
+	return (do_redirector(&rdr, cmd->redirections));
 }
 
 /*

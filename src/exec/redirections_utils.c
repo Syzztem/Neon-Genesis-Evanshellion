@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:09:23 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/04 13:40:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 15:13:01 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int
 	int	open_mode;
 	int	redir_type;
 	int open_flags;
+	int	fd;
 
 	redir_type = 0;
 	open_flags = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
@@ -46,7 +47,11 @@ int
 		open_mode |= O_TRUNC;
 	else
 		open_mode |= O_APPEND;
-	return (open(output_path_ptr[1], open_mode, open_flags));
+	fd = open(output_path_ptr[1], open_mode, open_flags);
+	if (fd < 0)
+		printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
+			output_path_ptr[1]);
+	return (fd);
 }
 
 int
