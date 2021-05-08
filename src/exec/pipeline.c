@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 21:33:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/08 17:53:37 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,22 @@ int
 	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
+	else
+		g_exit_status = 130;
 	return (0);
+}
+
+void	fork_sigquit(int code)
+{
+	char *codestr;
+
+	codestr = ft_itoa(code);
+	ft_putstr_fd("Quit: ", 2);
+	if (codestr)
+		ft_putstr_fd(codestr, 2);
+	write(2, "\n", 1);
+	g_exit_status = 131;
+	free(codestr);
 }
 
 int
@@ -48,12 +63,14 @@ int
 	pipe_nodes(pipeline);
 	print_pipeline(pipeline);
 	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, fork_sigquit);
 	pid = exec_command_list(pipeline);
 	waitpid(pid, &status, 0);
 	wait_pipeline(pipeline);
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
+	else
+		g_exit_status = 130;
 	signal(SIGINT, (void *)interrupt_blank);
 	signal(SIGQUIT, SIG_IGN);
 	return (g_exit_status);

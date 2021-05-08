@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 20:30:06 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 22:53:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/08 17:27:04 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void
 		interrupt_singleton(0);
 		free(line->line);
 		init_line(line);
+		g_exit_status = 1;
 	}
 }

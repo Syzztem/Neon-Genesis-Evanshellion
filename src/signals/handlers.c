@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:21:45 by user42            #+#    #+#             */
-/*   Updated: 2021/04/29 19:22:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/08 17:27:41 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ sig_t
 	}
 	else
 		exit(130);
+	g_exit_status = 1;
 	return (NULL);
 }
 
@@ -37,5 +38,6 @@ sig_t
 {
 	(void)sig;
 	write(1, "\n", 1);
+	g_exit_status = 130;
 	return (0);
 }
