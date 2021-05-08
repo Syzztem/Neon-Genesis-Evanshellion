@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 18:33:48 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 21:05:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,6 @@ void
 	wait_pipeline(t_pipeline pipeline)
 {
 	ft_lstiter(pipeline, (void *)wait_command);
-}
-
-int
-	do_exec_pipeline(t_pipeline pipeline)
-{
-	pid_t	pid;
-	int		status;
-
-	pipe_nodes(pipeline);
-	pid = exec_command_list(pipeline);
-	waitpid(pid, &status, 0);
-	wait_pipeline(pipeline);
-	if (WIFEXITED(status))
-		g_exit_status = WEXITSTATUS(status);
-	else
-		g_exit_status = 130;
-	return (0);
 }
 
 void
@@ -61,7 +44,7 @@ int
 		return (1);
 	if (is_single_builtin(pipeline))
 		return (exec_single_builtin(pipeline->content));
-	pipe_nodes(pipeline);
+//	pipe_nodes(pipeline);
 	print_pipeline(pipeline);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, fork_sigquit);
