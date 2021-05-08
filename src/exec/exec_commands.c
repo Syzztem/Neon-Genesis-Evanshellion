@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 17:44:57 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 18:24:12 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 #include "tokenizer.h"
 #include "vector.h"
 
-int
-	exec_parenthesis(t_command *cmd)
-{
-	extern char	**environ;
-
-	if (redirect_command(cmd) < 0)
-		return (-1);
-	return (builtin_parenthesis(cmd->argv, environ));
-}
 
 int
-	is_cmd_parenthesis(t_command *cmd)
+	handle_empy_command(t_command *cmd)
 {
-	return (!ft_strcmp(PARENTHESIS_OPEN, cmd->cmd));
+	t_redirector	rdr;
+	id_t			ret;
+
+	if (!cmd->redirections)
+		return (0);
+	ret = do_redirector(&rdr, cmd->redirections);
+	return (errno);
 }
 
 void
@@ -37,7 +34,9 @@ void
 	int				ret;
 
 	ret = 127;
-	if (is_cmd_parenthesis(command))
+	if (command->cmd == NULL)
+		ret = handle_empy_command(command);
+	else if (is_cmd_parenthesis(command))
 		ret = exec_parenthesis(command);
 	else
 	{

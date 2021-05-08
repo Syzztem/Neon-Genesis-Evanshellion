@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
+#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 12:12:45 by lnoirot           #+#    #+#              #
-#    Updated: 2021/05/03 01:39:10 by root             ###   ########.fr        #
+#    Updated: 2021/05/08 18:25:41 by smaccary         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_LIST =	constants/redirects.c constants/separators.c constants/termcaps_const
 			exec/redirections_utils.c exec/close.c \
 			exec/exec_commands.c exec/pipes.c \
 			exec/redirections.c exec/exec.c exec/pipeline.c \
-			exec/here_doc.c exec/exec_builtins.c\
+			exec/here_doc.c exec/exec_builtins.c exec/parenthesis.c\
 			\
 			garbage_collector/garbage_collector.c garbage_collector/free_ast.c\
 			garbage_collector/free_env.c\
