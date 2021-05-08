@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 18:24:49 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 18:34:45 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ int		exec_abstract_pipeline(char *tokens);
 int		exec_command_line(char **tokens);
 int		exec_builtin(char **av, char **envp);
 int		exec_from_ast(t_ast ast);
-int     exec_parenthesis(t_command *cmd);
-int     is_cmd_parenthesis(t_command *cmd);
+int		exec_parenthesis(t_command *cmd);
+int		is_cmd_parenthesis(t_command *cmd);
 int		is_builtin(char *command);
 void	wait_command(t_command *cmd);
 
 int		check_pipeline_run(char *condition, int last_return);
 
 void	restore_streams(t_redirector *rdr);
-int	    redirect_command(t_command *cmd);
-int	    do_redirector(t_redirector *rdr, char **redirections);
+int		redirect_command(t_command *cmd);
+int		do_redirector(t_redirector *rdr, char **redirections);
 void	dup2_check(int fd_src, int fd_dst);
 void	close_checked(int fd);
 int		pipe_nodes(t_list *commands);

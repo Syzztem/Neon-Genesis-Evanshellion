@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:08:43 by user42            #+#    #+#             */
-/*   Updated: 2021/05/08 15:26:18 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 18:34:05 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,16 @@ void
 	{
 		if (!(expanded = perform_expansions(*current)))
 			return ;
-		//printf("expanded: [%s]\n", expanded);
 		if (!(dequoted = remove_quotes_and_do_escape(expanded, &end)))
 		{
 			free(expanded);
 			return ;
 		}
-		//printf("dequoted: [%s]\n", dequoted);
 		if (!(splitted = tokenize(dequoted, end)))
 		{
 			multi_free((void *[3]){dequoted, expanded}, 2);
 			return ;
 		}
-		//print_argv(splitted);
 		vector_append(new, splitted, argv_len(splitted));
 		multi_free((void *[3]){dequoted, splitted, expanded}, 3);
 		current++;

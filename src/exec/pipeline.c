@@ -6,7 +6,7 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 17:53:37 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 18:33:48 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int
 	return (0);
 }
 
-void	fork_sigquit(int code)
+void
+	fork_sigquit(int code)
 {
 	char *codestr;
 

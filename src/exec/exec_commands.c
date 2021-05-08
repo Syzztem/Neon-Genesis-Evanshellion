@@ -6,14 +6,13 @@
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 18:24:12 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 18:33:34 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "tokenizer.h"
 #include "vector.h"
-
 
 int
 	handle_empy_command(t_command *cmd)
@@ -25,6 +24,16 @@ int
 		return (0);
 	ret = do_redirector(&rdr, cmd->redirections);
 	return (errno);
+}
+
+void
+	ensure_cmd_sanity(t_command *command)
+{
+	print_command(command);
+	if (redirect_command(command) < 0)
+		exit(errno);
+	if (!command->cmd)
+		exit(0);
 }
 
 void
@@ -41,12 +50,8 @@ void
 	else
 	{
 		expand_command(command);
-		print_command(command);
-		if (redirect_command(command) < 0)
-			exit(errno);
-		if (!command->cmd)
-			exit(0);
-		else if (is_builtin(command->argv[0]) != -1)
+		ensure_cmd_sanity(command);
+		if (is_builtin(command->argv[0]) != -1)
 			ret = exec_builtin(command->argv, environ);
 		else
 		{
