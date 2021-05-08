@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:36:45 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 23:49:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 01:09:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/wait.h>
 # include "vector.h"
 
-int     link_commands(t_command *src, t_command *dst);
+int		link_commands(t_command *src, t_command *dst);
 int		exec_line(char *line);
 int		here_doc(char *end_mark);
 int		exec_single_builtin(t_command *cmd);
