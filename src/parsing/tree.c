@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 20:34:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 02:53:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,25 @@ t_ast_node
 	return (node);
 }
 
+int
+	is_pipeline_empty(char **pipeline)
+{
+	char	*first;
+
+	if (!pipeline || !*pipeline)
+		return (1);
+	if (argv_len(pipeline) != 1)
+		return (0);
+	first = *pipeline;
+	while (*first)
+	{
+		if (!ft_isspace(*first))
+			return (0);
+		first++;
+	}
+	return (1);
+}
+
 t_ast
 	parse_ast(char **tokens)
 {
@@ -79,7 +98,7 @@ t_ast
 	lst = NULL;
 	while ((node = get_next_ast_node(tokens)))
 	{
-		if (!node)
+		if (!node || is_pipeline_empty(node->abstract_pipeline))
 		{
 			free_ast(lst);
 			lst = NULL;

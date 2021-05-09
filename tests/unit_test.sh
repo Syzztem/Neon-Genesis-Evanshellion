@@ -401,6 +401,10 @@ unit_backslashs()
 	cmp_shell "/bin/echo '\\$'"
 	cmp_shell "/bin/echo \"\\\\\'\\\"\\$\""
 	cmp_shell 'echo \\\\\\""'
+	cmp_shell 'echo \ '
+	cmp_shell 'echo a \ b'
+	cmp_shell 'echo \ a b'
+	cmp_shell 'echo \ a \ b \ '
 }
 
 unit_escape_var()

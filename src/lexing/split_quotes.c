@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:07:44 by user42            #+#    #+#             */
-/*   Updated: 2021/05/02 20:26:11 by root             ###   ########.fr       */
+/*   Updated: 2021/05/09 03:20:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char
 	if (!str)
 		return (NULL);
 	*skip = 0;
-	while (**current == SPACE || (**current == '\\' && (*current)[1] == SPACE))
+	while (**current == SPACE)
 		(*current)++;
 	if (!**current)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/09 00:31:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 02:46:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ extern int	g_exit_status;
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
+void            print_ast_node(t_ast_node *node);
 void			pesc(char *token, int fd);
 size_t			parenthesis_len(char **tokens);
 t_command		*parse_parenthesis(char **current, size_t *len_ptr);
