@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:11:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/09 02:53:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 04:52:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_ast_node
 	*get_next_ast_node(char **tokens)
 {
 	static char	**current = NULL;
-	static char **tokens_start = NULL;
+	static char	**tokens_start = NULL;
 	t_ast_node	*node;
 
 	if (tokens != tokens_start)
@@ -65,6 +65,8 @@ t_ast_node
 		return (NULL);
 	node = node_from_line(current);
 	current = find_pipeline_separator(current);
+	if (!node && current && *current)
+		g_exit_status = 7777;
 	if (*current)
 		current++;
 	return (node);
@@ -107,5 +109,10 @@ t_ast
 		ft_lstadd_back(&lst, node);
 	}
 	get_next_ast_node(NULL);
+	if (g_exit_status == 7777)
+	{
+		free_ast(lst);
+		lst = NULL;
+	}
 	return (lst);
 }

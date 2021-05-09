@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/04 18:47:56 by root             ###   ########.fr       */
+/*   Updated: 2021/05/09 04:48:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ int
 	exec_command_line(char **tokens)
 {
 	t_ast	ast;
+	int		ret;
 
-	if (check_syntax(tokens))
-		return (1);
+	if ((ret = check_syntax(tokens)))
+		return (ret);
 	ast = parse_ast(tokens);
-	if (check_ast(ast))
+	if ((ret = check_ast(ast)))
 	{
 		free_ast(ast);
-		return (1);
+		return (ret);
 	}
 	print_ast(ast);
 	exec_from_ast(ast);

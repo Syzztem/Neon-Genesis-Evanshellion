@@ -2,72 +2,60 @@
 unit_wildcard:            [OK]
 unit_wildcard:
 
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+unit_escape_var:          [OK]
+unit_escape_var:
 
-11
-[a]
-[ab]
-[abcde]
-[abspath]
-[afgdfdnekjrgkjberbe]
-[b]
-[e]
-[test*]
-[test*lol]
-[trace]
-[xx]
+unit_multiline:           [OK]
+unit_multiline:
 
-$> bash --posix :
+unit_parenthesis:         [OK]
+unit_parenthesis:
 
-11
-[a]
-[ab]
-[abcde]
-[abspath]
-[afgdfdnekjrgkjberbe]
-[b]
-[e]
-[test*]
-[test*lol]
-[trace]
-[xx]
+unit_backslashs:          [OK]
+unit_backslashs:
 
-----------
+unit_no_arg:              [OK]
+unit_no_arg:
 
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+unit_arg:                 [OK]
+unit_arg:
 
-1
-[./src/*]
+unit_parsing:             [OK]
+unit_parsing:
 
-$> bash --posix :
+unit_pipes_env:           [OK]
+unit_pipes_env:
 
-1
-[./src/*]
+unit_pipes:               [OK]
+unit_pipes:
 
-----------
+unit_echo:                [OK]
+unit_echo:
 
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+unit_pwd:                 [OK]
+unit_pwd:
 
-1
-[src/*]
+unit_exit:                [OK]
+unit_exit:
 
-$> bash --posix :
+unit_env_vars:            [OK]
+unit_env_vars:
 
-1
-[src/*]
+unit_builtins_no_arg:     [OK]
+unit_builtins_no_arg:
 
-----------
+unit_quotes:              [OK]
+unit_quotes:
 
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+unit_semicolons:          [OK]
+unit_semicolons:
 
-2
-[xx/a]
-[xx/b]
+unit_return:              [OK]
+unit_return:
 
-$> bash --posix :
+unit_redirect_replace:    [OK]
+unit_redirect_replace:
 
-2
-[xx/a]
-[xx/b]
+unit_redirect_append:     [OK]
+unit_redirect_append:
 
-----------
