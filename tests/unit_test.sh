@@ -112,6 +112,68 @@ bonuit
 9
 10' | grep bon"
 
+
+
+
+cmp_shell '
+argcount.sh 1
+argcount.sh 2
+argcount.sh 3
+argcount.sh 4
+argcount.sh 5
+argcount.sh 6
+argcount.sh 7
+argcount.sh 8
+argcount.sh 9
+argcount.sh 10'
+	cmp_shell '
+argcount.sh "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"'
+	cmp_shell "
+argcount.sh '1
+2
+3
+4
+5
+6
+7
+8
+9
+10'"
+
+	cmp_shell "
+argcount.sh '1
+2
+3
+4
+5
+6
+7
+8
+9
+10' | grep 3"
+
+	cmp_shell "
+argcount.sh '1
+2
+bonjour
+4
+5
+6
+bonuit
+8
+9
+10' | grep bon"
+
+
 }
 
 unit_no_arg()
@@ -241,6 +303,19 @@ unit_quotes()
 	cmp_shell '/bin/echo "    \\"'
 	cmp_shell '/bin/echo """""" "" "" "" "" """" ""'
 	cmp_shell '/bin/echo a"b"c" "d"    "e'
+
+	cmp_shell 'argcount.sh "'hi'"'
+	cmp_shell "argcount.sh '"hi"'"
+	cmp_shell "argcount.sh '"'"'"'"'"'"''"'"'"'"'"'"'"
+	cmp_shell "argcount.sh ''''''''''''''''"
+	cmp_shell "argcount.sh "''''''''''''''''" "
+	cmp_shell "argcount.sh \"''''''''''''''''\""
+	cmp_shell "argcount.sh \'hello world\'"
+	cmp_shell 'argcount.sh "" "" "" "" " "'
+	cmp_shell 'argcount.sh "\\"'
+	cmp_shell 'argcount.sh "    \\"'
+	cmp_shell 'argcount.sh """""" "" "" "" "" """" ""'
+	cmp_shell 'argcount.sh a"b"c" "d"    "e'
 }
 
 unit_argv_zero()
@@ -405,6 +480,24 @@ unit_backslashs()
 	cmp_shell 'echo a \ b'
 	cmp_shell 'echo \ a b'
 	cmp_shell 'echo \ a \ b \ '
+
+	cmp_shell 'argcount.sh \\'
+	cmp_shell "argcount.sh '\\\\'"
+	cmp_shell "argcount.sh '\\\\\\'"
+	cmp_shell 'argcount.sh "\\"'
+	cmp_shell 'argcount.sh "\\\\"'
+	cmp_shell 'argcount.sh "\""'
+	cmp_shell "argcount.sh '\\'"
+	cmp_shell 'argcount.sh a\ \ b'
+	cmp_shell 'argcount.sh "\$"'
+	cmp_shell 'argcount.sh \$'
+	cmp_shell "argcount.sh '\\$'"
+	cmp_shell "argcount.sh \"\\\\\'\\\"\\$\""
+	cmp_shell 'argcount.sh \\\\\\""'
+	cmp_shell 'argcount.sh \ '
+	cmp_shell 'argcount.sh a \ b'
+	cmp_shell 'argcount.sh \ a b'
+	cmp_shell 'argcount.sh \ a \ b \ '
 }
 
 unit_escape_var()
@@ -439,6 +532,39 @@ unit_escape_var()
 	export A="hello   world"
 	cmp_shell 'echo $A'
 	cmp_shell 'echo "$A"'
+
+
+
+	export X='\"\"'
+	cmp_shell 'argcount.sh $X'
+	cmp_shell 'argcount.sh "$X"'
+	export X="\'\'"
+	cmp_shell 'argcount.sh $X'
+	cmp_shell 'argcount.sh "$X"'
+	export X="\\"
+	cmp_shell 'argcount.sh $X'
+	cmp_shell 'argcount.sh "$X"'
+	export X='\\\\"'
+	cmp_shell 'argcount.sh $X'
+	cmp_shell 'argcount.sh "$X"'
+	cmp_shell 'argcount.sh "$X""$X"'
+	cmp_shell "argcount.sh '\$X\"\"\$X\"'"
+
+	cmp_shell 'argcount.sh $'
+	cmp_shell 'argcount.sh \$'
+	cmp_shell 'argcount.sh \\$'
+	cmp_shell 'argcount.sh "$"'
+	cmp_shell 'argcount.sh "$ "'
+	cmp_shell 'argcount.sh " $ "'
+	cmp_shell 'argcount.sh "    $    "'
+	cmp_shell 'argcount.sh $\"'
+	cmp_shell 'argcount.sh $\\'
+	cmp_shell 'argcount.sh $%'
+	cmp_shell 'argcount.sh $/'
+
+	export A="hello   world"
+	cmp_shell 'argcount.sh $A'
+	cmp_shell 'argcount.sh "$A"'
 }
 
 unit_here_doc()
@@ -474,6 +600,14 @@ EOF
 '
 }
 
+unit_wildcard()
+{
+	cmp_shell 'argcount.sh * | sort'
+	cmp_shell 'argcount.sh ./src/* | sort'
+	cmp_shell 'argcount.sh src/* | sort'
+	cmp_shell 'argcount.sh **/* | sort'
+}
+
 main()
 {
 	MY_SHELL=$(abspath ../minishell)
@@ -486,6 +620,7 @@ main()
 	EXE_FOLDER=`abspath ./executables`
 	TRACE_FILE=`abspath ./trace`
 
+	export PATH="$EXE_FOLDER:$PATH"
 	cd "$TEST_FOLDER"
 	echo > $TRACE_FILE
 	for arg in "$@";
@@ -497,7 +632,7 @@ main()
 			VERBOSE="on";
 		fi
 		if [ "$arg" = 'unit_all' ];then
-			ALL_ARGS="unit_escape_var unit_multiline unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_builtins_no_arg unit_quotes unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
+			ALL_ARGS="unit_wildcard unit_escape_var unit_multiline unit_parenthesis unit_backslashs unit_no_arg unit_arg unit_parsing unit_pipes_env unit_pipes unit_echo unit_pwd unit_exit unit_env_vars unit_builtins_no_arg unit_quotes unit_semicolons unit_return unit_redirect_replace unit_redirect_append"
 		fi
 	done
 

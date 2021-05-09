@@ -1,173 +1,73 @@
 
-unit_backslashs:          [OK]
-unit_backslashs:
+unit_wildcard:            [OK]
+unit_wildcard:
 
 $> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-\
+11
+[a]
+[ab]
+[abcde]
+[abspath]
+[afgdfdnekjrgkjberbe]
+[b]
+[e]
+[test*]
+[test*lol]
+[trace]
+[xx]
 
 $> bash --posix :
 
-\
+11
+[a]
+[ab]
+[abcde]
+[abspath]
+[afgdfdnekjrgkjberbe]
+[b]
+[e]
+[test*]
+[test*lol]
+[trace]
+[xx]
 
 ----------
 
 $> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-\\
+1
+[./src/*]
 
 $> bash --posix :
 
-\\
+1
+[./src/*]
 
 ----------
 
 $> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-\\\
+1
+[src/*]
 
 $> bash --posix :
 
-\\\
+1
+[src/*]
 
 ----------
 
 $> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-\
+2
+[xx/a]
+[xx/b]
 
 $> bash --posix :
 
-\
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-\\
-
-$> bash --posix :
-
-\\
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-"
-
-$> bash --posix :
-
-"
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-\
-
-$> bash --posix :
-
-\
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-a  b
-
-$> bash --posix :
-
-a  b
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-$
-
-$> bash --posix :
-
-$
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-$
-
-$> bash --posix :
-
-$
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-\$
-
-$> bash --posix :
-
-\$
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-\\'"$
-
-$> bash --posix :
-
-\\'"$
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-\\\
-
-$> bash --posix :
-
-\\\
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
- 
-
-$> bash --posix :
-
- 
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
-a  b
-
-$> bash --posix :
-
-a  b
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
- a b
-
-$> bash --posix :
-
- a b
-
-----------
-
-$> /home/user42/Neon-Genesis-Evanshellion/minishell :
-
- a  b  
-
-$> bash --posix :
-
- a  b  
+2
+[xx/a]
+[xx/b]
 
 ----------
