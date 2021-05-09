@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:07:44 by user42            #+#    #+#             */
-/*   Updated: 2021/05/09 03:20:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 05:35:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ void
 {
 	while (**current && (*skip || !ft_strchr("\"' <>", **current)))
 	{
-		*skip = (**current == '\\' && ft_strchr("\"'\\ <>", (*current)[1]));
+		if (**current == '\\' && (*current)[1] == '\\')
+		{
+			(*current) += 2;
+			continue ;
+		}
+		*skip = (**current == '\\' && ft_strchr("\"'\\<> ", (*current)[1]));
 		(*current)++;
 	}
 }
@@ -88,6 +93,7 @@ char
 	}
 	while (*current && *current != SPACE)
 	{
+		skip = 0;
 		if (!move_to_quote_end(&current, &skip))
 			return (NULL);
 		move_to_next_quote(&current, &skip);

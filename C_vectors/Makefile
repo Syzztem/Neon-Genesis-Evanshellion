@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/05 13:26:40 by smaccary          #+#    #+#              #
-#    Updated: 2021/04/30 21:20:46 by user42           ###   ########.fr        #
+#    Updated: 2021/05/09 05:02:14 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJ_PATHS = $(shell ls -R $(SRC_DIR) | grep / | sed 's/://g' | sed 's/src/$(OBJD
 
 HEADERS_PATH = ./includes/
 INCLUDE = -I./includes
-CFLAGS = -Wall -Wextra -g $(INCLUDE)
+CFLAGS = -Wall -Wextra -Werror -g $(INCLUDE)
 LDFLAGS = 
 
 

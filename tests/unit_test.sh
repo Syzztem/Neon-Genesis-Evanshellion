@@ -498,6 +498,7 @@ unit_backslashs()
 	cmp_shell 'argcount.sh a \ b'
 	cmp_shell 'argcount.sh \ a b'
 	cmp_shell 'argcount.sh \ a \ b \ '
+	cmp_shell 'argcount.sh \\  a'
 }
 
 unit_escape_var()
