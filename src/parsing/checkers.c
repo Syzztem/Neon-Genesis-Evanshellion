@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/09 04:47:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 01:11:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int
 			return (1);
 		current++;
 		is_first_command_token = 0;
-		if (*current && find_token(*current, pipeline_separators()))
+		if (*current && is_pipeline_sep(*current))
 		{
 			is_first_command_token = 1;
 			current++;
@@ -45,16 +45,28 @@ int
 }
 
 int
+	check_empty_pipelines(char **tokens)
+{
+	if (!tokens || !tokens[0])
+		return (1);
+	while (*tokens)
+	{
+		if (is_connective(tokens[0]) && is_connective(tokens[1]))
+		{
+			psyntax_error(tokens[1]);
+			return (1);
+		}
+		tokens++;
+	}
+	return (0);
+}
+
+int
 	check_syntax(char **tokens)
 {
 	char	*last;
 
-	if (!tokens)
-	{
-		printf("error: TOKENS ARE NULL\n");
-		return (1);
-	}
-	if (!tokens[0])
+	if (check_empty_pipelines(tokens))
 		return (1);
 	if (is_connective(*tokens))
 	{

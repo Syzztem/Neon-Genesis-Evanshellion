@@ -6,13 +6,25 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 00:12:40 by user42            #+#    #+#             */
-/*   Updated: 2021/05/10 23:41:54 by root             ###   ########.fr       */
+/*   Updated: 2021/05/10 23:50:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 #include "minishell.h"
+
+static int
+	is_token_empty(char *str)
+{
+	while (str && *str)
+	{
+		if (!ft_isspace(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
 
 int
 	check_redirections(char **redirections)
@@ -47,12 +59,15 @@ int
 {
 	if (!cmd || (!cmd->argv || !cmd->redirections || !cmd->argv[0]))
 		return (3);
-	if (!(cmd->argv[0][0]) && !(cmd->cmd[0]) && !(cmd->redirections[0]))
+	if (is_token_empty(cmd->argv[0]) && is_token_empty(cmd->cmd)
+	&& is_token_empty(cmd->redirections[0]))
 		return (4);
 	if (check_redirections(cmd->redirections))
 		return (1);
 	if (!cmd->argv)
 		return (2);
+	if (cmd->sep && ft_strlen(cmd->sep) > 1)
+		return (4);
 	return (0);
 }
 

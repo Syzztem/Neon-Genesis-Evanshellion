@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 23:46:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/10 23:52:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int
 void
 	ensure_cmd_sanity(t_command *command)
 {
-	print_command(command);
+	//print_command(command);
 	if (redirect_command(command) < 0)
 		exit(errno);
 	if (!command->cmd)

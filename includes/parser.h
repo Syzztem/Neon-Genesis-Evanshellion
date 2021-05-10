@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/10 23:39:13 by root             ###   ########.fr       */
+/*   Updated: 2021/05/10 23:59:16 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ size_t			pure_tokens_len(char **tokens, char **excluded_tokens);
 
 int				is_redirect(char *token);
 int				is_connective(char *token);
+int				is_pipeline_sep(char *token);
 
 t_command		*get_next_command(char **tokens);
 size_t			get_command_len(char **tokens);

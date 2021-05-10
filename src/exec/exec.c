@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:16:56 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/09 04:48:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 01:10:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,17 @@ int
 	int		ret;
 
 	if ((ret = check_syntax(tokens)))
+	{
+		g_exit_status = 2;
 		return (ret);
+	}
 	ast = parse_ast(tokens);
 	if ((ret = check_ast(ast)))
 	{
+		g_exit_status = 2;
 		free_ast(ast);
 		return (ret);
 	}
-	print_ast(ast);
 	exec_from_ast(ast);
 	free_ast(ast);
 	return (g_exit_status);
