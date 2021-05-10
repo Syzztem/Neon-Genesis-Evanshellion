@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 00:12:40 by user42            #+#    #+#             */
-/*   Updated: 2021/05/10 23:34:28 by root             ###   ########.fr       */
+/*   Updated: 2021/05/10 23:41:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int
 		err = check_command(current->content);
 		if (err)
 		{
+			g_exit_status = 2;
 			ft_putendl_fd(PIPE_ERR_MSG, 2);
 			return (err);
 		}
