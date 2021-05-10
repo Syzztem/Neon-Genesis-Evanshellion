@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/11 01:11:00 by root             ###   ########.fr       */
+/*   Updated: 2021/05/11 01:15:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int
 	{
 		if (is_connective(tokens[0]) && is_connective(tokens[1]))
 		{
-			psyntax_error(tokens[1]);
+			if (!tokens[1])
+				psyntax_error(tokens[0]);
+			else
+				psyntax_error(tokens[1]);
 			return (1);
 		}
 		tokens++;
