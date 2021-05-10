@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:30:20 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 00:12:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 04:47:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ int
 
 	if (!ast)
 	{
-		ft_putstr_fd(SHELL_NAME ": unknown syntax error\n", 2);
-		return (1);
+		ft_putstr_fd(SHELL_NAME ": syntax error near unexpected token `;'\n",
+		2);
+		g_exit_status = 2;
+		return (g_exit_status);
 	}
 	current = ast;
 	while (current)

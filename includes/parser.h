@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/10 23:33:48 by root             ###   ########.fr       */
+/*   Updated: 2021/05/10 23:39:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ extern int	g_exit_status;
 # define DEBUG_AST 0
 # define DEBUG_SEP 1
 
+void			print_ast_node(t_ast_node *node);
 void			pesc(char *token, int fd);
 size_t			parenthesis_len(char **tokens);
 t_command		*parse_parenthesis(char **current, size_t *len_ptr);
@@ -93,7 +94,6 @@ char			**extract_redirects(char **tokens);
 char			**extract_redirects_ref(char **tokens);
 
 int				open_output(char **output_path_ptr);
-int				redirects_to_fds(char **redirects, int *input, int *output);
 int				check_path_ptr(char **path_ptr);
 
 void			print_pipeline(t_pipeline lst);

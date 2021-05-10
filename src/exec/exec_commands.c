@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:42:25 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 18:33:34 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/08 23:46:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int
 	handle_empy_command(t_command *cmd)
 {
 	t_redirector	rdr;
-	id_t			ret;
+	int				ret;
 
 	if (!cmd->redirections)
 		return (0);
@@ -74,17 +74,20 @@ int
 	while (current)
 	{
 		cmd = current->content;
+		if (current->next)
+			link_commands(cmd, current->next->content);
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
 			signal(SIGQUIT, SIG_DFL);
 			signal(SIGINT, SIG_DFL);
-			close_all_cmds(commands, cmd);
+			if (current->next)
+				close_checked(((t_command *)current->next->content)->fd_input);
 			exec_command(cmd);
 		}
 		current = current->next;
+		close_cmd(cmd);
 	}
-	close_all_cmds(commands, NULL);
 	return (cmd->pid);
 }
 

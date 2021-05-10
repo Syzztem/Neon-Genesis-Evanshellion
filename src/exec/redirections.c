@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:30:00 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/08 15:13:18 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/09 00:01:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,33 +76,4 @@ int
 	dup2_check(cmd->fd_input, 0);
 	dup2_check(cmd->fd_output, 1);
 	return (do_redirector(&rdr, cmd->redirections));
-}
-
-/*
-** Parse redirects tokens, opens files and assign them accordingly to
-** fd_input/output ( input : "<", output: ">")
-** Returns redirection status as a binary mask
-** (replace = 001 | append = 010 | input = 100)
-*/
-
-int
-	redirects_to_fds(char **redirects, int *fd_input, int *fd_output)
-{
-	char	**input_path_ptr;
-	char	**output_path_ptr;
-	int		open_mode;
-
-	output_path_ptr = tab_find_last_token(output_redirects(), redirects);
-	open_mode = O_WRONLY | O_CREAT;
-	if (check_path_ptr(output_path_ptr))
-		*fd_output = open_output(output_path_ptr);
-	input_path_ptr = tab_find_last_token(input_redirects(), redirects);
-	if (check_path_ptr(input_path_ptr))
-	{
-		*fd_input = open_input(input_path_ptr);
-		if (*fd_input < 0)
-			printf("%s : %s: %s\n", SHELL_NAME, strerror(errno),
-			input_path_ptr[1]);
-	}
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:08:13 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 15:22:20 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/09 02:47:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void
 	print_ast_node(t_ast_node *node)
 {
-	if (!DEBUG && !DEBUG_AST)
+	if (0 && !DEBUG && !DEBUG_AST)
 		return ;
 	printf("  node: %p\n", node);
 	printf("    - %-15s", "pipeline:");

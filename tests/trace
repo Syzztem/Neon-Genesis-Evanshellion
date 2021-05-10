@@ -1,58 +1,399 @@
 
-unit_escape_var:          [OK]
-unit_escape_var:
-
-unit_multiline:           [OK]
-unit_multiline:
-
-unit_parenthesis:         [OK]
-unit_parenthesis:
-
 unit_backslashs:          [OK]
 unit_backslashs:
 
-unit_no_arg:              [OK]
-unit_no_arg:
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-unit_arg:                 [OK]
-unit_arg:
+\
 
-unit_parsing:             [OK]
-unit_parsing:
+$> bash --posix :
 
-unit_pipes_env:           [OK]
-unit_pipes_env:
+\
 
-unit_pipes:               [OK]
-unit_pipes:
+----------
 
-unit_echo:                [OK]
-unit_echo:
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-unit_pwd:                 [OK]
-unit_pwd:
+\\
 
-unit_exit:                [OK]
-unit_exit:
+$> bash --posix :
 
-unit_env_vars:            [OK]
-unit_env_vars:
+\\
 
-unit_builtins_no_arg:     [OK]
-unit_builtins_no_arg:
+----------
 
-unit_quotes:              [OK]
-unit_quotes:
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
 
-unit_semicolons:          [OK]
-unit_semicolons:
+\\\
 
-unit_return:              [OK]
-unit_return:
+$> bash --posix :
 
-unit_redirect_replace:    [OK]
-unit_redirect_replace:
+\\\
 
-unit_redirect_append:     [OK]
-unit_redirect_append:
+----------
 
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+\
+
+$> bash --posix :
+
+\
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+\\
+
+$> bash --posix :
+
+\\
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+"
+
+$> bash --posix :
+
+"
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+\
+
+$> bash --posix :
+
+\
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+a  b
+
+$> bash --posix :
+
+a  b
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+$
+
+$> bash --posix :
+
+$
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+$
+
+$> bash --posix :
+
+$
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+\$
+
+$> bash --posix :
+
+\$
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+\\'"$
+
+$> bash --posix :
+
+\\'"$
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+\\\
+
+$> bash --posix :
+
+\\\
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+ 
+
+$> bash --posix :
+
+ 
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+a  b
+
+$> bash --posix :
+
+a  b
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+ a b
+
+$> bash --posix :
+
+ a b
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+ a  b  
+
+$> bash --posix :
+
+ a  b  
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\]
+
+$> bash --posix :
+
+1
+[\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\\]
+
+$> bash --posix :
+
+1
+[\\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\\\]
+
+$> bash --posix :
+
+1
+[\\\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\]
+
+$> bash --posix :
+
+1
+[\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\\]
+
+$> bash --posix :
+
+1
+[\\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+["]
+
+$> bash --posix :
+
+1
+["]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\]
+
+$> bash --posix :
+
+1
+[\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[a  b]
+
+$> bash --posix :
+
+1
+[a  b]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[$]
+
+$> bash --posix :
+
+1
+[$]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[$]
+
+$> bash --posix :
+
+1
+[$]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\$]
+
+$> bash --posix :
+
+1
+[\$]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\\'"$]
+
+$> bash --posix :
+
+1
+[\\'"$]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[\\\]
+
+$> bash --posix :
+
+1
+[\\\]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+1
+[ ]
+
+$> bash --posix :
+
+1
+[ ]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+2
+[a]
+[ b]
+
+$> bash --posix :
+
+2
+[a]
+[ b]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+2
+[ a]
+[b]
+
+$> bash --posix :
+
+2
+[ a]
+[b]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+3
+[ a]
+[ b]
+[ ]
+
+$> bash --posix :
+
+3
+[ a]
+[ b]
+[ ]
+
+----------
+
+$> /home/user42/Neon-Genesis-Evanshellion/minishell :
+
+2
+[\]
+[a]
+
+$> bash --posix :
+
+2
+[\]
+[a]
+
+----------
