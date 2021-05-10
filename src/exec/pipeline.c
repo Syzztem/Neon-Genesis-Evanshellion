@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:24:21 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/10 23:51:20 by root             ###   ########.fr       */
+/*   Updated: 2021/05/11 01:36:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int
 		return (1);
 	if (is_single_builtin(pipeline))
 		return (exec_single_builtin(pipeline->content));
-	//print_pipeline(pipeline);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, fork_sigquit);
 	pid = exec_command_list(pipeline);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:54:02 by lothieve          #+#    #+#             */
-/*   Updated: 2021/05/08 18:10:04 by smaccary         ###   ########.fr       */
+/*   Updated: 2021/05/11 01:42:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	builtin_exit(char **av, char **envp)
 	print_exit();
 	if (av[1] && !is_str_num(av[1]))
 	{
+		free_env();
 		p_builtin_error("exit", av[1], "numeric argument required");
 		exit(2);
 	}
@@ -50,6 +51,7 @@ int	builtin_exit(char **av, char **envp)
 		p_builtin_error("exit", NULL, "too many arguments");
 		return (1);
 	}
+	free_env();
 	if (tab_size(av) == 1)
 		exit(g_exit_status);
 	exit(ft_atoi(av[1]));
