@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 00:12:40 by user42            #+#    #+#             */
-/*   Updated: 2021/04/30 00:13:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/10 23:34:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ int
 int
 	check_command(t_command *cmd)
 {
+	if (!cmd || (!cmd->argv || !cmd->redirections || !cmd->argv[0]))
+		return (3);
+	if (!(cmd->argv[0][0]) && !(cmd->cmd[0]) && !(cmd->redirections[0]))
+		return (4);
 	if (check_redirections(cmd->redirections))
 		return (1);
 	if (!cmd->argv)
@@ -55,15 +59,18 @@ int
 int
 	check_pipeline(t_pipeline pipeline)
 {
-	t_list	*current;
-	int		err;
+	t_list		*current;
+	int			err;
 
 	current = pipeline;
 	while (current)
 	{
 		err = check_command(current->content);
 		if (err)
+		{
+			ft_putendl_fd(PIPE_ERR_MSG, 2);
 			return (err);
+		}
 		current = current->next;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:57:30 by smaccary          #+#    #+#             */
-/*   Updated: 2021/04/30 20:43:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/10 23:33:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ extern int	g_exit_status;
 # define PARENTHESIS_OPEN "("
 # define PARENTHESIS_CLOSE ")"
 # define AMPERSAND "&"
+
+# define PIPE_ERR_MSG "minishell: syntax error near unexpected token `|'"
+
 
 # define OUTPUT_REPLACE_MASK 1
 # define OUTPUT_APPEND_MASK  2

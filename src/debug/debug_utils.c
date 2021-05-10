@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:15:38 by smaccary          #+#    #+#             */
-/*   Updated: 2021/05/02 10:25:39 by root             ###   ########.fr       */
+/*   Updated: 2021/05/10 23:26:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void
 	pesc(char *token, int fd)
 {
+	fflush(stdout);
 	ft_putstr_fd("\"", fd);
 	if (!token)
 	{
@@ -36,11 +37,13 @@ void
 		}
 	}
 	ft_putstr_fd("\"", fd);
+	fflush(stdout);
 }
 
 int
 	print_argv(char **argv)
 {
+	fflush(stdout);
 	printf("%p -> ", argv);
 	if (argv)
 	{
